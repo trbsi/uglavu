@@ -1,0 +1,288 @@
+$accent-color: #0e8ecc;
+
+.customize-control-ct-options {
+	display: block !important;
+}
+
+.ct-control {
+	position: relative;
+	padding: 0 14px;
+	margin-top: 25px;
+
+	> header {
+		&:not(:empty) {
+			display: flex;
+			justify-content: space-between;
+			position: relative;
+		}
+
+		label {
+			font-size: 12px;
+			font-weight: 500;
+			letter-spacing: 0.1px;
+			text-transform: capitalize;
+			cursor: default;
+		}
+	}
+
+	// block
+	&[data-design='block'] {
+		> header {
+			&:not(:empty) {
+				margin-bottom: 10px;
+			}
+		}
+	}
+
+	// inline
+	&[data-design='inline'] {
+		display: flex;
+		flex-wrap: wrap;
+
+		> header {
+			flex: 1 1 auto;
+
+			label {
+				display: flex;
+				align-items: center;
+			}
+		}
+	}
+}
+
+
+// control options
+.ct-control-options {
+	display: flex;
+	align-self: center;
+}
+
+
+// title
+.ct-title {
+	h3 {
+		color: #484f56;
+		font-size: 13px !important;
+		font-weight: 600;
+		text-transform: capitalize;
+		margin: 0;
+	}
+
+	p {
+		font-size: 12px;
+		margin: 10px 0 0 0;
+	}
+
+	&:not(:first-child) {
+		margin-top: 30px;
+		border-top: 1px solid #ddd;
+	}
+
+	&[data-type="simple"] {
+		width: calc(100% + 24px);
+		margin-left: -12px;
+		margin-right: -12px;
+		padding: 30px 26px 0 26px;
+		box-sizing: border-box;
+	}
+
+	&[data-type="small"] {
+		width: calc(100% - 24px);
+		padding-top: 30px;
+		margin-left: 14px;
+		margin-right: 14px;
+	}
+}
+
+// option description
+.ct-option-description {
+	margin-top: 10px;
+	flex: 0 0 100%;
+	font-size: 12px;
+	line-height: 15px;
+	font-style: italic;
+	color: rgba(85, 93, 102, 0.8);
+}
+
+
+.ct-separated,
+.ct-linked {
+	width: 15px;
+	height: 15px;
+	padding: 0;
+	color: #000;
+	cursor: pointer;
+	border: none;
+	opacity: 0.2;
+	background: transparent;
+	transition: opacity 0.1s ease, color 0.1s ease;
+
+	svg {
+		fill: currentColor;
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	&:hover {
+		opacity: 0.4;
+	}
+
+	&.active {
+		color: $accent-color;
+		opacity: 1;
+	}
+}
+
+.ct-linked {
+	margin-left: 10px;
+}
+
+
+// input
+#customize-controls {
+	input[type='text'],
+	input[type='number'] {
+		font-size: 12px;
+		border-radius: 3px;	
+	}
+
+	input[type='number'] {
+		height: 26px;
+	}
+}
+
+
+// layers
+.ct-layer {
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.02);
+}
+
+.ct-layer-controls {
+	height: 38px;
+}
+
+
+// select
+[data-design="inline"] {
+	.ct-option-input,
+	.ct-select-input {
+		max-width: 130px;
+	}
+}
+
+
+// colors
+.ct-control[data-type="color-palette"] {
+	> header {
+		margin-bottom: 15px !important;
+	}
+
+	.ct-color-picker-container {
+		display: inline-flex;
+		padding-right: 0;
+
+		> * {
+			&:not(:last-child) {
+				margin-right: 20px;
+			}
+		}
+	}
+
+	.ct-color-picker-modal {
+		top: 70px;
+		left: 0;
+	}
+}
+
+.ct-color-picker-container > * {
+	&:not(:last-child) {
+		margin-right: 15px;
+	}
+}
+
+.ct-color-picker-modal {
+	width: 280px;
+	top: 37px;
+	right: 0;
+	margin-left: 8px;
+	margin-right: 8px;
+
+	// .wp-picker-holder > .iris-picker .iris-square {
+	// 	width: 190px !important;
+	// 	height: 190px !important;
+	// }
+}
+
+
+// divider
+.ct-divider {
+
+	&:before {
+		content: '';
+		display: block;
+		height: 1px;
+		background: #ddd;
+	}
+
+	&:not([data-type]) {
+		margin: 30px 0;
+
+		&:before {
+			width: calc(100% + 24px);
+			margin: 0 -12px;
+		}
+	}
+
+	&[data-type="full-small"] {
+		margin: 20px 0;
+
+		&:before {
+			width: calc(100% + 24px);
+			margin: 0 -12px;
+		}
+	}
+
+	&[data-type="small"] {
+		margin: 25px 0;
+
+		&:before {
+			opacity: 0.8;
+			width: calc(100% - 24px);
+			margin: 0 12px;
+		}
+	}
+}
+
+
+// option heading divider
+[data-label='heading-label'] {
+	header > label {
+		font-size: 13px;
+		font-weight: 600;
+		// color: #23282d;
+		color: #484f56;
+	}
+}
+
+
+// option notification
+.ct-disabled-notification {
+	display: flex;
+	align-items: center;
+	font-size: 11px;
+	min-height: 28px;
+	padding: 0 10px;
+	// color: #fff;
+	// border-radius: 2px;
+	background: #fff;
+	border-left: 2px solid rgba(14, 142, 204, 0.8);
+	// background: rgba(14, 142, 204, 0.6);
+	// box-shadow: 0px 10px 20px 0px rgba(14, 142, 204, 0.15);
+}
+
+.ct-notification {
+	padding: 0 14px;
+	margin-top: 20px;
+}

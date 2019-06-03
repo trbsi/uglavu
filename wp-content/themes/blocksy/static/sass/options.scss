@@ -1,0 +1,33 @@
+$accent_color: #0e8ecc;
+
+@import 'options/widgets-backend';
+
+@import 'options/general';
+@import 'options/input';
+@import 'options/ct-select';
+@import 'options/ct-layers';
+@import 'options/switch';
+@import 'options/slider';
+@import 'options/radio';
+@import 'options/checkbox';
+@import 'options/number';
+@import 'options/image-picker';
+@import 'options/color-picker';
+@import 'options/spacing';
+@import 'options/border';
+@import 'options/tabs';
+@import 'options/textarea';
+@import 'options/devices';
+@import 'options/visibility';
+@import 'options/attachment';
+@import 'options/responsive-controls';
+@import 'options/buttons-group';
+@import 'options/option-state';
+@import 'options/revert';
+@import 'options/notification';
+@import 'options/tooltip';
+@import 'options/value-changer';
+
+
+// ui styles
+@import 'ui/main';

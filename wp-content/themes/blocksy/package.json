@@ -1,0 +1,52 @@
+{
+	"name": "small-ct",
+	"version": "1.2.9",
+	"title": "Blocksy",
+	"devDependencies": {
+		"@babel/plugin-proposal-class-properties": "^7.4.4",
+		"@prettier/plugin-php": "^0.9.0",
+		"babel-plugin-lodash": "^3.3.4",
+		"ct-build-process": "^5.1.1",
+		"gulp-remove-code": "^3.0.4"
+	},
+	"scripts": {
+		"dev": "gulp dev",
+		"build": "NODE_ENV=production gulp build"
+	},
+	"dependencies": {
+		"@reach/dialog": "^0.1.2",
+		"@reach/router": "^1.1.1",
+		"@wordpress/date": "^3.2.0",
+		"@wordpress/element": "^2.3.0",
+		"@wordpress/i18n": "^3.0.1",
+		"bezier-easing": "^2.1.0",
+		"classnames": "^2.2.6",
+		"ct-log": "^1.0.0",
+		"ct-wp-js-log": "^1.0.4",
+		"customizer-sync-helpers": "^0.0.1",
+		"deep-equal": "^1.0.1",
+		"dom-chef": "^3.3.0",
+		"downshift": "^3.1.5",
+		"element-resize-detector": "^1.1.15",
+		"file-saver": "^2.0.0-rc.4",
+		"flexy": "git+ssh://git@github.com:sergiu-radu/flexy.git",
+		"hash-source": "^1.0.1",
+		"infinite-scroll": "^3.0.5",
+		"intersection-observer": "^0.5.1",
+		"match-conditions": "^1.0.1",
+		"mobius1-selectr": "https://github.com/Creative-Themes/Selectr",
+		"nanoid": "^2.0.0",
+		"objectFitPolyfill": "^2.1.1",
+		"popper.js": "^1.14.6",
+		"react-outside-click-handler": "^1.2.2",
+		"react-popper-tooltip": "^2.8.2",
+		"react-pose": "^4.0.1",
+		"react-sortable-hoc": "^1.8.3",
+		"react-spring": "^6.1.8",
+		"scriptjs": "^2.5.9",
+		"simple-linear-scale": "^1.0.1",
+		"snarkdown": "^1.2.2",
+		"use-force-update": "^1.0.4",
+		"vanilla-lazyload": "^8.17.0"
+	}
+}

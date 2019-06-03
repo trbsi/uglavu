@@ -1,0 +1,41 @@
+.hero-section[data-type="type-1"] {
+	@include media-breakpoint-down (md) {
+		margin-bottom: 30px;
+	}
+
+	@include media-breakpoint-up (lg) {
+		margin-bottom: 50px;
+	}
+
+	.entry-header {
+		.entry-title, .page-title {
+			font-size: var(--pageTitleFontSize);
+			line-height: 1.4;
+			margin: initial;
+			color: var(--pageTitleFontInitialColor);
+			word-wrap: break-word;
+
+			span {
+				&:after {
+					content: ':';
+				}
+			}
+		}
+
+		.entry-meta {
+			color: var(--pageTitleFontInitialColor);
+
+			a {
+				color: var(--pageTitleFontInitialColor);
+
+				&:hover {
+					color: var(--pageTitleFontHoverColor);
+				}
+			}
+		}
+
+		> *:not(:first-child) {
+			margin-top: var(--heroContentSpacing);
+		}
+	}
+}

@@ -1,0 +1,184 @@
+1.2.9: 2019-05-20
+- Fix: Customizer sync errors
+
+1.2.8: 2019-05-20
+- New: Add Products Quick View
+- New: Add Flexy slider in the WooCommerce single products
+- New: Drop `selectize.js` in favor of `selectr`
+- New: Drop jQuery from loading
+- Improvement: Post meta improvements for posts listings
+- New: Integration with Brizy builder
+- Fix: Disable images lazy load when Jetpack lazy load module is enabled
+- Improvement: Dinamically load mini cart on hover. Speeds up the page dramatically
+- Improvement: Load smaller image sizes in posts widgets and posts listings
+- Improvement: Smarter loading behavior that prevents elements jumping
+- New: Add ok.ru, vk.ru and telegram in posts share box
+
+1.2.7: 2019-05-11
+- Improvement: Add Theme URI
+
+1.2.6: 2019-05-11
+- Improvement: Use all the wp scripts from WordPress core itself
+
+1.2.5: 2019-05-11
+- Improvement: Include original source files and build instructions
+- Fix: Customizer sync for single posts
+
+1.2.4: 2019-05-10
+- Improvement: Switch WPForms to Contact Form 7
+- Improvement: Style fixes
+
+1.2.3: 2019-05-10
+- Improvement: Change fallback for default main menu
+
+1.2.2: 2019-05-10
+- Fix: Remove theme URI temporarily
+
+1.2.1: 2019-05-08
+- Fix: Proper lazy load attributes in sync
+
+1.2.0: 2019-05-08
+- Improvement: Offcanvas styles
+- New: Global forms type
+- Improvement: Search styles
+- Fix: Sticky header and sidebar works
+- Fix: Layers stabilize item keys earlier
+- Improvement: Test with WordPress 5.2
+- Improvement: Disable MailChimp form for pages
+- New: Page title alignment option
+- Fix: Lots of escaping fixes inside every file
+
+1.1.19: 2019-05-07
+- Improvement: Companion plugin as a download
+- New: Offcanvas for mobile menu
+
+1.1.18: 2019-04-22
+- Improvement: `data-lazy` attribute for images lazy loading
+- Improvement: Parallax for page title
+- Improvement: Remove widgets from theme
+- Improvement: WooCommerce integration updates
+- New: Changelog screen in dashboard
+- New: Notification for installing the companion plugin from wp.org
+- New: Type for the mobile menu trigger
+
+1.1.17: 2019-04-11
+- New: Footer reveal
+- New: Lazy load disable option
+- New: Header menu type option
+- Improvement: Blocksy Companion is no longer pending
+
+1.1.16: 2019-04-09
+- New: Menu Divider
+- New: Default favicon
+- Improvement: Implement `output.chunkFilename` webpack config for avoiding cache problems
+- Improvement: Social widgets updates for social icons
+
+1.1.15: 2019-04-09
+- New: Transparent Header
+- New: Border option type
+- New: Header CTA button
+- New: Newsletter Subscribe Widget
+- New: Passepartout Option
+- Improvement: Disable Header Top Bar from post metabox
+- Improvement: Disable image uploader cropper
+- Improvement: readme updates, JS licenses
+- Improvement: Split WooCommerce CSS and load it conditionally
+- Fix: iOS mobile menu scroll fix
+
+1.1.14: 2019-04-01
+- New: Sidebar sticky
+- New: Ad widget
+- Improvement: Shop title handling
+
+1.1.13: 2019-04-01
+- New: Different cards type for listings
+- New: Reveal effect for cards
+- New: No color option for color picker
+- New: Mailchimp subscribe widget
+- New: Passepartout option
+- Improvement: PHP version check in theme. We require 5.7
+- Improvement: Improved pagination. Load more with button & infinite scroll
+- Improvement: Product search widget live results
+- Improvement: Page title improvements. Remove custom title & description where they are not needed
+- Fix: Complete sanitization of customizer controls
+
+1.1.12: 2019-03-26
+- New: Related criteria option
+- New: Per page option in listings
+- Improvement: Live results switch for search overlay
+- Fix: Make selectize not fail when jquery is not present
+
+1.1.11: 2019-03-22
+- Fix: Remove playground
+- Fix: Translation issues
+
+1.1.10: 2019-03-22
+- New: Back to top link
+- New: schema.org markup for common elements
+- New: Option for mobile logo
+
+1.1.8: 2019-03-21
+- New: Option to enable/disable WooCommerce product zoom
+- Improvement: Better view for single product
+- Fix: Fix WooCommerce presence checker
+- Fix: `selectize` related fixes
+
+1.1.7: 2019-03-20
+- Fix: Short description
+
+1.1.6: 2019-03-20
+- New: Add description and missing fields to `readme.txt`
+- Fix: Fix escaping
+
+1.1.5: 2019-03-20
+- Fix: Do not use `file_get_contents()`
+- Fix: Small CSS fixes
+- Fix: Sanity checks for WooCommerce
+
+1.1.4: 2019-03-19
+- Fix: Check WooCommerce activation status before doing actual checks
+
+1.1.3: 2019-03-19
+- Fix: Check `is_product()` presence
+
+1.1.2: 2019-03-19
+- Fix: Theme Check fixes
+
+1.1.1: 2019-03-19
+- Fix: Fix bug with skipping `bundle/` folders from final build
+
+1.1.0: 2019-03-19
+- New: WooCommerce Integration
+- Improvement: More options for existing customizer panels
+- Improvement: Change prefixes and text domain from `ct` to `blocksy`
+
+1.0.7: 2019-02-25
+- New: New screenshot
+- Fix: Widgets title escaping fix
+
+1.0.6: 2019-02-22
+- New: WP Forms integration
+- Fix: Fix logic for picking an image from REST API response in live search
+- Fix: Layers option type without options does not fail anymore
+
+1.0.5: 2019-02-21
+- Improvement: New theme URL
+
+1.0.4: 2019-02-21
+- Fix: Theme check fixes
+
+1.0.3: 2019-02-21
+- New: Implement Google Analytics support
+- Improvement: Small change in options render
+
+1.0.2: 2019-02-20
+- New: Implement 404 page
+- Fix: Fix browsersync check for `WP_DEBUG`
+- Fix: Re-sync plugins status even if the action failed
+
+1.0.1: 2019-02-20
+- New: Add Beaver and Elementor recommended plugins
+- Fix: Related posts sync fixes
+
+1.0.0: 2019-02-20
+- New: First release.

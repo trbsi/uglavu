@@ -1,0 +1,104 @@
+#customize-controls {
+
+	.customize-control {
+		&:not(.customize-control-ct-options):not(.customize-control-code_editor):not(.menu-item) {
+			margin-top: 20px;
+			margin-bottom: 0;
+			padding-left: 14px;
+			padding-right: 14px;
+			box-sizing: border-box;
+		}
+
+		.customize-control {
+			padding-left: 0 !important;
+			padding-right: 0 !important;
+		}
+	}
+
+	.customize-control-title {
+		font-size: 13px;
+		font-weight: 500;
+	}
+
+	// menus section
+	.customize-control.customize-control-nav_menu_name {
+		margin-bottom: 20px !important;
+	}
+
+	.customize-control.menu-item {
+		padding-left: 18px;
+		padding-right: 18px;
+		box-sizing: border-box;
+	}
+
+	.customize-section-title-menu_locations-description,
+	.customize-section-title-menu_locations-heading,
+	.customize-section-title-nav_menus-heading {
+		padding-left: 26px;
+		padding-right: 26px;
+	}
+
+	.control-panel-nav_menus .control-section-nav_menu {
+		border-top: none;
+
+		.accordion-section-title {
+			flex-direction: column;
+			align-items: flex-start;
+
+			.menu-in-location {
+				margin-top: 3px;
+			}
+		}
+	}
+
+	li.control-section-new_menu {
+		margin-left: 26px;
+		margin-right: 26px;
+	}
+
+	.customize-section-title-nav_menus-heading {
+		margin-top: 20px;
+	}
+
+	.customize-section-description {
+		padding-left: 14px;
+		padding-right: 14px;
+	}
+
+	.customize-control-nav_menu_location {
+		position: relative;
+
+		button.edit-menu {
+			position: absolute;
+			top: 0;
+			right: 18px;
+			font-size: 12px;
+		}
+	}
+
+	.customize-control-nav_menu_locations {
+		> ul.menu-location-settings {
+			margin-top: 0;
+
+			> li:first-child {
+				margin-top: 0 !important;
+			}
+		}
+	}
+
+	.CodeMirror-lint-markers {
+		width: 18px;
+	}
+
+	// outer section
+	#customize-outer-theme-controls {
+		.accordion-section-content > li {
+			padding-left: 0;
+			padding-right: 0;
+		}
+
+		#customize-control-changeset_status {
+			margin-top: 5px;
+		}
+	}
+}

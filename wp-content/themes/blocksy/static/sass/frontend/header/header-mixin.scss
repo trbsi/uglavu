@@ -1,0 +1,91 @@
+@mixin header-colors ( $args: () ) {
+
+	$args: map-merge( (
+		breakpoint: 'mobile',
+	), $args );
+
+
+	// default state
+	body:not([data-transparent-header*="#{map-get($args, "breakpoint")}"]) {
+		.site-header {
+			box-shadow: 0px 30px 90px 0px var(--headerShadow);
+		}
+
+		.site-title {
+			+ a {
+				display: none;
+			}
+		}
+
+		.ct-transparent-logo {
+			display: none;
+		}
+	}
+
+	// transparent state
+	body[data-transparent-header*="#{map-get($args, "breakpoint")}"] {
+		#main-container {
+			position: relative;
+		}
+
+		.site-header {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 100;
+		}
+
+		[data-transparent-logo] {
+			--logoMaxHeight: var(--transparentLogoMaxHeight);
+			
+			.ct-default-logo, .site-title {
+				display: none;
+			}
+		}
+
+		.site-header {
+			//background
+			--headerBackground: var(--transparentHeaderBackground);
+			--mobileHeaderBackground: var(--transparentHeaderBackground);
+
+			// content
+			--menuInitialColor: var(--transparentHeaderInitialFontColor);
+			--menuHoverColor: var(--transparentHeaderHoverFontColor);
+
+			.site-title a,
+			.ct-cart-icon,
+			.search-button,
+			.mobile-menu-toggle {
+				--linkInitialColor: var(--transparentHeaderInitialFontColor);
+				--linkHoverColor: var(--transparentHeaderHoverFontColor);
+			}
+
+			.ct-header-button {
+				&[data-type="type-1"] {
+					--linkInitialColor: var(--transparentHeaderHoverFontColor);
+					--linkHoverColor: var(--transparentHeaderInitialFontColor);
+				}
+				
+				&[data-type="type-2"] {
+					--linkInitialColor: var(--transparentHeaderInitialFontColor);
+					--linkHoverColor: var(--transparentHeaderHoverFontColor);
+				}
+				
+				--buttonInitialColor: var(--transparentHeaderInitialFontColor);
+				--buttonHoverColor: var(--transparentHeaderHoverFontColor);
+			}
+		}
+	}
+}
+
+
+@include media-breakpoint-down (sm) {
+	@include header-colors((breakpoint: mobile));
+}
+@include media-breakpoint-only (md) {
+	@include header-colors((breakpoint: tablet));
+}
+@include media-breakpoint-up (lg) {
+	@include header-colors((breakpoint: desktop));
+}

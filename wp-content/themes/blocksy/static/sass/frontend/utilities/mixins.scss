@@ -1,0 +1,181 @@
+// Site max-width
+@mixin container-width( $args: () ) {
+
+	$args: map-merge( (
+		width: fixed,
+	), $args );
+
+	$width: map-get( $args, width );
+
+	@if $width == fixed {
+		margin-left: auto;
+		margin-right: auto;
+		max-width: var(--maxSiteWidth);
+
+		@include media-breakpoint-down (sm) {
+			width: 88%;
+		}
+
+		@include media-breakpoint-only (md) {
+			width: 85%;
+		}
+
+		@include media-breakpoint-up (lg) {
+			width: 90%;
+		}
+	}
+
+	@if $width == fluid {
+		width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+
+		@include media-breakpoint-down (md) {
+			padding-left: 20px;
+			padding-right: 20px;
+		}
+
+		@include media-breakpoint-up (lg) {
+			padding-left: 30px;
+			padding-right: 30px;
+		}
+	}
+
+	@if $width == boundless {
+		width: 100%;
+	}
+}
+
+
+// placeholder
+@mixin input-placeholder {
+	&.placeholder {
+		@content;
+	}
+	&:-moz-placeholder {
+		@content;
+	}
+	&::-moz-placeholder {
+		@content;
+	}
+	&:-ms-input-placeholder {
+		@content;
+	}
+	&::-webkit-input-placeholder {
+		@content;
+	}
+}
+
+
+// list normalize
+@mixin list-normalize( $args: () ) {
+	
+	$args: map-merge( (
+		margin: 0,
+		padding: 0,
+	), $args );
+
+	margin: map-get( $args, margin );
+	padding: map-get( $args, padding );
+	list-style: none;
+}
+
+
+// line height crop
+@mixin lhCrop($line-height) {
+	&::before {
+		content: '';
+		display: block;
+		height: 0;
+		width: 0;
+		margin-top: calc((1 - #{$line-height}) * 0.5em);
+	}
+}
+
+
+// action fields
+
+
+
+// button
+@mixin button( $args: () ) {
+
+	$args: map-merge( (
+		display: flex,
+		height: 45px,
+		padding: 25px,
+		color: #fff,
+		position: relative,
+		bg_1: var(--buttonInitialColor),
+		bg_2: var(--buttonHoverColor),
+		shadow: true,
+		translate: true
+	), $args );
+
+	display: map-get( $args, display );
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	color: map-get( $args, color );
+	height: map-get( $args, height );
+	padding: 0 map-get( $args, padding );
+	border: none;
+	border-radius: 3px;
+	background-color: map-get( $args, bg_1 );
+	transition: color 0.2s ease,
+				transform 0.2s ease,
+				background 0.2s ease;
+
+	&:hover {
+		background-color: map-get( $args, bg_2 );
+
+		$translate: map-get( $args, translate );
+		@if $translate == true {
+			transform: translate3d(0, -3px, 0);
+		}
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	// button shadow
+	$shadow: map-get( $args, shadow );
+	@if $shadow == true {
+		position: map-get( $args, position );
+
+		&:before {
+			position: absolute;
+			z-index: -1;
+			content: '';
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			display: block;
+			border-radius: inherit;
+			opacity: 0;
+			box-shadow: 0px 8px 30px 0px map-get( $args, bg_2 );
+			transition: opacity 0.2s ease;
+		}
+
+		&:hover {
+			&:before {
+				opacity: 0.5;
+			}
+		}
+	}
+}
+
+
+// responsive table
+@mixin responsive-table {
+	display: block;
+	overflow-x: auto;
+
+	tbody {
+		display: table;
+		table-layout: initial;
+		width: 100%;
+	}
+}

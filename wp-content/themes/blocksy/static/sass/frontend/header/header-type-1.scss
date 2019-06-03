@@ -1,0 +1,55 @@
+.header-desktop[data-type="type-1"] {
+
+	[class*="ct-container"] {
+		display: flex;
+		align-items: center;
+		height: var(--headerHeight);
+
+		// menu alignment
+		&[data-menu-alignment="left"] {
+			.main-navigation {
+				// flex: 1 0 auto;
+				margin-right: auto;
+				padding-left: 50px;
+				padding-right: 30px;
+			}
+		}
+
+		&[data-menu-alignment="right"] {
+			.main-navigation {
+				margin-left: auto;
+				padding-left: 30px;
+
+				.primary-menu {
+					justify-content: flex-end;
+				}
+			}
+		}
+
+		&[data-menu-alignment="center"] {
+			position: relative;
+
+			> * {
+				&:not(.main-navigation) {
+					position: relative;
+					z-index: 20;
+				}
+			}
+
+			.main-navigation {
+				position: absolute;
+				left: 0;
+				width: 100%;
+				z-index: 10;
+
+				> ul {
+					justify-content: center;
+				}
+			}
+
+			.header-group {
+				margin-left: auto;
+			}
+		}
+	}
+}

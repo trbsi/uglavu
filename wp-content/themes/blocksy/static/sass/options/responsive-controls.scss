@@ -1,0 +1,58 @@
+// responsive controls
+.ct-responsive-controls {
+	display: flex;
+	align-items: center;
+	margin: 0;
+
+	li {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		// height: 20px;
+		margin: 0;
+		cursor: pointer;
+		font-family: dashicons;
+		font-size: 15px;
+		line-height: normal;
+		color: currentColor;
+		-webkit-font-smoothing: antialiased;
+		position: relative;
+
+		&.active {
+			color: #0582bd;
+		}
+
+		&:not(.active) {
+			opacity: 0.6;
+
+			&:hover {
+				opacity: 0.8;
+			}
+		}
+
+		&.ct-desktop {
+			margin-right: 18px;
+		}
+
+		&.ct-tablet {
+			margin-right: 17px;
+		}
+
+		// &:not(:last-child) {
+		// 	margin-right: 5px;
+		// }
+
+		// devices
+		// &.ct-desktop:before {
+		// 	content: "\f472";
+		// }
+
+		// &.ct-tablet:before {
+		// 	content: "\f471";
+		// }
+
+		// &.ct-mobile:before {
+		// 	content: "\f470";
+		// }
+	}
+}

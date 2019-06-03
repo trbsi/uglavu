@@ -1,0 +1,44 @@
+.header-group {
+	display: flex;
+	align-items: center;
+
+	> * {
+		position: relative;
+
+		// divider
+		&:after {
+			position: absolute;
+			top: calc(50% - 6px);
+			left: -25px;
+			width: 1px;
+			height: 12px;
+			opacity: 0.6;
+			background: var(--menuInitialColor);
+		}
+	}
+}
+
+
+.header-desktop[data-type="type-1"] {
+	[data-menu-alignment="right"] {
+		.header-group {
+			@include media-breakpoint-up (lg) {
+				> * {
+					margin-left: 55px;
+
+					&:after {
+						content: '';
+					}
+
+					&:not(.ct-hidden-lg) ~ * {
+						margin-left: 15px;
+
+						&:after {
+							display: none;
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,43 @@
+.share-box {
+
+	ul {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+		@include list-normalize;
+		border: 1px solid #e0e5eb;
+
+		li {
+
+			a {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				height: 50px;
+
+				svg {
+					fill: currentColor;
+				}
+
+				span {
+					display: none;
+				}
+
+				&:hover {
+					color: var(--paletteColor1);
+				}
+			}
+
+			&:not(:first-child) {
+				border-left: 1px solid #e0e5eb;
+			}
+		}
+	}
+
+	&[data-location="top"] {
+		margin: var(--topShareBoxSpacing) 0;
+	}
+
+	&[data-location="bottom"] {
+		margin: var(--bottomShareBoxSpacing) 0;
+	}
+}

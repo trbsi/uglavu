@@ -1,0 +1,23 @@
+@import 'alignment';
+@import 'entry-content';
+@import 'author-box';
+@import 'share-box';
+@import 'post-navigation';
+@import 'post-password';
+@import 'related-posts';
+@import 'entry-tags';
+@import 'comments';
+
+
+.single-post {
+
+	// post thumbnail
+	.post-thumbnail {
+		display: flex;
+		flex-direction: column;
+
+		img {
+			width: 100%;
+		}
+	}
+}

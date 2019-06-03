@@ -1,0 +1,51 @@
+.ct-mailchimp-widget {
+	.ct-mailchimp-description {
+		&:not(:empty) {
+			margin-bottom: 20px;
+		}
+	}
+
+	input {
+		text-align: center;
+	}
+
+	button {
+		width: 100%;
+	}
+}
+
+aside[data-type="type-1"] {
+	.ct-mailchimp-widget {
+		padding: 30px;
+		background: #fff;
+		border-radius: 3px;
+		box-shadow: 0px 12px 18px -6px rgba(34, 56, 101, 0.04);
+	}
+}
+
+// alignment
+.ct-widget-inner {
+	&[data-alignment="center"] {
+		text-align: center;
+
+		.gdpr-confirm-policy {
+			justify-content: center;
+		}
+	}
+
+	&[data-alignment="right"] {
+		text-align: right;
+
+		.gdpr-confirm-policy {
+			justify-content: flex-end;
+		}
+	}
+}
+
+.ct-modern-forms {
+	.ct-mailchimp-widget .ct-fields > * {
+		&:not(:last-child) {
+			margin-bottom: 20px;
+		}
+	}
+}

@@ -1,0 +1,49 @@
+.quick-view-modal {
+	--modalBackground: rgba(18, 21, 25, 0.7);
+
+	@include media-breakpoint-down (sm) {
+		display: none;
+	}
+
+	.ct-bag-container {
+		padding: 0;
+	}
+
+	.ct-bag-content {
+		height: 100%;
+	}
+
+	.ct-container {
+		display: flex;
+		max-width: 1000px;
+		min-height: 200px;
+		max-height: 700px;
+		background: #fff;
+		overflow: hidden;
+		border-radius: 7px;
+		margin-top: 50px !important;
+		margin-bottom: 50px !important;
+		box-shadow: 0px 50px 100px 0px rgba(18, 21, 25, 0.2);
+		-webkit-mask-image: -webkit-radial-gradient(white, black);
+	}
+
+	section {
+		width: 50%;
+	}
+
+	// animation
+	.ct-bag-container {
+		&.ct-fade-in .ct-container {
+			animation-name: move-in;
+		}
+
+		&.ct-fade-out .ct-container {
+			animation-name: move-out;
+		}
+
+		&.ct-animated .ct-container {
+			animation-duration: 0.3s;
+			animation-fill-mode: both;
+		}
+	}
+}

@@ -1,0 +1,52 @@
+.woocommerce {
+	// a.button,
+	a.button.alt,
+	button.button,
+	button.button.alt,
+	.woo-review-submit,
+	.button.wc-backward,
+	.entry-summary .added_to_cart {
+		font-size: 15px;
+		font-weight: 600;
+
+		@include button((
+			display: inline-flex,
+			height: 40px,
+			padding: 18px,
+			// shadow: false,
+			// translate: false,
+		));
+
+		&:hover {
+			color: #fff;
+		}
+
+		&:after {
+			position: static !important;
+			top: initial !important;
+			opacity: 1;
+			font-size: 12px;
+			color: currentColor;
+			margin-left: 10px !important;
+		}
+
+		&.loading {
+			// should be the same as initial padding
+			padding-right: 18px !important;
+		}
+	}
+
+	a.button.alt {
+		display: flex;
+		height: 45px;
+	}
+
+
+	// disabled button
+	button.button:disabled,
+	button.button.alt.disabled {
+		color: #fff !important;
+		pointer-events: none;
+		background-color: var(--paletteColor1);
+	}
+}

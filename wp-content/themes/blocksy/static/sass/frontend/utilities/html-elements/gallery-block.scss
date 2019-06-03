@@ -1,0 +1,19 @@
+.wp-block-gallery {
+	.blocks-gallery-item {
+		&:before {
+			display: none;
+		}
+	}
+}
+
+
+// native gallery
+.gallery {
+	display: grid;
+	grid-column-gap: 10px;
+	grid-row-gap: 10px;
+
+	figure {
+		margin-bottom: 0 !important;
+	}
+}

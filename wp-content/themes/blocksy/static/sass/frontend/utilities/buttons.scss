@@ -1,0 +1,109 @@
+.lines-button {
+	position: relative;
+	width: 20px;
+	height: 2px;
+	border-radius: 5px;
+	background: currentColor;
+
+	&:before, &:after {
+		position: absolute;
+		content: '';
+		height: inherit;
+		border-radius: inherit;
+		background: currentColor;
+		transform-origin: 50% 50%;
+	}
+
+	&:before {
+		transform: translate3d(0, -6px, 0);
+	}
+
+	&:after {
+		transform: translate3d(0, 6px, 0);
+	}
+
+	// type 1
+	&[data-type="type-1"] {
+		&:before, &:after {
+			width: inherit;
+		}
+	}
+
+	// type 2
+	&[data-type="type-2"]:not(.close) {
+		&:before {
+			width: 50%;
+			left: 50%;
+			transition: left 0.18s ease;
+		}
+
+		&:after {
+			width: 75%;
+			left: 25%;
+			transition: left 0.18s ease 0.07s;
+		}
+	}
+
+	// type 3
+	&[data-type="type-3"]:not(.close) {
+		&:before {
+			width: 70%;
+			right: 10%;
+			transition: right 0.18s ease,
+						width 0.18s ease;
+		}
+
+		&:after {
+			width: 70%;
+			left: 10%;
+			transition: left 0.18s ease,
+						width 0.18s ease;
+		}
+	}
+
+	// closed state
+	&.close {
+		background: transparent;
+
+		&:before, &:after {
+			width: inherit;
+		}
+
+		&:before {
+			transform: rotate3d(0, 0, 1, 45deg);
+		}
+
+		&:after {
+			transform: rotate3d(0, 0, 1, -45deg);
+		}
+	}
+}
+
+
+// hover actions
+.mobile-menu-toggle {
+
+	&:hover {
+		[data-type="type-2"]:not(.close) {
+			&:before {
+				left: 0;
+			}
+
+			&:after {
+				left: 0;
+			}
+		}
+
+		[data-type="type-3"]:not(.close) {
+			&:before {
+				width: 100%;
+				right: 0;
+			}
+
+			&:after {
+				width: 100%;
+				left: 0;
+			}
+		}
+	}
+}

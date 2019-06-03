@@ -1,0 +1,48 @@
+@import 'header-type-1';
+@import 'header-type-2';
+@import 'header-top-bar';
+@import 'header-mobile';
+
+@import 'header-mixin';
+@import 'header-border';
+@import 'header-button';
+@import 'special-elements-container';
+
+.site-header {
+	position: relative;
+	z-index: 2; // or higher
+	background: var(--headerBackground);
+}
+
+
+// Logo
+.site-branding {
+	flex-shrink: 0;
+
+	.custom-logo-link {
+		display: flex;
+	}
+
+	.custom-logo {
+		width: auto;
+		height: var(--logoMaxHeight);
+	}
+}
+
+.site-title {
+	margin: 0;
+}
+
+
+// Mobile header breakpoint
+.header-desktop {
+	@include media-breakpoint-down (md) {
+		display: none;
+	}
+}
+
+.header-mobile {
+	@include media-breakpoint-up (lg) {
+		display: none;
+	}
+}

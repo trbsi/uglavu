@@ -1,0 +1,83 @@
+.woocommerce-info,
+.woocommerce-error,
+.woocommerce-message {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	border: 1px solid #e0e5eb;
+	color: var(--paletteColor3);
+	padding: 1em 1.5em 1em 3.5em;
+	margin-bottom: 50px;
+	border-radius: 3px;
+	background: rgba(242, 244, 247, 0.7);
+
+	&:before {
+		top: 17px;
+	}
+
+	a.button {
+		order: 3;
+		margin-left: auto !important;
+		font-size: 15px;
+		font-weight: 600;
+		text-transform: capitalize;
+
+		@include button((
+			display: inline-flex,
+			height: 35px,
+			padding: 18px,
+			// shadow: false,
+			// translate: false,
+		));
+
+		&:hover {
+			color: #fff;
+		}
+	}
+
+	li {
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+
+.woocommerce-message {
+	&:before {
+		color: var(--paletteColor1);
+	}
+
+	.restore-item {
+		margin-left: 10px;
+	}
+}
+
+.woocommerce-info {
+	&:before {
+		color: var(--paletteColor1);
+	}
+
+	.showcoupon {
+		margin-left: 10px;
+	} 
+}
+
+ul.woocommerce-error {
+	li:not(:only-child) {
+		flex: 1 0 auto;
+	}
+}
+
+
+// group message
+.woocommerce-NoticeGroup > ul {
+	flex-wrap: wrap;
+
+	> li {
+		flex: 0 0 100%;
+	}
+
+	&:before {
+		top: 1em;
+	}
+}

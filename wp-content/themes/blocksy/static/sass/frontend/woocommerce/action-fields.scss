@@ -1,0 +1,145 @@
+.woocommerce {
+	form {
+		label {
+			color: var(--formLabelColor);
+		}
+
+		.form-row {
+			&.woocommerce-validated {
+				input.input-text, .selectize-input {
+					border-color: var(--paletteColor1)
+				}
+			}
+
+			textarea {
+				height: var(--formTextAreaHeight);
+			}
+		}
+	}
+}
+
+
+// quantity field
+.woocommerce {
+
+	.quantity .qty {
+		width: 50px;
+		height: 40px;
+		border-top: 1px solid #e0e5eb;
+		border-bottom: 1px solid #e0e5eb;
+		border-left: none;
+		border-right: none;
+		background: transparent;
+		font-size: 14px;
+		text-align: center;
+		padding: 0;
+		border-radius: 0;
+		-moz-appearance:textfield;
+
+		&::-webkit-inner-spin-button,
+		&::-webkit-outer-spin-button {
+			appearance: none;
+		}
+
+		&:focus {
+			outline: none;
+			border-color: #e0e5eb;
+		}
+	}
+
+	div.product form.cart div.quantity {
+		margin-right: 30px;
+	}
+}
+
+
+.ct-quantity {
+	display: flex;
+	align-items: center;
+
+	input {
+		color: inherit;
+		appearance: none;
+		border-radius: 0;
+	}
+
+	.ct-decrease, .ct-increase {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		width: 40px;
+		height: 40px;
+		cursor: pointer;
+		border: 1px solid #e0e5eb;
+
+		&:before, &:after {
+			position: absolute;
+			content: '';
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			width: 10px;
+			height: 2px;
+			margin: auto;
+			background: currentColor;
+		}
+
+		&:after {
+			transform: rotate(90deg);
+		}
+
+		&:hover {
+			background: rgba(242, 244, 247, 1);
+		}
+	}
+
+	.ct-decrease {
+		border-top-left-radius: 3px;
+		border-bottom-left-radius: 3px;
+
+		&:after {
+			display: none;
+		}
+	}
+
+	.ct-increase {
+		border-top-right-radius: 3px;
+		border-bottom-right-radius: 3px;
+	}
+}
+
+// coupon code field
+#add_payment_method table.cart td.actions .coupon, 
+.woocommerce-cart table.cart td.actions .coupon, 
+.woocommerce-checkout table.cart td.actions .coupon {
+
+	.input-text {
+		width: 212px;
+		height: 40px;
+		padding: 0 15px;
+		margin-right: 20px;
+		border-radius: 3px;
+		border: 1px solid $border-color;
+		background: transparent;
+
+		&:focus {
+			border-color: var(--paletteColor1);
+		}
+	}
+
+	@include media-breakpoint-down (sm) {
+		padding-bottom: 0.8em;
+		
+		.input-text {
+			width: 100%;
+			margin-right: 0;
+		}
+
+		button.button {
+			width: 100%;
+			margin-top: 0.8em;
+		}
+	}
+}

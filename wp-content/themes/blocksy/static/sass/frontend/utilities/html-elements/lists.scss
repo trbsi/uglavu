@@ -1,0 +1,19 @@
+.entry-content {
+	> ul {
+		list-style: none;
+
+		li {
+			&:before {
+				position: absolute;
+				content: "\2022";
+				margin-left: -20px;
+				display: inline-block;
+				text-align: right;
+				opacity: 0.9;
+				font-family: Georgia,Arial,system-ui;
+				transform: scale(1.1);
+				-webkit-font-smoothing: antialiased;
+			}
+		}
+	}
+}

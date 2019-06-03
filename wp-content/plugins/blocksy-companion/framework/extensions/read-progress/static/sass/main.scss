@@ -1,0 +1,29 @@
+.ct-read-progress-bar {
+	background: linear-gradient(to right, var(--paletteColor1) var(--scroll, 0%), transparent 0);
+	background-repeat: no-repeat;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 3px;
+	z-index: 10;
+	opacity: 1;
+	transition: opacity 0.1s ease;
+
+	&[style*='100'] {
+		opacity: 0;
+	}
+}
+
+.admin-bar .ct-read-progress-bar {
+	@media screen and (min-width: 783px) {
+		top: 32px;
+	}
+
+	@media screen and (max-width: 782px) {
+		top: 46px;
+	}
+
+	@media screen and (max-width: 600px) {
+		top: 0;
+	}
+}

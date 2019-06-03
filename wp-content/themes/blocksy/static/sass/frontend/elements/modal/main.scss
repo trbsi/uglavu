@@ -1,0 +1,122 @@
+body.ct-modal-open {
+	overflow: hidden;
+
+	.mobile-menu-toggle{
+		visibility: hidden;
+	}
+}
+
+.ct-modal {
+	position: fixed;
+	z-index: 99999;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	&:not(.opened) {
+		display: none;
+	}
+
+	&.active {
+		z-index: 99999;
+		visibility: visible;
+
+		.ct-bag-container {
+			position: relative;
+		}
+	}
+
+	.ct-bag-container {
+		padding: 3vw 0;
+	}
+}
+
+.ct-bag-container {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow-y: scroll;
+	background: var(--modalBackground);
+	-webkit-overflow-scrolling: touch;
+}
+
+.ct-bag-actions {
+	display: flex;
+	justify-content: flex-end;
+	height: 50px;
+	padding: 0 2vw;
+}
+
+.ct-bag-close {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 50px;
+	height: 50px;
+	cursor: pointer;
+	opacity: 0.7;
+	transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+
+	.close {
+		color: #fff;
+	}
+
+	&:hover {
+		opacity: 1;
+		transform: rotate(90deg);
+
+		.close {
+			color: var(--paletteColor1);
+		}
+	}
+}
+
+.ct-bag-content {
+	display: flex;
+	flex-direction: column;
+	height: calc(100% - 50px);
+	overflow-y: auto;
+
+	&[data-align="middle"] {
+		justify-content: center;
+	}
+}
+
+// modal animations
+.ct-fade-in {
+	animation-name: fade-in;
+}
+
+.ct-fade-out {
+	animation-name: fade-out;
+}
+
+.ct-animated {
+	animation-duration: 0.3s;
+	animation-fill-mode: both;
+}
+
+
+// fade keyframes
+@keyframes fade-in {
+	0% { opacity: 0 }
+	100% { opacity: 1 }
+}
+
+@keyframes fade-out {
+	0% { opacity: 1 }
+	100% { opacity: 0 }
+}
+
+
+// move keyframes
+@keyframes move-in {
+	0% { transform: translate3d(0, -40px, 0) }
+	100% { transform: translate3d(0, 0, 0) }
+}
+
+@keyframes move-out {
+	0% { transform: translate3d(0, 0, 0) }
+	100% { transform: translate3d(0, 40px, 0) }
+}

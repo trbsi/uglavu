@@ -1,0 +1,15 @@
+body.admin-bar {
+
+	@media screen and (max-width: 782px) {
+		.ct-offcanvas-menu {
+			top: 46px;
+		}
+	}
+
+	@media screen and (min-width: 783px) {
+		.ct-offcanvas-menu {
+			top: 32px;
+		}
+	}
+
+}

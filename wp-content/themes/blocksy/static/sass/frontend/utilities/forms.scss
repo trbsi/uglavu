@@ -1,0 +1,175 @@
+@mixin action-fields( $args: () ) {
+
+	$args: map-merge( (
+		type: classic,
+		width: 100%,
+		font-size: var(--formFontSize),
+		border-width: var(--formBorderSize),
+		border-color: var(--formBorderInitialColor),
+		padding-left: 15px,
+		padding-right: 15px,
+		background: true,
+		transition: true,
+	), $args );
+
+	width: map-get( $args, width );
+	font-size: map-get( $args, font-size );
+	color: var(--formTextInitialColor);
+	appearance: none;
+	padding-left: map-get( $args, padding-left );
+	padding-right: map-get( $args, padding-right );
+
+	$background: map-get( $args, background );
+	@if $background == true {
+		background-color: var(--formBackgroundInitialColor);
+	}
+	@if $background == false {
+		background-color: transparent;
+	}
+
+
+	$transition: map-get( $args, transition );
+	@if $transition == true {
+		transition: color 0.12s cubic-bezier(0.455, 0.03, 0.515, 0.955),
+					border-color 0.12s cubic-bezier(0.455, 0.03, 0.515, 0.955),
+					background-size 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955),
+					background-color 0.12s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+	}
+
+
+	$type: map-get( $args, type );
+
+	// classic
+	@if $type == classic {
+		border-radius: 3px;
+		border: map-get( $args, border-width ) solid map-get( $args, border-color );
+	}
+
+	// modern
+	@if $type == modern {
+		border: none;
+		border-radius: 0;
+		background-image: 
+			linear-gradient(
+				transparent calc(100% - #{map-get( $args, border-width )}), 
+				var(--formBorderFocusColor) calc(100% - #{map-get( $args, border-width )}),
+				var(--formBorderFocusColor) calc(100% - #{map-get( $args, border-width )})
+			),
+
+			linear-gradient(
+				transparent calc(100% - #{map-get( $args, border-width )}), 
+				map-get( $args, border-color ) calc(100% - #{map-get( $args, border-width )}),
+				map-get( $args, border-color ) calc(100% - #{map-get( $args, border-width )})
+			);
+		;
+		
+		background-size: 0% 100%, 100% 100%;
+		background-repeat: no-repeat;
+	}
+
+
+	&:focus {
+		outline: none;
+		color: var(--formTextFocusColor);
+
+		@if $background == true {
+			background-color: var(--formBackgroundFocusColor);
+		}
+	}
+
+	@include input-placeholder {
+		opacity: 1;
+		color: rgba(44, 62, 80, 0.6);
+	}
+}
+
+input[type="url"],
+input[type="tel"],
+input[type="text"],
+input[type="date"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="password"],
+.selectr-selected {
+	height: var(--formInputHeight);
+}
+
+textarea {
+	display: block;
+	resize: vertical;
+	height: var(--formTextAreaHeight);
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+// Classic forms
+.ct-classic-forms {
+	textarea,
+	input[type="url"],
+	input[type="tel"],
+	input[type="text"],
+	input[type="date"],
+	input[type="email"],
+	input[type="number"],
+	input[type="search"],
+	input[type="password"] {
+		@include action-fields((
+			type: classic,
+		));
+
+		&:focus {
+			border-color: var(--formBorderFocusColor);
+		}
+	}
+
+	// select
+	.selectr-container {
+		.selectr-selected {
+			@include action-fields((
+				type: classic,
+				padding-right: 35px,
+			));
+		}
+
+		&.open .selectr-selected {
+			border-color: var(--formBorderFocusColor);
+		}
+	}
+}
+
+
+// Modern forms
+.ct-modern-forms {
+	textarea,
+	input[type="url"],
+	input[type="tel"],
+	input[type="text"],
+	input[type="date"],
+	input[type="email"],
+	input[type="number"],
+	input[type="search"],
+	input[type="password"] {
+		@include action-fields((
+			type: modern,
+		));
+
+		&:focus {
+			background-size: 100% 100%, 100% 100%;
+		}
+	}
+
+	// select
+	.selectr-container {
+		.selectr-selected {
+			@include action-fields((
+				type: modern,
+				padding-right: 35px,
+			));
+		}
+
+		&.open .selectr-selected {
+			background-size: 100% 100%, 100% 100%;
+		}
+	}
+}

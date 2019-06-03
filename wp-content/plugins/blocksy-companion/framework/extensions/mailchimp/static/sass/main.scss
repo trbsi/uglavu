@@ -1,0 +1,30 @@
+@import '../../../../../static/sass/common-frontend';
+@import 'widget';
+@import 'single-block';
+
+.ct-mailchimp-form {
+
+	.ct-fields {
+		> * {
+			&:not(:last-child) {
+				margin-bottom: 10px;
+			}
+		}
+	}
+
+	.button {
+		// width: 100%;
+		font-size: 15px;
+		font-weight: 600;
+
+		@include button((
+			// padding: 18px,
+		));
+	}
+
+	&:invalid {
+		.button {
+			// pointer-events: none;
+		}
+	}
+}

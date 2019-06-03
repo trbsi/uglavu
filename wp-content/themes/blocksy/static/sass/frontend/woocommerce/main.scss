@@ -1,0 +1,46 @@
+// $border-color: #e0e5eb;
+$border-color: rgba(224, 229, 235, 0.8);
+
+@import 'woo-resets';
+@import 'listing-top';
+@import 'breadcrumb';
+@import 'sale-badge';
+@import 'message';
+@import 'buttons';
+@import 'pagination';
+@import 'action-fields';
+@import 'table';
+@import 'star-rating';
+@import 'store-notice';
+
+// entries page
+@import 'shop-entries';
+@import 'shop-grid';
+@import 'shop-simple';
+
+
+// single page
+@import 'product-single';
+@import 'product-gallery';
+@import 'entry-summary';
+@import 'product-cart';
+@import 'product-tabs';
+@import 'product-attributes';
+@import 'product-reviews';
+@import 'product-comments';
+@import 'product-comment-form';
+@import 'related-products';
+@import 'upsells-products';
+
+
+// cart page
+@import 'cart-page';
+
+
+// checkout page
+@import 'checkout-page';
+
+
+// account page
+@import 'account-page';
+@import 'login-form';

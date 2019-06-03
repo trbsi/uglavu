@@ -1,0 +1,44 @@
+import { Rellax } from './rellax'
+
+export let rel = new Rellax()
+
+/**
+ * TODO: maybe implement code splitting for parallax elements.
+ * It will speed the up the process a lot.
+ *
+ * Maybe do that at the lib level.
+ *
+ * We can go about extracting the animate() function into a separated module.
+ * This module will be shared among this and the rellax lib code.
+ *
+ * That way, we can defer execution of the rellax lib. But I guess the code
+ * inside rellax.js is very coupled for doing that trick.
+ */
+
+const init = () =>
+	[...document.querySelectorAll('[data-parallax]')].map(elWithParallax => {
+		// Consider here storing the rellax instance onto the section DOM
+		// element itself. And do that in a non-leaking fashion.
+		//
+		// section.rellaxInstance would leak memory
+		if (elWithParallax.ctHasParallax) return
+
+		elWithParallax.ctHasParallax = true
+
+		setTimeout(() => {
+			rel.addEl(
+				elWithParallax.querySelector('.ct-image-container > img'),
+				// +elWithParallax.dataset.parallaxSpeed,
+				-5,
+				elWithParallax
+			)
+		}, 0)
+	})
+
+document.addEventListener('DOMContentLoaded', () => {
+	init()
+
+	window.ctEvents.on('blocksy:parallax:init', () => {
+		init()
+	})
+})

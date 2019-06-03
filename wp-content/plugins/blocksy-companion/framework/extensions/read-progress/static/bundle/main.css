@@ -1,0 +1,8 @@
+/**
+ *  - v1.0.9
+ * 
+ * Copyright (c) 2019
+ * Licensed GPLv2+
+ */
+
+.ct-read-progress-bar{background:-webkit-gradient(linear, left top, right top, from(var(--paletteColor1)), color-stop(0, transparent));background:linear-gradient(to right, var(--paletteColor1) var(--scroll, 0%), transparent 0);background-repeat:no-repeat;position:fixed;top:0;width:100%;height:3px;z-index:10;opacity:1;-webkit-transition:opacity 0.1s ease;transition:opacity 0.1s ease}.ct-read-progress-bar[style*='100']{opacity:0}@media screen and (min-width: 783px){.admin-bar .ct-read-progress-bar{top:32px}}@media screen and (max-width: 782px){.admin-bar .ct-read-progress-bar{top:46px}}@media screen and (max-width: 600px){.admin-bar .ct-read-progress-bar{top:0}}

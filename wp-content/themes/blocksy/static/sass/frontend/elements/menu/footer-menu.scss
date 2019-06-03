@@ -1,0 +1,13 @@
+.footer-menu {
+	--menuInitialColor: var(--linkInitialColor);
+	--menuHoverColor: var(--linkHoverColor);
+
+	font-size: 12px;
+	font-weight: 700;
+	line-height: normal;
+	text-transform: uppercase;
+
+	.menu-arrow {
+		display: none;
+	}
+}

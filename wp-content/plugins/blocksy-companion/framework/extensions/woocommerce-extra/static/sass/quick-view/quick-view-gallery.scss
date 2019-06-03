@@ -1,0 +1,48 @@
+.woocommerce .ct-quick-view-images {
+	position: relative;
+
+	.ct-product-view {
+		.ct-image-container {
+			pointer-events: none;
+		}
+		
+		img {
+			height: 100%;
+		}
+	}
+
+
+	// flexy
+
+	.flexy-pills {
+		position: absolute;
+		z-index: 2;
+		left: 0;
+		right: 0;
+		bottom: 20px;
+
+		--flexyInitialPill: rgba(255, 255, 255, 0.6);
+		--flexyActivePill: #fff;
+	}
+
+	// gallery border right
+	&:after {
+		position: absolute;
+		z-index: 3;
+		content: '';
+		top: 0;
+		right: -1px;
+		width: 1px;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.08);
+	}
+
+	// sale badge
+	span.onsale {
+		font-size: 12px;
+		font-weight: 600;
+		height: 30px;
+		padding: 0 15px;
+		margin: 20px 0 0 20px;
+	}
+}

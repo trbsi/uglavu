@@ -1,0 +1,25 @@
+[data-state="disabled"] {
+
+	> section {
+		opacity: 0.5;
+		pointer-events: none;
+	}
+
+	&.ct-panel {
+		> header > label {
+			opacity: 0.5;
+		}
+	}
+}
+
+// responsive controls
+.ct-responsive-controls {
+	li.ct-disabled {
+		opacity: 0.15;
+
+		&.active,
+		&:hover {
+			opacity: 0.25;
+		}
+	}
+}

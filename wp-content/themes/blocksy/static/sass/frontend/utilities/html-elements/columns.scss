@@ -1,0 +1,53 @@
+.entry-content .wp-block-columns {
+	display: grid;
+	grid-column-gap: 30px;
+	grid-row-gap: 30px;
+
+
+	// columns
+	@include media-breakpoint-up (lg) {
+		&.has-2-columns {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		&.has-3-columns {
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		&.has-4-columns {
+			grid-template-columns: repeat(4, 1fr);
+		}
+
+		&.has-5-columns {
+			grid-template-columns: repeat(5, 1fr);
+		}
+
+		&.has-6-columns {
+			grid-template-columns: repeat(6, 1fr);
+		}
+	}
+
+
+	.wp-block-column {
+		margin: 0;
+
+		// > * {
+		// 	margin: 0 0 25px 0;
+
+		// 	&:last-child {
+		// 		margin-bottom: 0;
+		// 	}
+		// }
+	}
+}
+
+
+// alignment
+[data-page-structure*="enhanced"] {
+	.wp-block-columns {
+		&.alignfull {
+			padding-left: $padding-align-full;
+			padding-right: $padding-align-full;
+		}
+	}
+}

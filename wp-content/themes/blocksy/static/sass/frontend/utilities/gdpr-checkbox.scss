@@ -1,0 +1,38 @@
+.gdpr-confirm-policy {
+	display: flex;
+	align-items: center;
+
+	label {
+		margin-left: 10px;
+		cursor: pointer;
+		opacity: 0.8;
+		font-size: 13px;
+		line-height: 13px;
+
+		&:after {
+			content: '*';
+			font-size: 15px;
+			font-weight: 600;
+			margin-left: 3px;
+		}
+	}
+}
+
+#commentform {
+	.gdpr-confirm-policy {
+		margin-top: -10px;
+		margin-bottom: 30px;
+	}
+}
+
+.ct-mailchimp-form {
+	.gdpr-confirm-policy {
+		margin-top: 20px;
+	}
+}
+
+.ct-mailchimp-widget {
+	.gdpr-confirm-policy {
+		margin-top: 20px;
+	}
+}

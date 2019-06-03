@@ -1,0 +1,70 @@
+[data-icons] i {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: inherit;
+
+	svg {
+		fill: currentColor;
+	}
+}
+
+// icon size
+[data-icons*="small"] svg {
+	height: 12px;
+	width: auto;
+}
+
+[data-icons*="medium"] svg {
+	height: 18px;
+	width: auto;
+}
+
+[data-icons*="large"] svg {
+	height: 23px;
+	width: auto;
+}
+
+[data-icons*="small-rounded"],
+[data-icons*="small-square"] {
+	i {
+		width: 36px;
+		height: 36px;
+	}
+}
+
+[data-icons*="medium-rounded"],
+[data-icons*="medium-square"] {
+	i {
+		width: 48px;
+		height: 48px;
+	}
+}
+
+[data-icons*="large-rounded"],
+[data-icons*="large-square"] {
+	i {
+		width: 70px;
+		height: 70px;
+	}
+}
+
+
+// icon shape
+[data-icons*="rounded"] li > * {
+	border-radius: 100%;
+}
+
+[data-icons*="square"] li > * {
+	border-radius: 2px;
+}
+
+
+// fill type
+[data-icons*="outline"] i {
+	border: 1px solid rgba(218, 222, 228, 1);
+}
+
+[data-icons*="solid"] i {
+	// background: rgba(218, 222, 228, 0.3);
+}

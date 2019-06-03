@@ -1,0 +1,148 @@
+.woocommerce-checkout form.checkout {
+
+	.ct-checkout-form-inner {
+		display: grid;
+		grid-column-gap: 45px;
+		grid-row-gap: 40px;
+
+		@include media-breakpoint-up (lg) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	// resets
+	h3 {
+		font-size: 17px;
+	}
+
+
+	// customer details
+	.ct-customer-details {
+		.col-1, .col-2 {
+			float: none;
+			width: auto;
+		}
+
+		.col-2 {
+			margin-top: 40px;
+		}
+	}
+
+
+	// order review
+	.ct-order-review {
+		align-self: flex-start;
+		position: sticky;
+		top: 50px;
+		@include media-breakpoint-down (sm) {
+			padding: 7.5%;
+		}
+
+		@include media-breakpoint-up (md) {
+			padding: 45px;
+		}
+		border: 2px solid $border-color;
+		// box-shadow: 0px 30px 90px 0px rgba(210, 213, 218, 0.15);
+
+		.shop_table {
+			font-size: 15px;
+			border: none;
+
+			th, td {
+				padding-left: 0;
+				padding-right: 0;
+				border-left: none;
+				border-right: none;
+			}
+
+			thead th {
+				border-top: none;
+			}
+
+			.product-total,
+			tfoot td {
+				text-align: right;
+			}
+
+			tfoot {
+				// background: rgba(242, 244, 247, 0.7);
+
+				tr:last-child {
+					th, td {
+						border-bottom: none;
+					}
+				}
+
+				#shipping_method label {
+					color: inherit;
+				}
+			}
+		}
+	}
+
+
+	// payment
+	#payment {
+		margin-top: 40px;
+		background: transparent;
+
+		ul.payment_methods {
+			padding: 0;
+			border: 1px solid $border-color;
+
+			li {
+				padding: 15px 20px;
+
+				&:not(:last-child) {
+					border-bottom: 1px solid $border-color;
+				}
+
+				input {
+					margin: 8px 7px 0 0;
+					vertical-align: top;
+				}
+
+				label {
+					color: inherit;
+					font-size: 15px;
+					font-weight: 600;
+				}
+			}
+		}
+
+		div.payment_box {
+			color: inherit;
+			padding: 0 10px;
+			background-color: transparent;
+			// background-color: rgba(242, 244, 247, 0.7);
+
+			&:before {
+				display: none;
+			}
+		}
+
+		.woocommerce-privacy-policy-text {
+			opacity: 0.7;
+			font-size: 15px;
+			line-height: 1.4;
+			font-style: italic;
+		}
+
+		div.place-order {
+			padding: 0;
+			margin-top: 30px;
+			margin-bottom: 0;
+
+			#place_order {
+				float: none;
+				width: 100%;
+				height: 45px;
+				margin-top: 30px;
+			}
+		}
+	}
+}
+
+.woocommerce form.checkout_coupon {
+	border-color: $border-color;
+}

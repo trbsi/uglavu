@@ -1,0 +1,115 @@
+.menu,
+.menu ul {
+	@include list-normalize;
+}
+
+.menu {
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: calc(var(--menuItemsSpacing) / -2);
+	margin-right: calc(var(--menuItemsSpacing) / -2);
+
+	a {
+		display: flex;
+		align-items: center;
+		text-align: initial;
+	}
+
+	.current-menu-item a {
+		color: var(--menuHoverColor);
+	}
+
+
+	// first level
+	> li {
+		display: flex;
+		align-items: center;
+
+		line-height: 1.3;
+		padding-left: calc(var(--menuItemsSpacing) / 2);
+		padding-right: calc(var(--menuItemsSpacing) / 2);
+
+		> a {
+			color: var(--menuInitialColor);
+
+			&:hover {
+				color: var(--menuHoverColor);
+			}
+		}
+	}
+
+
+	// second level / sub menu
+	.menu-item-has-children,
+	.page_item_has_children {
+		position: relative;
+	}
+
+	.sub-menu {
+		position: absolute;
+		z-index: 10;
+		left: calc(var(--menuItemsSpacing) / -4);
+		top: 100%;
+		margin-top: var(--dropdownTopOffset);
+		min-width: 100px;
+		border-radius: 2px;
+		width: var(--dropdownMenuWidth);
+		background: var(--dropDownBackground);
+		box-shadow: 0px 10px 20px 0px rgba(41, 51, 61, 0.1);
+
+		li {
+			a {
+				padding: 13px 20px;
+				color: var(--menuInitialColor);
+
+				&:hover {
+					color: var(--menuHoverColor);
+				}
+			}
+
+			&.current-menu-item a {
+				color: var(--menuHoverColor);
+			}
+
+			&:not(:last-child) {
+				border-bottom: var(--dropDownDivider);
+			}
+		}
+
+		// bridge
+		&:before {
+			position: absolute;
+			content: '';
+			width: 100%;
+			height: var(--dropdownTopOffset);
+			top: calc(var(--dropdownTopOffset) * -1);
+			left: 0;
+		}
+	}
+
+	// hide last items if not active
+	> li > .sub-menu > li:not([data-submenu]) > ul {
+		position: fixed;
+		top: 0;
+		left: 0;
+		opacity: 0;
+		visibility: hidden;
+		transition: none;
+	}
+
+	// edit shortcute position fix
+	> .customize-partial-edit-shortcut {
+		margin-left: calc(var(--menuItemsSpacing) / 2);
+	}
+}
+
+@import 'menu-type';
+@import 'primary-menu';
+@import 'footer-menu';
+@import 'menu-dropdown';
+@import 'menu-divider';
+@import 'dropdown-animation';
+
+@import 'mobile-menu';
+@import 'modal-menu';
+@import 'offcanvas-menu';
