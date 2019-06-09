@@ -1,0 +1,10 @@
+.ct-demos-list {
+	display: flex;
+	flex-direction: column;
+
+	.ct-single-demo {
+		img {
+			max-width: 100px;
+		}
+	}
+}

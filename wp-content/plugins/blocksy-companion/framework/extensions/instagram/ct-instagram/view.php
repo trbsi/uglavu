@@ -39,6 +39,7 @@ $widget_data = json_encode(
 			'<li>' . blocksy_simple_image(
 				'#',
 				[
+					'lazyload' => true,
 					'tag' => 'a',
 					'html_atts' => [
 						'target' => '_blank',

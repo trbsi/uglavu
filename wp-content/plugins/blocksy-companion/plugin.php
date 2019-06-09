@@ -25,6 +25,7 @@ class Plugin {
 
 	// Features
 	public $feat_google_analytics = null;
+	public $demo = null;
 
 	/**
 	 * Instance.
@@ -55,6 +56,7 @@ class Plugin {
 
 		$this->extensions_api = new ExtensionsManagerApi();
 		$this->theme_integration = new ThemeIntegration();
+		$this->demo = new DemoInstall();
 	}
 
 	/**

@@ -7,7 +7,11 @@ import {
 } from '@wordpress/element'
 
 import { Transition } from 'react-spring/renderprops'
-import { Dialog, DialogOverlay, DialogContent } from '@reach/dialog'
+import {
+	Dialog,
+	DialogOverlay,
+	DialogContent
+} from '../../../../../static/js/helpers/reach/dialog'
 import classnames from 'classnames'
 import { __, sprintf } from 'ct-i18n'
 import ListPicker from './ListPicker'
@@ -71,6 +75,7 @@ const EditCredentials = ({
 				isEditingCredentials &&
 				(props => (
 					<DialogOverlay
+						container={document.querySelector('#wpbody')}
 						style={{ opacity: props.opacity }}
 						onDismiss={() => setIsEditingCredentials(false)}>
 						<DialogContent
@@ -139,7 +144,9 @@ const EditCredentials = ({
 											}>
 											{isLoading
 												? __('Loading...', 'blc')
-												: __('Activate', 'blc')}
+												: !extension.__object
+													? __('Activate', 'blc')
+													: __('Update', 'blc')}
 										</button>
 									</li>
 								</ul>

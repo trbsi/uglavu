@@ -6,7 +6,7 @@ import {
 	Fragment
 } from '@wordpress/element'
 import { Transition } from 'react-spring/renderprops'
-import { Dialog, DialogOverlay, DialogContent } from '@reach/dialog'
+import { Dialog, DialogOverlay, DialogContent } from './reach/dialog'
 import '@reach/dialog/styles.css'
 
 const useExtensionReadme = extension => {
@@ -25,6 +25,7 @@ const useExtensionReadme = extension => {
 				showReadme &&
 				(props => (
 					<DialogOverlay
+						container={document.querySelector('#wpbody')}
 						style={{ opacity: props.opacity }}
 						onDismiss={() => setIsShowingReadme(false)}>
 						<DialogContent

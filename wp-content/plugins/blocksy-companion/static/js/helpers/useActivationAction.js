@@ -31,7 +31,7 @@ const useActivationAction = (extension, cb = () => {}) => {
 			cb()
 		} catch (e) {}
 
-		await new Promise(r => setTimeout(() => r(), 1000))
+		// await new Promise(r => setTimeout(() => r(), 1000))
 
 		setIsLoading(false)
 	}

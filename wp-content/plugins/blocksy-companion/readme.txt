@@ -24,6 +24,11 @@ This plugin runs and adds its enhacements only if the Blocksy theme is installed
 
 == Changelog ==
 
+1.0.10: 2019-06-05
+* Improvement: Dashboard visual changes
+* Fix: Properly enqueue Elementor CSS
+* Fix: Instagram images glitch when lazy load is disabled
+
 1.0.9: 2019-05-23
 * New: Introduce a way for extensions to run code on activation and deactivation
 * Improvement: Cookie notification integration with W3 Total Cache, WP Super Cache and WP Rocket

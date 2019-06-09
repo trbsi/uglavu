@@ -28,6 +28,11 @@ class Autoloader {
 
 		'GoogleAnalytics' => 'framework/features/google-analytics.php',
 
+		'DemoInstall' => 'framework/features/demo-install.php',
+		'DemoInstallContentExport' => 'framework/features/demo-install/content-export.php',
+		'DemoInstallWidgetsExport' => 'framework/features/demo-install/widgets-export.php',
+		'DemoInstallOptionsExport' => 'framework/features/demo-install/options-export.php',
+
 		/**
 		 * No namespace
 		 */

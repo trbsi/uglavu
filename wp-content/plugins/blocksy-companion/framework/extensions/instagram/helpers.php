@@ -214,6 +214,7 @@ function blc_output_instagram_section($forced = false) {
 					'<li>' . blocksy_simple_image(
 						'#',
 						[
+							'lazyload' => true,
 							'tag' => 'a',
 							'html_atts' => [
 								'target' => '_blank',

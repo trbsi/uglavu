@@ -129,6 +129,14 @@ document.addEventListener('DOMContentLoaded', () => {
 	ctEvents.on('ct:quick-view:update', () => mount())
 
 	ctEvents.on('ct:modal:closed', modalContainer => {
+		if (
+			!modalContainer
+				.closest('.ct-modal')
+				.classList.contains('quick-view-modal')
+		) {
+			return
+		}
+
 		if (modalContainer.querySelector('.flexy-container')) {
 			const flexyEl = modalContainer.querySelector('.flexy-container')
 				.parentNode
