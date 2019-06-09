@@ -1,5 +1,10 @@
 <?php
 
+add_filter('wp_kses_allowed_html', function ($tags) {
+	$tags['noscript'] = true;
+	return $tags;
+});
+
 if ( ! function_exists( 'blocksy_post_meta' ) ) {
 	/**
 	 * array(
@@ -31,7 +36,8 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 				'category_style' => 'simple',
 				'plain' => false,
 				'meta_type' => 'simple',
-				'force_icons' => false
+				'force_icons' => false,
+				'date_format' => 'M j, Y'
 			]
 		);
 
@@ -115,8 +121,10 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 						</span>
 					<?php } ?>
 
-					<span class="ct-meta-element">
-						<?php echo esc_html(get_the_date( 'M j, Y' )); ?>
+					<span
+						class="ct-meta-element"
+						<?php echo ($args['force_icons'] ? 'data-date="' . get_the_date('c') . '"' : '') ?>>
+						<?php echo esc_html(get_the_date( $args['date_format'] )); ?>
 					</span>
 				</li>
 			<?php } ?>
@@ -166,10 +174,7 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 
 					if ($args['meta_type'] === 'icons' || $args['force_icons']) {
 						echo '<span class="ct-meta-icon">';
-						echo '<svg width="12" height="12" viewBox="0 0 15 15">
-								<path d="M13.5,3h-6L6,1.5H1.5C0.7,1.5,0,2.2,0,3v9c0,0.8,0.7,1.5,1.5,1.5h12c0.8,0,1.5-0.7,1.5-1.5V4.5C15,3.7,14.3,3,13.5,3z
-	 M13.5,12h-12V4.5h12V12z"/>
-							</svg>';
+						echo '<svg width="13" height="13" viewBox="0 0 15 15"><path d="M13,14.3H2c-1.1,0-2-0.9-2-2V2.7c0-1.1,0.9-2,2-2h3.4C5.7,0.7,5.9,0.8,6,1l1.2,1.7H13c1.1,0,2,0.9,2,2v7.5C15,13.4,14.1,14.3,13,14.3z M2,2C1.7,2,1.4,2.4,1.4,2.7v9.5C1.4,12.6,1.7,13,2,13H13c0.4,0,0.7-0.3,0.7-0.7V4.8c0-0.4-0.3-0.7-0.7-0.7H6.8C6.6,4.1,6.4,4,6.3,3.8L5.1,2H2z"/></svg>';
 						echo '</span>';
 					}
 
@@ -228,11 +233,28 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 		<?php } ?>
 
 			<?php if ( $post_meta_descriptor['author'] && get_the_author() ) { ?>
-				<?php if ( $post_meta_descriptor['author_avatar'] ) { ?>
-					<a href="<?php echo esc_attr(get_author_posts_url( get_the_author_meta( 'ID' ) )); ?>" class="avatar-container">
-						<?php echo wp_kses_post(get_avatar( get_the_author_meta( 'ID' ), $args['avatar_size'] )); ?>
-					</a>
-				<?php } ?>
+				<?php if ( $post_meta_descriptor['author_avatar'] ) {
+					echo blocksy_simple_image(
+						get_avatar_url(
+							get_the_author_meta('ID'),
+							[
+								'size' => intval($args['avatar_size']) * 2
+							]
+						),
+						[
+							'tag_name' => 'a',
+
+							'html_atts' => [
+								'class' => 'avatar-container',
+								'href' => get_author_posts_url(get_the_author_meta('ID')),
+							],
+							'img_atts' => [
+								'width' => intval($args['avatar_size']),
+								'height' => intval($args['avatar_size'])
+							],
+						]
+					);
+				} ?>
 			<?php } ?>
 
 			<ul <?php echo wp_kses_post($class_output) ?>>

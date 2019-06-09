@@ -52,7 +52,7 @@ $options = [
 				'label' => __( 'Scroll to Top', 'blocksy' ),
 				'type' => 'ct-panel',
 				'switch' => true,
-				'value' => 'yes',
+				'value' => 'no',
 				'setting' => [ 'transport' => 'postMessage' ],
 				'inner-options' => [
 
@@ -257,6 +257,19 @@ $options = [
 									'attr' => [ 'data-type' => 'small' ],
 								],
 
+								'footer_main_area_container' => [
+									'label' => __( 'Container Width', 'blocksy' ),
+									'type' => 'ct-radio',
+									'value' => 'fixed',
+									'view' => 'text',
+									'design' => 'block',
+									'setting' => [ 'transport' => 'postMessage' ],
+									'choices' => [
+										'fixed' => __( 'Fixed', 'blocksy' ),
+										'fluid' => __( 'Fluid', 'blocksy' ),
+									],
+								],
+
 								'footer_main_area_stacking' => [
 									'label' => __( 'Stack Sections on', 'blocksy' ),
 									'type' => 'ct-visibility',
@@ -456,6 +469,19 @@ $options = [
 									'1-2' => [
 										'src' => blocksy_image_picker_url( 'footer-widgets-1-2.svg' ),
 									],
+								],
+							],
+
+							'footer_widgets_container' => [
+								'label' => __( 'Container Width', 'blocksy' ),
+								'type' => 'ct-radio',
+								'value' => 'fixed',
+								'view' => 'text',
+								'design' => 'block',
+								'setting' => [ 'transport' => 'postMessage' ],
+								'choices' => [
+									'fixed' => __( 'Fixed', 'blocksy' ),
+									'fluid' => __( 'Fluid', 'blocksy' ),
 								],
 							],
 

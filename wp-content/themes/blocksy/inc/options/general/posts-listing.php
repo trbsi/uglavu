@@ -50,7 +50,12 @@ $options = [
 
 			'enhanced-grid' => [
 				'src'   => blocksy_image_picker_url( 'enhanced-grid.svg' ),
-				'title' => __( 'Simple', 'blocksy' ),
+				'title' => __( 'Enhanced Grid', 'blocksy' ),
+			],
+
+			'gutenberg' => [
+				'src'   => blocksy_image_picker_url( 'gutenberg.svg' ),
+				'title' => __( 'Gutenberg', 'blocksy' ),
 			],
 
 		],
@@ -74,15 +79,25 @@ $options = [
 				'type' => 'tab',
 				'options' => [
 
-					$prefix . 'card_type' => [
-						'label' => __( 'Card Type', 'blocksy' ),
-						'type' => 'ct-radio',
-						'value' => 'boxed',
-						'view' => 'text',
-						'setting' => [ 'transport' => 'postMessage' ],
-						'choices' => [
-							'boxed' => __( 'Boxed', 'blocksy' ),
-							'simple' => __( 'Simple', 'blocksy' ),
+					blocksy_rand_md5() => [
+						'type' => 'ct-condition',
+						'condition' => [
+							$prefix . 'structure' => '!gutenberg'
+						],
+						'options' => [
+
+							$prefix . 'card_type' => [
+								'label' => __( 'Card Type', 'blocksy' ),
+								'type' => 'ct-radio',
+								'value' => 'boxed',
+								'view' => 'text',
+								'setting' => [ 'transport' => 'postMessage' ],
+								'choices' => [
+									'boxed' => __( 'Boxed', 'blocksy' ),
+									'simple' => __( 'Simple', 'blocksy' ),
+								],
+							],
+
 						],
 					],
 
@@ -99,6 +114,12 @@ $options = [
 									'date' => false,
 									'comments' => false,
 								],
+								'meta_type' => 'simple',
+								'has_meta_label' => 'no',
+								'category_style' => 'simple',
+								'has_author_avatar' => 'no',
+								'avatar_size' => '30',
+								'date_format' => 'M j, Y',
 							],
 
 							[
@@ -133,7 +154,8 @@ $options = [
 								'has_meta_label' => 'no',
 								'category_style' => 'simple',
 								'has_author_avatar' => 'no',
-								'avatar_size' => '30'
+								'avatar_size' => '30',
+								'date_format' => 'M j, Y',
 							],
 						],
 
@@ -172,17 +194,23 @@ $options = [
 										'type' => 'ct-radio',
 										'value' => '4/3',
 										'view' => 'text',
-										'design' => 'inline',
-										'attr' => [ 'data-type' => 'compact' ],
+										'design' => 'block',
+										'attr' => [ 'data-buttons' => 'ratio', 'data-type' => 'compact' ],
 										'choices' => [
 											'4/3' => '4/3',
 											'3/4' => '3/4',
+											'2/1' => '2/1',
+											'1/2' => '1/2',
+											'1/1' => '1/1',
 										],
 									],
 
 									blocksy_rand_md5() => [
 										'type' => 'ct-condition',
-										'condition' => [ $prefix . 'card_type' => 'boxed' ],
+										'condition' => [
+											$prefix . 'card_type' => 'boxed',
+											$prefix . 'structure' => '!gutenberg'
+										],
                                         'global' => true,
 										'options' => [
 
@@ -293,6 +321,28 @@ $options = [
 
 									blocksy_rand_md5() => [
 										'type' => 'ct-condition',
+										'condition' => [ 'meta/date' => true ],
+										'options' => [
+
+											'date_format' => [
+												'label' => __( 'Date Format', 'blocksy' ),
+												'type' => 'text',
+												'design' => 'inline',
+												'value' => 'M j, Y',
+												'setting' => [ 'transport' => 'postMessage' ],
+												// translators: The interpolations addes a html link around the word.
+												'desc' => sprintf(
+													__('Formating strings %sexamples%s.', 'blocksy'),
+													'<a href="https://wordpress.org/support/article/formatting-date-and-time/#format-string-examples" target="_blank">',
+													'</a>'
+												),
+											],
+
+										],
+									],
+
+									blocksy_rand_md5() => [
+										'type' => 'ct-condition',
 										'condition' => [
 											'meta/author' => true,
 										],
@@ -341,7 +391,7 @@ $options = [
 						'label' => __( 'Cards Gap', 'blocksy' ),
 						'type' => 'ct-slider',
 						'min' => 0,
-						'max' => 60,
+						'max' => 100,
 						'responsive' => true,
 						'value' => [
 							'mobile' => 30,
@@ -358,22 +408,23 @@ $options = [
 				'type' => 'tab',
 				'options' => [
 
-					$prefix . 'cardTitleSize' => [
-						'label' => __( 'Title Font Size', 'blocksy' ),
-						'type' => 'ct-slider',
-						'min' => 0,
-						'max' => 100,
-						'responsive' => true,
-						'value' => [
-							'mobile' => 18,
-							'tablet' => 20,
-							'desktop' => 20,
-						],
+					$prefix . 'cardTitleFont' => [
+						'type' => 'ct-typography',
+						'label' => __( 'Title Font', 'blocksy' ),
+						'value' => blocksy_typography_default_values([
+							'size' => [
+								'desktop' => '20px',
+								'tablet'  => '20px',
+								'mobile'  => '18px'
+							],
+							'variation' => 'n7',
+							'line-height' => '1.3'
+						]),
 						'setting' => [ 'transport' => 'postMessage' ],
 					],
 
 					$prefix . 'cardTitleColor' => [
-						'label' => __( 'Title Color', 'blocksy' ),
+						'label' => __( 'Title Font Color', 'blocksy' ),
 						'type'  => 'ct-color-picker',
 						'design' => 'inline',
 						'setting' => [ 'transport' => 'postMessage' ],
@@ -428,7 +479,7 @@ $options = [
 
 						'value' => [
 							'default' => [
-								'color' => 'rgba(44,62,80,0.9)',
+								'color' => 'var(--fontColor)',
 							],
 						],
 
@@ -467,7 +518,7 @@ $options = [
 
 						'value' => [
 							'default' => [
-								'color' => 'var(--paletteColor3)',
+								'color' => 'var(--fontColor)',
 							],
 
 							'hover' => [
@@ -490,7 +541,10 @@ $options = [
 
 					blocksy_rand_md5() => [
 						'type' => 'ct-condition',
-						'condition' => [ $prefix . 'card_type' => 'boxed' ],
+						'condition' => [
+							$prefix . 'card_type' => 'boxed',
+							$prefix . 'structure' => '!gutenberg'
+						],
 						'options' => [
 
 							blocksy_rand_md5() => [

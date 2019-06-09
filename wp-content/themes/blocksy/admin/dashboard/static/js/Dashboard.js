@@ -1,24 +1,28 @@
 import { createElement, Component } from '@wordpress/element'
-import { Provider, getDefaultValue } from './context'
-import createHashSource from 'hash-source'
+import DashboardContext, { Provider, getDefaultValue } from './context'
 import Heading from './Heading'
 import {
 	Router,
 	Link,
+	Match,
 	Location,
 	LocationProvider,
+	navigate,
 	createHistory
 } from '@reach/router'
 import ctEvents from 'ct-events'
 import { Transition, animated } from 'react-spring'
+
+window.ctDashboardLocalizations.DashboardContext = DashboardContext
 
 import Navigation from './Navigation'
 import Home from './screens/Home'
 import SystemStatus from './screens/SystemStatus'
 import RecommendedPlugins from './screens/RecommendedPlugins'
 import Changelog from './screens/Changelog'
+import windowHashSource from './window-hash-source'
 
-let history = createHistory(createHashSource())
+let history = createHistory(windowHashSource())
 /*
 ctEvents.on('ct:dashboard:routes', r =>
 	r.push({
@@ -30,10 +34,11 @@ ctEvents.on('ct:dashboard:routes', r =>
 
 const SpringRouter = ({ children }) => (
 	<Location>
-		{({ location }) => (
+		{({ location, navigate }) => (
 			<Transition
 				items={location}
 				initial={null}
+				immediate={(location.state || {}).hasNoChange}
 				keys={location => location.pathname}
 				from={{ opacity: 0 }}
 				enter={[{ opacity: 1 }]}
@@ -53,7 +58,10 @@ const SpringRouter = ({ children }) => (
 						style={{
 							...props
 						}}>
-						<Router primary={false} location={location}>
+						<Router
+							primary={false}
+							location={location}
+							navigate={navigate}>
 							{children}
 						</Router>
 					</animated.div>
@@ -98,7 +106,11 @@ export default class Dashboard extends Component {
 					value={{
 						...getDefaultValue(),
 						theme_version: ctDashboardLocalizations.theme_version,
-						theme_name: ctDashboardLocalizations.theme_name
+						theme_name: ctDashboardLocalizations.theme_name,
+						Link,
+						Location,
+						navigate,
+						Match
 					}}>
 					<header>
 						<Heading />
@@ -112,9 +124,15 @@ export default class Dashboard extends Component {
 							<RecommendedPlugins path="plugins" />
 							<Changelog path="changelog" />
 
-							{userRoutes.map(({ Component, path }) => (
-								<Component key={path} path={path} />
-							))}
+							{userRoutes.map(
+								({ Component, key, path, ...props }) => (
+									<Component
+										key={key || path}
+										path={path}
+										{...props}
+									/>
+								)
+							)}
 						</SpringRouter>
 					</section>
 				</Provider>

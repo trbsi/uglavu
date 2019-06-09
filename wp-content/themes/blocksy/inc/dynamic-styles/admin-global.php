@@ -54,3 +54,12 @@ $css->put(
 	"--buttonHoverColor: {$button_color['hover']}"
 );
 
+
+$font_color = blocksy_get_colors( get_theme_mod( 'fontColor',
+    [ 'default' => [ 'color' => 'var(--paletteColor3)' ] ]
+));
+
+$css->put(
+    ':root',
+    "--fontColor: {$font_color['default']}"
+);

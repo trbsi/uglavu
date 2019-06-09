@@ -173,6 +173,7 @@ $customizer-width: 320px;
 	// second level panel
 	.customize-pane-child {
 		bottom: 0; // fix panel height
+		min-height: 100%;
 
 		.customize-section-description-container {
 			margin-bottom: 0;

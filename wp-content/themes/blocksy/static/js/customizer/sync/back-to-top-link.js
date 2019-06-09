@@ -4,7 +4,7 @@ import { checkAndReplace } from './helpers'
 checkAndReplace({
 	id: 'has_back_top',
 
-	parent_selector: '#main-container',
+	parent_selector: 'body',
 	selector: '.ct-back-to-top',
 	fragment_id: 'back-to-top-link',
 

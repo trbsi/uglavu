@@ -22,21 +22,24 @@ if ($page_title_source) {
 	}
 
 	// title size
-	blocksy_output_responsive([
+	blocksy_output_font_css([
+		'font_value' => blocksy_akg_or_customizer(
+			'pageTitleFont',
+			$page_title_source,
+			blocksy_typography_default_values([
+				'size' => [
+					'desktop' => '32px',
+					'tablet'  => '30px',
+					'mobile'  => '25px' 
+				],
+				'variation' => 'n7',
+				'line-height' => '1.3',
+			])
+		),
 		'css' => $css,
 		'tablet_css' => $tablet_css,
 		'mobile_css' => $mobile_css,
-		'selector' => ':root',
-		'variableName' => 'pageTitleFontSize',
-		'value' => blocksy_akg_or_customizer(
-			'pageTitleFontSize',
-			$page_title_source,
-			[
-				'mobile' => 25,
-				'tablet' => 30,
-				'desktop' => 32,
-			]
-		),
+		'selector' => '.entry-header .page-title'
 	]);
 
 	// font color

@@ -130,12 +130,17 @@ export const replaceArticleAndRemoveParts = () => {
 		)
 		;[...shareBox].map(el => el && el.parentNode.removeChild(el))
 	} else {
-		const shareBoxLocation = wp.customize('share_box_location')() || {
+		const shareBoxType = wp.customize('share_box_type')() || 'type-1'
+
+		const shareBox1Location = wp.customize('share_box1_location')() || {
 			top: false,
 			bottom: true
 		}
 
-		if (!shareBoxLocation.top) {
+		const shareBox2Location =
+			wp.customize('share_box2_location')() || 'right'
+
+		if (!shareBox1Location.top && shareBoxType !== 'type-2') {
 			const header = document.querySelector(
 				'.site-main .content-area article .share-box[data-location="top"]'
 			)
@@ -145,7 +150,7 @@ export const replaceArticleAndRemoveParts = () => {
 			}
 		}
 
-		if (!shareBoxLocation.bottom) {
+		if (!shareBox1Location.bottom || shareBoxType === 'type-2') {
 			const content = document.querySelector(
 				'.site-main .content-area article .share-box[data-location="bottom"]'
 			)
@@ -153,6 +158,17 @@ export const replaceArticleAndRemoveParts = () => {
 			if (content) {
 				content.parentNode.removeChild(content)
 			}
+		}
+
+		if (shareBoxType === 'type-2') {
+			const header = document.querySelector(
+				'.site-main .content-area article .share-box[data-location="top"]'
+			)
+
+			header.dataset.type = shareBoxType
+
+			header.removeAttribute('data-location')
+			header.dataset.location = shareBox2Location
 		}
 
 		if ((wp.customize('share_facebook')() || 'yes') === 'no') {
@@ -171,18 +187,34 @@ export const replaceArticleAndRemoveParts = () => {
 			].map(el => el.parentNode.removeChild(el))
 		}
 
-		if ((wp.customize('share_pinterest')() || 'yes') === 'no') {
+		if ((wp.customize('share_vk')() || 'yes') === 'no') {
 			;[
 				...document.querySelectorAll(
-					'.site-main .content-area article [data-share-network="pinterest"]'
+					'.site-main .content-area article [data-share-network="vk"]'
 				)
 			].map(el => el.parentNode.removeChild(el))
 		}
 
-		if ((wp.customize('share_gplus')() || 'yes') === 'no') {
+		if ((wp.customize('share_ok')() || 'yes') === 'no') {
 			;[
 				...document.querySelectorAll(
-					'.site-main .content-area article [data-share-network="google_plus"]'
+					'.site-main .content-area article [data-share-network="ok"]'
+				)
+			].map(el => el.parentNode.removeChild(el))
+		}
+
+		if ((wp.customize('share_telegram')() || 'yes') === 'no') {
+			;[
+				...document.querySelectorAll(
+					'.site-main .content-area article [data-share-network="telegram"]'
+				)
+			].map(el => el.parentNode.removeChild(el))
+		}
+
+		if ((wp.customize('share_pinterest')() || 'yes') === 'no') {
+			;[
+				...document.querySelectorAll(
+					'.site-main .content-area article [data-share-network="pinterest"]'
 				)
 			].map(el => el.parentNode.removeChild(el))
 		}
@@ -207,7 +239,19 @@ export const replaceArticleAndRemoveParts = () => {
 				return
 			}
 
-			el.firstElementChild.dataset.count = count
+			el.removeAttribute('data-count')
+
+			responsiveClassesFor('share_box_visibility', el)
+
+			if (shareBoxType === 'type-1') {
+				if (el.firstElementChild.tagName.toLowerCase() === 'a') {
+					el.firstElementChild.remove()
+				}
+			}
+
+			if (shareBoxType === 'type-2') {
+				el.dataset.count = count
+			}
 		})
 	}
 
@@ -303,6 +347,10 @@ wp.customize('has_share_box', val =>
 	val.bind(() => replaceArticleAndRemoveParts())
 )
 
+wp.customize('share_box_visibility', val =>
+	val.bind(() => replaceArticleAndRemoveParts())
+)
+
 wp.customize('has_post_nav_title', val =>
 	val.bind(() => replaceArticleAndRemoveParts())
 )
@@ -310,7 +358,13 @@ wp.customize('has_post_nav_thumb', val =>
 	val.bind(() => replaceArticleAndRemoveParts())
 )
 
-wp.customize('share_box_location', val =>
+wp.customize('share_box1_location', val =>
+	val.bind(() => replaceArticleAndRemoveParts())
+)
+wp.customize('share_box2_location', val =>
+	val.bind(() => replaceArticleAndRemoveParts())
+)
+wp.customize('share_box_type', val =>
 	val.bind(() => replaceArticleAndRemoveParts())
 )
 wp.customize('share_facebook', val =>
@@ -322,10 +376,12 @@ wp.customize('share_twitter', val =>
 wp.customize('share_pinterest', val =>
 	val.bind(() => replaceArticleAndRemoveParts())
 )
-wp.customize('share_gplus', val =>
+wp.customize('share_linkedin', val =>
 	val.bind(() => replaceArticleAndRemoveParts())
 )
-wp.customize('share_linkedin', val =>
+wp.customize('share_vk', val => val.bind(() => replaceArticleAndRemoveParts()))
+wp.customize('share_ok', val => val.bind(() => replaceArticleAndRemoveParts()))
+wp.customize('share_telegram', val =>
 	val.bind(() => replaceArticleAndRemoveParts())
 )
 wp.customize('has_author_box', val =>

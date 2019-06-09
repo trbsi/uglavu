@@ -12,6 +12,8 @@ wp.customize.bind('ready', () => {
 	wp.customize.previewer.bind('location-change', location => {
 		if (!location) return
 
+		return
+
 		if (
 			Object.values(wp.customize.section._value).find(s => s.expanded())
 		) {

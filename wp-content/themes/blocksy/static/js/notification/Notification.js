@@ -41,20 +41,21 @@ const Notification = ({ initialStatus, url, pluginUrl, pluginLink }) => {
 				type="button"
 				className="notice-dismiss">
 				<span className="screen-reader-text">
-					{__('Dismiss this notice.')}
+					{__('Dismiss this notice.', 'blocksy')}
 				</span>
 			</button>
 
-			<h1>{__('Congratulations!')}</h1>
+			<h1>{__('Congratulations!', 'blocksy')}</h1>
 
 			<p className="about-description">
-				{__('Blocksy theme is now active and ready to use.')}
+				{__('Blocksy theme is now active and ready to use.', 'blocksy')}
 			</p>
 
 			<p
 				dangerouslySetInnerHTML={{
 					__html: __(
-						'To get full advantage of it, we strongly recommend to activate the <b>Blocksy Companion</b> Plugin. This way you will have access to custom extensions, demo templates and many other awesome features.'
+						'To get full advantage of it, we strongly recommend to activate the <b>Blocksy Companion</b> Plugin. This way you will have access to custom extensions, demo templates and many other awesome features.',
+						'blocksy'
 					)
 				}}
 			/>
@@ -65,7 +66,7 @@ const Notification = ({ initialStatus, url, pluginUrl, pluginLink }) => {
 						className="button button-primary"
 						href={pluginLink}
 						target="_blank">
-						{__('Download Blocksy Companion')}
+						{__('Download Blocksy Companion', 'blocksy')}
 					</a>
 				)}
 
@@ -98,17 +99,17 @@ const Notification = ({ initialStatus, url, pluginUrl, pluginLink }) => {
 							<i className="dashicons dashicons-update" />
 						)}
 						{isLoading
-							? __('Activating...')
+							? __('Activating...', 'blocksy')
 							: pluginStatus === 'uninstalled'
-								? __('Install Blocksy Companion')
+								? __('Install Blocksy Companion', 'blocksy')
 								: pluginStatus === 'installed'
-									? __('Activate Blocksy Companion')
-									: __('Blocksy Companion active!')}
+									? __('Activate Blocksy Companion', 'blocksy')
+									: __('Blocksy Companion active!', 'blocksy')}
 					</button>
 				)}
 
 				<a href={url} className="button">
-					{__('Theme Dashboard')}
+					{__('Theme Dashboard', 'blocksy')}
 				</a>
 			</div>
 		</div>

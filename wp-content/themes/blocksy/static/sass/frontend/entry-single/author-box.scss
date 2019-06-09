@@ -10,42 +10,39 @@
 
 	figure {
 		a {
-			display: flex;
-			position: relative;
+			width: 60px;
+			height: 60px;
 			border-radius: 100%;
-			overflow: hidden;
-		}
+			-webkit-mask-image: -webkit-radial-gradient(white, black);
 
-		img {
-			max-width: initial;
-		}
-
-		span {
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			opacity: 0;
-			background: var(--paletteColor1);
-			transition: opacity 0.15s cubic-bezier(0.455, 0.03, 0.515, 0.955);
-
-			svg {
-				fill: #fff;
-				transform: translate3d(-10px, 0, 0);
-				transition: transform 0.15s cubic-bezier(0.455, 0.03, 0.515, 0.955);
-			}
-		}
-
-		a:hover {
 			span {
-				opacity: 0.85;
+				position: absolute;
+				z-index: 1;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				opacity: 0;
+				background: var(--paletteColor1);
+				transition: opacity 0.15s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 
 				svg {
-					transform: translate3d(0, 0, 0);
+					fill: #fff;
+					transform: translate3d(-10px, 0, 0);
+					transition: transform 0.15s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+				}
+			}
+
+			&:hover {
+				span {
+					opacity: 0.85;
+
+					svg {
+						transform: translate3d(0, 0, 0);
+					}
 				}
 			}
 		}

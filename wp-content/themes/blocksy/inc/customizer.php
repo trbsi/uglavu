@@ -179,7 +179,7 @@ add_action(
 		wp_enqueue_script(
 			'ct-customizer',
 			get_template_directory_uri() . '/static/bundle/sync.js',
-			[ 'customize-preview' ],
+			[ 'customize-preview', 'wp-date' ],
 			'20151215',
 			true
 		);
@@ -230,20 +230,38 @@ add_action(
 	function () {
 		$theme = wp_get_theme();
 
-		wp_enqueue_script(
-			'ct-customizer-controls',
-			get_template_directory_uri() . '/static/bundle/customizer-controls.js',
-			array( 'ct-options-scripts', 'customize-controls' ),
-			$theme->get( 'Version' ),
-			true
-		);
-
 		wp_enqueue_style(
 			'ct-customizer-controls-styles',
 			get_template_directory_uri() . '/static/bundle/customizer-controls.css',
 			array(),
 			$theme->get( 'Version' )
 		);
+
+		wp_enqueue_script(
+			'ct-customizer-controls',
+			get_template_directory_uri() . '/static/bundle/customizer-controls.js',
+			array(
+				'underscore',
+				'wp-color-picker',
+				'react',
+				'react-dom',
+				'wp-element',
+				'wp-date',
+				'wp-i18n',
+				'customize-controls',
+			),
+			$theme->get( 'Version' ),
+			true
+		);
+
+		wp_localize_script(
+			'ct-customizer-controls',
+			'ct_customizer_localizations',
+			[
+				'customizer_reset_none' => wp_create_nonce( 'ct-customizer-reset' ),
+			]
+		);
+
 	}
 );
 

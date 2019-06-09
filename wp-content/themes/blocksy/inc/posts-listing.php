@@ -30,7 +30,6 @@ add_action('pre_get_posts', function ($query) {
 	);
 });
 
-
 function blocksy_get_posts_listing_source() {
 	static $result = null;
 
@@ -71,5 +70,46 @@ function blocksy_get_posts_listing_source() {
 	];
 
 	return $result;
+}
+
+
+function blocksy_get_listing_card_type() {
+	$cards_type_output = '';
+
+	$listing_source = blocksy_get_posts_listing_source();
+
+	$blog_post_structure = blocksy_akg_or_customizer(
+		'structure',
+		$listing_source,
+		'grid'
+	);
+
+	if ($blog_post_structure === 'gutenberg') {
+		return $cards_type_output;
+	}
+
+	$card_type = blocksy_akg_or_customizer(
+		'card_type',
+		$listing_source,
+		'boxed'
+	);
+
+	return 'data-cards="' . $card_type . '"';
+}
+
+function blocksy_listing_page_structure() {
+	$listing_source = blocksy_get_posts_listing_source();
+
+	$blog_post_structure = blocksy_akg_or_customizer(
+		'structure',
+		$listing_source,
+		'grid'
+	);
+
+	if ($blog_post_structure === 'gutenberg') {
+		return 'data-page-structure="narrow"';
+	}
+
+	return '';
 }
 

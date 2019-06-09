@@ -2,12 +2,14 @@ import {
 	createElement,
 	Component,
 	useEffect,
+	Fragment,
 	useState
 } from '@wordpress/element'
 import { __ } from 'ct-i18n'
 import classnames from 'classnames'
 import SinglePremiumPlugin from '../components/SinglePremiumPlugin'
 import { Transition, animated } from 'react-spring'
+import SubmitSupport from '../components/SubmitSupport'
 
 let plugins_status_cache = null
 
@@ -82,7 +84,7 @@ const RecommendedPlugins = () => {
 								style={props}
 								className="ct-loading-text">
 								<span />
-								{__('Loading Plugins Status...')}
+								{__('Loading Plugins Status...', 'blocksy')}
 							</animated.p>
 						)
 					}
@@ -90,23 +92,30 @@ const RecommendedPlugins = () => {
 					return props => (
 						<animated.div style={props}>
 							{plugins.length > 0 && (
-								<ul>
-									{plugins.map(plugin => (
-										<SinglePremiumPlugin
-											plugin={plugin}
-											key={plugin.name}
-											onPluginsSync={() => syncPlugins()}
-											status={
-												(
-													plugins_status.find(
-														({ name }) =>
-															name === plugin.name
-													) || {}
-												).status
-											}
-										/>
-									))}
-								</ul>
+								<Fragment>
+									<ul>
+										{plugins.map(plugin => (
+											<SinglePremiumPlugin
+												plugin={plugin}
+												key={plugin.name}
+												onPluginsSync={() =>
+													syncPlugins()
+												}
+												status={
+													(
+														plugins_status.find(
+															({ name }) =>
+																name ===
+																plugin.name
+														) || {}
+													).status
+												}
+											/>
+										))}
+									</ul>
+
+									<SubmitSupport />
+								</Fragment>
 							)}
 						</animated.div>
 					)

@@ -13,25 +13,28 @@ const Navigation = () => {
 	return (
 		<ul className="dashboard-navigation">
 			<li>
-				<Link to="/">{__('Home', 'ct')}</Link>
-			</li>
-			<li>
-				<Link to="/plugins">{__('Recommended Plugins')}</Link>
+				<Link to="/">{__('Home', 'blocksy')}</Link>
 			</li>
 
-			{userNavigationLinks.map(({ path, text }) => (
+			{userNavigationLinks.map(({ path, text, ...props }) => (
 				<li key={path}>
-					<Link to={path}>{text}</Link>
+					<Link to={path} {...props}>
+						{text}
+					</Link>
 				</li>
 			))}
 
 			<li>
-				<Link to="/system">{__('System Status')}</Link>
+				<Link to="/plugins">{__('Plugins', 'blocksy')}</Link>
+			</li>
+
+			<li>
+				<Link to="/system">{__('System Status', 'blocksy')}</Link>
 			</li>
 
 			<li>
 				<Link to="/changelog">
-					{__('Changelog')}
+					{__('Changelog', 'blocksy')}
 					<span className="ct-version">{theme_version}</span>
 				</Link>
 			</li>

@@ -1,4 +1,5 @@
 import { getCache } from './helpers'
+import { markImagesAsLoaded } from '../../frontend/lazy-load-helpers'
 
 export const stackingClassesFor = (
 	id,
@@ -97,6 +98,9 @@ const reconstructFooter = () => {
 	Array.from({ length: 4 - actualNumber }, (_, i) => i).map(() =>
 		f.removeChild(f.lastElementChild)
 	)
+
+	markImagesAsLoaded(document.querySelector('.site-footer'))
+	ctEvents.trigger('blocksy:instagram:init')
 }
 
 wp.customize('footer_widgets_structure', val =>
@@ -164,6 +168,34 @@ wp.customize('footer_main_area_stacking', val =>
 			)
 		)
 	)
+)
+
+wp.customize('footer_main_area_container', val =>
+	val.bind(to => {
+		const main = document.querySelector('.site-footer .footer-primary-area')
+			.firstElementChild
+		main.classList.remove('ct-container', 'ct-container-fluid')
+
+		if (to === 'fixed') {
+			main.classList.add('ct-container')
+		} else {
+			main.classList.add('ct-container-fluid')
+		}
+	})
+)
+
+wp.customize('footer_widgets_container', val =>
+	val.bind(to => {
+		const main = document.querySelector('.site-footer .footer-widgets-area')
+			.firstElementChild
+		main.classList.remove('ct-container', 'ct-container-fluid')
+
+		if (to === 'fixed') {
+			main.classList.add('ct-container')
+		} else {
+			main.classList.add('ct-container-fluid')
+		}
+	})
 )
 
 wp.customize('footer_primary_area_visibility', val =>

@@ -1,6 +1,8 @@
 import { getHeroVariables } from './hero-section'
 import { getPostListingVariables } from './template-parts/content-loop'
 import { getHeaderVariables } from './variables/header'
+import { getTypographyVariablesFor } from './variables/typography'
+
 import { handleVariablesFor } from 'customizer-sync-helpers'
 
 handleVariablesFor({
@@ -36,6 +38,7 @@ handleVariablesFor({
 	...getPostListingVariables(),
 
 	...getHeaderVariables(),
+	...getTypographyVariablesFor(),
 
 	// Colors
 	fontColor: {
@@ -43,10 +46,42 @@ handleVariablesFor({
 		type: 'color'
 	},
 
-	linkColor: {
-		variable: 'linkColor',
-		type: 'color'
+	h1Color: {
+		variable: 'fontColor',
+		type: 'color',
+		selector: 'h1',
 	},
+
+	h2Color: {
+		variable: 'fontColor',
+		type: 'color',
+		selector: 'h2',
+	},
+
+	h3Color: {
+		variable: 'fontColor',
+		type: 'color',
+		selector: 'h3',
+	},
+
+	h4Color: {
+		variable: 'fontColor',
+		type: 'color',
+		selector: 'h4',
+	},
+
+	h5Color: {
+		variable: 'fontColor',
+		type: 'color',
+		selector: 'h5',
+	},
+
+	h6Color: {
+		variable: 'fontColor',
+		type: 'color',
+		selector: 'h6',
+	},
+
 
 	linkColor: [
 		{
@@ -122,12 +157,6 @@ handleVariablesFor({
 
 	sidebarOffset: {
 		variable: 'sidebarOffset',
-		unit: 'px'
-	},
-
-	sidebarWidgetsTitleSize: {
-		variable: 'sidebarWidgetsTitleSize',
-		responsive: true,
 		unit: 'px'
 	},
 
@@ -263,9 +292,9 @@ handleVariablesFor({
 		}
 	],
 
-	paginationBorderColor: {
-		variable: 'paginationBorderColor',
-		type: 'color'
+	paginationDivider: {
+		variable: 'paginationDivider',
+		type: 'border'
 	},
 
 	// Share Box
@@ -280,6 +309,45 @@ handleVariablesFor({
 		responsive: true,
 		unit: ''
 	},
+
+	shareItemsIconColor: [
+		{
+			selector: '.share-box[data-type="type-1"]',
+			variable: 'shareItemsIconInitial',
+			type: 'color:default'
+		},
+
+		{
+			selector: '.share-box[data-type="type-1"]',
+			variable: 'shareItemsIconHover',
+			type: 'color:hover'
+		}
+	],
+
+	shareItemsBorder: {
+		variable: 'shareItemsBorder',
+		type: 'color'
+	},
+
+
+	shareItemsIcon: {
+		variable: 'shareItemsIcon',
+		type: 'color'
+	},
+
+	shareItemsBackground: [
+		{
+			selector: '.share-box[data-type="type-2"]',
+			variable: 'shareBoxBackgroundInitial',
+			type: 'color:default'
+		},
+
+		{
+			selector: '.share-box[data-type="type-2"]',
+			variable: 'shareBoxBackgroundHover',
+			type: 'color:hover'
+		}
+	],
 
 	// Autor Box
 	singleAuthorBoxSpacing: {
@@ -400,12 +468,6 @@ handleVariablesFor({
 	productGalleryWidth: {
 		variable: 'productGalleryWidth',
 		unit: '%'
-	},
-
-	cardProductTitleSize: {
-		variable: 'cardProductTitleSize',
-		responsive: true,
-		unit: 'px'
 	},
 
 	cardProductTitleColor: [
@@ -687,5 +749,5 @@ handleVariablesFor({
 	passepartoutColor: {
 		variable: 'passepartoutColor',
 		type: 'color'
-	},
+	}
 })

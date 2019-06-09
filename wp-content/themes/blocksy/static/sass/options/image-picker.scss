@@ -67,7 +67,7 @@
 	// type 2
 	&[data-type="background"] {
 		li {
-			background: rgba(221, 224, 226, 0.5);
+			background: rgba(221, 224, 226, 0.7);
 			transition: background 0.15s ease,
 						box-shadow 0.15s ease;
 
@@ -87,7 +87,7 @@
 			}
 
 			&:hover {
-				background: rgba(221, 224, 226, 0.9);
+				background: rgba(221, 224, 226, 1);
 			}
 
 			&.active {

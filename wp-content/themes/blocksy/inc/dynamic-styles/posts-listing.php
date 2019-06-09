@@ -2,17 +2,24 @@
 
 $listing_source = blocksy_get_posts_listing_source();
 
-blocksy_output_responsive([
+blocksy_output_font_css([
+	'font_value' => blocksy_akg_or_customizer(
+		'cardTitleFont',
+		$listing_source,
+		blocksy_typography_default_values([
+			'size' => [
+				'desktop' => '20px',
+				'tablet'  => '20px',
+				'mobile'  => '18px'
+			],
+			'variation' => 'n7',
+			'line-height' => '1.3'
+		])
+	),
 	'css' => $css,
 	'tablet_css' => $tablet_css,
 	'mobile_css' => $mobile_css,
-	'selector' => ':root',
-	'variableName' => 'cardTitleSize',
-	'value' => blocksy_akg_or_customizer('cardTitleSize', $listing_source, [
-		'mobile' => 18,
-		'tablet' => 20,
-		'desktop' => 20,
-	])
+	'selector' => '.entry-card .entry-title'
 ]);
 
 $cardTitleColor = blocksy_get_colors( blocksy_akg_or_customizer( 'cardTitleColor',
@@ -49,7 +56,7 @@ blocksy_output_responsive([
 $cardExcerptColor = blocksy_get_colors( blocksy_akg_or_customizer(
 	'cardExcerptColor',
 	$listing_source,
-	[ 'default' => [ 'color' => 'rgba(44,62,80,0.9)' ] ]
+	[ 'default' => [ 'color' => 'var(--fontColor)' ] ]
 ));
 
 $css->put(
@@ -74,7 +81,7 @@ $cardMetaColor = blocksy_get_colors( blocksy_akg_or_customizer(
 	'cardMetaColor',
 	$listing_source,
 	[
-		'default' => [ 'color' => 'var(--paletteColor3)' ],
+		'default' => [ 'color' => 'var(--fontColor)' ],
 		'hover' => [ 'color' => 'var(--paletteColor1)' ],
 	]
 ));

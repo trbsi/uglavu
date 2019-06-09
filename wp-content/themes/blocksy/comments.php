@@ -63,6 +63,8 @@ $form_options = [
 			<input id="url" name="url" type="text" value="' . esc_attr( $commenter['comment_author_url'] ) . '" size="30" />
 			<label for="url">' . __( 'Website', 'blocksy' ) . '</label>
 			</div></div>',
+
+		'cookies' => ''
 	],
 
 	// Textarea
@@ -70,13 +72,26 @@ $form_options = [
 		'<div class="ct-respond-form-textarea">
 		<textarea id="comment" name="comment" cols="45" rows="8" aria-required="true">' . '</textarea>
 		<label for="comment">' . __( 'Add Comment', 'blocksy' ) . '</label>
-		</div>' . (function_exists('blocksy_ext_cookies_checkbox') ? blocksy_ext_cookies_checkbox() : ''),
+		</div>',
 
 	// submit button
 	'submit_button' => '<button type="submit" name="%1$s" id="%2$s" class="%3$s" value="%4$s">%4$s</button>',
-
 ];
 
+if (
+	has_action( 'set_comment_cookies', 'wp_set_comment_cookies' )
+	&&
+	get_option( 'show_comments_cookies_opt_in' )
+) {
+	$consent = empty( $commenter['comment_author_email'] ) ? '' : ' checked="checked"';
+
+	$form_options['comment_field'] .= '<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"' . $consent . ' />' .
+		'<label for="wp-comment-cookies-consent">' . __( 'Save my name, email, and website in this browser for the next time I comment.' ) . '</label></p>';
+}
+
+if (function_exists('blocksy_ext_cookies_checkbox')) {
+	$form_options['comment_field'] .= blocksy_ext_cookies_checkbox();
+}
 
 ?>
 
@@ -92,7 +107,7 @@ $form_options = [
 				wp_list_comments(
 					[
 						'short_ping'  => true,
-						'avatar_size' => 50,
+						'avatar_size' => 100,
 						'callback' => 'blocksy_custom_comment_template',
 					]
 				);

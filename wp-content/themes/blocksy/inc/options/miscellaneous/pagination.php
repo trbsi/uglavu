@@ -52,18 +52,6 @@ $options = [
 						'attr' => [ 'data-type' => 'small' ],
 					],
 
-					'has_pagination_divider' => [
-						'label' => __( 'Pagination Top Divider', 'blocksy' ),
-						'type' => 'ct-switch',
-						'value' => 'no',
-						'setting' => [ 'transport' => 'postMessage' ],
-					],
-
-					blocksy_rand_md5() => [
-						'type' => 'ct-divider',
-						'attr' => [ 'data-type' => 'small' ],
-					],
-
 					'paginationSpacing' => [
 						'label' => __( 'Pagination Top Spacing', 'blocksy' ),
 						'type' => 'ct-slider',
@@ -133,37 +121,18 @@ $options = [
 						],
 					],
 
-
-					blocksy_rand_md5() => [
-						'type' => 'ct-condition',
-						'condition' => [ 'has_pagination_divider' => 'yes' ],
-						'options' => [
-
-							blocksy_rand_md5() => [
-								'type' => 'ct-divider',
-								'attr' => [ 'data-type' => 'small' ],
+					'paginationDivider' => [
+						'label' => __( 'Divider', 'blocksy' ),
+						'type' => 'ct-border',
+						'design' => 'inline',
+						'setting' => [ 'transport' => 'postMessage' ],
+						'value' => [
+							'width' => 1,
+							'style' => 'none',
+							'color' => [
+								'color' => 'rgba(224, 229, 235, 0.5)',
 							],
-
-							'paginationBorderColor' => [
-								'label' => __( 'Border Color', 'blocksy' ),
-								'type'  => 'ct-color-picker',
-								'design' => 'inline',
-								'setting' => [ 'transport' => 'postMessage' ],
-								'value' => [
-									'default' => [
-										'color' => 'rgba(224, 229, 235, 0.5)',
-									],
-								],
-
-								'pickers' => [
-									[
-										'title' => __( 'Initial', 'blocksy' ),
-										'id' => 'default',
-									],
-								],
-							],
-
-						],
+						]
 					],
 
 				],

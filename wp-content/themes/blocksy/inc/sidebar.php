@@ -45,8 +45,20 @@ function blocksy_get_single_page_structure() {
  * Sidebar position.
  */
 function blocksy_sidebar_position() {
+	$listing_source = blocksy_get_posts_listing_source();
+
+	$blog_post_structure = blocksy_akg_or_customizer(
+		'structure',
+		$listing_source,
+		'grid'
+	);
+
 	if (is_search()) {
-		if ( get_theme_mod( 'search_has_sidebar', 'no' ) === 'no' ) {
+		if (
+			get_theme_mod('search_has_sidebar', 'no') === 'no'
+			||
+			$blog_post_structure === 'gutenberg'
+		) {
 			return 'none';
 		}
 
@@ -55,7 +67,11 @@ function blocksy_sidebar_position() {
 
 	if ( get_post_type() === 'post' ) {
 		if (is_category() || is_tag()) {
-			if ( get_theme_mod( 'categories_has_sidebar', 'no' ) === 'no' ) {
+			if (
+				get_theme_mod('categories_has_sidebar', 'no') === 'no'
+				||
+				$blog_post_structure === 'gutenberg'
+			) {
 				return 'none';
 			}
 
@@ -63,15 +79,23 @@ function blocksy_sidebar_position() {
 		}
 
 		if (is_author()) {
-			if ( get_theme_mod( 'author_has_sidebar', 'no' ) === 'no' ) {
+			if (
+				get_theme_mod('author_has_sidebar', 'no') === 'no'
+				||
+				$blog_post_structure === 'gutenberg'
+			) {
 				return 'none';
 			}
 
 			return get_theme_mod( 'author_sidebar_position', 'right' );
 		}
 
-		if ( ! is_single() ) {
-			if ( get_theme_mod( 'blog_has_sidebar', 'no' ) === 'no' ) {
+		if (! is_single()) {
+			if (
+				get_theme_mod('blog_has_sidebar', 'no') === 'no'
+				||
+				$blog_post_structure === 'gutenberg'
+			) {
 				return 'none';
 			}
 
@@ -89,7 +113,7 @@ function blocksy_sidebar_position() {
 		}
 	}
 
-	if ( ! is_single() && ! is_page() ) {
+	if (!is_single() && !is_page()) {
 		return 'right';
 	}
 

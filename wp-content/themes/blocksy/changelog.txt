@@ -1,3 +1,35 @@
+1.2.13: 2019-06-07
+- New: Share box fixed style
+- New: Page title description for pages
+- New: Lazy load for Gravatar avatars
+- Improvement: Footer fluid/fixed containers options
+- Fix: Sync for back to top link
+- Fix: Sync for footer widgets area
+- Fix: Default for page title font in metabox
+- Fix: Typography popper behavior
+
+1.2.12: 2019-06-05
+- Fix: Remove old `echo`
+
+1.2.11: 2019-06-05
+- New: Site title typography
+- Fix: Popper modifiers list
+- Fix: Remove stale echo from code
+
+1.2.10: 2019-06-05
+- New: Typography options, with Google & System Fonts
+- New: Gutenberg layout type
+- new: Lazy load animation type
+- Improvement: Integration with WP Smush lazy load option
+- Improvement: Page title better alignment
+- Improvement: Pagination divider option
+- Improvement: Better translations handling for JSX
+- Improvement: More ratio options for images in archives -- `2/1`, `1/2`, `1/1`
+- Improvement: Dashboard UI updates
+- Fix: Comments cookies field styling
+- Fix: Proper default for logo option in customizer
+- Fix: Customizer avatar_size live update
+
 1.2.9: 2019-05-20
 - Fix: Customizer sync errors
 
@@ -6,13 +38,13 @@
 - New: Add Flexy slider in the WooCommerce single products
 - New: Drop `selectize.js` in favor of `selectr`
 - New: Drop jQuery from loading
-- Improvement: Post meta improvements for posts listings
 - New: Integration with Brizy builder
-- Fix: Disable images lazy load when Jetpack lazy load module is enabled
+- New: Add ok.ru, vk.ru and telegram in posts share box
+- Improvement: Post meta improvements for posts listings
 - Improvement: Dinamically load mini cart on hover. Speeds up the page dramatically
 - Improvement: Load smaller image sizes in posts widgets and posts listings
 - Improvement: Smarter loading behavior that prevents elements jumping
-- New: Add ok.ru, vk.ru and telegram in posts share box
+- Fix: Disable images lazy load when Jetpack lazy load module is enabled
 
 1.2.7: 2019-05-11
 - Improvement: Add Theme URI
@@ -38,28 +70,28 @@
 - Fix: Proper lazy load attributes in sync
 
 1.2.0: 2019-05-08
-- Improvement: Offcanvas styles
 - New: Global forms type
+- New: Page title alignment option
+- Improvement: Test with WordPress 5.2
+- Improvement: Disable MailChimp form for pages
+- Improvement: Offcanvas styles
 - Improvement: Search styles
 - Fix: Sticky header and sidebar works
 - Fix: Layers stabilize item keys earlier
-- Improvement: Test with WordPress 5.2
-- Improvement: Disable MailChimp form for pages
-- New: Page title alignment option
 - Fix: Lots of escaping fixes inside every file
 
 1.1.19: 2019-05-07
-- Improvement: Companion plugin as a download
 - New: Offcanvas for mobile menu
+- Improvement: Companion plugin as a download
 
 1.1.18: 2019-04-22
+- New: Changelog screen in dashboard
+- New: Notification for installing the companion plugin from wp.org
+- New: Type for the mobile menu trigger
 - Improvement: `data-lazy` attribute for images lazy loading
 - Improvement: Parallax for page title
 - Improvement: Remove widgets from theme
 - Improvement: WooCommerce integration updates
-- New: Changelog screen in dashboard
-- New: Notification for installing the companion plugin from wp.org
-- New: Type for the mobile menu trigger
 
 1.1.17: 2019-04-11
 - New: Footer reveal

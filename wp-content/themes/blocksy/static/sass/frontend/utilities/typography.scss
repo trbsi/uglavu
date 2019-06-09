@@ -1,0 +1,17 @@
+body, h1, h2, h3, h4, h5, h6,
+code, kbd, samp, pre,
+.primary-menu > li, 
+.primary-menu .sub-menu li, 
+#mobile-menu .mobile-menu,
+.hentry .entry-content blockquote p {
+
+	font-family: var(--fontFamily);
+	font-size: var(--fontSize);
+	font-weight: var(--fontWeight);
+	font-style: var(--fontStyle);
+	line-height: var(--lineHeight);
+	letter-spacing: var(--letterSpacing);
+	text-transform: var(--textTransform);
+	text-decoration: var(--textDecoration);
+	
+}

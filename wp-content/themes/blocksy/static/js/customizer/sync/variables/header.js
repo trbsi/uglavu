@@ -6,7 +6,7 @@ export const getHeaderVariables = () => ({
 
 	transparentHeaderBackground: {
 		variable: 'transparentHeaderBackground',
-		type: 'color',
+		type: 'color'
 	},
 
 	// Logo
@@ -138,7 +138,7 @@ export const getHeaderVariables = () => ({
 		responsive: true,
 		unit: 'px',
 		respect_visibility: 'top_bar_visibility',
-		enabled: 'has_top_bar',
+		enabled: 'has_top_bar'
 	},
 
 	// Mobile header
@@ -318,7 +318,6 @@ export const getHeaderVariables = () => ({
 		unit: 'px'
 	},
 
-
 	// Transparent header
 	transparentHeaderFontColor: [
 		{
@@ -337,7 +336,6 @@ export const getHeaderVariables = () => ({
 		responsive: true,
 		unit: 'px'
 	},
-
 
 	// Header border
 	headerTopBorder: {

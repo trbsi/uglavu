@@ -2,6 +2,8 @@
 .appearance_page_ct-dashboard {
 
 	[data-reach-dialog-overlay] {
+		display: flex;
+		align-items: center;
 		background: rgba(245, 247, 249, 0.7);
 	}
 
@@ -10,10 +12,10 @@
 		// text-align: center;
 		width: 550px;
 		min-height: 300px;
-		margin: 20vh auto;
+		margin: auto;
 		padding: 30px;
 		box-sizing: border-box;
-		box-shadow: 0 34px 144px rgba(92, 110, 128, 0.73);
+		box-shadow: 0 50px 300px rgba(92, 110, 128, 0.5);
 
 		> div {
 			font-size: 14px;

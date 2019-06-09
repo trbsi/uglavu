@@ -27,10 +27,12 @@
 
 .ct-lazy-loading-start,
 .ct-lazy-loading {
-	> picture,
-	> img,
-	> [data-loader] {
-		transition: opacity 0.5s ease-in;
+	&:not(.ct-lazy-static) {
+		> picture,
+		> img,
+		> [data-loader] {
+			transition: opacity 0.5s ease-in;
+		}
 	}
 }
 

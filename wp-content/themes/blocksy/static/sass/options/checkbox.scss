@@ -21,7 +21,7 @@
 		border-radius: 2px;
 		border: 2px solid #d5dbde;
 		box-sizing: border-box;
-		background: transparent;
+		background: rgba(255, 255, 255, 0.2);
 		box-shadow: none;
 		transition: none;
 		appearance: none;
@@ -76,6 +76,12 @@
 		label {
 			width: 47%;
 			margin-top: 15px;
+		}
+
+		&[data-columns*="no-gap"] {
+			label {
+				width: 50%;		
+			}
 		}
 	}
 }

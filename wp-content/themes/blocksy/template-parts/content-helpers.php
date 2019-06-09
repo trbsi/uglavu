@@ -27,16 +27,24 @@ function blocksy_single_content( $check_for_preview = false ) {
 		'yes'
 	) === 'yes' || $check_for_preview;
 
-	$share_box_location = get_theme_mod(
-		'share_box_location',
+	$share_box_type = get_theme_mod('share_box_type', 'type-1');
+
+	if ($check_for_preview) {
+		$share_box_type = 'type-1';
+	}
+
+	$share_box1_location = get_theme_mod(
+		'share_box1_location',
 		[
 			'top' => false,
 			'bottom' => true,
 		]
 	);
 
+	$share_box2_location = get_theme_mod('share_box2_location', 'right');
+
 	if ( $check_for_preview ) {
-		$share_box_location = [
+		$share_box1_location = [
 			'top' => true,
 			'bottom' => true,
 		];
@@ -62,7 +70,19 @@ function blocksy_single_content( $check_for_preview = false ) {
 			}
 		?>
 
-		<?php if ( $share_box_location['top'] && $has_share_box && ! is_page() ) { ?>
+		<?php if (
+			(
+				(
+					$share_box_type === 'type-1'
+					&&
+					$share_box1_location['top']
+				) || $share_box_type === 'type-2'
+			)
+			&&
+			$has_share_box
+			&&
+			!is_page()
+		) { ?>
 			<?php
 				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				/**
@@ -70,7 +90,12 @@ function blocksy_single_content( $check_for_preview = false ) {
 				 * Function blocksy_get_social_share_box() used here escapes the value properly.
 				 */
 				echo blocksy_get_social_share_box($check_for_preview, [
-					'html_atts' => [ 'data-location' => 'top' ],
+					'html_atts' => $share_box_type === 'type-1' ? [
+						'data-location' => 'top'
+					] : [
+						'data-location' => $share_box2_location,
+					],
+					'type' => $share_box_type
 				]);
 			?>
 		<?php } ?>
@@ -113,14 +138,23 @@ function blocksy_single_content( $check_for_preview = false ) {
 			?>
 		<?php } ?>
 
-		<?php if ( $share_box_location['bottom'] && $has_share_box && ! is_page() ) { ?>
+		<?php if (
+			$share_box_type === 'type-1'
+			&&
+			$share_box1_location['bottom']
+			&&
+			$has_share_box
+			&&
+			!is_page()
+		) { ?>
 			<?php
 				/**
 				 * Note to code reviewers: This line doesn't need to be escaped.
 				 * Function blocksy_get_social_share_box() used here escapes the value properly.
 				 */
 				echo blocksy_get_social_share_box($check_for_preview, [
-					'html_atts' => [ 'data-location' => 'bottom' ],
+					'html_atts' => ['data-location' => 'bottom'],
+					'type' => 'type-1'
 				]);
 			?>
 		<?php } ?>

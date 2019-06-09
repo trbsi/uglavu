@@ -56,12 +56,12 @@ $options = [
 				'manageable' => true,
 				'desc' => sprintf(
 					// translators: placeholder here means the actual URL.
-					__( 'You can configure social URLs %s.', 'blocksy' ),
+					__( 'You can configure social URLs %shere%s.', 'blocksy' ),
 					sprintf(
-						'<a href="%s">%s</a>',
-						admin_url('/customize.php?autofocus[section]=social_accounts'),
-						__('here', 'blocksy')
-					)
+						'<a href="%s">',
+						admin_url('/customize.php?autofocus[section]=social_accounts')
+					),
+					'</a>'
 				),
 				'setting' => [ 'transport' => 'postMessage' ],
 				'value' => [

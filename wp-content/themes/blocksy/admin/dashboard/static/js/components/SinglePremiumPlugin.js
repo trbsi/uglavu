@@ -36,7 +36,7 @@ const SinglePremiumPlugin = ({ status, plugin, onPluginsSync }) => {
 						dangerouslySetInnerHTML={{
 							__html: sprintf(
 								// translators: plugin author
-								__('By %s'),
+								__('By %s', 'blocksy'),
 								`<a href="${plugin.author_uri}">${
 									plugin.author
 								}</a>`
@@ -60,8 +60,8 @@ const SinglePremiumPlugin = ({ status, plugin, onPluginsSync }) => {
 									'premium_plugin_deactivate'
 								)
 							}
-							className="ct-button deactivate-btn">
-							{__('Deactivate')}
+							className="ct-button">
+							{__('Deactivate', 'blocksy')}
 						</a>
 					)}
 
@@ -74,8 +74,8 @@ const SinglePremiumPlugin = ({ status, plugin, onPluginsSync }) => {
 									'premium_plugin_activate'
 								)
 							}
-							className="ct-button">
-							{__('Activate')}
+							className="ct-button-primary">
+							{__('Activate', 'blocksy')}
 						</a>
 					)}
 
@@ -91,7 +91,7 @@ const SinglePremiumPlugin = ({ status, plugin, onPluginsSync }) => {
 								)
 							}
 							className="ct-button">
-							{__('Install')}
+							{__('Install', 'blocksy')}
 						</a>
 					)}
 
@@ -103,14 +103,16 @@ const SinglePremiumPlugin = ({ status, plugin, onPluginsSync }) => {
 							href={plugin.link}
 							className="ct-button"
 							target="_blank">
-							{__('Download')}
+							{__('Download', 'blocksy')}
 						</a>
 					)}
 
 				{!isLoading &&
 					status === 'uninstalled' &&
 					plugin.comingsoon && (
-						<span className="ct-badge">{__('COMING SOON')}</span>
+						<span className="ct-badge">
+							{__('COMING SOON', 'blocksy')}
+						</span>
 					)}
 			</div>
 		</li>

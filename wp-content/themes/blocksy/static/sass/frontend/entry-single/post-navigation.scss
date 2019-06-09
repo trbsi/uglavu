@@ -68,6 +68,7 @@
 		overflow: hidden;
 		position: relative;
 		border-radius: 100%;
+		-webkit-mask-image: -webkit-radial-gradient(white, black);
 
 		@include media-breakpoint-down (sm) {
 			flex: 0 0 45px;

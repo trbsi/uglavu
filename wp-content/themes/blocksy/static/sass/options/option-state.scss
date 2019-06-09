@@ -16,6 +16,7 @@
 .ct-responsive-controls {
 	li.ct-disabled {
 		opacity: 0.15;
+		cursor: not-allowed;
 
 		&.active,
 		&:hover {

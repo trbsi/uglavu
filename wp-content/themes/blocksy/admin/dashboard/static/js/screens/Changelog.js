@@ -113,7 +113,7 @@ export default () => {
 								className="ct-loading-text"
 								style={props}>
 								<span />
-								{__('Loading changelog...')}
+								{__('Loading changelog...', 'blocksy')}
 							</animated.p>
 						)
 					}
@@ -173,7 +173,10 @@ export default () => {
 												}
 											/>
 										))
-									: __('No changelog present at the moment.')}
+									: __(
+											'No changelog present at the moment.',
+											'blocksy'
+										)}
 							</div>
 						</animated.div>
 					)

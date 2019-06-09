@@ -2,6 +2,8 @@ import ctEvents from 'ct-events'
 import { getCache, setRatioFor } from '../helpers'
 import { markImagesAsLoaded } from '../../../frontend/lazy-load-helpers'
 import { getOptionFor } from '../hero-section'
+import date from '@wordpress/date'
+import { typographyOption } from '../variables/typography'
 
 const getListingPrefixFor = () => {
 	if (document.body.classList.contains('search')) {
@@ -29,13 +31,23 @@ const renderEntries = prefix => {
 
 		el.dataset.layout = structure
 
+		el.removeAttribute('data-page-structure')
+
+		if (structure === 'gutenberg') {
+			el.dataset.pageStructure = 'narrow'
+		}
+
 		if (structure !== 'grid') {
 			el.removeAttribute('data-columns')
 		} else {
 			el.dataset.columns = getOptionFor('columns', prefix)
 		}
 
-		el.dataset.cards = getOptionFor('card_type', prefix)
+		el.removeAttribute('data-cards')
+
+		if (structure !== 'gutenberg') {
+			el.dataset.cards = getOptionFor('card_type', prefix)
+		}
 	})
 
 	let to = getOptionFor('archive_order', prefix)
@@ -99,15 +111,11 @@ const renderEntries = prefix => {
 
 				if ((component.meta_type || 'simple') === 'simple') {
 					;[...e.querySelectorAll('.entry-meta .ct-meta-icon')].map(
-						el => {
-							el.parentNode.removeChild(el)
-						}
+						el => el.parentNode.removeChild(el)
 					)
 				} else {
 					;[...e.querySelectorAll('.entry-meta .ct-meta-label')].map(
-						el => {
-							el.parentNode.removeChild(el)
-						}
+						el => el.parentNode.removeChild(el)
 					)
 				}
 
@@ -157,6 +165,17 @@ const renderEntries = prefix => {
 							.removeChild(
 								e.querySelector('.entry-meta .ct-meta-date')
 							)
+				} else {
+					e.querySelector(
+						'.entry-meta .ct-meta-date .ct-meta-element'
+					).innerHTML = window.wp.date.format(
+						component.date_format || 'M j, Y',
+						moment(
+							e.querySelector(
+								'.entry-meta .ct-meta-date .ct-meta-element'
+							).dataset.date
+						)
+					)
 				}
 
 				if (component.meta && !component.meta.categories) {
@@ -222,7 +241,8 @@ const renderEntries = prefix => {
 
 				if (
 					(component.is_boundless || 'yes') === 'yes' &&
-					getOptionFor('card_type', prefix) === 'boxed'
+					getOptionFor('card_type', prefix) === 'boxed' &&
+					getOptionFor('structure', prefix) !== 'gutenberg'
 				) {
 					e
 						.querySelector('.ct-image-container')
@@ -300,6 +320,11 @@ const watchOptionsFor = prefix =>
 
 const getVariablesForPrefix = prefix => ({
 	// Blog
+	...typographyOption({
+		id: `${prefix}_cardTitleFont`,
+		selector: '.entry-card .entry-title'
+	}),
+
 	[`${prefix}_cardTitleSize`]: {
 		variable: 'cardTitleSize',
 		responsive: true,
@@ -377,9 +402,9 @@ const getVariablesForPrefix = prefix => ({
 			(
 				value.find(
 					component =>
-						component.id === 'featured_image' &&
+						component.id === 'post_meta' &&
 						component.has_author_avatar === 'yes' &&
-						component.meta.author === 'yes'
+						component.meta.author
 				) || { avatar_size: 30 }
 			).avatar_size
 	}

@@ -169,17 +169,12 @@ $options = [
 				'type' => 'tab',
 				'options' => [
 
-					'sidebarWidgetsTitleSize' => [
-						'label' => __( 'Title Font Size', 'blocksy' ),
-						'type' => 'ct-slider',
-						'min' => 0,
-						'max' => 100,
-						'responsive' => true,
-						'value' => [
-							'mobile' => 18,
-							'tablet' => 18,
-							'desktop' => 18,
-						],
+					'sidebarWidgetsTitleFont' => [
+						'type' => 'ct-typography',
+						'label' => __( 'Title Font', 'blocksy' ),
+						'value' => blocksy_typography_default_values([
+							'size' => '18px',
+						]),
 						'setting' => [ 'transport' => 'postMessage' ],
 					],
 

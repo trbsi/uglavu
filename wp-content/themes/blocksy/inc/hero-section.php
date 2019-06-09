@@ -342,7 +342,7 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 				blocksy_get_page_title_source(),
 				(
 					function_exists('is_shop') && is_shop()
-				) ? __('This is where you can add new products to your store.', 'blocksy') : __('', 'blocksy')
+				) ? __('This is where you can add new products to your store.', 'blocksy') : ''
 			) . '</div>';
 		}
 	}
@@ -358,9 +358,9 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 	) === 'yes';
 
 	$alignment_output = 'data-alignment="' . esc_attr(blocksy_akg_or_customizer(
-		'hero_alignment',
+		$type === 'type-1' ?  'hero_alignment1' : 'hero_alignment2',
 		blocksy_get_page_title_source(),
-		'left'
+		$type === 'type-1' ? 'left' : 'center'
 	)) . '"';
 
 	if ( $type === 'type-1' ) {

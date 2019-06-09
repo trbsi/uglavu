@@ -61,21 +61,58 @@ $when_enabled_general_settings = [
 			],
 		],
 
-		$prefix . 'hero_alignment' => [
-			'type' => 'ct-radio',
-			'label' => __( 'Content Alignment', 'blocksy' ),
-			'value' => 'left',
-			'view' => 'text',
-			'attr' => [ 'data-type' => 'alignment' ],
-			'disableRevertButton' => true,
-			'design' => $has_default ? 'inline' : 'block',
-			'setting' => [ 'transport' => 'postMessage' ],
-			'choices' => [
-				'left' => '',
-				'center' => '',
-				'right' => '',
+		blocksy_rand_md5() => [
+			'type' => 'ct-condition',
+			'condition' => [
+				$prefix . 'hero_section' => 'type-1'
+			],
+			'options' => [
+
+				$prefix . 'hero_alignment1' => [
+					'type' => 'ct-radio',
+					'label' => __( 'Content Alignment', 'blocksy' ),
+					'value' => 'left',
+					'view' => 'text',
+					'attr' => [ 'data-type' => 'alignment' ],
+					'disableRevertButton' => true,
+					'design' => $has_default ? 'inline' : 'block',
+					'setting' => [ 'transport' => 'postMessage' ],
+					'choices' => [
+						'left' => '',
+						'center' => '',
+						'right' => '',
+					],
+				],
+
 			],
 		],
+
+		blocksy_rand_md5() => [
+			'type' => 'ct-condition',
+			'condition' => [
+				$prefix . 'hero_section' => 'type-2'
+			],
+			'options' => [
+
+				$prefix . 'hero_alignment2' => [
+					'type' => 'ct-radio',
+					'label' => __( 'Content Alignment', 'blocksy' ),
+					'value' => 'center',
+					'view' => 'text',
+					'attr' => [ 'data-type' => 'alignment' ],
+					'disableRevertButton' => true,
+					'design' => $has_default ? 'inline' : 'block',
+					'setting' => [ 'transport' => 'postMessage' ],
+					'choices' => [
+						'left' => '',
+						'center' => '',
+						'right' => '',
+					],
+				],
+
+			],
+		],
+
 	],
 
 	[
@@ -232,17 +269,19 @@ $when_enabled_general_settings = [
 ];
 
 $when_enabled_design_settings = [
-	$prefix . 'pageTitleFontSize' => [
-		'label' => __( 'Title Size', 'blocksy' ),
-		'type' => 'ct-slider',
-		'min' => 0,
-		'max' => 50,
-		'responsive' => true,
-		'value' => [
-			'mobile' => 25,
-			'tablet' => 30,
-			'desktop' => 32,
-		],
+
+	$prefix . 'pageTitleFont' => [
+		'type' => 'ct-typography',
+		'label' => __( 'Font', 'blocksy' ),
+		'value' => blocksy_typography_default_values([
+			'size' => [
+				'desktop' => '32px',
+				'tablet'  => '30px',
+				'mobile'  => '25px'
+			],
+			'variation' => 'n7',
+			'line-height' => '1.3',
+		]),
 		'design' => $has_default ? 'inline' : 'block',
 		'setting' => [ 'transport' => 'postMessage' ],
 	],

@@ -16,11 +16,13 @@
 		flex: 1;
 	}
 
-	.ct-button {
+	.ct-button-primary {
+		--buttonHeight: 40px;
+		--buttonPadding: 30px;
+
+		font-weight: 500;
 		flex: 0 0 auto;
 		min-width: 100px;
-		height: 40px;
-		padding: 0 30px;
 	}
 }
 
@@ -111,20 +113,5 @@
 				color: inherit;
 			}
 		}
-	}
-}
-
-// modal
-.ct-report-modal {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	padding: 30px;
-
-	.ct-button {
-		height: 40px;
-		margin-top: 20px;
-		padding: 0 30px;
 	}
 }

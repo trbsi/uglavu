@@ -2,8 +2,6 @@
 	display: flex;
 
 	.entry-title {
-		font-size: var(--cardTitleSize);
-		line-height: 1.3;
 		margin: initial;
 		word-wrap: break-word;
 		word-break: break-word;
@@ -56,7 +54,7 @@
 			}
 		}
 
-		.ct-image-container {
+		> .ct-image-container {
 			+ * {
 				margin-top: 10px;
 			}

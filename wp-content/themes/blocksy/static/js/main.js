@@ -64,6 +64,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		import('./frontend/back-to-top-link').then(({ mount }) => mount())
 	}
 
+	if (document.querySelector('.share-box[data-type="type-2"]')) {
+		import('./frontend/share-box').then(({ mount }) => mount())
+	}
+
 	var pickclick =
 		navigator.userAgent.match(/iPad/i) ||
 		navigator.userAgent.match(/iPhone/)

@@ -41,6 +41,11 @@ export const listenToVariables = () => {
 				variable: 'buttonHoverColor',
 				type: 'color:hover'
 			}
-		]
+		],
+
+		fontColor: {
+			variable: 'fontColor',
+			type: 'color'
+		},
 	})
 }

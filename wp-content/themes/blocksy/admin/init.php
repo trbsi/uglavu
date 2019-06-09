@@ -51,19 +51,22 @@ add_action(
 			'react',
 			'react-dom',
 			'wp-element',
+            'wp-date',
 			'wp-i18n',
 			// 'wp-polyfill'
 		]);
 
-		wp_enqueue_script(
-			'ct-options-scripts',
-			get_template_directory_uri() . '/static/bundle/options.js',
-			$deps,
-			$theme->get( 'Version' ),
-			true
-		);
+		global $wp_customize;
 
-		wp_enqueue_script( 'wp-i18n' );
+		if ( ! isset( $wp_customize ) ) {
+			wp_enqueue_script(
+				'ct-options-scripts',
+				get_template_directory_uri() . '/static/bundle/options.js',
+				$deps,
+				$theme->get( 'Version' ),
+				true
+			);
+		}
 
 		$locale_data_ct = blocksy_get_jed_locale_data( 'blocksy' );
 
@@ -83,9 +86,9 @@ add_action(
 			'ct-options-scripts',
 			'ct_localizations',
 			[
+				'is_dev_mode' => !!(defined('BLOCKSY_DEVELOPMENT_MODE') && BLOCKSY_DEVELOPMENT_MODE),
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
 				'nonce' => wp_create_nonce( 'ct-ajax-nonce' ),
-				'customizer_reset_none' => wp_create_nonce( 'ct-customizer-reset' ),
 				'public_url' => get_template_directory_uri() . '/static/bundle/',
 				'rest_url' => get_rest_url(),
 			]

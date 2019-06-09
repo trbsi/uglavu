@@ -145,7 +145,19 @@ $accent-color: #0e8ecc;
 	input[type='text'],
 	input[type='number'] {
 		font-size: 12px;
-		border-radius: 3px;	
+		border-radius: 3px;
+		box-shadow: inset 0 1px 2px rgba(0,0,0,.07), 0 0 0 0 transparent;
+		transition: box-shadow 0.1s linear,
+					border-color 0.1s linear;
+
+		&:hover {
+			border-color: #0e8ecc;
+		}
+
+		&:focus {
+			border-color: #0e8ecc;
+			box-shadow: inset 0 1px 2px rgba(0,0,0,.07), 0 0 0 1px #0e8ecc;
+		}
 	}
 
 	input[type='number'] {
@@ -179,20 +191,30 @@ $accent-color: #0e8ecc;
 		margin-bottom: 15px !important;
 	}
 
+	> section > div {
+		width: 100%;
+	}
+
 	.ct-color-picker-container {
-		display: inline-flex;
+		display: flex;
+		justify-content: space-between;
 		padding-right: 0;
 
-		> * {
-			&:not(:last-child) {
-				margin-right: 20px;
-			}
-		}
+		// > * {
+		// 	&:not(:last-child) {
+		// 		margin-right: 20px;
+		// 	}
+		// }
 	}
 
 	.ct-color-picker-modal {
-		top: 70px;
+		top: 80px;
 		left: 0;
+	}
+
+	.ct-color-picker-single > span {
+		width: 30px;
+		height: 30px;
 	}
 }
 

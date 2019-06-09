@@ -1,5 +1,11 @@
 <?php
 
+blocksy_theme_get_dynamic_styles('typography', [
+	'css' => $css,
+	'mobile_css' => $mobile_css,
+	'tablet_css' => $tablet_css
+]);
+
 blocksy_theme_get_dynamic_styles('page-title', [
 	'css' => $css,
 	'mobile_css' => $mobile_css,
@@ -72,6 +78,63 @@ $css->put(
 	':root',
 	"--fontColor: {$font_color['default']}"
 );
+
+// Headings
+$h1Color = blocksy_get_colors( get_theme_mod( 'h1Color',
+	[ 'default' => [ 'color' => 'var(--paletteColor3)' ] ]
+));
+
+$css->put(
+	'h1',
+	"--fontColor: {$h1Color['default']}"
+);
+
+$h2Color = blocksy_get_colors( get_theme_mod( 'h2Color',
+	[ 'default' => [ 'color' => 'var(--paletteColor3)' ] ]
+));
+
+$css->put(
+	'h2',
+	"--fontColor: {$h2Color['default']}"
+);
+
+$h3Color = blocksy_get_colors( get_theme_mod( 'h3Color',
+	[ 'default' => [ 'color' => 'var(--paletteColor3)' ] ]
+));
+
+$css->put(
+	'h3',
+	"--fontColor: {$h3Color['default']}"
+);
+
+$h4Color = blocksy_get_colors( get_theme_mod( 'h4Color',
+	[ 'default' => [ 'color' => 'var(--paletteColor3)' ] ]
+));
+
+$css->put(
+	'h4',
+	"--fontColor: {$h4Color['default']}"
+);
+
+$h5Color = blocksy_get_colors( get_theme_mod( 'h5Color',
+	[ 'default' => [ 'color' => 'var(--paletteColor3)' ] ]
+));
+
+$css->put(
+	'h5',
+	"--fontColor: {$h5Color['default']}"
+);
+
+$h6Color = blocksy_get_colors( get_theme_mod( 'h6Color',
+	[ 'default' => [ 'color' => 'var(--paletteColor3)' ] ]
+));
+
+$css->put(
+	'h6',
+	"--fontColor: {$h6Color['default']}"
+);
+
+
 
 $link_color = blocksy_get_colors( get_theme_mod( 'linkColor',
 	[
@@ -155,19 +218,6 @@ $css->put( ':root', '--sidebarGap: ' . $sidebarGap );
 
 $sidebarOffset = get_theme_mod( 'sidebarOffset', '50' );
 $css->put( ':root', '--sidebarOffset: ' . $sidebarOffset . 'px' );
-
-blocksy_output_responsive([
-	'css' => $css,
-	'tablet_css' => $tablet_css,
-	'mobile_css' => $mobile_css,
-	'selector' => ':root',
-	'variableName' => 'sidebarWidgetsTitleSize',
-	'value' => get_theme_mod('sidebarWidgetsTitleSize', [
-		'mobile' => 18,
-		'tablet' => 18,
-		'desktop' => 18,
-	])
-]);
 
 
 $sidebar_widgets_title_color = blocksy_get_colors( get_theme_mod(
@@ -318,15 +368,18 @@ $css->put(
 );
 
 
-$paginationBorderColor = blocksy_get_colors( get_theme_mod(
-	'paginationBorderColor',
-	[ 'default' => [ 'color' => 'rgba(224, 229, 235, 0.5)' ] ]
-));
-
-$css->put(
-	':root',
-	"--paginationBorderColor: {$paginationBorderColor['default']}"
-);
+blocksy_output_border([
+	'css' => $css,
+	'selector' => ':root',
+	'variableName' => 'paginationDivider',
+	'value' => get_theme_mod('paginationDivider', [
+		'width' => 1,
+		'style' => 'none',
+		'color' => [
+			'color' => 'rgba(224, 229, 235, 0.5)',
+		],
+	])
+]);
 
 // Related Posts
 blocksy_output_responsive([
@@ -438,6 +491,64 @@ blocksy_output_responsive([
 	]),
 	'unit' => ''
 ]);
+
+
+$shareItemsIconColor = blocksy_get_colors( get_theme_mod( 'shareItemsIconColor',
+	[
+		'default' => [ 'color' => 'var(--paletteColor3)' ],
+		'hover' => [ 'color' => 'var(--paletteColor1)' ],
+	]
+));
+
+$css->put(
+	'.share-box[data-type="type-1"]',
+	"--shareItemsIconInitial: {$shareItemsIconColor['default']}"
+);
+
+$css->put(
+	'.share-box[data-type="type-1"]',
+	"--shareItemsIconHover: {$shareItemsIconColor['hover']}"
+);
+
+$shareItemsBorder = blocksy_get_colors( get_theme_mod(
+	'shareItemsBorder',
+	[ 'default' => [ 'color' => '#e0e5eb' ] ]
+));
+
+$css->put(
+	':root',
+	"--shareItemsBorder: {$shareItemsBorder['default']}"
+);
+
+
+
+$shareItemsIcon = blocksy_get_colors( get_theme_mod(
+	'shareItemsIcon',
+	[ 'default' => [ 'color' => '#ffffff' ] ]
+));
+
+$css->put(
+	':root',
+	"--shareItemsIcon: {$shareItemsIcon['default']}"
+);
+
+
+$shareItemsBackground = blocksy_get_colors( get_theme_mod( 'shareItemsBackground',
+	[
+		'default' => [ 'color' => 'var(--paletteColor1)' ],
+		'hover' => [ 'color' => 'var(--paletteColor2)' ],
+	]
+));
+
+$css->put(
+	'.share-box[data-type="type-2"]',
+	"--shareBoxBackgroundInitial: {$shareItemsBackground['default']}"
+);
+
+$css->put(
+	'.share-box[data-type="type-2"]',
+	"--shareBoxBackgroundHover: {$shareItemsBackground['hover']}"
+);
 
 
 // Author Box

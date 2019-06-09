@@ -8,9 +8,11 @@ import classnames from 'classnames'
 import {
 	SortableContainer,
 	SortableElement,
-	SortableHandle,
-	arrayMove
+	SortableHandle
 } from 'react-sortable-hoc'
+
+import arrayMove from 'array-move'
+
 import OptionsPanel from '../OptionsPanel'
 import { getValueFromInput } from '../helpers/get-value-from-input'
 import Select from './ct-select'

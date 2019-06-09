@@ -58,9 +58,9 @@
 	}
 
 	.entry-title, .page-title {
-		line-height: 1.3;
+		// line-height: 1.3;
+		// font-size: var(--pageTitleFontSize);
 		color: var(--pageTitleFontInitialColor);
-		font-size: var(--pageTitleFontSize);
 
 		span {
 			display: block;

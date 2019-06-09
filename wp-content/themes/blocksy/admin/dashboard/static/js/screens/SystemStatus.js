@@ -49,7 +49,7 @@ export default class SystemStatus extends Component {
 		let hour = date.getHours()
 		let minutes = date.getMinutes()
 
-		const filename = `ct-system-status-${year}-${month}-${day}-${hour}-${minutes}.json.txt`
+		const filename = `blocksy-system-status-${year}-${month}-${day}-${hour}-${minutes}.json.txt`
 
 		fileSaver.saveAs(blob, filename)
 	}
@@ -80,7 +80,10 @@ export default class SystemStatus extends Component {
 									style={props}
 									className="ct-loading-text">
 									<span />
-									{__('Collecting System Status...')}
+									{__(
+										'Collecting System Status...',
+										'blocksy'
+									)}
 								</animated.p>
 							)
 						}
@@ -92,14 +95,15 @@ export default class SystemStatus extends Component {
 
 									<p>
 										{__(
-											'Download the system report file by clicking this button and send it to us in case you have problems. This report will help us identify faster the problem and fix it.'
+											'Download the system report file by clicking this button and send it to us in case you have problems. This report will help us identify faster the problem and fix it.',
+											'blocksy'
 										)}
 									</p>
 									<a
 										tabIndex="-1"
 										onClick={() => this.performDownload()}
-										className="ct-button">
-										{__('Download Report')}
+										className="ct-button-primary">
+										{__('Download Report', 'blocksy')}
 									</a>
 								</div>
 

@@ -1,48 +1,47 @@
-.ct-button {
+[class*="ct-button"] {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	height: var(--buttonHeight, 35px);
 	padding: 0 var(--buttonPadding, 15px);
-	font-size: var(--buttonFontSize, 14px);
-	font-weight: 400;
-	color: #fff;
-	border: none;
+	font-size: var(--buttonFontSize, 13px);
+	font-weight: 500;
+	color: rgba(46, 68, 83, 0.8);
 	outline: none;
 	cursor: pointer;
-	border-radius: 4px;
-	background: #0085ba;
 	text-decoration: none;
+	letter-spacing: 0.01em;
+	border-radius: 4px;
+	background: #fff;
+	border: 1px solid #e2e6eb;
 	box-sizing: border-box;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07) !important;
 	transition: color 0.2s ease, 
-				background 0.2s ease, 
-				opacity 0.2s ease,
+				background 0.2s ease,
 				transform 0.2s ease,
 				border-color 0.2s ease,
 				box-shadow 0.2s ease;
 
 	&:hover, &:focus {
+		color: #2e4453;
+		border-color: rgba(190, 196, 203, 0.8);
+	}
+}
+
+
+.ct-button-primary {
+	color: #fff;
+	background: #0085ba;
+	border-color: #0085ba;
+	// box-shadow: 0 1px 3px rgba(1, 96, 134, 0.5) !important;
+}
+
+.ct-button-primary,
+.ct-button[data-hover="blue"] {
+	&:hover, &:focus {
 		color: #fff;
 		background: #0591c9;
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-	}
-
-	&:hover {
-		transform: translate3d(0, -2px, 0);
-	}
-
-	&[data-button="white"] {
-		color: #2e4453;
-		background: #fff;
-		border: 1px solid #e2e6eb;
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
-
-		&:hover {
-			// color: #fff;
-			background: #fafbfc;
-			// border-color: #0591c9;
-			box-shadow: 0 3px 10px rgba(143, 163, 184, 0.2);
-		}
+		// border-color: #0591c9;
+		border-color: #047fb1;
 	}
 }

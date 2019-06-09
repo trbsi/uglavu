@@ -9,7 +9,7 @@
 	&[data-divider] {
 		margin-top: calc(var(--paginationSpacing) / 2);
 		padding-top: calc(var(--paginationSpacing) / 2);
-		border-top: 1px dashed var(--paginationBorderColor);
+		border-top: var(--paginationDivider);
 	}
 
 	// Simple

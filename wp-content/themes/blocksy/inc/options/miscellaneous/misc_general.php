@@ -15,9 +15,30 @@ $options = [
 
 			'has_lazy_load' => [
 				'label' => __( 'Lazy Load Images', 'blocksy' ),
-				'type' => 'ct-switch',
+				'type' => 'ct-panel',
+				'switch' => true,
 				'value' => 'yes',
-				'desc' => __( 'This option controls how images are loading on your page. Please note, that this option will be auto disabled if you have JetPack\'s lazy load enabled.' , 'blocksy' )
+				'inner-options' => [
+
+					blocksy_rand_md5() => [
+						'type' => 'ct-notification',
+						'text' => __( 'This option controls how images are loading on your page. Please note, that this option will be auto disabled if you have JetPack\'s lazy load enabled.', 'blocksy' ),
+					],
+
+					'lazy_load_type' => [
+						'label' => __( 'Animation Type', 'blocksy' ),
+						'type' => 'ct-radio',
+						'value' => 'fade',
+						'inline' => true,
+						'view' => 'radio',
+						'choices' => [
+							'fade' => __( 'Fade', 'blocksy' ),
+							'circle' => __( 'Circle Loader', 'blocksy' ),
+							'none' => __( 'None', 'blocksy' ),
+						],
+					],
+
+				],
 			],
 
 			blocksy_rand_md5() => [

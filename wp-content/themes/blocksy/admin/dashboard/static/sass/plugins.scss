@@ -9,7 +9,7 @@
 			margin: 20px 0;
 
 			&:nth-child(odd) {
-				background: rgba(245, 247, 249, 0.6);
+				background: rgba(245, 247, 249, 0.8);
 			}
 
 			&:first-child {
@@ -67,36 +67,6 @@
 		display: inline-flex;
 	}
 
-	.ct-button {
-		--buttonHeight: 30px;
-		--buttonFontSize: 13px;
-
-		margin-right: 10px;
-		color: #2e4453;
-		background: #fff;
-		border: 1px solid #e2e6eb;
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
-
-		&:hover {
-			background: #fff;
-			border-color: #bec4cb;
-		}
-
-		&.deactivate-btn {
-			color: #fff;
-			background: #0085ba;
-			border: none;
-
-			&:hover {
-				background: #0591c9;
-			}
-		}
-
-		&:last-child {
-			margin-right: 0;
-		}
-	}
-
 	.ct-badge {
 		display: flex;
 		align-items: center;
@@ -108,6 +78,10 @@
 		border-radius: 5px;
 		background: #fff;
 		border: 1px solid #e2e6eb;
+	}
+
+	.ct-button {
+		--buttonHeight: 32px;
 	}
 }
 

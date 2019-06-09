@@ -32,11 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
 		jQuery(a).attr('disabled', 'disabled')
 
 		jQuery.post(
-			ct_localizations.ajax_url,
+			ajaxurl,
 			{
 				wp_customize: 'on',
 				action: 'ct_customizer_reset',
-				nonce: ct_localizations.customizer_reset_none
+				nonce: ct_customizer_localizations.customizer_reset_none
 			},
 			() => {
 				wp.customize.state('saved').set(true)

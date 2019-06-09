@@ -77,6 +77,12 @@ function blocksy_footer_widgets_structure( $output ) {
 
 	$class = 'footer-widgets-area';
 
+	$container_class = 'ct-container';
+
+	if (get_theme_mod('footer_widgets_container', 'fixed') !== 'fixed') {
+		$container_class = 'ct-container-fluid';
+	}
+
 	$class .= ' ' . blocksy_visibility_classes(get_theme_mod('footer_widgets_visibility', [
 		'desktop' => true,
 		'tablet' => true,
@@ -87,7 +93,7 @@ function blocksy_footer_widgets_structure( $output ) {
 
 	?>
 		<section class="<?php echo esc_attr($class); ?>">
-			<div class="ct-container">
+			<div class="<?php echo esc_attr($container_class) ?>">
 				<div class="footer-widgets grid-columns" data-columns="<?php echo( esc_attr($columns_structure) ); ?>" <?php echo wp_kses_post($divider_output); ?>>
 					<?php
 					/**

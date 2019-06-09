@@ -10,12 +10,17 @@
 /**
  * Get social share box.
  */
-function blocksy_get_social_share_box( $check_for_preview = false, $args = [] ) {
-	$home_url = blocksy_encode_uri_component( home_url( add_query_arg( null, null ) ) );
+function blocksy_get_social_share_box($check_for_preview = false, $args = []) {
+	$home_url = blocksy_encode_uri_component(
+		home_url(add_query_arg(null, null))
+	);
 
 	$args = wp_parse_args(
 		$args,
-		[ 'html_atts' => [] ]
+		[
+			'html_atts' => [],
+			'type' => 'type-1'
+		]
 	);
 
 	$old_args = $args['html_atts'];
@@ -24,10 +29,17 @@ function blocksy_get_social_share_box( $check_for_preview = false, $args = [] ) 
 		'class' => 'share-box',
 	];
 
-	$args['html_atts'] = wp_parse_args(
-		$old_args,
-		$args['html_atts']
+	$args['html_atts']['class'] .= ' ' . blocksy_visibility_classes(
+		get_theme_mod('share_box_visibility', [
+			'desktop' => true,
+			'tablet' => true,
+			'mobile' => false,
+		])
 	);
+
+	$args['html_atts'] = wp_parse_args($old_args, $args['html_atts']);
+
+	$args['html_atts']['data-type'] = $args['type'];
 
 	$social_urls = [
 		'facebook' => str_replace(
@@ -39,11 +51,6 @@ function blocksy_get_social_share_box( $check_for_preview = false, $args = [] ) 
 			'{url}',
 			$home_url,
 			'https://twitter.com/share?url={url}'
-		),
-		'google_plus' => str_replace(
-			'{url}',
-			$home_url,
-			'https://plus.google.com/share?url={url}'
 		),
 		'pinterest' => str_replace(
 			'{url}',
@@ -122,25 +129,6 @@ function blocksy_get_social_share_box( $check_for_preview = false, $args = [] ) 
 				height="15px"
 				viewBox="0 0 20 20">
 					<path d="M10,0C4.5,0,0,4.5,0,10c0,4.1,2.5,7.6,6,9.2c0-0.7,0-1.5,0.2-2.3c0.2-0.8,1.3-5.4,1.3-5.4s-0.3-0.6-0.3-1.6c0-1.5,0.9-2.6,1.9-2.6c0.9,0,1.3,0.7,1.3,1.5c0,0.9-0.6,2.3-0.9,3.5c-0.3,1.1,0.5,1.9,1.6,1.9c1.9,0,3.2-2.4,3.2-5.3c0-2.2-1.5-3.8-4.2-3.8c-3,0-4.9,2.3-4.9,4.8c0,0.9,0.3,1.5,0.7,2C6,12,6.1,12.1,6,12.4c0,0.2-0.2,0.6-0.2,0.8c-0.1,0.3-0.3,0.3-0.5,0.3c-1.4-0.6-2-2.1-2-3.8c0-2.8,2.4-6.2,7.1-6.2c3.8,0,6.3,2.8,6.3,5.7c0,3.9-2.2,6.9-5.4,6.9c-1.1,0-2.1-0.6-2.4-1.2c0,0-0.6,2.3-0.7,2.7c-0.2,0.8-0.6,1.5-1,2.1C8.1,19.9,9,20,10,20c5.5,0,10-4.5,10-10C20,4.5,15.5,0,10,0z"/>
-				</svg>
-			',
-		],
-
-		[
-			'enabled' => get_theme_mod( 'share_gplus', 'yes' ) === 'yes' || $check_for_preview,
-			'for' => 'google_plus',
-
-			'name' => __( 'Google Plus', 'blocksy' ),
-			'icon' => '
-				<svg
-				width="20px"
-				height="20px"
-				viewBox="0 0 20 20">
-					<path d="M6.4,9.1c0,0.7,0,1.4,0,2.2c1.2,0,2.4,0,3.6,0c-0.5,2.7-4.2,3.6-6.1,1.8C1.9,11.6,2,8.2,4,6.8C5.5,5.6,7.5,5.9,9,6.9
-						c0.6-0.5,1.1-1.1,1.6-1.7c-1.2-1-2.7-1.6-4.2-1.6C3.1,3.5,0.1,6.4,0,9.7c-0.2,2.7,1.5,5.3,4,6.2c2.5,1,5.6,0.3,7.2-1.9
-						c1-1.4,1.3-3.2,1.1-4.9C10.4,9.1,8.4,9.1,6.4,9.1z"/>
-					<path d="M18.2,9.1c0-0.6,0-1.2,0-1.8c-0.6,0-1.2,0-1.8,0c0,0.6,0,1.2,0,1.8c-0.6,0-1.2,0-1.8,0c0,0.6,0,1.2,0,1.8c0.6,0,1.2,0,1.8,0
-						c0,0.6,0,1.2,0,1.8c0.6,0,1.2,0,1.8,0c0-0.6,0-1.2,0-1.8c0.6,0,1.2,0,1.8,0c0-0.6,0-1.2,0-1.8C19.4,9.1,18.8,9.1,18.2,9.1z"/>
 				</svg>
 			',
 		],
@@ -242,6 +230,10 @@ function blocksy_get_social_share_box( $check_for_preview = false, $args = [] ) 
 		}
 	}
 
+	if ($args['type'] === 'type-2' || $check_for_preview) {
+		$args['html_atts']['data-count'] = $has_enabled_network;
+	}
+
 	if ( ! $has_enabled_network ) {
 		return '';
 	}
@@ -251,11 +243,15 @@ function blocksy_get_social_share_box( $check_for_preview = false, $args = [] ) 
 	?>
 
 	<div <?php echo wp_kses_post(blocksy_attr_to_html( $args['html_atts'] )); ?>>
-		<ul data-count="<?php echo esc_attr( $has_enabled_network ); ?>">
-
-			<?php
-				echo wp_kses_post(implode( '', $all_links ));
-			?>
+		<?php if ($args['type'] === 'type-2' || $check_for_preview) { ?>
+			<a>
+				<svg width="16" height="16" viewBox="0 0 20 20">
+					<path d="M10,7.1c1.2,0,2.4-0.8,2.9-1.8c1.8,0.8,3,2.4,3.5,4.2c0.1,0.3,0.4,0.7,0.8,0.7h0.2c0.4-0.1,0.8-0.6,0.6-1c-0.7-2.5-2.4-4.5-4.8-5.5c0-1.8-1.4-3.2-3.2-3.2S6.7,1.9,6.7,3.8S8.2,7.1,10,7.1z M10,2.1c0.9,0,1.7,0.8,1.7,1.7S10.9,5.4,10,5.4S8.3,4.7,8.3,3.8S9.1,2.1,10,2.1zM3.3,11.2c0-1.9,0.8-3.8,2.2-5c0.2-0.2,0.3-0.3,0.3-0.6c0.1-0.3,0-0.4-0.2-0.6C5.3,4.8,4.8,4.8,4.5,5c-1.8,1.6-2.8,3.8-2.8,6.2v0.4c-1,0.6-1.7,1.7-1.7,2.9c0,1.8,1.5,3.3,3.3,3.3s3.3-1.5,3.3-3.3S5.2,11.2,3.3,11.2z M1.7,14.6c0-0.9,0.8-1.7,1.7-1.7S5,13.7,5,14.6s-0.8,1.7-1.7,1.7S1.7,15.5,1.7,14.6z M16.7,11.2c-1.8,0-3.3,1.5-3.3,3.3c0,0.8,0.2,1.4,0.7,2c-1.8,1.4-4.3,1.8-6.5,0.9c-0.4-0.2-0.9,0-1.1,0.4c-0.1,0.2-0.1,0.4,0,0.7c0.1,0.2,0.3,0.3,0.4,0.4c1,0.4,2.1,0.6,3.2,0.6c1.9,0,3.8-0.7,5.3-1.9c0.4,0.2,0.8,0.2,1.3,0.2c1.8,0,3.3-1.5,3.3-3.3S18.5,11.2,16.7,11.2z M16.7,16.2c-0.9,0-1.7-0.8-1.7-1.7s0.8-1.7,1.7-1.7c0.9,0,1.7,0.7,1.7,1.7S17.6,16.2,16.7,16.2z"></path>
+				</svg>
+			</a>
+		<?php } ?>
+		<ul>
+			<?php echo wp_kses_post(implode( '', $all_links )); ?>
 
 			<?php foreach ( $share_box_networks as $share_network ) { ?>
 				<?php

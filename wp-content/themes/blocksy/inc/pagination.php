@@ -66,7 +66,15 @@ function blocksy_display_posts_pagination( $args = [] ) {
 	$pagination_class = 'ct-pagination';
 	$divider_output = '';
 
-	if (get_theme_mod('has_pagination_divider', 'no') === 'yes') {
+	$divider = get_theme_mod('paginationDivider', [
+		'width' => 1,
+		'style' => 'none',
+		'color' => [
+			'color' => 'rgba(224, 229, 235, 0.5)',
+		]
+	]);
+
+	if ($divider['style'] !== 'none') {
 		$divider_output = 'data-divider';
 	}
 

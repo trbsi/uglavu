@@ -8,7 +8,6 @@ body.ct-loading {
 	}
 }
 
-
 // selectr begin
 .selectr-container {
 	position: relative;
@@ -22,9 +21,9 @@ body.ct-loading {
 	position: absolute;
 	overflow: hidden;
 	clip: rect(0px, 0px, 0px, 0px);
-	width: 1px;
-	height: 1px;
-	margin: -1px;
+	width: 1px !important;
+	height: 1px !important;
+	margin: -1px !important;
 	padding: 0;
 	border: 0 none;
 }
@@ -206,9 +205,8 @@ body.ct-loading {
 	position: relative;
 	top: calc(100% + 2px);
 	display: none;
-	overflow-x: auto;
+	overflow-x: hidden;
 	overflow-y: scroll;
-	// max-height: 200px;
 	max-height: calc(var(--formInputHeight) * 7);
 	margin: 0 !important;
 	padding: 0 !important;
@@ -223,14 +221,15 @@ body.ct-loading {
 }
 
 .selectr-option {
-	// display: flex;
-	// align-items: center;
+	flex: 1 0 auto;
+	display: flex;
+	align-items: center;
 	position: relative;
-	height: var(--formInputHeight);
-	padding: 0 15px;
+	min-height: var(--formInputHeight);
+	padding: 5px 15px;
 	cursor: pointer;
 	font-weight: normal;
-	line-height: var(--formInputHeight);
+	line-height: 1.4;
 }
 
 .selectr-optgroup--label {

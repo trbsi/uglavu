@@ -2,20 +2,6 @@
 
 if (function_exists('is_woocommerce') && is_woocommerce()) {
 
-	// woo archives
-	blocksy_output_responsive([
-		'css' => $css,
-		'tablet_css' => $tablet_css,
-		'mobile_css' => $mobile_css,
-		'selector' => ':root',
-		'variableName' => 'cardProductTitleSize',
-		'value' => get_theme_mod('cardProductTitleSize', [
-			'mobile' => 17,
-			'tablet' => 17,
-			'desktop' => 17,
-		])
-	]);
-
 	$cardProductTitleColor = blocksy_get_colors( get_theme_mod(
 		'cardProductTitleColor',
 		[

@@ -123,6 +123,8 @@ if (
 	$is_boundles === 'yes'
 	&&
 	blocksy_akg_or_customizer('card_type', $listing_source, 'boxed') === 'boxed'
+	&&
+	$blog_post_structure !== 'gutenberg'
 ) {
 	$featured_image_args['class'] = 'boundless-image';
 }
@@ -174,6 +176,7 @@ if (get_theme_mod('has_posts_reveal', 'no') === 'yes') {
 				[
 					'avatar_size' => blocksy_default_akg( 'avatar_size', $single_component, 30 ) . 'px',
 					'meta_type' => blocksy_akg('meta_type', $single_component, 'simple'),
+					'date_format' => blocksy_akg('date_format', $single_component, 'M j, Y'),
 					'labels' => blocksy_akg('has_meta_label', $single_component, 'no') === 'yes',
 					'category_style' => blocksy_akg('category_style', $single_component, 'simple')
 				]
@@ -274,4 +277,3 @@ if (get_theme_mod('has_posts_reveal', 'no') === 'yes') {
 		?>
 
 </article>
-

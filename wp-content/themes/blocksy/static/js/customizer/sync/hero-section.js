@@ -1,5 +1,6 @@
 import { markImagesAsLoaded } from '../../frontend/lazy-load-helpers'
 import { getCache } from './helpers'
+import { typographyOption } from './variables/typography'
 
 const enabledKeysForPrefix = {
 	blog: 'blog_page_title_enabled',
@@ -149,6 +150,18 @@ export const renderHeroSection = prefix => {
 			type1Selector = '.woo-listing-top'
 		}
 
+		if (prefix === 'single_blog_post') {
+			if (
+				document
+					.querySelector('article .entry-content')
+					.parentNode.firstElementChild.classList.contains(
+						'share-box'
+					)
+			) {
+				type1Selector = 'article .share-box:first-child'
+			}
+		}
+
 		let entries = document.querySelector(
 			type === 'type-1' ? type1Selector : '#primary.content-area'
 		)
@@ -214,7 +227,7 @@ export const renderHeroSection = prefix => {
 
 	document.querySelector('.hero-section').removeAttribute('data-parallax')
 	document.querySelector('.hero-section').dataset.alignment = getOptionFor(
-		'hero_alignment',
+		type === 'type-1' ? 'hero_alignment1' : 'hero_alignment2',
 		prefix
 	)
 
@@ -306,11 +319,10 @@ const getVariablesForPrefix = prefix => ({
 		unit: ''
 	},
 
-	[`${prefix}_pageTitleFontSize`]: {
-		variable: 'pageTitleFontSize',
-		responsive: true,
-		unit: 'px'
-	},
+	...typographyOption({
+		id: `${prefix}_pageTitleFont`,
+		selector: '.entry-header .page-title'
+	}),
 
 	[`${prefix}_pageTitleFontColor`]: [
 		{

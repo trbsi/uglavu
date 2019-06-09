@@ -1,4 +1,5 @@
 @import 'header';
+@import 'button';
 @import 'navigation';
 @import 'welcome-screen';
 @import 'system-status';
@@ -6,7 +7,7 @@
 @import 'plugins';
 @import 'modal';
 @import 'tooltips';
-@import 'button';
+@import 'support-container';
 
 .toplevel_page_ct-dashboard,
 .appearance_page_ct-dashboard {
@@ -46,6 +47,7 @@
 			width: 100%;
 			padding-top: 60px;
 			padding: 70px 30px;
+			box-sizing: border-box;
 		}
 	}
 

@@ -78,7 +78,7 @@ $options = [
 			],
 
 			'fontColor' => [
-				'label' => __( 'Font Color', 'blocksy' ),
+				'label' => __( 'Base Font Color', 'blocksy' ),
 				'type'  => 'ct-color-picker',
 				'design' => 'inline',
 				'setting' => [ 'transport' => 'postMessage' ],
@@ -95,6 +95,132 @@ $options = [
 						'id' => 'default',
 					],
 				],
+			],
+
+			'h1Color' => [
+				'label' => __( 'Heading 1 (H1)', 'blocksy' ),
+				'type'  => 'ct-color-picker',
+				'design' => 'inline',
+				'setting' => [ 'transport' => 'postMessage' ],
+
+				'value' => [
+					'default' => [
+						'color' => 'var(--paletteColor3)',
+					],
+				],
+
+				'pickers' => [
+					[
+						'title' => __( 'Initial', 'blocksy' ),
+						'id' => 'default',
+					],
+				],
+			],
+
+			'h2Color' => [
+				'label' => __( 'Heading 2 (H2)', 'blocksy' ),
+				'type'  => 'ct-color-picker',
+				'design' => 'inline',
+				'setting' => [ 'transport' => 'postMessage' ],
+
+				'value' => [
+					'default' => [
+						'color' => 'var(--paletteColor3)',
+					],
+				],
+
+				'pickers' => [
+					[
+						'title' => __( 'Initial', 'blocksy' ),
+						'id' => 'default',
+					],
+				],
+			],
+
+			'h3Color' => [
+				'label' => __( 'Heading 3 (H3)', 'blocksy' ),
+				'type'  => 'ct-color-picker',
+				'design' => 'inline',
+				'setting' => [ 'transport' => 'postMessage' ],
+
+				'value' => [
+					'default' => [
+						'color' => 'var(--paletteColor3)',
+					],
+				],
+
+				'pickers' => [
+					[
+						'title' => __( 'Initial', 'blocksy' ),
+						'id' => 'default',
+					],
+				],
+			],
+
+			'h4Color' => [
+				'label' => __( 'Heading 4 (H4)', 'blocksy' ),
+				'type'  => 'ct-color-picker',
+				'design' => 'inline',
+				'setting' => [ 'transport' => 'postMessage' ],
+
+				'value' => [
+					'default' => [
+						'color' => 'var(--paletteColor3)',
+					],
+				],
+
+				'pickers' => [
+					[
+						'title' => __( 'Initial', 'blocksy' ),
+						'id' => 'default',
+					],
+				],
+			],
+
+			'h5Color' => [
+				'label' => __( 'Heading 5 (H5)', 'blocksy' ),
+				'type'  => 'ct-color-picker',
+				'design' => 'inline',
+				'setting' => [ 'transport' => 'postMessage' ],
+
+				'value' => [
+					'default' => [
+						'color' => 'var(--paletteColor3)',
+					],
+				],
+
+				'pickers' => [
+					[
+						'title' => __( 'Initial', 'blocksy' ),
+						'id' => 'default',
+					],
+				],
+			],
+
+			'h6Color' => [
+				'label' => __( 'Heading 6 (H6)', 'blocksy' ),
+				'type'  => 'ct-color-picker',
+				'design' => 'inline',
+				'setting' => [ 'transport' => 'postMessage' ],
+
+				'value' => [
+					'default' => [
+						'color' => 'var(--paletteColor3)',
+					],
+				],
+
+				'pickers' => [
+					[
+						'title' => __( 'Initial', 'blocksy' ),
+						'id' => 'default',
+					],
+				],
+			],
+
+
+			blocksy_rand_md5() => [
+				'type' => 'ct-divider',
+				'attr' => [ 'data-type' => 'small' ],
 			],
 
 			'linkColor' => [

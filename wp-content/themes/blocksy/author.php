@@ -23,12 +23,6 @@ $blog_post_columns = blocksy_akg_or_customizer(
 	'3'
 );
 
-$card_type = blocksy_akg_or_customizer(
-	'card_type',
-	$listing_source,
-	'boxed'
-);
-
 $columns_output = '';
 
 if ( $blog_post_structure === 'grid' ) {
@@ -87,7 +81,8 @@ $posts_count = count_user_posts(get_current_user_id());
 				if ( have_posts() ) { ?>
 					<div class="entries"
 						data-layout="<?php echo esc_attr($blog_post_structure); ?>"
-						data-cards="<?php echo esc_attr($card_type) ?>"
+						<?php echo blocksy_get_listing_card_type() ?>
+						<?php echo blocksy_listing_page_structure() ?>
 						<?php echo wp_kses_post($columns_output); ?>
 						<?php blocksy_schema_org_definitions_e('blog') ?>>
 				<?php }

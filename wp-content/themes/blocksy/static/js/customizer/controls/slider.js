@@ -11,12 +11,13 @@ import OutsideClickHandler from 'react-outside-click-handler'
 
 const clamp = (min, max, value) => Math.max(min, Math.min(max, value))
 
-export const pixelsToPercentage = (el, pixels) =>
-	Math.round(
-		linearScale([0, el.getBoundingClientRect().width], [0, 100], true)(
-			pixels
-		)
-	)
+const round = (value, decimalPlaces = 1) => {
+	// return Math.round(value)
+
+	const multiplier = Math.pow(10, decimalPlaces)
+	const rounded = Math.round(value * multiplier + Number.EPSILON) / multiplier
+	return rounded
+}
 
 export default class Slider extends Component {
 	state = {
@@ -26,10 +27,35 @@ export default class Slider extends Component {
 
 	el = createRef()
 
+	hasUnitsList = () =>
+		this.props.option.units && this.props.option.units.length > 1
+
+	getAllowedDecimalPlaces = (properUnit = null) => {
+		const decimals = this.props.option.units
+			? this.props.option.units.find(
+					({ unit }) => unit === (properUnit || this.getCurrentUnit())
+				).decimals
+			: this.props.option.decimals
+
+		return decimals !== 0 && !decimals ? 0 : decimals
+	}
+
+	withDefault = (currentUnit, defaultUnit) =>
+		this.props.option.units
+			? this.props.option.units.find(({ unit }) => unit === currentUnit)
+				? currentUnit
+				: currentUnit || defaultUnit
+			: currentUnit || defaultUnit
+
 	getCurrentUnit = () =>
 		this.props.option.units
-			? this.props.value.toString().replace(/[0-9]/g, '') ||
-				this.props.option.units[0].unit
+			? this.withDefault(
+					this.props.value
+						.toString()
+						.replace(/[0-9]/g, '')
+						.replace(/\./g, ''),
+					this.props.option.units[0].unit
+				)
 			: ''
 
 	getMax = () =>
@@ -46,18 +72,22 @@ export default class Slider extends Component {
 				).min
 			: this.props.option.min
 
-	getNumericValue = () => parseInt(this.props.value, 10)
+	getNumericValue = () => parseFloat(this.props.value, 10)
 
 	computeAndSendNewValue({ pageX }) {
 		let { top, left, width } = this.el.current.getBoundingClientRect()
 
 		this.props.onChange(
-			`${Math.round(
+			`${round(
 				linearScale(
 					[0, width],
-					[parseInt(this.getMin(), 10), parseInt(this.getMax(), 10)],
+					[
+						parseFloat(this.getMin(), 10),
+						parseFloat(this.getMax(), 10)
+					],
 					true
-				)(pageX - left - pageXOffset)
+				)(pageX - left - pageXOffset),
+				this.getAllowedDecimalPlaces()
 			)}${this.getCurrentUnit()}`
 		)
 	}
@@ -105,13 +135,13 @@ export default class Slider extends Component {
 
 	render() {
 		const leftValue = `${linearScale(
-			[parseInt(this.getMin(), 10), parseInt(this.getMax(), 10)],
+			[parseFloat(this.getMin(), 10), parseFloat(this.getMax(), 10)],
 			[0, 100]
 		)(
 			clamp(
-				parseInt(this.getMin(), 10),
-				parseInt(this.getMax(), 10),
-				parseInt(this.getNumericValue(), 10)
+				parseFloat(this.getMin(), 10),
+				parseFloat(this.getMax(), 10),
+				parseFloat(this.getNumericValue(), 10)
 			)
 		)}`
 
@@ -139,36 +169,43 @@ export default class Slider extends Component {
 					className={classnames('ct-slider-input', {
 						// ['ct-unit-changer']: !!this.props.option.units,
 						['ct-value-changer']: true,
-						'no-unit-list': !this.props.option.units,
+						'no-unit-list': !this.hasUnitsList(),
 						active: this.state.is_open
 					})}>
 					<input
 						type="number"
+						{...(this.props.option.ref
+							? { ref: this.props.option.ref }
+							: {})}
+						step={1 / Math.pow(10, this.getAllowedDecimalPlaces())}
 						value={this.getNumericValue()}
 						onBlur={() =>
 							this.props.onChange(
 								`${clamp(
-									parseInt(this.getMin(), 10),
-									parseInt(this.getMax(), 10),
-									parseInt(this.getNumericValue(), 10)
+									parseFloat(this.getMin(), 10),
+									parseFloat(this.getMax(), 10),
+									parseFloat(this.getNumericValue(), 10)
 								)}${this.getCurrentUnit()}`
 							)
 						}
 						onChange={({ target: { value } }) =>
 							this.props.onChange(
-								`${value}${this.getCurrentUnit()}`
+								`${value ||
+									this.getMin()}${this.getCurrentUnit()}`
 							)
 						}
 					/>
 
-					{!this.props.option.units && (
+					{!this.hasUnitsList() && (
 						<span className="ct-current-value">
-							{this.getCurrentUnit() ||
-								(this.props.option.defaultUnit || 'px')}
+							{this.withDefault(
+								this.getCurrentUnit(),
+								this.props.option.defaultUnit || 'px'
+							)}
 						</span>
 					)}
 
-					{this.props.option.units && (
+					{this.hasUnitsList() && (
 						<Fragment>
 							<span
 								onClick={() =>
@@ -177,7 +214,7 @@ export default class Slider extends Component {
 									})
 								}
 								className="ct-current-value">
-								{this.getCurrentUnit()}
+								{this.getCurrentUnit() || '―'}
 							</span>
 
 							<OutsideClickHandler
@@ -225,24 +262,29 @@ export default class Slider extends Component {
 														key={unit}
 														onClick={() => {
 															this.props.onChange(
-																`${clamp(
-																	this.props.option.units.find(
-																		({
-																			unit: u
-																		}) =>
-																			u ===
-																			unit
-																	).min,
-																	this.props.option.units.find(
-																		({
-																			unit: u
-																		}) =>
-																			u ===
-																			unit
-																	).max,
-																	parseInt(
-																		this.getNumericValue(),
-																		10
+																`${round(
+																	clamp(
+																		this.props.option.units.find(
+																			({
+																				unit: u
+																			}) =>
+																				u ===
+																				unit
+																		).min,
+																		this.props.option.units.find(
+																			({
+																				unit: u
+																			}) =>
+																				u ===
+																				unit
+																		).max,
+																		parseFloat(
+																			this.getNumericValue(),
+																			10
+																		)
+																	),
+																	this.getAllowedDecimalPlaces(
+																		unit
 																	)
 																)}${unit}`
 															)
@@ -250,7 +292,7 @@ export default class Slider extends Component {
 																is_open: false
 															})
 														}}>
-														{unit}
+														{unit || '―'}
 													</span>
 												))}
 											</li>

@@ -53,13 +53,17 @@ class GenericOptionType extends Component {
 		})
 
 	componentDidMount() {
-		if (!this.props.option.responsive) return
+		if (this.props.option.type !== 'ct-typography') {
+			if (!this.props.option.responsive) return
+		}
 		if (!wp.customize) return
 		setTimeout(() => wp.customize.previewedDevice.bind(this.listener), 1000)
 	}
 
 	componentWillUnmount() {
-		if (!this.props.option.responsive) return
+		if (this.props.option.type !== 'ct-typography') {
+			if (!this.props.option.responsive) return
+		}
 		if (!wp.customize) return
 		wp.customize.previewedDevice.unbind(this.listener)
 	}
@@ -92,6 +96,7 @@ class GenericOptionType extends Component {
 
 		const onChangeWithResponsiveBridge = scalarValue => {
 			const responsiveValue = maybePromoteScalarValueIntoResponsive(value)
+
 			onChangeWithMobileBridge(
 				option.responsive
 					? {
@@ -214,13 +219,16 @@ class GenericOptionType extends Component {
 				{...{
 					option: {
 						...option,
-						value: maybePromoteScalarValueIntoResponsive(
-							option.value || ''
-						)
+						value: option.responsive
+							? maybePromoteScalarValueIntoResponsive(
+									option.value || ''
+								)
+							: option.value || ''
 					},
 					value: valueWithResponsive,
 					id,
 					values,
+					device: this.state.device,
 					onChange: onChangeWithResponsiveBridge
 				}}
 			/>
@@ -320,7 +328,7 @@ class GenericOptionType extends Component {
 						option.responsive
 					) && (
 						<div className="ct-disabled-notification">
-							This option can't be edited for current device
+							Option can't be edited for current device
 						</div>
 					)}
 

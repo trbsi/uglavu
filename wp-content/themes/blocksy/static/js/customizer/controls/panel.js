@@ -2,6 +2,7 @@ import {
 	createElement,
 	Component,
 	createRef,
+	useState,
 	createContext,
 	createPortal
 } from '@wordpress/element'
@@ -101,6 +102,8 @@ class PanelMetaWrapper extends Component {
 }
 
 const PanelContainer = ({ option, id, onChange }) => {
+	const [currentPanelValues, setCurrentPanelValues] = useState(null)
+
 	let maybeLabel =
 		Object.keys(option).indexOf('label') === -1
 			? (id || '')
@@ -158,6 +161,8 @@ const PanelContainer = ({ option, id, onChange }) => {
 										<OptionsPanel
 											purpose="customizer"
 											onChange={val => {
+												setCurrentPanelValues(val)
+
 												Object.keys(
 													getFirstLevelOptions(
 														option['inner-options']
@@ -170,21 +175,27 @@ const PanelContainer = ({ option, id, onChange }) => {
 															.set(val[id])
 												)
 
-												onChange()
+												// onChange()
 											}}
 											options={option['inner-options']}
-											value={Object.keys(
-												wp.customize._value
-											).reduce(
-												(finalValue, currentValue) => ({
-													...finalValue,
-													[currentValue]: wp.customize._value[
+											value={
+												currentPanelValues ||
+												Object.keys(
+													wp.customize._value
+												).reduce(
+													(
+														finalValue,
 														currentValue
-													]()
-												}),
+													) => ({
+														...finalValue,
+														[currentValue]: wp.customize._value[
+															currentValue
+														]()
+													}),
 
-												{}
-											)}
+													{}
+												)
+											}
 										/>
 									</div>
 								</div>
@@ -232,7 +243,9 @@ export default class Panel extends Component {
 						{(isTransitioning || isOpen) && (
 							<PanelContainer
 								id={this.props.id}
-								onChange={() => this.forceUpdate()}
+								onChange={() => {
+									// this.forceUpdate()
+								}}
 								option={this.props.option}
 							/>
 						)}

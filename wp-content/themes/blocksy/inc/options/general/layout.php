@@ -11,6 +11,7 @@ $options = [
 	'layout_section_options' => [
 		'type' => 'ct-options',
 		'setting' => [ 'transport' => 'postMessage' ],
+		'customizer_section' => 'layout',
 		'inner-options' => [
 
 			'maxSiteWidth' => [

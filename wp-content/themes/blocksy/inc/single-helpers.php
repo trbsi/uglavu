@@ -289,15 +289,31 @@ function blocksy_author_box( $check_for_preview = false ) {
 	<div class="<?php echo esc_attr($class); ?>" data-type="<?php echo esc_attr($type); ?>">
 
 		<figure>
-			<a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) ) ); ?>">
-				<span>
-					<svg width="18px" height="13px" viewBox="0 0 20 15">
-						<polygon points="14.5,2 13.6,2.9 17.6,6.9 0,6.9 0,8.1 17.6,8.1 13.6,12.1 14.5,13 20,7.5 "/>
-					</svg>
-				</span>
+			<?php
 
-				<?php echo wp_kses_post(get_avatar( get_the_author_meta( 'ID' ), '60' )); ?>
-			</a>
+				echo blocksy_simple_image(
+					get_avatar_url(get_the_author_meta('ID'), ['size' => 120]),
+					[
+						'tag_name' => 'a',
+						'inner_content' => '
+							<span>
+								<svg width="18px" height="13px" viewBox="0 0 20 15">
+									<polygon points="14.5,2 13.6,2.9 17.6,6.9 0,6.9 0,8.1 17.6,8.1 13.6,12.1 14.5,13 20,7.5 "/>
+								</svg>
+							</span>
+						',
+						'html_atts' => [
+							'href' => get_author_posts_url(
+								get_the_author_meta('ID'),
+								get_the_author_meta('user_nicename')
+							)
+						],
+
+						'img_atts' => ['width' => 60, 'height' => 60],
+					]
+				);
+
+			?>
 		</figure>
 
 		<div>

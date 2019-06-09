@@ -577,8 +577,8 @@ $options = [
 						'custom_logo' => [
 							'label' => false,
 							'type' => 'ct-image-uploader',
-							'value' => null,
-                            'inline_value' => true,
+							'value' => '',
+							'inline_value' => true,
 							'attr' => [ 'data-height' => 'small' ],
 							'setting' => [ 'transport' => 'postMessage' ],
 							'selective_refresh' => [
@@ -790,6 +790,23 @@ $options = [
 							'type' => 'tab',
 							'options' => [
 
+								'primaryMenuFont' => [
+									'type' => 'ct-typography',
+									'label' => __( 'Font', 'blocksy' ),
+									'value' => blocksy_typography_default_values([
+										'size' => '12px',
+										'variation' => 'n7',
+										'line-height' => '1.3',
+										'text-transform' => 'uppercase',
+									]),
+									'typography_responsive' => [
+										'desktop' => true,
+										'tablet' => false,
+										'mobile' => false,
+									],
+									'setting' => [ 'transport' => 'postMessage' ],
+								],
+
 								'menuFontColor' => [
 									'label' => __( 'Font Color', 'blocksy' ),
 									'type'  => 'ct-color-picker',
@@ -886,6 +903,22 @@ $options = [
 							'type' => 'tab',
 							'options' => [
 
+								'primaryMenuDropdownFont' => [
+									'type' => 'ct-typography',
+									'label' => __( 'Font', 'blocksy' ),
+									'value' => blocksy_typography_default_values([
+										'size' => '12px',
+										'variation' => 'n5',
+										'line-height' => '1.6',
+									]),
+									'typography_responsive' => [
+										'desktop' => true,
+										'tablet' => false,
+										'mobile' => false,
+									],
+									'setting' => [ 'transport' => 'postMessage' ],
+								],
+
 								'dropdownFontColor' => [
 									'label' => __( 'Font Color', 'blocksy' ),
 									'type'  => 'ct-color-picker',
@@ -915,20 +948,6 @@ $options = [
 									],
 								],
 
-								'dropDownDivider' => [
-									'label' => __( 'Items Divider', 'blocksy' ),
-									'type' => 'ct-border',
-									'design' => 'inline',
-									'setting' => [ 'transport' => 'postMessage' ],
-									'value' => [
-										'width' => 1,
-										'style' => 'dashed',
-										'color' => [
-											'color' => 'rgba(255, 255, 255, 0.1)',
-										],
-									]
-								],
-
 								'dropDownBackground' => [
 									'label' => __( 'Background Color', 'blocksy' ),
 									'type'  => 'ct-color-picker',
@@ -949,6 +968,20 @@ $options = [
 									],
 								],
 
+								'dropDownDivider' => [
+									'label' => __( 'Items Divider', 'blocksy' ),
+									'type' => 'ct-border',
+									'design' => 'inline',
+									'setting' => [ 'transport' => 'postMessage' ],
+									'value' => [
+										'width' => 1,
+										'style' => 'dashed',
+										'color' => [
+											'color' => 'rgba(255, 255, 255, 0.1)',
+										],
+									]
+								],
+
 							],
 						],
 
@@ -963,7 +996,7 @@ $options = [
 							'options' => [
 
 								'mobile_menu_trigger_type' => [
-									'label' => __( 'Trigger Type', 'blocksy' ),
+									'label' => __( 'Trigger Icon Type', 'blocksy' ),
 									'type' => 'ct-image-picker',
 									'value' => 'type-1',
 									'attr' => [
@@ -1132,14 +1165,33 @@ $options = [
 							'type' => 'tab',
 							'options' => [
 
-								'mobileMenuIconColor' => [
-									'label' => __( 'Icon Color', 'blocksy' ),
+								'mobileMenuFont' => [
+									'type' => 'ct-typography',
+									'label' => __( 'Font', 'blocksy' ),
+									'value' => blocksy_typography_default_values([
+										'size' => [
+											'desktop' => '30px',
+											'tablet'  => '30px',
+											'mobile'  => '23px' 
+										],
+										'variation' => 'n7',
+									]),
+									'typography_responsive' => [
+										'desktop' => false,
+										'tablet' => true,
+										'mobile' => true,
+									],
+									'setting' => [ 'transport' => 'postMessage' ],
+								],
+
+								'mobileMenuLinkColor' => [
+									'label' => __( 'Font Color', 'blocksy' ),
 									'type'  => 'ct-color-picker',
 									'design' => 'inline',
 									'setting' => [ 'transport' => 'postMessage' ],
 									'value' => [
 										'default' => [
-											'color' => 'var(--paletteColor3)',
+											'color' => '#ffffff',
 										],
 
 										'hover' => [
@@ -1160,14 +1212,14 @@ $options = [
 									],
 								],
 
-								'mobileMenuLinkColor' => [
-									'label' => __( 'Font Color', 'blocksy' ),
+								'mobileMenuIconColor' => [
+									'label' => __( 'Trigger Icon Color', 'blocksy' ),
 									'type'  => 'ct-color-picker',
 									'design' => 'inline',
 									'setting' => [ 'transport' => 'postMessage' ],
 									'value' => [
 										'default' => [
-											'color' => '#ffffff',
+											'color' => 'var(--paletteColor3)',
 										],
 
 										'hover' => [

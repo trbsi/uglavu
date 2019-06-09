@@ -108,6 +108,15 @@ $options = [
 				'type' => 'tab',
 				'options' => [
 
+					'singleProductTitleFont' => [
+						'type' => 'ct-typography',
+						'label' => __( 'Product Title Font', 'blocksy' ),
+						'value' => blocksy_typography_default_values([
+							'size' => '30px',
+						]),
+						'setting' => [ 'transport' => 'postMessage' ],
+					],
+
 					'singleProductPriceColor' => [
 						'label' => __( 'Price Color', 'blocksy' ),
 						'type'  => 'ct-color-picker',

@@ -28,12 +28,6 @@ $options = [
 			'options' => blocksy_get_options( 'general/layout' ),
 		],
 
-		'color' => [
-			'title' => __( 'Colors', 'blocksy' ),
-			'container' => [ 'priority' => 1 ],
-			'options' => blocksy_get_options( 'general/colors' ),
-		],
-
 		'header' => [
 			'title' => __( 'Header', 'blocksy' ),
 			'container' => [ 'priority' => 1 ],
@@ -50,6 +44,18 @@ $options = [
 			'title' => __( 'Sidebar', 'blocksy' ),
 			'container' => [ 'priority' => 1 ],
 			'options' => blocksy_get_options( 'general/sidebar' ),
+		],
+
+		'color' => [
+			'title' => __( 'Colors', 'blocksy' ),
+			'container' => [ 'priority' => 1 ],
+			'options' => blocksy_get_options( 'general/colors' ),
+		],
+
+		'typography' => [
+			'title' => __( 'Typography', 'blocksy' ),
+			'container' => [ 'priority' => 1 ],
+			'options' => blocksy_get_options( 'general/typography' ),
 		],
 
 		blocksy_rand_md5() => [

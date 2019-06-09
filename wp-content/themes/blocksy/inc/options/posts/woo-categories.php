@@ -164,17 +164,13 @@ $options = [
 							'type' => 'tab',
 							'options' => [
 
-								'cardProductTitleSize' => [
-									'label' => __( 'Title Font Size', 'blocksy' ),
-									'type' => 'ct-slider',
-									'min' => 0,
-									'max' => 100,
-									'responsive' => true,
-									'value' => [
-										'mobile' => 17,
-										'tablet' => 17,
-										'desktop' => 17,
-									],
+								'cardProductTitleFont' => [
+									'type' => 'ct-typography',
+									'label' => __( 'Title Font', 'blocksy' ),
+									'value' => blocksy_typography_default_values([
+										'size' => '17px',
+										'variation' => 'n5',
+									]),
 									'setting' => [ 'transport' => 'postMessage' ],
 								],
 

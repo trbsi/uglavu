@@ -115,10 +115,6 @@ file-saver, Copyright © 2016 Eli Grey
 Licenses: The MIT License
 Source: https://github.com/eligrey/FileSaver.js
 
-hash-source, Copyright (c) 2018-present, Will Stone
-Licenses: MIT License
-Source: https://github.com/will-stone/hash-source
-
 infinite-scroll
 Licenses: GNU GPL license v3
 Source: https://github.com/metafizzy/infinite-scroll#commercial-license

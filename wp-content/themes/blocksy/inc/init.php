@@ -37,6 +37,8 @@ add_action('after_setup_theme', function () {
 
 	add_theme_support( 'woocommerce' );
 
+	add_post_type_support('page', 'excerpt');
+
 	if (get_theme_mod('has_product_single_lightbox', 'no') === 'yes') {
 		add_theme_support( 'wc-product-gallery-lightbox' );
 	}
@@ -126,6 +128,9 @@ add_action(
 
 add_action('wp_enqueue_scripts', function () {
 	$theme = wp_get_theme();
+
+	$m = new Blocksy_Fonts_Manager();
+	$m->load_fonts();
 
 	wp_enqueue_style(
 		'ct-style',
@@ -226,6 +231,7 @@ require get_template_directory() . '/inc/hero-section.php';
 require get_template_directory() . '/inc/woocommerce-integration.php';
 require get_template_directory() . '/inc/posts-listing.php';
 require get_template_directory() . '/inc/gallery.php';
+require get_template_directory() . '/inc/typography/core.php';
 
 require get_template_directory() . '/template-parts/content-helpers.php';
 

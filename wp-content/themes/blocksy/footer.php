@@ -47,6 +47,12 @@ $primary_area_class .= ' ' . blocksy_visibility_classes(
 	])
 );
 
+$container_class = 'ct-container';
+
+if (get_theme_mod('footer_main_area_container', 'fixed') !== 'fixed') {
+	$container_class = 'ct-container-fluid';
+}
+
 $main_area_stacking_output = blocksy_stacking(
 	get_theme_mod('footer_main_area_stacking', [
 		'tablet' => true,
@@ -77,7 +83,7 @@ if (get_theme_mod('footer_reveal', 'no') === 'yes') {
 			<?php ob_start(); ?>
 
 			<section class="<?php echo esc_attr($primary_area_class); ?>">
-				<div class="ct-container">
+				<div class="<?php echo esc_attr($container_class) ?>">
 					<div
 						class="grid-columns"
 						<?php echo wp_kses_post($columns_output); ?>
@@ -173,7 +179,7 @@ if (get_theme_mod('footer_reveal', 'no') === 'yes') {
 </div>
 
 <?php
-	if (get_theme_mod('has_back_top', 'yes') === 'yes') {
+	if (get_theme_mod('has_back_top', 'no') === 'yes') {
 		blocksy_output_back_to_top_link();
 	}
 

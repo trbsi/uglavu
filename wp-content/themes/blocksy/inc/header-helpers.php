@@ -42,7 +42,7 @@ function blocksy_output_site_branding_mobile() {
 }
 
 function blocksy_has_default_logo($is_mobile = false) {
-	$custom_logo_id = get_theme_mod( 'custom_logo' );
+	$custom_logo_id = get_theme_mod( 'custom_logo', '' );
 
 	if ($is_mobile && get_theme_mod('has_mobile_logo', 'yes') === 'yes') {
 		$mobile_logo_id = get_theme_mod( 'mobile_header_logo' );
@@ -60,7 +60,7 @@ function blocksy_has_default_logo($is_mobile = false) {
 }
 
 function blocksy_get_custom_logo($is_mobile = false) {
-	$custom_logo_id = get_theme_mod( 'custom_logo' );
+	$custom_logo_id = get_theme_mod( 'custom_logo', '' );
 
 	if ($is_mobile && get_theme_mod('has_mobile_logo', 'yes') === 'yes') {
 		$mobile_logo_id = get_theme_mod( 'mobile_header_logo' );
@@ -183,7 +183,7 @@ function blocksy_handle_retina_logo(
 	$custom_logo_id = null;
 
 	if (! $is_transparent) {
-		$custom_logo_id = get_theme_mod( 'custom_logo' );
+		$custom_logo_id = get_theme_mod( 'custom_logo', '' );
 
 		if (get_theme_mod('has_retina_logo', 'no') === 'yes') {
 			$retina_logo_id = get_theme_mod('retina_header_logo');

@@ -37,13 +37,23 @@ function blocksy_custom_comment_template( $comment, $args, $depth ) {
 		<div class="ct-comment-inner" id="ct-comment-inner-<?php comment_ID(); ?>">
 
 			<div class="ct-comment-info">
-				<figure>
-					<?php
+				<?php
 					if ( 0 !== $args['avatar_size'] ) {
-						echo get_avatar( $comment, $args['avatar_size'] );
+						echo blocksy_simple_image(
+							get_avatar_url(
+								$comment,
+								['size' => $args['avatar_size']]
+							),
+							[
+								'tag_name' => 'figure',
+								'img_atts' => [
+									'width' => intval($args['avatar_size']),
+									'height' => intval($args['avatar_size'])
+								],
+							]
+						);
 					}
-					?>
-				</figure>
+				?>
 
 				<section>
 					<div class="ct-comment-author">

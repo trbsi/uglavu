@@ -8,6 +8,12 @@
  */
 
 function blocksy_has_lazyload() {
+	if (class_exists('WP_Smush_Lazy_Load')) {
+		if (WP_Smush_Settings::get_instance()->get('lazy_load')) {
+			return false;
+		}
+	}
+
 	if (class_exists('Jetpack') && Jetpack::is_module_active('lazy-images')) {
 		return false;
 	}
@@ -32,6 +38,7 @@ function blocksy_image( $args = [] ) {
 			'html_atts' => [],
 			'inner_content' => '',
 			'lazyload' => blocksy_has_lazyload(),
+			'lazyload_type' => get_theme_mod('lazy_load_type', 'fade'),
 			'size' => 'medium',
 		]
 	);
@@ -48,7 +55,14 @@ function blocksy_image( $args = [] ) {
 
 	if ( $args['lazyload'] && $attachment_exists ) {
 		$args['html_atts']['class'] .= ' ct-lazy';
-		$args['inner_content'] .= '<span data-loader="circles"><span></span><span></span><span></span></span>';
+
+		if ($args['lazyload_type'] === 'none') {
+			$args['html_atts']['class'] .= ' ct-lazy-static';
+		}
+
+		if ($args['lazyload_type'] === 'default') {
+			$args['inner_content'] .= '<span data-loader="circles"><span></span><span></span><span></span></span>';
+		}
 	}
 
 	if ( ! $attachment_exists ) {
@@ -156,6 +170,7 @@ function blocksy_simple_image( $image_src, $args = [] ) {
 			'img_atts' => [],
 			'inner_content' => '',
 			'lazyload' => blocksy_has_lazyload(),
+			'lazyload_type' => get_theme_mod('lazy_load_type', 'fade'),
 			'size' => 'medium',
 		]
 	);
@@ -164,7 +179,14 @@ function blocksy_simple_image( $image_src, $args = [] ) {
 
 	if ( $args['lazyload'] ) {
 		$original .= ' ct-lazy';
-		$args['inner_content'] .= '<span data-loader="circles"><span></span><span></span><span></span></span>';
+
+		if ($args['lazyload_type'] === 'none') {
+			$original .= ' ct-lazy-static';
+		}
+
+		if ($args['lazyload_type'] === 'default') {
+			$args['inner_content'] .= '<span data-loader="circles"><span></span><span></span><span></span></span>';
+		}
 	}
 
 	if (! isset($args['html_atts']['class'])) {

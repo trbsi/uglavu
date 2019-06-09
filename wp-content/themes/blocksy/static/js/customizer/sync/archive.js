@@ -38,7 +38,10 @@ const renderLocalSidebar = prefix => {
 	}
 
 	renderSidebar(
-		getOptionFor('has_sidebar', prefix),
+		getOptionFor('has_sidebar', prefix) === 'yes' &&
+		getOptionFor('structure', prefix) !== 'gutenberg'
+			? 'yes'
+			: 'no',
 		getOptionFor('sidebar_position', prefix)
 	)
 
@@ -48,7 +51,11 @@ const renderLocalSidebar = prefix => {
 const prefixes = ['blog', 'woo', 'search', 'author', 'categories']
 
 const watchOptionsFor = prefix => {
-	;[`${prefix}_has_sidebar`, `${prefix}_sidebar_position`].map(id =>
+	;[
+		`${prefix}_has_sidebar`,
+		`${prefix}_sidebar_position`,
+		`${prefix}_structure`
+	].map(id =>
 		wp.customize(id, val => val.bind(to => renderLocalSidebar(prefix)))
 	)
 }

@@ -86,21 +86,71 @@ $options = [
 							'type' => 'tab',
 							'options' => [
 
-								'share_box_location' => [
-									'label' => __( 'Box Location', 'blocksy' ),
-									'type' => 'ct-checkboxes',
-									'attr' => [ 'data-columns' => '2' ],
-									'choices' => blocksy_ordered_keys(
-										[
-											'top' => __( 'Top', 'blocksy' ),
-											'bottom' => __( 'Bottom', 'blocksy' ),
-										]
-									),
+								'share_box_type' => [
+									'label' => false,
+									'type' => 'ct-image-picker',
+									'value' => 'type-1',
+									'attr' => [ 'data-type' => 'background' ],
 									'setting' => [ 'transport' => 'postMessage' ],
+									'switchDeviceOnChange' => 'desktop',
+									'choices' => [
 
-									'value' => [
-										'top' => false,
-										'bottom' => true,
+										'type-1' => [
+											'src'   => blocksy_image_picker_url( 'share-box-type-1.svg' ),
+											'title' => __( 'Type 1', 'blocksy' ),
+										],
+
+										'type-2' => [
+											'src'   => blocksy_image_picker_url( 'share-box-type-2.svg' ),
+											'title' => __( 'Type 2', 'blocksy' ),
+										],
+
+									],
+								],
+
+								blocksy_rand_md5() => [
+									'type' => 'ct-condition',
+									'condition' => [ 'share_box_type' => 'type-1' ],
+									'options' => [
+
+										'share_box1_location' => [
+											'label' => __( 'Box Location', 'blocksy' ),
+											'type' => 'ct-checkboxes',
+											'design' => 'block',
+											'view' => 'text',
+											'setting' => [ 'transport' => 'postMessage' ],
+											'value' => [
+												'top' => false,
+												'bottom' => true,
+											],
+
+											'choices' => blocksy_ordered_keys([
+												'top' => __( 'Top', 'blocksy' ),
+												'bottom' => __( 'Bottom', 'blocksy' ),
+											]),
+										],
+
+									],
+								],
+
+								blocksy_rand_md5() => [
+									'type' => 'ct-condition',
+									'condition' => [ 'share_box_type' => 'type-2' ],
+									'options' => [
+
+										'share_box2_location' => [
+											'label' => __( 'Box Location', 'blocksy' ),
+											'type' => 'ct-radio',
+											'value' => 'right',
+											'view' => 'text',
+											'design' => 'block',
+											'setting' => [ 'transport' => 'postMessage' ],
+											'choices' => [
+												'left' => __( 'Left', 'blocksy' ),
+												'right' => __( 'Right', 'blocksy' ),
+											],
+										],
+
 									],
 								],
 
@@ -125,13 +175,6 @@ $options = [
 
 								'share_pinterest' => [
 									'label' => __( 'Pinterest', 'blocksy' ),
-									'type' => 'ct-switch',
-									'value' => 'yes',
-									'setting' => [ 'transport' => 'postMessage' ],
-								],
-
-								'share_gplus' => [
-									'label' => __( 'Google Plus', 'blocksy' ),
 									'type' => 'ct-switch',
 									'value' => 'yes',
 									'setting' => [ 'transport' => 'postMessage' ],
@@ -165,6 +208,30 @@ $options = [
 									'setting' => [ 'transport' => 'postMessage' ],
 								],
 
+								blocksy_rand_md5() => [
+									'type' => 'ct-divider',
+									'attr' => [ 'data-type' => 'small' ],
+								],
+
+								'share_box_visibility' => [
+									'label' => __( 'Visibility', 'blocksy' ),
+									'type' => 'ct-visibility',
+									'design' => 'block',
+									'setting' => [ 'transport' => 'postMessage' ],
+
+									'value' => [
+										'desktop' => true,
+										'tablet' => true,
+										'mobile' => false,
+									],
+
+									'choices' => blocksy_ordered_keys([
+										'desktop' => __( 'Desktop', 'blocksy' ),
+										'tablet' => __( 'Tablet', 'blocksy' ),
+										'mobile' => __( 'Mobile', 'blocksy' ),
+									]),
+								],
+
 							],
 						],
 
@@ -175,7 +242,72 @@ $options = [
 
 								blocksy_rand_md5() => [
 									'type' => 'ct-condition',
-									'condition' => [ 'share_box_location/top' => true ],
+									'condition' => [ 'share_box_type' => 'type-1' ],
+									'options' => [
+
+										'shareItemsIconColor' => [
+											'label' => __( 'Icons Color', 'blocksy' ),
+											'type'  => 'ct-color-picker',
+											'design' => 'inline',
+											'setting' => [ 'transport' => 'postMessage' ],
+
+											'value' => [
+												'default' => [
+													'color' => 'var(--paletteColor3)',
+												],
+
+												'hover' => [
+													'color' => 'var(--paletteColor1)',
+												],
+											],
+
+											'pickers' => [
+												[
+													'title' => __( 'Initial', 'blocksy' ),
+													'id' => 'default',
+												],
+
+												[
+													'title' => __( 'Hover', 'blocksy' ),
+													'id' => 'hover',
+												],
+											],
+										],
+
+										'shareItemsBorder' => [
+											'label' => __( 'Border Color', 'blocksy' ),
+											'type'  => 'ct-color-picker',
+											'design' => 'inline',
+											'setting' => [ 'transport' => 'postMessage' ],
+
+											'value' => [
+												'default' => [
+													'color' => '#e0e5eb',
+												],
+											],
+
+											'pickers' => [
+												[
+													'title' => __( 'Initial', 'blocksy' ),
+													'id' => 'default',
+												],
+											],
+										],
+
+										blocksy_rand_md5() => [
+											'type' => 'ct-divider',
+											'attr' => [ 'data-type' => 'small' ],
+										],
+
+									],
+								],
+
+								blocksy_rand_md5() => [
+									'type' => 'ct-condition',
+									'condition' => [
+										'share_box_type' => 'type-1',
+										'share_box1_location/top' => true
+									],
 									'options' => [
 
 										'topShareBoxSpacing' => [
@@ -202,7 +334,10 @@ $options = [
 
 								blocksy_rand_md5() => [
 									'type' => 'ct-condition',
-									'condition' => [ 'share_box_location/bottom' => true ],
+									'condition' => [
+										'share_box_type' => 'type-1',
+										'share_box1_location/bottom' => true
+									],
 									'options' => [
 
 										'bottomShareBoxSpacing' => [
@@ -222,6 +357,63 @@ $options = [
 											]),
 											'responsive' => true,
 											'setting' => [ 'transport' => 'postMessage' ],
+										],
+
+									],
+								],
+
+								blocksy_rand_md5() => [
+									'type' => 'ct-condition',
+									'condition' => [ 'share_box_type' => 'type-2' ],
+									'options' => [
+
+										'shareItemsIcon' => [
+											'label' => __( 'Icons Color', 'blocksy' ),
+											'type'  => 'ct-color-picker',
+											'design' => 'inline',
+											'setting' => [ 'transport' => 'postMessage' ],
+
+											'value' => [
+												'default' => [
+													'color' => '#ffffff',
+												],
+											],
+
+											'pickers' => [
+												[
+													'title' => __( 'Initial', 'blocksy' ),
+													'id' => 'default',
+												],
+											],
+										],
+
+										'shareItemsBackground' => [
+											'label' => __( 'Background Color', 'blocksy' ),
+											'type'  => 'ct-color-picker',
+											'design' => 'inline',
+											'setting' => [ 'transport' => 'postMessage' ],
+
+											'value' => [
+												'default' => [
+													'color' => 'var(--paletteColor1)',
+												],
+
+												'hover' => [
+													'color' => 'var(--paletteColor2)',
+												],
+											],
+
+											'pickers' => [
+												[
+													'title' => __( 'Initial', 'blocksy' ),
+													'id' => 'default',
+												],
+
+												[
+													'title' => __( 'Hover', 'blocksy' ),
+													'id' => 'hover',
+												],
+											],
 										],
 
 									],
@@ -273,10 +465,14 @@ $options = [
 									'desc' => sprintf(
 										// translators: placeholder here is the link URL.
 										__(
-											'You can set the author sochial channels <a href="%s" target="_blank">here</a>.',
+											'You can set the author sochial channels %shere%s.',
 											'blocksy'
 										),
-										admin_url('/profile.php')
+										sprintf(
+											'<a href="%s" target="_blank">',
+											admin_url('/profile.php')
+										),
+										'</a>'
 									),
 									'setting' => [ 'transport' => 'postMessage' ],
 								],

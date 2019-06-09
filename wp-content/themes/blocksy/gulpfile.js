@@ -1,12 +1,14 @@
 const gulp = require('gulp')
 const buildProcess = require('ct-build-process')
 const removeCode = require('gulp-remove-code')
+const shell = require('gulp-shell')
 
 const data = require('./package.json')
 
 var options = {
 	packageType: 'wordpress_theme',
 	packageSlug: 'blocksy',
+	packageI18nSlug: 'blocksy',
 
 	entries: [
 		{
@@ -32,6 +34,7 @@ var options = {
 				'ct-events': 'window.ctEvents',
 				underscore: 'window._',
 				'@wordpress/element': 'window.wp.element',
+				'@wordpress/date': 'window.wp.date',
 				react: 'React',
 				'react-dom': 'ReactDOM'
 			}
@@ -50,6 +53,7 @@ var options = {
 				'ct-events': 'window.ctEvents',
 				underscore: 'window._',
 				'@wordpress/element': 'window.wp.element',
+				'@wordpress/date': 'window.wp.date',
 				react: 'React',
 				'react-dom': 'ReactDOM'
 			}
@@ -60,6 +64,17 @@ var options = {
 			output: {
 				filename: 'customizer-controls.js',
 				path: './static/bundle/'
+			},
+			externals: {
+				_: 'window._',
+				jquery: 'window.jQuery',
+				'ct-i18n': 'window.wp.i18n',
+				'ct-events': 'window.ctEvents',
+				underscore: 'window._',
+				'@wordpress/element': 'window.wp.element',
+				'@wordpress/date': 'window.wp.date',
+				react: 'React',
+				'react-dom': 'ReactDOM'
 			}
 		},
 
@@ -74,6 +89,7 @@ var options = {
 				'ct-events': 'window.ctEvents',
 				underscore: 'window._',
 				'@wordpress/element': 'window.wp.element',
+				'@wordpress/date': 'window.wp.date',
 				react: 'React',
 				'react-dom': 'ReactDOM'
 			}
@@ -130,7 +146,8 @@ var options = {
 		'ct-i18n': 'window.wp.i18n',
 		'ct-events': 'window.ctEvents',
 		underscore: 'window._',
-		'@wordpress/element': 'window.wp.element'
+		'@wordpress/element': 'window.wp.element',
+		'@wordpress/date': 'window.wp.date'
 	},
 
 	webpackResolveAliases: {
@@ -180,3 +197,33 @@ gulp.task(
 )
 
 buildProcess.registerTasks(gulp, options)
+
+gulp.task(
+	'gettext-generate-js',
+	shell.task(['NODE_ENV_GETTEXT=true NODE_ENV=production yarn gulp build'], {
+		ignoreErrors: true,
+		verbose: true
+	})
+)
+
+gulp.task(
+	'gettext-generate',
+	gulp.series(
+		'gettext-generate-js',
+		'gettext-generate:php',
+		shell.task(
+			[
+				"msgcat $(find -L . -name \"blocksy-php.pot\" | grep -v 'node_modules') $(find -L . -name \"ct-js.pot\" | grep -v 'node_modules') | grep -v '#-#-#-#' > ./languages/blocksy.pot && rm ./languages/blocksy-php.pot ./languages/ct-js.pot"
+			],
+			{
+				ignoreErrors: true,
+				verbose: true
+			}
+		),
+
+		shell.task(['yarn build'], {
+			ignoreErrors: true,
+			verbose: true
+		})
+	)
+)

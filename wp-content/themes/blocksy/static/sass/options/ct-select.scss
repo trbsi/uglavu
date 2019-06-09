@@ -14,14 +14,14 @@
 		align-items: center;
 		cursor: pointer;
 		font-size: 13px;
-		color: inherit;
+		color: #555d66;
 		width: inherit;
 		height: 28px;
 		margin: 0;
-		padding: 0 0 0 6px;
+		padding: 0 0 0 8px;
 		border: 1px solid #ddd;
-		border-radius: 2px;
-		box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07);
+		border-radius: 3px;
+		// box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07);
 
 		&:focus {
 			outline: none;
@@ -33,6 +33,20 @@
 
 		&[readonly] {
 			background-color: #fff;
+		}
+
+		&:hover {
+			border-color: #5b9dd9;
+		}
+	}
+
+	&[aria-expanded="true"] {
+		input {
+			border-color: #5b9dd9;
+		}
+
+		&:after {
+			transform: rotate(90deg);
 		}
 	}
 
@@ -51,13 +65,11 @@
 	}
 
 	&:after {
-		width: 0;
-		height: 0;
+		font: 400 10px/10px dashicons;
+		content: "\f341";
 		right: 8px;
-		top: 12px;
-		border-style: solid;
-		border-width: 4px 3px 0 3px;
-		border-color: currentColor transparent transparent transparent;
+		top: 10px;
+		transform: rotate(-90deg);
 	}
 }
 
@@ -68,25 +80,26 @@
 	width: 100%;
 	max-height: 201px;
 	top: 100%;
-	margin-top: 5px;
+	margin-top: 7px;
 	margin-bottom: 20px;
 	overflow-y: scroll;
 	font-size: 12px;
+	color: #555d66;
 	background: #fff;
-	border: 1px solid #ddd;
-	border-radius: 2px;
+	// border: 1px solid #ddd;
+	border-radius: 3px;
 	box-sizing: border-box;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 15px 15px rgba(0, 0, 0, 0.08);
 
 	.ct-select-no-results,
 	.ct-select-dropdown-item,
 	.ct-select-dropdown-group h2 {
 		display: flex;
 		align-items: center;
-		height: 38px;
-		margin: 0;
+		height: 35px;
+		margin: -1px 0 0 0;
 		padding: 0 8px !important;
-		border-bottom: 1px solid #ddd;
+		border-top: 1px dashed #eee;
 		box-sizing: border-box;
 	}
 
@@ -96,7 +109,8 @@
 		overflow: hidden;
 
 		&.active {
-			background: #f7f7f7;
+			color: #272727;
+			background: rgba(0, 0, 0, 0.02);
 		}
 
 		&.selected {
@@ -107,45 +121,10 @@
 				position: absolute;
 				content: '\f147';
 				font-family: dashicons;
-				font-size: 14px;
-				top: 12px;
+				font-size: 13px;
+				top: 10px;
 				right: 6px;
 			}
-		}
-
-		&[data-id="h1"] {
-			font-size: 19px;
-			font-weight: 700;
-		}
-
-		&[data-id="h2"] {
-			font-size: 17px;
-			font-weight: 700;
-		}
-
-		&[data-id="h3"] {
-			font-size: 15px;
-			font-weight: 700;
-		}
-
-		&[data-id="h4"] {
-			font-size: 13px;
-			font-weight: 600;
-		}
-
-		&[data-id="h5"] {
-			font-size: 11.5px;
-			font-weight: 600;
-		}
-
-		&[data-id="h6"] {
-			font-size: 10px;
-			font-weight: 600;
-		}
-
-		&[data-id="p"],
-		&[data-id="div"] {
-			font-weight: 700;
 		}
 	}
 

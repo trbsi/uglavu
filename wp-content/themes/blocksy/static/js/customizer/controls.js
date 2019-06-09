@@ -4,6 +4,7 @@ import { listenToChanges } from './customizer-color-scheme.js'
 import { listenToPreviewEventsAndAct } from './preview-events'
 import { listenToVariables } from './customizer-variables'
 import './reset'
+import '../frontend/ct-events'
 
 import ImagePicker from './controls/image-picker.js'
 import Switch from './controls/switch.js'
