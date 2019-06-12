@@ -142,6 +142,14 @@ class uglavu_acf_field_external_url extends acf_field {
 		/*
 		*  Create a simple text input using the 'font_size' setting.
 		*/
+		$image = $url = $title = null;
+		if (isset($_GET['post'])) {
+			$ogPost = get_og_post_by_id($_GET['post']);
+			$image = $ogPost->image;
+			$url =  $ogPost->url;
+			$title = $ogPost->title;
+		}
+	
 
 		?>
 		<input
@@ -149,7 +157,9 @@ class uglavu_acf_field_external_url extends acf_field {
 		name="<?php echo esc_attr($field['name']) ?>" 
 		value="<?php echo esc_attr($field['value']) ?>"
 		style="font-size:<?php echo $field['font_size'] ?>px;"
-		id="external_url" />
+		id="external_url"
+		<?php echo (isset($_GET['action']) && 'edit' === $_GET['action']) ? 'disabled' : ''?>
+		/>
 
 		<input
 		type="hidden" 
@@ -168,15 +178,17 @@ class uglavu_acf_field_external_url extends acf_field {
 		
 		<img src="/wp-includes/images/spinner_y.gif" id="og_spinner" style="display: none;">
 		<div id="fb_og" style="
-			display: none; 
+			<?php echo (null === $title) ? 'display: none;' : '' ?> 
 			border: 1px solid #CFCFCF;
 			border-radius: 7px; 
-			padding: 7px;
+			max-width: 500px;
+			text-align: center;
+			margin: 0 auto;
 			margin-top: 10px;
 			">
 			<h3>Preview:</h3>
-			<img id="og_image" style="max-height: 250px">
-			<h3><a id="og_url"></a></h3>
+			<img id="og_image" style="max-height: 250px" src="<?=$image?>">
+			<h3><a href="<?=$url?>" target="_blank" id="og_url"><?=$title?></a></h3>
 		</div>
 		<?php
 	}

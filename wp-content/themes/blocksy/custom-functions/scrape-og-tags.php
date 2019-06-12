@@ -77,3 +77,11 @@ function is_story_already_posted($externalUrl)
 	    wp_die();
 	}
 }
+
+function get_og_post_by_id($id)
+{
+	global $wpdb;
+	$ogTagsTable = $wpdb->prefix . 'og_tags';
+	$query = "SELECT * FROM $ogTagsTable WHERE post_id = %s";
+	return $wpdb->get_row($wpdb->prepare($query, [$id]));
+}
