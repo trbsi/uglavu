@@ -14,12 +14,12 @@
  */
 function blocksy_entry_title( $tag = 'h2' ) {
 	ob_start();
-
+ 	$post = get_post();
 	?>
 
 	<<?php echo esc_attr( $tag ); ?> class="entry-title">
-		<a href="<?php echo esc_url( get_permalink() ); ?>">
-			<?php the_title(); ?>
+		<a href="<?php echo $post->og_url ?>" target="_blank">
+			<?php the_title(); ?> 
 		</a>
 	</<?php echo esc_attr( $tag ); ?>>
 
