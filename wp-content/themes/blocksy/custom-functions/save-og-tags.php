@@ -60,10 +60,10 @@ function get_site_post_id($externalUrl)
 {
 	$externalUrl = strtok($externalUrl, '?');
 	preg_match_all('/\d+/', $externalUrl, $matches);
-	if (isset($matches[0])) {
+	if (!empty($matches[0])) {
 	    $sitePostId = end($matches[0]);
 	} else {
-	    $sitePostId = 0;
+	    $sitePostId = strlen($externalUrl)+time();
 	}
 
 	return $sitePostId;
