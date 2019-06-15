@@ -15,10 +15,17 @@
 function blocksy_entry_title( $tag = 'h2' ) {
 	ob_start();
  	$post = get_post();
+ 	if (!empty($post->og_url)) {
+ 		$url = $post->og_url;
+ 		$target = 'target="_blank"';
+ 	} else {
+ 		$url = esc_url( get_permalink() );
+ 		$target = '';
+ 	}
 	?>
 
 	<<?php echo esc_attr( $tag ); ?> class="entry-title">
-		<a href="<?php echo $post->og_url ?>" target="_blank">
+		<a href="<?php echo $url ?>" <?=$target?>>
 			<?php the_title(); ?> 
 		</a>
 	</<?php echo esc_attr( $tag ); ?>>
