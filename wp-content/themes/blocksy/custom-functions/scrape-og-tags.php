@@ -24,6 +24,11 @@ function scrape_fb_og_tags() {
 		        $webSiteMetaData[$meta->getAttribute('property')] = $meta->getAttribute('content');
 		    }
 		}
+
+		//sometimes some sites don't habe og:url in meta tags
+		if(!isset($webSiteMetaData['og:url'])) {
+			$webSiteMetaData['og:url'] = strtok($externalUrl, '?');
+		}
 		echo json_encode($webSiteMetaData);
 	} catch (\Exception $e) {
 		echo json_encode([]);

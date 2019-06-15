@@ -30,19 +30,19 @@ function save_external_url( $post_id ) {
     ]));
 }
 
-function get_site_and_site_post_id($url)
+function get_site_and_site_post_id($externalUrl)
 {
 	global $wpdb;
 
 	//get site id
-	$host = get_host_from_url($url);
+	$host = get_host_from_url($externalUrl);
 
 	$ogTagsSitesTable = $wpdb->prefix . 'og_tags_sites';
 	$query = "SELECT * FROM $ogTagsSitesTable WHERE site_key = %s";
 	$siteData = $wpdb->get_row($wpdb->prepare($query, [$host]));
 
 	//get site post id from url
-	$sitePostId = get_site_post_id($url);
+	$sitePostId = get_site_post_id($externalUrl);
 
 	return [
 		'siteId' => $siteData->id,
@@ -50,16 +50,16 @@ function get_site_and_site_post_id($url)
 	];
 }
 
-function get_host_from_url($url)
+function get_host_from_url($externalUrl)
 {
-	$parsedUrl = parse_url($url);
+	$parsedUrl = parse_url($externalUrl);
 	return str_replace('www.', '', $parsedUrl['host']);
 }
 
-function get_site_post_id($url)
+function get_site_post_id($externalUrl)
 {
-	$url = strtok($url, '?');
-	preg_match_all('/\d+/', $url, $matches);
+	$externalUrl = strtok($externalUrl, '?');
+	preg_match_all('/\d+/', $externalUrl, $matches);
 	if (isset($matches[0])) {
 	    $sitePostId = end($matches[0]);
 	} else {
