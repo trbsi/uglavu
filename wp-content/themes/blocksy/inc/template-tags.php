@@ -53,7 +53,7 @@ function blocksy_entry_excerpt($length = 40, $class = 'entry-excerpt', $post_id 
 
 	if ( ! $excerpt ) {
 		ob_start();
-		blocksy_trim_excerpt( get_the_excerpt($post_id), $length );
+		echo ( get_the_excerpt($post_id) );
 		$excerpt = ob_get_clean();
 	}
 
