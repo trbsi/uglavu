@@ -13,7 +13,8 @@ function save_external_url( $post_id ) {
     }
 
     $fieldValues = get_fields( $post_id );
-    $siteData = get_site_and_site_post_id($fieldValues['external_url']);
+    $externalUrl = strtok($fieldValues['external_url'], '?');
+    $siteData = get_site_and_site_post_id($externalUrl);
     $ogTagsTable = $wpdb->prefix . 'og_tags';
 	$query = "INSERT INTO $ogTagsTable
 		( post_id, title, image, url, site_id, site_post_id )
@@ -63,7 +64,22 @@ function get_site_post_id($externalUrl)
 	if (!empty($matches[0])) {
 	    $sitePostId = end($matches[0]);
 	} else {
-	    $sitePostId = strlen($externalUrl)+time();
+	    $urlData = parse_url($url);
+		$path = strtolower($urlData['path']);
+		$pathArray = str_split(str_replace(['-', '/'], '', $path));
+		$letters = array_flip(range('a', 'z'));
+
+		$sitePostId = 0;
+		foreach ($pathArray as $character) {
+			if (is_numeric($character)) {
+				$sitePostId+= $character;
+			} elseif(isset($letters[$character])) {
+				$sitePostId+= $letters[$character] + 1;
+			} else {
+				$sitePostId+= 1;
+			}
+		}
+		$sitePostId+= strlen($url);
 	}
 
 	return $sitePostId;
