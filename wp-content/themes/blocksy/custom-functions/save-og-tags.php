@@ -64,7 +64,7 @@ function get_site_post_id($externalUrl)
 	if (!empty($matches[0])) {
 	    $sitePostId = end($matches[0]);
 	} else {
-	    $urlData = parse_url($url);
+	    $urlData = parse_url($externalUrl);
 		$path = strtolower($urlData['path']);
 		$pathArray = str_split(str_replace(['-', '/'], '', $path));
 		$letters = array_flip(range('a', 'z'));
@@ -79,7 +79,7 @@ function get_site_post_id($externalUrl)
 				$sitePostId+= 1;
 			}
 		}
-		$sitePostId+= strlen($url);
+		$sitePostId+= strlen($externalUrl);
 	}
 
 	return $sitePostId;
