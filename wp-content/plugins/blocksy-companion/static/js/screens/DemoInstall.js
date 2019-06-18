@@ -3,6 +3,7 @@ import {
 	Component,
 	useEffect,
 	useState,
+	useMemo,
 	createContext,
 	Fragment
 } from '@wordpress/element'
@@ -12,6 +13,9 @@ import useExtensionReadme from '../helpers/useExtensionReadme'
 import useActivationAction from '../helpers/useActivationAction'
 import { Transition, animated } from 'react-spring/renderprops'
 import DemosList from './DemoInstall/DemosList'
+import DemoToInstall from './DemoInstall/DemoToInstall'
+
+import SiteExport from './SiteExport'
 
 export const DemosContext = createContext({
 	demos: []
@@ -19,15 +23,21 @@ export const DemosContext = createContext({
 
 import SubmitSupport from '../helpers/SubmitSupport'
 
-const DemoToInstall = () => {
-	return <div>demo</div>
-}
-
 let demos_cache = null
+let plugins_cache = null
 
-const DemoInstall = ({ children }) => {
+const DemoInstall = ({ children, path, location }) => {
 	const [isLoading, setIsLoading] = useState(!demos_cache)
 	const [demos_list, setDemosList] = useState(demos_cache || [])
+	const [pluginsStatus, setPluginsStatus] = useState(plugins_cache || {})
+	const [currentDemo, setCurrentDemo] = useState(null)
+	const [demoConfiguration, setDemoConfiguration] = useState({
+		builder: ''
+	})
+
+	const [installerBlockingReleased, setInstallerBlockingReleased] = useState(
+		false
+	)
 
 	const syncDemos = async (verbose = false) => {
 		if (verbose) {
@@ -48,6 +58,8 @@ const DemoInstall = ({ children }) => {
 
 				if (success) {
 					setDemosList(data.demos)
+					setPluginsStatus(data.active_plugins)
+					plugins_cache = data.active_plugins
 					demos_cache = data.demos
 				}
 			}
@@ -67,7 +79,6 @@ const DemoInstall = ({ children }) => {
 				from={{ opacity: 0 }}
 				enter={[{ opacity: 1 }]}
 				leave={[{ opacity: 0 }]}
-				initial={null}
 				config={(key, phase) => {
 					return phase === 'leave'
 						? {
@@ -96,10 +107,16 @@ const DemoInstall = ({ children }) => {
 							<Fragment>
 								<DemosContext.Provider
 									value={{
-										demos_list
+										demos_list,
+										currentDemo,
+										pluginsStatus,
+										installerBlockingReleased,
+										setInstallerBlockingReleased,
+										setCurrentDemo
 									}}>
 									<DemosList />
-									{children}
+									<DemoToInstall />
+									<SiteExport />
 								</DemosContext.Provider>
 								<SubmitSupport />
 							</Fragment>

@@ -1,3 +1,15 @@
+@import '../../../static/sass/common-frontend';
+
+@import 'demo-list';
+@import 'install-steps';
+@import 'check-boxes';
+@import 'child-theme';
+@import 'builders';
+@import 'plugins';
+@import 'erase-content';
+@import 'export';
+@import 'installer';
+
 .ct-demos-list {
 	display: flex;
 	flex-direction: column;

@@ -11,9 +11,11 @@ import useExtensionReadme from '../helpers/useExtensionReadme'
 import useActivationAction from '../helpers/useActivationAction'
 import { Transition, animated } from 'react-spring/renderprops'
 import fileSaver from 'file-saver'
+import Overlay from '../helpers/Overlay'
 
 const SiteExport = () => {
 	const [isLoading, setIsLoading] = useState(false)
+	const [isShowing, setIsShowing] = useState(false)
 
 	const [name, setName] = useState('')
 	const [builder, setBuilder] = useState('')
@@ -56,57 +58,97 @@ const SiteExport = () => {
 		setIsLoading(false)
 	}
 
+	if (!ct_localizations.is_dev_mode) {
+		return null
+	}
+
 	return (
-		<div className="ct-site-export">
-			<label>
-				{__('Name', 'blc')}
-
-				<input
-					placeholder={__('Name', 'blc')}
-					value={name}
-					onChange={({ target: { value } }) => setName(value)}
-				/>
-			</label>
-
-			<label>
-				{__('Preview URL', 'blc')}
-				<input
-					placeholder={__('Preview URL', 'blc')}
-					value={url}
-					onChange={({ target: { value } }) => setUrl(value)}
-				/>
-			</label>
-
-			<label>
-				{__('PRO', 'blc')}
-				<input
-					type="checkbox"
-					value={isPro}
-					onChange={({ target: { value } }) => setIsPro(!isPro)}
-				/>
-			</label>
-
-			<label>
-				{__('Builder', 'blc')}
-				<input
-					placeholder={__('Builder', 'blc')}
-					value={builder}
-					onChange={({ target: { value } }) => setBuilder(value)}
-				/>
-			</label>
-
-			<label>
-				{__('Plugins', 'blc')}
-				<input
-					placeholder={__('Plugins', 'blc')}
-					value={plugins}
-					onChange={({ target: { value } }) => setPlugins(value)}
-				/>
-			</label>
-
-			<button disabled={isLoading} onClick={() => downloadExport()}>
-				{isLoading ? __('Loading...', 'blc') : __('Export site', 'blc')}
+		<div className="ct-export">
+			<button
+				className="ct-button"
+				onClick={e => {
+					setIsShowing(true)
+				}}>
+				{__('Site export')}
 			</button>
+
+			<Overlay
+				items={isShowing}
+				className="ct-site-export-modal"
+				onDismiss={() => setIsShowing(false)}
+				render={() => (
+					<div className="ct-site-export">
+						<label>
+							{__('Name', 'blc')}
+
+							<input
+								type="text"
+								placeholder={__('Name', 'blc')}
+								value={name}
+								onChange={({ target: { value } }) =>
+									setName(value)
+								}
+							/>
+						</label>
+
+						<label>
+							{__('Preview URL', 'blc')}
+							<input
+								type="text"
+								placeholder={__('Preview URL', 'blc')}
+								value={url}
+								onChange={({ target: { value } }) =>
+									setUrl(value)
+								}
+							/>
+						</label>
+
+						<label>
+							{__('PRO', 'blc')}
+							<input
+								type="checkbox"
+								value={isPro}
+								onChange={({ target: { value } }) =>
+									setIsPro(!isPro)
+								}
+							/>
+						</label>
+
+						<label>
+							{__('Builder', 'blc')}
+							<input
+								type="text"
+								placeholder={__('Builder', 'blc')}
+								value={builder}
+								onChange={({ target: { value } }) =>
+									setBuilder(value)
+								}
+							/>
+						</label>
+
+						<label>
+							{__('Plugins', 'blc')}
+							<textarea
+								placeholder={__('Plugins', 'blc')}
+								value={plugins}
+								onChange={({ target: { value } }) =>
+									setPlugins(value)
+								}
+							>
+							</textarea>
+						</label>
+
+						<button
+							className="ct-button"
+							disabled={isLoading}
+							onClick={() => downloadExport()}>
+							{isLoading
+								? __('Loading...', 'blc')
+								: __('Export site', 'blc')}
+						</button>
+					</div>
+				)}
+			/>
 		</div>
 	)
 }

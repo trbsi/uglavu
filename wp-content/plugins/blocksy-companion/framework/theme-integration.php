@@ -22,6 +22,18 @@ class ThemeIntegration {
 			10, 2
 		);
 
+		add_action('rest_api_init', function () {
+			return;
+
+			register_rest_field('post', 'images', [
+				'get_callback' => function () {
+					return wp_prepare_attachment_for_js($object->id);
+				},
+				'update_callback' => null,
+				'schema' => null,
+			]);
+		});
+
 		add_filter('upload_mimes', function ($mimes) {
 			$mimes['svg'] = 'image/svg+xml';
 			return $mimes;

@@ -14,18 +14,10 @@ ctEvents.on('ct:dashboard:routes', r => {
 		path: '/extensions'
 	})
 
-	if (ct_localizations.is_dev_mode) {
-		r.push({
-			Component: props => <DemoInstall {...props} />,
-			path: '/demos',
-			children: <DemoToInstall path=":demoId" />
-		})
-
-		r.push({
-			Component: () => <SiteExport />,
-			path: '/site-export'
-		})
-	}
+	r.push({
+		Component: props => <DemoInstall {...props} />,
+		path: '/demos'
+	})
 })
 
 ctEvents.on('ct:dashboard:navigation-links', r => {
@@ -44,11 +36,6 @@ ctEvents.on('ct:dashboard:navigation-links', r => {
 							'aria-current': 'page'
 						}
 					: {}
-		})
-
-		r.push({
-			text: __('Export Site', 'blc'),
-			path: '/site-export'
 		})
 	}
 })

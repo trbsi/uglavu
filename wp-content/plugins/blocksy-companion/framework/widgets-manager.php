@@ -31,6 +31,7 @@ class BlocksyWidgetFactory extends WP_Widget {
 			$prefix = basename( $widget );
 
 			include_once $widget . '/widget.php';
+
 			register_widget( 'Blocksy_Widget_' . blocksy_dirname_to_classname( $prefix ) );
 		}
 	}
@@ -68,7 +69,7 @@ class BlocksyWidgetFactory extends WP_Widget {
 
 		parent::__construct(
 			false,
-			blocksy_akg(
+			'&#10;' . blocksy_akg(
 				'name',
 				$config,
 				__(

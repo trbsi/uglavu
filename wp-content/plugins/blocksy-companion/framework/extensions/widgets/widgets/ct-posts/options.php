@@ -24,6 +24,7 @@ foreach ( $categories as $category ) {
 }
 
 $options = [
+
 	'title' => [
 		'type' => 'text',
 		'label' => __( 'Title', 'blc' ),
@@ -32,9 +33,25 @@ $options = [
 		'value' => __( 'Posts', 'blc' ),
 	],
 
+	'posts_type' => [
+		'type' => 'ct-select',
+		'label' => __( 'Design', 'blc' ),
+		'value' => 'small-thumbs',
+		'design' => 'inline',
+		'choices' => blocksy_ordered_keys(
+			[
+				'no-thumbs' => __( 'Without Thumbnails', 'blc' ),
+				'small-thumbs' => __( 'Small Thumbnails', 'blc' ),
+				'large-thumbs' => __( 'Large Thumbnails', 'blc' ),
+				'large-small' => __( 'First Thumbnail Large', 'blc' ),
+				'rounded' => __( 'Rounded Thumbnails', 'blc' ),
+			]
+		),
+	],
+
 	'type' => [
 		'type' => 'ct-select',
-		'label' => __( 'Select Type', 'blc' ),
+		'label' => __( 'Sort by', 'blc' ),
 		'value' => 'recent',
 		'design' => 'inline',
 		'choices' => blocksy_ordered_keys(
@@ -83,12 +100,6 @@ $options = [
 	'display_date' => [
 		'type'  => 'ct-switch',
 		'label' => __( 'Show Date', 'blc' ),
-		'value' => 'no',
-	],
-
-	'display_photo' => [
-		'type'  => 'ct-switch',
-		'label' => __( 'Show Thumbnail', 'blc' ),
 		'value' => 'no',
 	],
 

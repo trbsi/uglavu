@@ -80,10 +80,20 @@ $options = [
 							]),
 						],
 
-
 					],
 				],
 
+				blocksy_rand_md5() => [
+					'type' => 'ct-divider',
+					'attr' => [ 'data-type' => 'small' ],
+				],
+
+				blocksy_rand_md5() => [
+					'type' => 'blocksy-instagram-reset',
+					'label' => __('Clear Caches', 'blc'),
+					'design' => 'inline',
+					'desc' => __('This extension uses caching to improve performance and limit requests made to the Instagram API. It is automatically clearing each 24 hours but you can manually clear it by clicking the button above. ', 'blc'),
+				],
 
 			],
 		],

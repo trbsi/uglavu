@@ -33,11 +33,20 @@ class Autoloader {
 		'DemoInstallWidgetsExport' => 'framework/features/demo-install/widgets-export.php',
 		'DemoInstallOptionsExport' => 'framework/features/demo-install/options-export.php',
 
+		'DemoInstallChildThemeInstaller' => 'framework/features/demo-install/child-theme.php',
+		'DemoInstallPluginsInstaller' => 'framework/features/demo-install/required-plugins.php',
+		'DemoInstallContentInstaller' => 'framework/features/demo-install/content-installer.php',
+		'DemoInstallOptionsInstaller' => 'framework/features/demo-install/options-import.php',
+		'DemoInstallWidgetsInstaller' => 'framework/features/demo-install/widgets-import.php',
+
 		/**
 		 * No namespace
 		 */
 		'_BlocksyWidgetFactory' => 'framework/widgets-manager.php',
-		'_EDD_SL_Plugin_Updater' => 'framework/EDD_SL_Plugin_Updater.php'
+		'_Blocksy_WXR_Importer' => 'framework/features/demo-install/wxr-importer.php',
+
+		// TODO: remove when getting rid of EDD
+		'_EDD_SL_Plugin_Updater' => 'framework/EDD_SL_Plugin_Updater.php',
 	];
 
 	/**

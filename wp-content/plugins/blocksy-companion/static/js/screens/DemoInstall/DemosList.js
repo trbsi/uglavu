@@ -13,31 +13,52 @@ import { DemosContext } from '../DemoInstall'
 import DashboardContext from '../../DashboardContext'
 
 const DemosList = () => {
-	const { demos_list } = useContext(DemosContext)
+	const { demos_list, setCurrentDemo } = useContext(DemosContext)
 	const { Link } = useContext(DashboardContext)
 
 	return (
-		<div className="ct-demos-list">
+		<ul>
 			{demos_list
 				.filter(
 					(v, i, a) =>
 						demos_list.map(({ name }) => name).indexOf(v.name) === i
 				)
 				.map(demo => (
-					<div
+					<li
 						key={demo.name}
 						className={classnames('ct-single-demo', {
 							'ct-is-pro': demo.is_pro
 						})}>
-						<img src={demo.screenshot} />
-						{demo.name}
-						<a target="_blank" href={demo.url}>
-							{__('Preview', 'blc')}
-						</a>
-						<Link to="/demos/123">{__('Install', 'blc')}</Link>
-					</div>
+						<figure>
+							<img src={demo.screenshot} />
+
+							{demo.is_pro && (
+								<a onClick={e => e.preventDefault()} href="#">
+									PRO
+								</a>
+							)}
+						</figure>
+
+						<div className="ct-demo-actions">
+							<h4>{demo.name}</h4>
+
+							<div>
+								<a
+									className="ct-button"
+									target="_blank"
+									href={demo.url}>
+									{__('Preview', 'blc')}
+								</a>
+								<button
+									className="ct-button-primary"
+									onClick={() => setCurrentDemo(demo.name)}>
+									{__('Install', 'blc')}
+								</button>
+							</div>
+						</div>
+					</li>
 				))}
-		</div>
+		</ul>
 	)
 }
 

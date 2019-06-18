@@ -40,8 +40,19 @@ $query = new WP_Query(
 );
 
 // Post thumbnail
-$has_thumbnail = blocksy_default_akg( 'display_photo', $atts, 'no' ) === 'yes';
+$has_thumbnail = false;
+
+$type_output = '';
+
+$posts_type = blocksy_default_akg('posts_type', $atts, 'small-thumbs');
+
+if ($posts_type !== 'no-thumbs') {
+	$has_thumbnail = true;
+	$type_output = 'data-type="' . esc_attr($posts_type) . '"';
+}
+
 $data_thumbnail = '';
+
 
 if ( $has_thumbnail ) {
 	$data_thumbnail = ' data-thumbnail="true"';
@@ -49,6 +60,7 @@ if ( $has_thumbnail ) {
 
 // Post meta
 $has_meta = blocksy_default_akg( 'display_date', $atts, 'no' ) === 'yes';
+
 
 // Comments
 $has_comments = blocksy_default_akg( 'display_comments', $atts, 'no' ) === 'yes';
@@ -65,20 +77,32 @@ echo $before_title . wp_kses_post( $title ) . $after_title;
 ?>
 
 <?php if ( $query->have_posts() ) { ?>
-	<ul <?php echo wp_kses( $data_thumbnail, [] ); ?>>
+	<ul <?php echo $type_output ?> <?php echo wp_kses( $data_thumbnail, [] ); ?>>
 		<?php while ( $query->have_posts() ) { ?>
 			<?php $query->the_post(); ?>
 
 			<li>
 				<?php
 				if ( $has_thumbnail ) {
+					$size = 'thumbnail';
+					$ratio = '1/1';
+
+					if (
+						$posts_type === 'large-small'
+						&&
+						$query->current_post === 0
+					) {
+						$size = 'medium';
+						$ratio = '4/3';
+					}
+
 					echo wp_kses_post(
 						blocksy_image(
 							[
 								'attachment_id' => get_post_thumbnail_id(),
-								'ratio' => '1/1',
+								'ratio' => $ratio,
 								'tag_name' => 'a',
-								'size' => 'thumbnail',
+								'size' => $size,
 								'html_atts' => [
 									'href' => get_permalink(),
 								],

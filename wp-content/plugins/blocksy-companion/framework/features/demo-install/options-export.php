@@ -18,16 +18,33 @@ class DemoInstallOptionsExport {
 		// 'page_for_posts',
 	);
 
+	private $page_ids = [
+		'woocommerce_shop_page_id',
+		'woocommerce_cart_page_id',
+		'woocommerce_checkout_page_id',
+		'woocommerce_pay_page_id',
+		'woocommerce_thanks_page_id',
+		'woocommerce_myaccount_page_id',
+		'woocommerce_edit_address_page_id',
+		'woocommerce_view_order_page_id',
+		'woocommerce_change_password_page_id',
+		'woocommerce_logout_page_id',
+		'woocommerce_lost_password_page_id',
+		'page_on_front',
+		'page_for_posts'
+	];
+
 	public function export() {
 		$theme = get_stylesheet();
 		$template = get_template();
 		$charset = get_option( 'blog_charset' );
 		$mods = get_theme_mods();
-		$data = array(
+
+		$data = [
 			'template' => $template,
-			'mods' => $mods ? $mods : array(),
-			'options' => array()
-		);
+			'mods' => $mods ? $mods : [],
+			'options' => []
+		];
 
 		global $wp_customize;
 
@@ -36,19 +53,19 @@ class DemoInstallOptionsExport {
 
 		foreach ( $settings as $key => $setting ) {
 			if ( 'option' == $setting->type ) {
-				if ( 'widget_' === substr( strtolower( $key ), 0, 7 ) ) {
+				if ('widget_' === substr(strtolower($key), 0, 7)) {
 					continue;
 				}
 
-				if ( 'sidebars_' === substr( strtolower( $key ), 0, 9 ) ) {
+				if ('sidebars_' === substr(strtolower($key), 0, 9)) {
 					continue;
 				}
 
-				if ( in_array( $key, $this->core_options ) ) {
+				if (in_array($key, $this->core_options)) {
 					continue;
 				}
 
-				$data['options'][ $key ] = $setting->value();
+				$data['options'][$key] = $setting->value();
 			}
 		}
 
@@ -67,7 +84,23 @@ class DemoInstallOptionsExport {
 		return serialize( $data );
 	}
 
+	public function export_pages_ids_options() {
+		$result = [];
 
+		foreach ($this->page_ids as $single_page_id) {
+			$id = get_option($single_page_id, null);
+
+			$title = false;
+
+			if ($id) {
+				$title = get_the_title($id);
+			}
+
+			$result[$single_page_id] = $title;
+		}
+
+		return $result;
+	}
 }
 
 

@@ -14,6 +14,32 @@ class BlocksyExtensionInstagram {
 			return $all_widgets;
 		});
 
+		add_filter('blocksy-options-scripts-dependencies', function ($d) {
+			$d[] = 'blocksy-ext-instagram-admin-scripts';
+			return $d;
+		});
+
+		add_filter('blocksy-options-without-controls', function ($opt) {
+			$d[] = 'blocksy-instagram-reset';
+			return $d;
+		});
+
+		add_action('admin_enqueue_scripts', function () {
+			if (! function_exists('get_plugin_data')) {
+				require_once(ABSPATH . 'wp-admin/includes/plugin.php');
+			}
+
+			$data = get_plugin_data(BLOCKSY__FILE__);
+
+			wp_register_script(
+				'blocksy-ext-instagram-admin-scripts',
+				BLOCKSY_URL . 'framework/extensions/instagram/static/bundle/admin.js',
+				[],
+				$data['Version'],
+				true
+			);
+		});
+
 		add_action('wp_enqueue_scripts', function () {
 			if (! function_exists('get_plugin_data')){
 				require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
@@ -49,6 +75,28 @@ class BlocksyExtensionInstagram {
 				$data
 			);
 		});
+
+		add_action('wp_ajax_blocksy_reset_instagram_transients', function () {
+			if (! current_user_can('manage_options')) {
+				wp_send_json_error();
+			}
+
+			global $wpdb;
+
+			$transients = $wpdb->get_results(
+				"SELECT option_name AS name FROM $wpdb->options
+				WHERE option_name LIKE '_transient_blocksy_instagram_ext_%'"
+			);
+
+			foreach ($transients as $single_transient){
+				delete_transient(ltrim($single_transient->name, '_transient_'));
+			}
+
+			wp_send_json_success([
+				'transients' => $transients
+			]);
+		});
+
 
 		add_action(
 			'customize_preview_init',

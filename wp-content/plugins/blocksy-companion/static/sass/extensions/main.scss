@@ -73,6 +73,7 @@ $extension-spacing: 25px;
 	margin-top: auto;
 	padding: 20px #{$extension-spacing - 12px} 20px $extension-spacing;
 	border-top: 1px solid rgba(226, 230, 235, 0.5);
+	background: rgba(235, 237, 241, 0.2);
 
 	[class*="ct-button"] {
 		--buttonHeight: 32px;

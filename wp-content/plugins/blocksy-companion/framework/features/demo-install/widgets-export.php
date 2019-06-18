@@ -22,7 +22,8 @@ class DemoInstallWidgetsExport {
 		}
 
 		$sidebars_widgets = get_option( 'sidebars_widgets' );
-		$sidebars_widget_instances = array();
+		$sidebars_widget_instances = [];
+
 		foreach ( $sidebars_widgets as $sidebar_id => $widget_ids ) {
 			if ( 'wp_inactive_widgets' === $sidebar_id ) {
 				continue;

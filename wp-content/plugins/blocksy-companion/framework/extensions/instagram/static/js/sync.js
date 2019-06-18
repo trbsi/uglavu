@@ -28,6 +28,7 @@ checkAndReplace({
 	whenInserted: () => {
 		const block = document.querySelector('.ct-instagram-block')
 
+		if (!block) return
 		responsiveClassesFor('insta_block_visibility', block)
 
 		block.dataset.location = wp.customize('insta_block_location')()

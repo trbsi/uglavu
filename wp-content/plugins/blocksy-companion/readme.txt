@@ -24,6 +24,16 @@ This plugin runs and adds its enhacements only if the Blocksy theme is installed
 
 == Changelog ==
 
+1.0.11: 2019-06-18
+* New: Author widget
+* New: Quote widget
+* New: About me widget
+* New: Facebook Like box widget
+* Improvement: Highlight Blocksy widgets and reorder
+* Improvement: Shorten Instagram transients period
+* Improvement: Instagram add clear caches button
+* Improvement: Type option on posts widget
+
 1.0.10: 2019-06-05
 * Improvement: Dashboard visual changes
 * Fix: Properly enqueue Elementor CSS

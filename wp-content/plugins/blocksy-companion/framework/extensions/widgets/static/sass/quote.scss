@@ -1,0 +1,49 @@
+.ct-quote-widget {
+	blockquote {
+		position: relative;
+		color: #fff;
+		min-height: 250px;
+		padding: 70px 40px 60px 60px;
+		border-radius: 7px;
+		background: var(--paletteColor1);
+
+		&:before {
+			position: absolute;
+			top: 50px;
+			left: 35px;
+			content: "”";
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			font-weight: bold;
+			font-size: 200px;
+			line-height: 150px;
+			opacity: 0.3;
+			width: 80px;
+			height: 80px;
+			display: flex;
+			justify-content: center;
+			transform: rotate(180deg);
+		}
+
+		p {
+			// font-size: 25px;
+			// font-weight: 600;
+			// line-height: 1.5;
+		}
+
+		.ct-quote-author {
+			display: flex;
+			align-items: center;
+			margin-top: 25px;
+			font-weight: 500;
+		}
+
+		figure {
+			flex: 0 0 40px;
+			max-width: 40px;
+			margin-right: 15px;
+			border-radius: 100%;
+			overflow: hidden;
+			-webkit-mask-image: -webkit-radial-gradient(white, black);
+		}
+	}
+}

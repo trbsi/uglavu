@@ -1,0 +1,64 @@
+.ct-about-me-widget section {
+	text-align: center;
+
+	figure {
+		max-width: 100px;
+		margin: 0 auto;
+		overflow: hidden;
+		border-radius: 100%;
+		-webkit-mask-image: -webkit-radial-gradient(white, black);
+	}
+
+	.ct-about-me-name {
+		margin: 15px 0 10px 0;
+	}
+
+	.ct-about-me-text {
+		&:not(:last-child) {
+			margin-bottom: 25px;
+		}
+	}
+
+	.ct-social-box {
+		justify-content: center;
+	}
+
+	.ct-about-me-link {
+		font-size: 15px;
+		display: block;
+	}
+
+	// simple
+	&[data-type="simple"] {
+		.ct-about-me-link {
+			opacity: 0.7;
+			margin-top: 20px;
+
+			&:hover {
+				opacity: 1;
+			}
+		}
+	}
+
+
+	// bordered
+	&[data-type="bordered"] {
+		padding-top: 50px;
+		padding-bottom: 50px;
+		border-radius: 7px;
+		background: #fff;
+		border: 1px dashed #dadee4;
+
+		.ct-about-me-text, .ct-social-box {
+			padding-left: 35px;
+			padding-right: 35px;
+		}
+
+		.ct-about-me-link {
+			margin-top: 40px;
+			margin-bottom: -50px;
+			padding: 15px 0;
+			border-top: 1px dashed #dadee4;
+		}
+	}
+}

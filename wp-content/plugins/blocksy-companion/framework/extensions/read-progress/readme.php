@@ -13,7 +13,7 @@
 		<i>
 		<?php
 			echo __(
-				'From the posts or pages metabox you will have the possibility to deactivate or activate the progress bar.', 'blc'
+				'From the single post metabox you will have the possibility to deactivate or activate the progress bar.', 'blc'
 			);
 		?>
 		</i>

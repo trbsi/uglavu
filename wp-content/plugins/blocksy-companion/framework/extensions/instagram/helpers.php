@@ -18,6 +18,7 @@ function blocksy_widget_instagram_generate_html() {
 			?>
 			>
 				<?php
+
 				echo blocksy_simple_image(
 					$photo['img'],
 					[
@@ -141,7 +142,7 @@ function blocksy_get_instagram_photos( $username, $items = 10 ) {
 		];
 	}
 
-	set_transient( $transient_name, $remote_images, 7 * 24 * HOUR_IN_SECONDS );
+	set_transient( $transient_name, $remote_images, 24 * HOUR_IN_SECONDS );
 
 	return $instagram_photos;
 }
