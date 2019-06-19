@@ -1,3 +1,7 @@
+.ct-dashboard-overlay-open {
+	overflow: hidden !important;
+}
+
 .toplevel_page_ct-dashboard,
 .appearance_page_ct-dashboard {
 
@@ -11,10 +15,11 @@
 		position: relative;
 		// text-align: center;
 		width: 550px;
-		min-height: 300px;
+		min-height: 150px;
 		margin: auto;
 		padding: 30px;
 		box-sizing: border-box;
+		border-radius: 6px;
 		box-shadow: 0 50px 300px rgba(92, 110, 128, 0.5);
 
 		> div {

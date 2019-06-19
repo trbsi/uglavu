@@ -1,6 +1,7 @@
 import { markImagesAsLoaded } from '../../frontend/lazy-load-helpers'
 import { getCache } from './helpers'
 import { typographyOption } from './variables/typography'
+import { responsiveClassesFor } from './footer'
 
 const enabledKeysForPrefix = {
 	blog: 'blog_page_title_enabled',
@@ -310,6 +311,13 @@ export const renderHeroSectionTexts = prefix => {
 			}
 		}
 	}
+
+	if (document.querySelector('.entry-header .page-description')) {
+		responsiveClassesFor(
+			`${prefix}_page_excerpt_visibility`,
+			document.querySelector('.entry-header .page-description')
+		)
+	}
 }
 
 const getVariablesForPrefix = prefix => ({
@@ -368,7 +376,11 @@ const watchOptionsFor = prefix => {
 	].map(id =>
 		wp.customize(id, val => val.bind(to => renderHeroSection(prefix)))
 	)
-	;[`${prefix}_custom_title`, `${prefix}_custom_description`].map(id =>
+	;[
+		`${prefix}_custom_title`,
+		`${prefix}_page_excerpt_visibility`,
+		`${prefix}_custom_description`
+	].map(id =>
 		wp.customize(id, val => val.bind(to => renderHeroSectionTexts(prefix)))
 	)
 }

@@ -119,6 +119,8 @@ class Blocksy_Dashboard_Page {
 				),
 				'theme_version' => $theme->get( 'Version' ),
 				'theme_name'    => $theme->get( 'Name' ),
+				'is_child_theme' => is_child_theme(),
+				'home_url' => home_url(),
 				'clean_install_plugins' => $plugins_config,
 			]
 		);

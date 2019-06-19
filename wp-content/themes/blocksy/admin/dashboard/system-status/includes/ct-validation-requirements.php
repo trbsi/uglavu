@@ -63,6 +63,11 @@ return array(
 		'error' => __( 'We recommend you to display php errors only in test mode.', 'blocksy' ),
 	),
 
+	'php-xmlreader' => array(
+		'value' => true,
+		'error' => __( 'XMLReader is required for importing demos. They are used to import and export xml files.', 'blocksy' ),
+	),
+
 	'php-ziparchive' => array(
 		'value' => true,
 		'error' => __( 'ZipArchive is required for importing demos. They are used to import and export zip files specifically for sliders.', 'blocksy' ),

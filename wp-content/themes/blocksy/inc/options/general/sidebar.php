@@ -171,7 +171,7 @@ $options = [
 
 					'sidebarWidgetsTitleFont' => [
 						'type' => 'ct-typography',
-						'label' => __( 'Title Font', 'blocksy' ),
+						'label' => __( 'Widget Title Font', 'blocksy' ),
 						'value' => blocksy_typography_default_values([
 							'size' => '18px',
 						]),
@@ -201,6 +201,17 @@ $options = [
 					blocksy_rand_md5() => [
 						'type' => 'ct-divider',
 						'attr' => [ 'data-type' => 'small' ],
+					],
+
+					'sidebarWidgetsHeadingsFont' => [
+						'type' => 'ct-typography',
+						'label' => __( 'Headings Font', 'blocksy' ),
+						'value' => blocksy_typography_default_values([
+							'size' => '15px',
+							'variation' => 'n5',
+							'line-height' => '1.4'
+						]),
+						'setting' => [ 'transport' => 'postMessage' ],
 					],
 
 					'sidebarWidgetsFontColor' => [

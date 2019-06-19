@@ -261,7 +261,7 @@ function blocksy_get_social_share_box($check_for_preview = false, $args = []) {
 				?>
 
 				<li data-share-network="<?php echo esc_attr( $share_network['for'] ); ?>">
-					<a href="<?php echo esc_attr( $social_urls[ $share_network['for'] ] ); ?>">
+					<a target="_blank" href="<?php echo esc_attr( $social_urls[ $share_network['for'] ] ); ?>">
 						<?php
 							/**
 							 * Note to code reviewers: This line doesn't need to be escaped.

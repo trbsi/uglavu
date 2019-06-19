@@ -195,7 +195,7 @@ export const getTypographyVariablesFor = () => ({
 
 	...typographyOption({
 		id: 'blockquote',
-		selector: '.entry-content blockquote p'
+		selector: '.entry-content blockquote p, .ct-quote-widget blockquote p'
 	}),
 
 	...typographyOption({
@@ -226,6 +226,11 @@ export const getTypographyVariablesFor = () => ({
 	...typographyOption({
 		id: 'sidebarWidgetsTitleFont',
 		selector: '.ct-sidebar .widget-title'
+	}),
+
+	...typographyOption({
+		id: 'sidebarWidgetsHeadingsFont',
+		selector: '.ct-sidebar .ct-post-title'
 	}),
 
 	...typographyOption({

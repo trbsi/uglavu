@@ -15,7 +15,7 @@
 			}
 		}
 
-		.ct-image-container {
+		> .ct-image-container {
 			&:not(.boundless-image) {
 				align-self: flex-start;
 			}

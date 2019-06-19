@@ -1,1 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" viewBox="0 0 100 100"><defs><linearGradient id="a" x1="0.829" y1="0.611" x2="-0.083" y2="0.282" gradientUnits="objectBoundingBox"><stop offset="0" stop-color="#edeeef"/><stop offset="1" stop-color="#bababa"/></linearGradient><clipPath id="c"><rect width="100" height="100"/></clipPath></defs><g id="b" clip-path="url(#c)"><g transform="translate(7)"><path d="M0,24.936,43.257,0,86.514,24.936,43.257,49.873Z" fill="#edeeef"/><path d="M0,59.673V9.8L43.257,34.736V84.864Z" transform="translate(0 15.136)" fill="#edeeef"/><path d="M60.257,59.673V9.8L17,34.736V84.864Z" transform="translate(26.257 15.136)" fill="url(#a)"/></g></g></svg>
+<svg width="16px" height="15px" viewBox="0 0 20 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>20 x 19</title>
+    <desc>Created with Sketch.</desc>
+    <g id="20-x-19" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Logo" transform="translate(0.000000, 1.000000)" fill="#FFFFFF">
+            <rect id="Rectangle" opacity="0.803710938" x="3" y="0" width="5" height="5.15151515" rx="1.5"></rect>
+            <rect id="Rectangle" opacity="0.803710938" x="12" y="0" width="5" height="5.15151515" rx="1.5"></rect>
+            <rect id="Rectangle" x="0" y="2.57575758" width="20" height="14.4242424" rx="2.5"></rect>
+        </g>
+    </g>
+</svg>

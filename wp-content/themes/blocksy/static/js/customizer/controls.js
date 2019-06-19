@@ -5,6 +5,7 @@ import { listenToPreviewEventsAndAct } from './preview-events'
 import { listenToVariables } from './customizer-variables'
 import './reset'
 import '../frontend/ct-events'
+import { initAllPanels } from '../options/initPanels'
 
 import ImagePicker from './controls/image-picker.js'
 import Switch from './controls/switch.js'
@@ -34,3 +35,11 @@ defineCustomizerControl('ct-number', NumberControl)
 defineCustomizerControl('ct-panel', Panel)
 defineCustomizerControl('ct-divider', Divider)
 defineCustomizerControl('ct-options', Options)
+
+if ($ && $.fn) {
+	$(document).on('widget-added', () => initAllPanels())
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+	initAllPanels()
+})

@@ -30,6 +30,7 @@ class Blocksy_Fonts_Manager {
 			'primaryMenuDropdownFont',
 			'mobileMenuFont',
 			'sidebarWidgetsTitleFont',
+			'sidebarWidgetsHeadingsFont',
 			'singleProductTitleFont',
 			'cardProductTitleFont',
 			blocksy_get_posts_listing_source()['prefix'] . '_cardTitleFont',
@@ -94,7 +95,7 @@ class Blocksy_Fonts_Manager {
 			}
 		}
 
-		$url = 'http://fonts.googleapis.com/css?family=';
+		$url = 'https://fonts.googleapis.com/css?family=';
 
 		$families = [];
 

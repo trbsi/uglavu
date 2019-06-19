@@ -432,6 +432,11 @@ class Blocksy_System_Status {
 			class_exists( 'ZipArchive' )
 		);
 
+		$php_xmlreader = $this->validation->is(
+			'php-xmlreader',
+			class_exists('XMLReader')
+		);
+
 		$this->result['php_extensions'] = array(
 			'title' => __( 'PHP Extensions', 'blocksy' ),
 			'desc' => __( 'List of PHP extensions', 'blocksy' ),
@@ -450,6 +455,14 @@ class Blocksy_System_Status {
 					'value' => class_exists( 'ZipArchive' ) ? __( 'Yes', 'blocksy' ) : __( 'No', 'blocksy' ),
 					'success' => $php_ziparchive['response'],
 					'message' => $php_ziparchive['error'],
+				),
+
+				'php_xmlreader' => array(
+					'title' => __( 'XMLReader', 'blocksy' ),
+					'desc' => __( 'The XMLReader extension allows you to read XML files.', 'blocksy' ),
+					'value' => class_exists( 'XMLReader' ) ? __( 'Yes', 'blocksy' ) : __( 'No', 'blocksy' ),
+					'success' => $php_xmlreader['response'],
+					'message' => $php_xmlreader['error'],
 				),
 
 				'php_fsockopen' => array(

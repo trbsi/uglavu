@@ -1,7 +1,11 @@
 .ct-lazy,
+.ct-lazy-loading,
 .ct-lazy-loading-start {
-	background: #fcfcfc;
+	background: rgba(252, 252, 252, 0.5);
+}
 
+.ct-lazy,
+.ct-lazy-loading-start {
 	> picture,
 	> img {
 		opacity: 0;

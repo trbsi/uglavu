@@ -1,46 +1,61 @@
 import ctEvents from 'ct-events'
+import $ from 'jquery'
 
 document.addEventListener('DOMContentLoaded', () => {
-	import('vanilla-lazyload').then(({ default: lazyload }) => {
-		let lz = new lazyload({
-			data_src: 'lazy',
-			data_srcset: 'lazy-set',
+	let lz = null
+	if (document.querySelector('img[data-lazy]')) {
+		import('vanilla-lazyload').then(({ default: lazyload }) => {
+			lz = new lazyload({
+				data_src: 'lazy',
+				data_srcset: 'lazy-set',
 
-			elements_selector: 'img[data-lazy]',
+				elements_selector: 'img[data-lazy]',
 
-			callback_set(img) {
-				objectFitPolyfill()
-			},
+				callback_set(img) {
+					objectFitPolyfill()
+				},
 
-			callback_load(img) {
-				let container = img.closest('.ct-image-container')
+				callback_load(img) {
+					let container = img.closest('.ct-image-container')
 
-				let action = () => {
-					if (!container) return
+					let action = () => {
+						if (!container) return
 
-					container.classList.remove('ct-lazy')
-					container.classList.add('ct-lazy-loading-start')
+						container.classList.remove('ct-lazy')
+						container.classList.add('ct-lazy-loading-start')
 
-					requestAnimationFrame(() => {
-						container.classList.remove('ct-lazy-loading-start')
-						container.classList.add('ct-lazy-loading')
+						requestAnimationFrame(() => {
+							container.classList.remove('ct-lazy-loading-start')
+							container.classList.add('ct-lazy-loading')
 
-						whenTransitionEnds(container.firstElementChild, () => {
-							container.classList.remove('ct-lazy-loading')
-							container.classList.add('ct-lazy-loaded')
+							whenTransitionEnds(
+								container.firstElementChild,
+								() => {
+									container.classList.remove(
+										'ct-lazy-loading'
+									)
+									container.classList.add('ct-lazy-loaded')
+								}
+							)
 						})
-					})
-				}
+					}
 
-				if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-					setTimeout(action, 500)
-				} else {
-					action()
+					if (
+						navigator.userAgent.toLowerCase().indexOf('firefox') >
+						-1
+					) {
+						setTimeout(action, 500)
+					} else {
+						action()
+					}
 				}
-			}
+			})
 		})
+	}
 
-		ctEvents.on('ct:images:lazyload:update', () => lz.update())
+	ctEvents.on('ct:images:lazyload:update', () => {
+		$ && $('body').trigger('jetpack-lazy-images-load')
+		lz && lz.update()
 	})
 })
 

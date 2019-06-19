@@ -1,6 +1,5 @@
 <?php
 
-
 class Blocksy_Plugin_Manager {
 	protected $config = [];
 
@@ -128,8 +127,9 @@ class Blocksy_Plugin_Manager {
 		$avaible_plugins = $this->get_plugins();
 
 		if ( ! array_key_exists( $plugin, $avaible_plugins ) ) {
-			return;
+			return $this->download_and_install( $plugin );
 		}
+
 		$plugin_info = $avaible_plugins[ $plugin ];
 
 		if ( 'premium' === $plugin_info['type'] ) {

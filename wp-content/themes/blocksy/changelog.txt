@@ -1,3 +1,12 @@
+1.2.14: 2019-06-18
+- Improvement: Add check for XMLReader in System Status
+- Fix: Share box fixed for Firefox on iOS
+- Fix: Jetpack images lazy load with infinite scrolling
+- Fix: Flexy drag-n-drop prevents page from being scrolled on touch devices
+- Fix: Author posts count pass correct ID
+- Fix: Google Fonts pass HTTPS protocol for loading fonts
+- Fix: Content width for Cover Image Block
+
 1.2.13: 2019-06-07
 - New: Share box fixed style
 - New: Page title description for pages
@@ -19,7 +28,7 @@
 1.2.10: 2019-06-05
 - New: Typography options, with Google & System Fonts
 - New: Gutenberg layout type
-- new: Lazy load animation type
+- New: Lazy load animation type
 - Improvement: Integration with WP Smush lazy load option
 - Improvement: Page title better alignment
 - Improvement: Pagination divider option

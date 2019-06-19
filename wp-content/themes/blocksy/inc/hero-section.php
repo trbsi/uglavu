@@ -275,6 +275,20 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 
 	$post_id = null;
 
+	$description_class = 'page-description';
+
+	$description_class .= ' ' . blocksy_visibility_classes(
+		blocksy_akg_or_customizer(
+			'page_excerpt_visibility',
+			blocksy_get_page_title_source(),
+			[
+				'desktop' => true,
+				'tablet' => true,
+				'mobile' => false,
+			]
+		)
+	);
+
 	if (is_home() && !is_front_page()) {
 		$post_id = get_option('page_for_posts');
 	}
@@ -284,12 +298,20 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 	}
 
 	if (is_singular() || blocksy_is_page()) {
+		if (! $post_id) {
+			$post_id = get_the_ID();
+		}
+
 		if (! empty(get_the_title($post_id))) {
 			$title = get_the_title($post_id);
 		}
 
 		if (has_excerpt($post_id)) {
-			$description = blocksy_entry_excerpt( 40, 'page-description', $post_id );
+			$description = blocksy_entry_excerpt(
+				40,
+				$description_class,
+				$post_id
+			);
 		}
 	} else {
 		if (! is_search()) {
@@ -310,7 +332,7 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 			}
 
 			if (! empty(get_the_archive_description())) {
-				$description = '<div class="page-description">' . get_the_archive_description() . '</div>';
+				$description = '<div class="' . $description_class . '">' . get_the_archive_description() . '</div>';
 			}
 		} else {
 			$title = sprintf(
@@ -337,7 +359,7 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 			blocksy_get_page_title_source(),
 			''
 		))) {
-			$description = '<div class="page-description">' . blocksy_akg_or_customizer(
+			$description = '<div class="' . $description_class . '">' . blocksy_akg_or_customizer(
 				'custom_description',
 				blocksy_get_page_title_source(),
 				(
@@ -362,6 +384,7 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 		blocksy_get_page_title_source(),
 		$type === 'type-1' ? 'left' : 'center'
 	)) . '"';
+
 
 	if ( $type === 'type-1' ) {
 		ob_start();
@@ -393,9 +416,7 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 						);
 					}
 
-					if (! is_singular()) {
-						echo wp_kses_post($description);
-					}
+					echo wp_kses_post($description);
 				?>
 			</header>
 		</section>

@@ -75,10 +75,6 @@
 		font-weight: 500;
 		opacity: 0.8;
 		color: var(--pageTitleFontInitialColor);
-
-		@include media-breakpoint-down (sm) {
-			display: none;
-		}
 	}
 
 	.entry-meta {

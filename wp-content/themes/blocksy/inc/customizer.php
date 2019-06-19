@@ -237,19 +237,21 @@ add_action(
 			$theme->get( 'Version' )
 		);
 
+		$deps = apply_filters('blocksy-options-scripts-dependencies', [
+			'underscore',
+			'wp-color-picker',
+			'react',
+			'react-dom',
+			'wp-element',
+			'wp-date',
+			'wp-i18n',
+			'customize-controls',
+		]);
+
 		wp_enqueue_script(
 			'ct-customizer-controls',
 			get_template_directory_uri() . '/static/bundle/customizer-controls.js',
-			array(
-				'underscore',
-				'wp-color-picker',
-				'react',
-				'react-dom',
-				'wp-element',
-				'wp-date',
-				'wp-i18n',
-				'customize-controls',
-			),
+			$deps,
 			$theme->get( 'Version' ),
 			true
 		);
@@ -513,15 +515,12 @@ function blocksy_customizer_register_options(
 
 			$is_allowed = true;
 
-			if ($opt['option']['type'] === 'ct-divider') {
-				$is_allowed = false;
-			}
+			$options_that_are_not_allowed = apply_filters(
+				'blocksy-options-without-controls',
+				['ct-divider', 'ct-title', 'ct-notification']
+			);
 
-			if ($opt['option']['type'] === 'ct-title') {
-				$is_allowed = false;
-			}
-
-			if ($opt['option']['type'] === 'ct-notification') {
+			if (in_array($opt['option']['type'], $options_that_are_not_allowed)) {
 				$is_allowed = false;
 			}
 

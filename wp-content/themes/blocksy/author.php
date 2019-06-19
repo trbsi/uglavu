@@ -29,14 +29,16 @@ if ( $blog_post_structure === 'grid' ) {
 	$columns_output = 'data-columns="' . $blog_post_columns . '"';
 }
 
-$joined_date = date( "F j, Y", strtotime(get_userdata(get_current_user_id())->user_registered) );
+$joined_date = date( "F j, Y", strtotime(get_userdata(
+	get_the_author_meta('ID')
+)->user_registered) );
+
 $comments_count = get_comments([
 	'type' => '',
-	'user_id' => get_current_user_id(),
+	'user_id' => get_the_author_meta('ID'),
 	'count' => true,
 ]);
-$posts_count = count_user_posts(get_current_user_id());
-
+$posts_count = count_user_posts(get_the_author_meta('ID'));
 
 ?>
 
@@ -56,6 +58,7 @@ $posts_count = count_user_posts(get_current_user_id());
 						<ul class="ct-meta-info">
 							<li>
 								Joined:
+
 								<span>
 									<?php echo esc_html($joined_date) ?>
 								</span>

@@ -162,3 +162,24 @@
 		}
 	}
 }
+
+// widgets list
+#widget-list {
+	> div[id*="blocksy_ct"] {
+		> .widget-top {
+			background: rgba(103, 118, 134, 0.2);
+			border-color: rgba(103, 118, 134, 0.3);
+			box-shadow: 0 1px 1px rgba(103, 118, 134, 0.15);
+
+			&:hover {
+				border-color: rgba(103, 118, 134, 0.6) !important;		
+			}
+
+			h3, .toggle-indicator {
+				color: rgb(55, 63, 72);
+			}
+		}
+	}
+}
+
+

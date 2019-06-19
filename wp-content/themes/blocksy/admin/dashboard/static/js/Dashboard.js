@@ -105,8 +105,7 @@ export default class Dashboard extends Component {
 				<Provider
 					value={{
 						...getDefaultValue(),
-						theme_version: ctDashboardLocalizations.theme_version,
-						theme_name: ctDashboardLocalizations.theme_name,
+						...ctDashboardLocalizations,
 						Link,
 						Location,
 						navigate,

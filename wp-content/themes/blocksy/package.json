@@ -1,6 +1,6 @@
 {
 	"name": "small-ct",
-	"version": "1.2.13",
+	"version": "1.2.14",
 	"title": "Blocksy",
 	"devDependencies": {
 		"@babel/plugin-proposal-class-properties": "^7.4.4",

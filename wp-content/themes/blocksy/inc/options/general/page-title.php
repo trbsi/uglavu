@@ -266,6 +266,31 @@ $when_enabled_general_settings = [
 			],
 		],
 	],
+
+	blocksy_rand_md5() => [
+		'type' => 'ct-divider',
+		'attr' => [ 'data-type' => 'small' ],
+	],
+
+	$prefix . 'page_excerpt_visibility' => [
+		'label' => __( 'Page Excerpt Visibility', 'blocksy' ),
+		'type' => 'ct-visibility',
+		'design' => $has_default ? 'inline' : false,
+		'allow_empty' => true,
+		'setting' => [ 'transport' => 'postMessage' ],
+
+		'value' => [
+			'desktop' => true,
+			'tablet' => true,
+			'mobile' => false,
+		],
+
+		'choices' => blocksy_ordered_keys([
+			'desktop' => __( 'Desktop', 'blocksy' ),
+			'tablet' => __( 'Tablet', 'blocksy' ),
+			'mobile' => __( 'Mobile', 'blocksy' ),
+		]),
+	],
 ];
 
 $when_enabled_design_settings = [

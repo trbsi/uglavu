@@ -116,7 +116,7 @@ blocksy_output_font_css([
 	'css' => $css,
 	'tablet_css' => $tablet_css,
 	'mobile_css' => $mobile_css,
-	'selector' => '.entry-content blockquote p'
+	'selector' => '.entry-content blockquote p, .ct-quote-widget blockquote p'
 ]);
 
 blocksy_output_font_css([
@@ -207,6 +207,21 @@ blocksy_output_font_css([
 	'tablet_css' => $tablet_css,
 	'mobile_css' => $mobile_css,
 	'selector' => '.ct-sidebar .widget-title'
+]);
+
+blocksy_output_font_css([
+	'font_value' => get_theme_mod(
+		'sidebarWidgetsHeadingsFont',
+		blocksy_typography_default_values([
+			'size' => '15px',
+			'variation' => 'n5',
+			'line-height' => '1.4'
+		])
+	),
+	'css' => $css,
+	'tablet_css' => $tablet_css,
+	'mobile_css' => $mobile_css,
+	'selector' => '.ct-sidebar .ct-post-title'
 ]);
 
 blocksy_output_font_css([
