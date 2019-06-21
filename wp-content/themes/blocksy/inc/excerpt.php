@@ -9,8 +9,23 @@ add_filter(
 	}
 );
 
+/**
+ * @param number $length Number of words allowed in excerpt.
+ */
 function blocksy_trim_excerpt( $excerpt, $length ) {
-	echo wp_kses_post(wp_trim_words($excerpt, $length, '…'));
+
+	$excerpt = explode(' ', $excerpt, $length);
+
+	if (count($excerpt) >= $length) {
+		array_pop($excerpt);
+		$excerpt = implode(" ", $excerpt).'...';
+	} else {
+		$excerpt = implode(" ", $excerpt);
+	}
+
+	$excerpt = preg_replace('`[[^]]*]`', '', $excerpt);
+	
+	echo wp_kses_post($excerpt);
 }
 
 add_filter(
