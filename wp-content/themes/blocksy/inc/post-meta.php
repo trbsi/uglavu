@@ -268,6 +268,7 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 			</ul>
 		<?php if (!$args['plain']) { ?>
 		</div>
+		<?php //CUSTOM ?>
 		<div class="fb-comments" data-href="<?= (isset($post->og_url)) ? $post->og_url : esc_url( get_permalink() ) ?>"  data-width="100%" data-numposts="3"></div>
 		<?php } ?>
 

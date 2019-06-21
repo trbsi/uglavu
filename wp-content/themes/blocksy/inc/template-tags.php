@@ -14,6 +14,8 @@
  */
 function blocksy_entry_title( $tag = 'h2' ) {
 	ob_start();
+
+	//CUSTOM
  	$post = get_post();
  	if (!empty($post->og_url)) {
  		$url = $post->og_url;
@@ -24,6 +26,7 @@ function blocksy_entry_title( $tag = 'h2' ) {
  	}
 	?>
 
+	<?php //CUSTOM + EDIT ?>
 	<<?php echo esc_attr( $tag ); ?> class="entry-title">
 		<a href="<?php echo $url ?>" <?=$target?>>
 			<?php the_title(); ?> 

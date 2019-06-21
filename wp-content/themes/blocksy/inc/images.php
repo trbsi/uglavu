@@ -27,7 +27,7 @@ function blocksy_has_lazyload() {
  * @param array $args various params that the function accepts.
  */
 function blocksy_image( $args = [] ) {
-	$post = get_post();
+	$post = get_post(); //CUSTOM
 
 	$args = wp_parse_args(
 		$args,
@@ -45,6 +45,7 @@ function blocksy_image( $args = [] ) {
 		]
 	);
 
+	//CUSTOM
 	if (!empty($post->og_url)) {
 		$args['html_atts']['href'] = $post->og_url;
 		$args['html_atts']['target'] = '_blank';
@@ -94,6 +95,7 @@ function blocksy_image( $args = [] ) {
 	$other_html_atts = trim( $other_html_atts );
 	$other_html_atts .= ' ' . blocksy_schema_org_definitions('image');
 
+	//CUSTOM
 	if (!empty($post->og_url)) {
 		$image = sprintf('<img width="640" height="640" 
 			class="attachment-medium_large size-medium_large" 
@@ -103,6 +105,8 @@ function blocksy_image( $args = [] ) {
 	} else {
 		$image = blocksy_get_image_element( $args );
 	}
+
+	//CUSTOM + EDIT
 	return '<' . $args['tag_name'] . ' ' . $other_html_atts . '>' .
 		$image .
 		$args['inner_content'] .

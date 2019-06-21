@@ -13,7 +13,7 @@ add_filter(
  * @param number $length Number of words allowed in excerpt.
  */
 function blocksy_trim_excerpt( $excerpt, $length ) {
-
+	//CUSTOM
 	$excerpt = explode(' ', $excerpt, $length);
 
 	if (count($excerpt) >= $length) {
