@@ -60,27 +60,40 @@ function get_host_from_url($externalUrl)
 function get_site_post_id($externalUrl)
 {
 	$externalUrl = strtok($externalUrl, '?');
-	preg_match_all('/\d+/', $externalUrl, $matches);
+	$urlData = parse_url($externalUrl);
+	preg_match_all('/\d+/', $urlData['path'], $matches);
+
 	if (!empty($matches[0])) {
 	    $sitePostId = end($matches[0]);
+	    //sometimes there can be some other numbers in url that are not post id but article info
+	    //usually post ids are big numbers
+	    if ($sitePostId < 10000) {
+			$sitePostId = extract_site_post_id_from_url($urlData);
+	    }
 	} else {
-	    $urlData = parse_url($externalUrl);
-		$path = strtolower($urlData['path']);
-		$pathArray = str_split(str_replace(['-', '/'], '', $path));
-		$letters = array_flip(range('a', 'z'));
-
-		$sitePostId = 0;
-		foreach ($pathArray as $character) {
-			if (is_numeric($character)) {
-				$sitePostId+= $character;
-			} elseif(isset($letters[$character])) {
-				$sitePostId+= $letters[$character] + 1;
-			} else {
-				$sitePostId+= 1;
-			}
-		}
-		$sitePostId+= strlen($externalUrl);
+	    $sitePostId = extract_site_post_id_from_url($urlData);
 	}
+
+	return $sitePostId;
+}
+
+function extract_site_post_id_from_url(array $urlData): int
+{
+	$path = strtolower($urlData['path']);
+	$pathArray = str_split(str_replace(['-', '/'], '', $path));
+	$letters = array_flip(range('a', 'z'));
+
+	$sitePostId = 0;
+	foreach ($pathArray as $character) {
+		if (is_numeric($character)) {
+			$sitePostId+= $character;
+		} elseif(isset($letters[$character])) {
+			$sitePostId+= $letters[$character] + 1;
+		} else {
+			$sitePostId+= 1;
+		}
+	}
+	$sitePostId+= strlen($externalUrl);
 
 	return $sitePostId;
 }
