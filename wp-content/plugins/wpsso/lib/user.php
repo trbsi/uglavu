@@ -31,8 +31,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		 */
 		protected function add_wp_hooks() {
 
-			$is_admin   = is_admin();
-			$doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX ? true : false;
+			$is_admin   = is_admin();	// Only check once.
 			$cm_fb_name = $this->p->options[ 'plugin_cm_fb_name' ];
 
 			if ( ! SucomUtilWP::role_exists( 'person' ) ) {
@@ -599,7 +598,7 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 				$this->p->debug->log( 'locale default = ' . SucomUtil::get_locale( 'default' ) );
 				$this->p->debug->log( 'locale current = ' . SucomUtil::get_locale( 'current' ) );
 				$this->p->debug->log( 'locale mod = ' . SucomUtil::get_locale( $mod ) );
-				$this->p->debug->log( SucomDebug::pretty_array( $mod ) );
+				$this->p->debug->log( SucomUtil::pretty_array( $mod ) );
 			}
 
 			WpssoWpMeta::$head_meta_tags = array();
@@ -825,13 +824,10 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 
 		public function add_contact_methods( $fields = array(), $user = null ) {
 
-			$has_pdir = $this->p->avail[ '*' ][ 'p_dir' ];
-			$has_pp   = $this->p->check->pp( $this->p->lca, true, $has_pdir );
-
 			/**
 			 * Unset built-in contact fields and/or update their labels.
 			 */
-			if ( ! empty( $this->p->cf[ 'wp' ][ 'cm_names' ] ) && is_array( $this->p->cf[ 'wp' ][ 'cm_names' ] ) && $has_pp ) {
+			if ( ! empty( $this->p->cf[ 'wp' ][ 'cm_names' ] ) && is_array( $this->p->cf[ 'wp' ][ 'cm_names' ] ) ) {
 
 				foreach ( $this->p->cf[ 'wp' ][ 'cm_names' ] as $id => $desc ) {
 

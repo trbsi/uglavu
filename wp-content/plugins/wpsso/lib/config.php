@@ -14,14 +14,18 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 	class WpssoConfig {
 
 		public static $cf = array(
-			'lca'    => 'wpsso',	// Main plugin lowercase acronym (deprecated on 2017/11/18).
+			'lca'  => 'wpsso',	// Main plugin lowercase acronym (deprecated on 2017/11/18).
+			'dist' => array(
+				'pro'    => 'Premium',
+				'std'    => 'Standard',
+			),
 			'plugin' => array(
 				'wpsso' => array(			// Plugin acronym.
-					'version'      => '4.31.4',	// Plugin version.
-					'opt_version'  => '642',	// Increment when changing default option values.
-					'short'        => 'WPSSO Core',	// Short plugin name.
-					'name'         => 'WPSSO Core [Main Plugin]',
-					'desc'         => 'WPSSO Core makes sure your content looks great on all social and search sites - no matter how URLs are crawled, shared, re-shared, posted, or embedded!',
+					'version'     => '5.0.0',	// Plugin version.
+					'opt_version' => '643',		// Increment when changing default option values.
+					'short'       => 'WPSSO Core',	// Short plugin name.
+					'name'        => 'WPSSO Core [Main Plugin]',
+					'desc'        => 'WPSSO Core makes sure your content looks great on all social and search sites - no matter how URLs are crawled, shared, re-shared, posted, or embedded!',
 					'slug'        => 'wpsso',
 					'base'        => 'wpsso/wpsso.php',
 					'update_auth' => 'tid',
@@ -60,17 +64,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'lib' => array(
 						'dashboard' => array(
 							'sso-dashboard' => 'SSO Dashboard',
-						),
-						'gpl' => array(
-							'admin' => array(
-								'general'  => 'Extend General Settings',
-								'advanced' => 'Extend Advanced Settings',
-								'post'     => 'Extend Post Settings',
-								'meta'     => 'Extend Term and User Settings',
-							),
-							'social' => array(
-								'buddypress' => '(plugin) BuddyPress',
-							),
 						),
 						'plugins' => array(
 							'sso-addons' => 'SSO Complementary Add-ons',
@@ -126,7 +119,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 							),
 							'review' => array(
 								'wpproductreview' => '(plugin) WP Product Review',
-								'yotpowc'         => '(plugin) Yotpo Social Reviews for WooCommerce',
 							),
 							'seo' => array(
 								'aioseop'         => '(plugin) All in One SEO Pack',
@@ -156,16 +148,27 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'sitesubmenu' => array(
 							'site-advanced' => 'Advanced',
 							'site-addons'   => 'Complementary Add-ons',
-							'site-licenses' => 'Pro Licenses',
+							'site-licenses' => 'Licenses',
 							'site-setup'    => 'Setup Guide',
 							'site-tools'    => 'Tools',
+						),
+						'std' => array(
+							'admin' => array(
+								'general'  => 'Extend General Settings',
+								'advanced' => 'Extend Advanced Settings',
+								'post'     => 'Extend Post Settings',
+								'meta'     => 'Extend Term and User Settings',
+							),
+							'social' => array(
+								'buddypress' => '(plugin) BuddyPress',
+							),
 						),
 						'submenu' => array(
 							'essential' => 'Essential',
 							'general'   => 'General',
 							'advanced'  => 'Advanced',
 							'addons'    => 'Complementary Add-ons',
-							'licenses'  => 'Pro Licenses',
+							'licenses'  => 'Licenses',
 							'dashboard' => 'Dashboard',
 							'setup'     => 'Setup Guide',
 							'tools'     => 'Tools',
@@ -711,7 +714,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssoum' => array(			// Plugin acronym.
 					'short'       => 'WPSSO UM',	// Short plugin name.
 					'name'        => 'WPSSO Update Manager',
-					'desc'        => 'WPSSO Core add-on provides updates for the WPSSO Core Pro plugin and its complementary Pro add-ons.',
+					'desc'        => 'WPSSO Core add-on provides updates for the WPSSO Core Premium plugin and its complementary Premium add-ons.',
 					'slug'        => 'wpsso-um',
 					'base'        => 'wpsso-um/wpsso-um.php',
 					'update_auth' => '',
@@ -786,7 +789,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'schema_type_for_attachment'   => 'webpage',
 					'schema_type_for_home_index'   => 'blog',
 					'schema_type_for_home_page'    => 'website',
-					'schema_type_for_page'         => 'webpage',
+					'schema_type_for_page'         => 'article',
 					'schema_type_for_post'         => 'blog.posting',
 					'schema_type_for_post_archive' => 'item.list',		// Post type archive page.
 					'schema_type_for_search_page'  => 'webpage.search.results',
@@ -795,42 +798,44 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					/**
 					 * Custom post types.
 					 */
-					'schema_type_for_article'      => 'article',
-					'schema_type_for_book'         => 'book',
-					'schema_type_for_blog'         => 'blog',
-					'schema_type_for_business'     => 'local.business',
-					'schema_type_for_download'     => 'product',		// For Easy Digital Downloads.
-					'schema_type_for_event'        => 'event',
-					'schema_type_for_howto'        => 'how.to',
-					'schema_type_for_job_listing'  => 'job.posting',	// For WP Job Manager
-					'schema_type_for_jobpost'      => 'job.posting',	// For Simple Job Board
-					'schema_type_for_organization' => 'organization',
-					'schema_type_for_other'        => 'other',
-					'schema_type_for_person'       => 'person',
-					'schema_type_for_place'        => 'place',
-					'schema_type_for_product'      => 'product',
-					'schema_type_for_recipe'       => 'recipe',		// For WP Ultimate Recipe
-					'schema_type_for_review'       => 'review',		// For WP Product Review
-					'schema_type_for_tribe_events' => 'event',
-					'schema_type_for_webpage'      => 'webpage',
-					'schema_type_for_website'      => 'website',
-					'fb_publisher_url'             => '',			// Facebook Business Page URL (localized).
-					'fb_app_id'                    => '',			// Facebook Application ID.
-					'fb_admins'                    => '',			// or Facebook Admin Username(s).
-					'fb_locale'                    => 'en_US',		// Custom Facebook Locale.
-					'instgram_publisher_url'       => '',			// Instagram Business Page URL (localized).
-					'linkedin_publisher_url'       => '',			// LinkedIn Company Page URL (localized).
-					'myspace_publisher_url'        => '',			// Myspace Business Page URL (localized).
-					'sc_publisher_url'             => '',			// Soundcloud Business Page URL (localized).
-					'tumblr_publisher_url'         => '',                   // Tumblr Business Page URL (localized).
-					'yt_publisher_url'             => '',                   // YouTube Business Channel URL (localized).
+					'schema_type_for_article'         => 'article',
+					'schema_type_for_book'            => 'book',
+					'schema_type_for_blog'            => 'blog',
+					'schema_type_for_business'        => 'local.business',
+					'schema_type_for_download'        => 'product',		// For Easy Digital Downloads.
+					'schema_type_for_event'           => 'event',
+					'schema_type_for_howto'           => 'how.to',
+					'schema_type_for_job_listing'     => 'job.posting',	// For WP Job Manager.
+					'schema_type_for_jobpost'         => 'job.posting',	// For Simple Job Board.
+					'schema_type_for_organization'    => 'organization',
+					'schema_type_for_other'           => 'other',
+					'schema_type_for_person'          => 'person',
+					'schema_type_for_place'           => 'place',
+					'schema_type_for_product'         => 'product',		// For WooCommerce and most e-commerce plugins.
+					'schema_type_for_tax_product_cat' => 'item.list',	// For WooCommerce.
+					'schema_type_for_tax_product_tag' => 'item.list',	// For WooCommerce.
+					'schema_type_for_recipe'          => 'recipe',		// For WP Ultimate Recipe.
+					'schema_type_for_review'          => 'review',		// For WP Product Review.
+					'schema_type_for_tribe_events'    => 'event',
+					'schema_type_for_webpage'         => 'webpage',
+					'schema_type_for_website'         => 'website',
+					'fb_publisher_url'                => '',		// Facebook Business Page URL (localized).
+					'fb_app_id'                       => '',		// Facebook Application ID.
+					'fb_admins'                       => '',		// or Facebook Admin Username(s).
+					'fb_locale'                       => 'en_US',		// Custom Facebook Locale.
+					'instgram_publisher_url'          => '',		// Instagram Business Page URL (localized).
+					'linkedin_publisher_url'          => '',		// LinkedIn Company Page URL (localized).
+					'myspace_publisher_url'           => '',		// Myspace Business Page URL (localized).
+					'sc_publisher_url'                => '',		// Soundcloud Business Page URL (localized).
+					'tumblr_publisher_url'            => '',		// Tumblr Business Page URL (localized).
+					'yt_publisher_url'                => '',		// YouTube Business Channel URL (localized).
 					
 					/**
 					 * Standard WordPress types.
 					 */
 					'og_type_for_tax_category'     => 'website',
 					'og_type_for_tax_post_tag'     => 'website',
-					'og_type_for_archive_page'     => 'website',	// Date-based archives.
+					'og_type_for_archive_page'     => 'website',		// Date-based archives.
 					'og_type_for_attachment'       => 'website',
 					'og_type_for_home_index'       => 'website',
 					'og_type_for_home_page'        => 'website',
@@ -1451,6 +1456,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'cf_md_multi' => array(
 					'schema_addl_type_url'      => true,	// Microdata Type URLs.
 					'schema_howto_step'         => array(	// How-To Step Name.
+						'schema_howto_step_section',	// How-To Section (checkbox).
 						'schema_howto_step_text',	// How-To Direction Text.
 					),
 					'schema_howto_supply'       => true,	// How-To Supplies.
@@ -1465,7 +1471,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			 * Update manager config.
 			 */
 			'um' => array(
-				'rec_version' => '1.19.3',	// Minimum update manager version (soft limit).
+				'rec_version' => '2.0.0',	// Minimum update manager version (soft limit).
 				'check_hours' => array(
 					24  => 'Every day',
 					48  => 'Every two days',
@@ -2282,13 +2288,32 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'creative.work' => array(	// Creative work, including books, movies, photographs, software programs, etc.
 							'answer'  => 'https://schema.org/Answer',
 							'article' => array(
-								'article'              => 'https://schema.org/Article',
-								'article.news'         => 'https://schema.org/NewsArticle',
-								'article.tech'         => 'https://schema.org/TechArticle',
-								'article.scholarly'    => 'https://schema.org/ScholarlyArticle',
+								'article'                    => 'https://schema.org/Article',
+								'article.advertiser.content' => 'https://schema.org/AdvertiserContentArticle',
+								'article.news'               => array(
+									'article.news'            => 'https://schema.org/NewsArticle',
+									'article.news.analysis'   => 'https://schema.org/AnalysisNewsArticle',
+									'article.news.ask.public' => 'https://schema.org/AskPublicNewsArticle',
+									'article.news.background' => 'https://schema.org/BackgroundNewsArticle',
+									'article.news.opinion'    => 'https://schema.org/OpinionNewsArticle',
+									'article.news.reportage'  => 'https://schema.org/ReportageNewsArticle',
+									'article.news.review'     => 'https://schema.org/ReviewNewsArticle',
+								),
+								'article.satirical' => 'https://schema.org/SatiricalArticle',
+								'article.scholarly' => array(
+									'article.scholarly'         => 'https://schema.org/ScholarlyArticle',
+									'article.scholarly.medical' => 'https://schema.org/MedicalScholarlyArticle',
+								),
+								'article.tech' => array(
+									'article.tech'               => 'https://schema.org/TechArticle',
+									'article.tech.reference.api' => 'https://schema.org/APIReference',
+								),
 								'report'               => 'https://schema.org/Report',
 								'social.media.posting' => array(
-									'blog.posting'             => 'https://schema.org/BlogPosting',
+									'blog.posting' => array(
+										'blog.posting'      => 'https://schema.org/BlogPosting',
+										'blog.posting.live' => 'https://schema.org/LiveBlogPosting',
+									),
 									'discussion.forum.posting' => 'https://schema.org/DiscussionForumPosting',
 									'social.media.posting'     => 'https://schema.org/SocialMediaPosting',
 								),
@@ -2938,8 +2963,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				self::$cf[ '*' ] = array(
 					'base' => array(),
 					'lib'  => array(
-						'gpl' => array(),
 						'pro' => array(),
+						'std' => array(),
 					),
 					'version' => '',		// -wpsso3.29.0pro-wpssoplm1.5.1pro-wpssoum1.4.0gpl
 				);
@@ -2955,7 +2980,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					foreach ( self::$cf[ 'plugin' ] as $ext => $info ) {
 
 						if ( defined( strtoupper( $ext ) . '_PLUGINDIR' ) ) {
-							$pkg_lctype = is_dir( constant( strtoupper( $ext ) . '_PLUGINDIR' ) . 'lib/pro/' ) ? 'pro' : 'gpl';
+							$pkg_lctype = is_dir( constant( strtoupper( $ext ) . '_PLUGINDIR' ) . 'lib/pro/' ) ? 'pro' : 'std';
 						} else {
 							$pkg_lctype = '';
 						}
@@ -3108,14 +3133,14 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			 */
 			$var_const[ 'WPSSO_SCHEMA_ADDL_TYPE_URL_MAX' ]       = 5;
 			$var_const[ 'WPSSO_SCHEMA_EVENT_OFFERS_MAX' ]        = 10;
-			$var_const[ 'WPSSO_SCHEMA_HOWTO_STEPS_MAX' ]         = 80;
-			$var_const[ 'WPSSO_SCHEMA_HOWTO_SUPPLIES_MAX' ]      = 40;
+			$var_const[ 'WPSSO_SCHEMA_HOWTO_STEPS_MAX' ]         = 50;
+			$var_const[ 'WPSSO_SCHEMA_HOWTO_SUPPLIES_MAX' ]      = 30;
 			$var_const[ 'WPSSO_SCHEMA_HOWTO_TOOLS_MAX' ]         = 20;
 			$var_const[ 'WPSSO_SCHEMA_MOVIE_ACTORS_MAX' ]        = 20;
 			$var_const[ 'WPSSO_SCHEMA_MOVIE_DIRECTORS_MAX' ]     = 5;
 			$var_const[ 'WPSSO_SCHEMA_PRODUCT_VALID_MAX_TIME' ]  = YEAR_IN_SECONDS;	// Used for Schema 'priceValidUntil' property default.
 			$var_const[ 'WPSSO_SCHEMA_RECIPE_INGREDIENTS_MAX' ]  = 50;
-			$var_const[ 'WPSSO_SCHEMA_RECIPE_INSTRUCTIONS_MAX' ] = 80;
+			$var_const[ 'WPSSO_SCHEMA_RECIPE_INSTRUCTIONS_MAX' ] = 50;
 			$var_const[ 'WPSSO_SCHEMA_REVIEWS_PER_PAGE_MAX' ]    = 30;
 			$var_const[ 'WPSSO_SCHEMA_SAMEAS_URL_MAX' ]          = 5;
 

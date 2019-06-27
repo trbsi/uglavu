@@ -85,9 +85,9 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 			add_action( 'wp_scheduled_delete', array( $this, 'delete_expired_db_transients' ) );
 
-			add_action( $this->p->lca . '_add_user_roles', array( $this, 'add_user_roles' ), 10, 1 );	// For single schedule task.
-			add_action( $this->p->lca . '_clear_all_cache', array( $this, 'clear_all_cache' ), 10, 4 );	// For single schedule task.
-			add_action( $this->p->lca . '_refresh_all_cache', array( $this, 'refresh_all_cache' ), 10, 1 );	// For single schedule task.
+			add_action( $this->p->lca . '_add_user_roles', array( $this, 'add_user_roles' ), 10, 1 );	// For single scheduled task.
+			add_action( $this->p->lca . '_clear_all_cache', array( $this, 'clear_all_cache' ), 10, 4 );	// For single scheduled task.
+			add_action( $this->p->lca . '_refresh_all_cache', array( $this, 'refresh_all_cache' ), 10, 1 );	// For single scheduled task.
 
 			/**
 			 * The "current_screen" action hook is not called when editing / saving an image.
@@ -563,21 +563,19 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 			 */
 			if ( $this->p->debug->enabled ) {
 
-				$wp_obj_type = gettype( $wp_obj ) === 'object' ? get_class( $wp_obj ) . ' object' : gettype( $wp_obj );
-				$is_ajax_str = defined( 'DOING_AJAX' ) && DOING_AJAX ? 'true' : 'false';
+				$wp_obj_type   = gettype( $wp_obj ) === 'object' ? get_class( $wp_obj ) . ' object' : gettype( $wp_obj );
+				$doing_ajax_is = defined( 'DOING_AJAX' ) && DOING_AJAX ? 'true' : 'false';
 
 				$this->p->debug->mark( 'define image sizes' );	// Begin timer.
 
 				$this->p->debug->log( '$wp_obj is ' . $wp_obj_type );
-				$this->p->debug->log( 'DOING_AJAX is ' . $is_ajax_str );
+				$this->p->debug->log( 'DOING_AJAX is ' . $doing_ajax_is );
 			}
 
 			static $def_opts = null;	// Get defaults once if required.
 
 			$use_post = in_the_loop() ? true : false;				// Use the $post object inside the loop.
 			$use_post = apply_filters( $this->p->lca . '_use_post', $use_post );	// Used by woocommerce with is_shop().
-			$has_pdir = $this->p->avail[ '*' ][ 'p_dir' ];
-			$has_pp   = $this->p->check->pp( $this->p->lca, true, $has_pdir );
 
 			/**
 			 * The $mod array argument is preferred but not required.
@@ -610,7 +608,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 					$this->p->debug->log( 'module name is unknown' );
 				}
 
-			} elseif ( ! empty( $mod[ 'id' ] ) && ! empty( $mod[ 'obj' ] ) && $has_pp ) {
+			} elseif ( ! empty( $mod[ 'id' ] ) && ! empty( $mod[ 'obj' ] ) ) {
 
 				/**
 			 	 * Custom filters may use image sizes, so don't filter/cache the meta options.
@@ -1188,11 +1186,15 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 			set_transient( $cache_id, $cache_status, $cache_exp_secs );
 
-			if ( get_current_user_id() === 0 ) {				// User is the scheduler.
+			if ( 0 === get_current_user_id() ) {				// User is the scheduler.
 				set_time_limit( HOUR_IN_SECONDS );
 			}
 
 			$user_id = $this->maybe_change_user_id( $user_id );
+
+			if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
+				do_action( $this->p->lca . '_scheduled_task_started', $user_id );
+			}
 
 			$public_ids = WpssoUser::get_public_ids();			// Aka 'administrator', 'editor', 'author', and 'contributor'.
 
@@ -1256,13 +1258,17 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 			set_transient( $cache_id, $cache_status, $cache_exp_secs );
 
-			if ( get_current_user_id() === 0 ) {				// User is the scheduler.
+			if ( 0 === get_current_user_id() ) {				// User is the scheduler.
 				set_time_limit( HOUR_IN_SECONDS );
 			}
 
 			$mtime_start = microtime( true );
 
 			$user_id = $this->maybe_change_user_id( $user_id );
+
+			if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
+				do_action( $this->p->lca . '_scheduled_task_started', $user_id );
+			}
 
 			if ( null === $clear_short ) {
 				$clear_short = isset( $this->p->options[ 'plugin_clear_short_urls' ] ) ?
@@ -1429,13 +1435,17 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 			set_transient( $cache_id, $cache_status, $cache_exp_secs );
 
-			if ( get_current_user_id() === 0 ) {				// User is the scheduler.
+			if ( 0 === get_current_user_id() ) {				// User is the scheduler.
 				set_time_limit( HOUR_IN_SECONDS );
 			}
 
 			$mtime_start = microtime( true );
 
 			$user_id = $this->maybe_change_user_id( $user_id );
+
+			if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
+				do_action( $this->p->lca . '_scheduled_task_started', $user_id );
+			}
 
 			$total_count = array(
 				'post' => 0,
@@ -1584,7 +1594,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 				/**
 				 * Preserve transients that begin with "wpsso_!_".
 				 */
-				if ( strpos( $cache_id, $this->p->lca . '_!_' ) === 0 ) {
+				if ( 0 === strpos( $cache_id, $this->p->lca . '_!_' ) ) {
 					continue;
 				}
 
@@ -1592,7 +1602,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 				 * Maybe delete shortened urls.
 				 */
 				if ( ! $clear_short ) {							// If not clearing short URLs.
-					if ( strpos( $cache_id, $this->p->lca . '_s_' ) === 0 ) {	// This is a shortened URL.
+					if ( 0 === strpos( $cache_id, $this->p->lca . '_s_' ) ) {	// This is a shortened URL.
 						continue;						// Get the next transient.
 					}
 				}
@@ -1992,11 +2002,11 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 			$html = '';
 
-			if ( strpos( $request, '//' ) === 0 ) {
+			if ( 0 === strpos( $request, '//' ) ) {
 				$request = self::get_prot() . ':' . $request;
 			}
 
-			if ( strpos( $request, '<' ) === 0 ) {	// Check for HTML content.
+			if ( 0 === strpos( $request, '<' ) ) {	// Check for HTML content.
 
 				if ( $this->p->debug->enabled ) {
 					$this->p->debug->log( 'using html submitted in the request argument' );
@@ -2012,7 +2022,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 				return false;
 
-			} elseif ( strpos( $request, 'data:' ) === 0 ) {
+			} elseif ( 0 === strpos( $request, 'data:' ) ) {
 
 				if ( $this->p->debug->enabled ) {
 					$this->p->debug->log( 'exiting early: request argument is inline data' );
@@ -2303,7 +2313,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 			$ext_json_lib    = self::get_const( 'WPSSO_EXT_JSON_DISABLE', false ) ? false : true;
 			$ext_json_format = false;
 
-			if ( $options === 0 && defined( 'JSON_UNESCAPED_SLASHES' ) ) {
+			if ( 0 === $options && defined( 'JSON_UNESCAPED_SLASHES' ) ) {
 				$options = JSON_UNESCAPED_SLASHES;	// Since PHP v5.4.
 			}
 
@@ -2749,7 +2759,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 			 */
 			if ( ! empty( $this->p->options[ 'plugin_honor_force_ssl' ] ) ) {
 
-				if ( self::get_const( 'FORCE_SSL' ) && strpos( $url, 'http:' ) === 0 ) {
+				if ( self::get_const( 'FORCE_SSL' ) && 0 === strpos( $url, 'http:' ) ) {
 
 					if ( $this->p->debug->enabled ) {
 						$this->p->debug->log( 'force ssl is enabled - replacing http by https' );
@@ -2836,13 +2846,13 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 			$current_user_id = get_current_user_id();	// 0 for a scheduled task.
 
-			if ( null === $user_id ) {	// Default argument value for most methods.
+			if ( null === $user_id ) {			// Default argument value for most methods.
 
 				return $current_user_id;
 
 			} elseif ( $user_id === $current_user_id ) {
 
-				return $user_id;	// Nothing to do.
+				return $user_id;			// Nothing to do.
 			}
 
 			/**
@@ -2885,11 +2895,11 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 				$this->p->debug->log( 'relative url found = ' . $url );
 			}
 
-			if ( strpos( $url, '//' ) === 0 ) {
+			if ( 0 === strpos( $url, '//' ) ) {
 
 				$url = self::get_prot() . ':' . $url;
 
-			} elseif ( strpos( $url, '/' ) === 0 )  {
+			} elseif ( 0 === strpos( $url, '/' ) )  {
 
 				$url = home_url( $url );
 
@@ -2948,7 +2958,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 			/**
 			 * Complete the url with a protocol name.
 			 */
-			if ( strpos( $url, '//' ) === 0 ) {
+			if ( 0 === strpos( $url, '//' ) ) {
 				$url = self::get_prot() . '//' . $url;
 			}
 
@@ -3536,17 +3546,9 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 				$count_rows++;
 			}
 
-			if ( $count_rows === 0 ) {
+			if ( 0 === $count_rows ) {
 				
-				if ( ! $this->p->check->pp( $this->p->lca, true, $this->p->avail[ '*' ][ 'p_dir' ] ) ) {
-					$settings_page_link = $this->p->util->get_admin_url( 'advanced#sucom-tabset_plugin-tab_settings',
-						__( 'Have you hidden the Pro options?', 'wpsso' ) );
-				} else {
-					$settings_page_link = '';
-				}
-
-				$table_rows[] = '<tr><td align="center"><p><em>' . __( 'No options available.', 'wpsso' ) . ' ' .
-					$settings_page_link . '</em></p></td></tr>';
+				$table_rows[] = '<tr><td align="center"><p><em>' . __( 'No options available.', 'wpsso' ) . '</em></p></td></tr>';
 
 				$count_rows++;
 			}

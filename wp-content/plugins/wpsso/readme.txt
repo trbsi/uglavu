@@ -11,7 +11,7 @@ Contributors: jsmoriss
 Requires At Least: 3.8
 Tested Up To: 5.2.1
 WC Tested Up To: 3.6
-Stable Tag: 4.31.4
+Stable Tag: 5.0.0
 
 WPSSO Core makes sure your content looks great on all social and search sites, no matter how URLs are crawled, shared, re-shared, posted or embedded!
 
@@ -31,7 +31,7 @@ WPSSO Core is also language / locale aware, which means you can customize your s
 
 **Creates *complete and accurate* meta tags and Schema markup:**
 
-WPSSO Core and its optional Free add-ons offer meta tags and Schema markup for Facebook / Open Graph, Google's Knowledge Graph, Google Rich Results SEO ([Free add-on](https://wordpress.org/plugins/wpsso-schema-json-ld/)), Google Merchant, Mobile Web Browsers, Pinterest Rich Pins, Twitter Cards, Weibo and many more &mdash; including complete markup for images, videos, extensive e-Commerce product markup (for WooCommerce and others), mobile apps, author profile / authorship, co-authors, publisher information, local business markup, aggregate ratings, reviews, recipe information, event details, and much, much more &mdash; all from your existing WordPress content!
+WPSSO Core and its optional add-ons offer meta tags and Schema markup for Facebook / Open Graph, Google's Knowledge Graph, Google Rich Results SEO (see the [WPSSO JSON add-on](https://wordpress.org/plugins/wpsso-schema-json-ld/)), Google Merchant, Mobile Web Browsers, Pinterest Rich Pins, Twitter Cards, Weibo and many more &mdash; including complete markup for image SEO, video SEO, extensive e-Commerce product markup (for WooCommerce and others), mobile apps, author profile / authorship, co-authors, publisher information, local business markup, aggregate ratings, reviews, recipe information, event details, and much, much more &mdash; all from your existing WordPress content!
 
 **Includes advanced *quality assurance* features and options:**
 
@@ -52,25 +52,25 @@ WPSSO Core and its optional Free add-ons offer meta tags and Schema markup for F
 
 &#x2605;&#x2605;&#x2605;&#x2605;&#x2605; &mdash; "Yoast on steroids! As an SEO marketer, I love using Yoast for my basic on-page SEO. But Yoast only allows you to enter basic Open Graph social settings. This plugin gives you SO many more options on completing the Open Graph for Facebook, Twitter cards, Pinterest etc. If you use WordPress, I totally recommend using this plugin to help with better rankings in the SERPS!" - [gregmontag](https://wordpress.org/support/topic/yoast-on-steroids/)
 
-<h3>WPSSO Core Standard Features</h3>
+<h3>WPSSO Core Free / Standard Features</h3>
 
 * *Complete and accurate* meta tags for all social sites, search engines, web browser extensions, mail and messaging apps, and embedded object / iframe content.
 
 * Provides meta tags and markup for posts, pages, custom post types, tags, categories, custom taxonomy / terms, user profile pages, search pages, and attachment pages.
 
+* Optinally customize the Open Graph type "article", "place", "product", or "website" for each individual posts, pages, custom post types, etc.
+
 * Uses images from numerous sources, including featured, attached, gallery shortcode, images from HTML tags, or a custom fallback image.
 
-* Customizable image dimensions for Facebook / Open Graph, Schema markup, Google Rich Results SEO, Pinterest Rich Pins, and Twitter Cards.
+* Image dimension settings for Facebook / Open Graph, Schema markup, Google Rich Results SEO, Pinterest Rich Pins, and Twitter Cards.
 
 * Contextual help for *every* plugin option and [comprehensive online documentation](https://wpsso.com/docs/plugins/wpsso/).
 
 * Built-in support for [Accelerated Mobile Pages (AMP)](https://wordpress.org/plugins/amp/) and [AMP for WP - Accelerated Mobile Pages](https://wordpress.org/plugins/accelerated-mobile-pages/) plugins.
 
-* Supports advanced WordPress configurations, including WordPress Network / Multisite installations and WordPress MU Domain Mapping.
+* Supports advanced WordPress configurations, including [WordPress Network / Multisite installations](https://wpsso.com/docs/plugins/wpsso/notes/multisite-network-support/) and WordPress MU Domain Mapping.
 
 * Includes advanced *quality assurance* features and options.
-
-* Offers an option to easily hide the preview of Pro settings and features. ;-)
 
 <h3>Complementary Add-ons</h3>
 
@@ -88,7 +88,7 @@ WPSSO Core and its optional Free add-ons offer meta tags and Schema markup for F
 * [WPSSO Tweet a Quote](https://wordpress.org/plugins/wpsso-tweet-a-quote) to add tweetable quotes to your content.
 * [WPSSO User Locale Selector](https://wordpress.org/plugins/wpsso-user-locale) to switch languages quickly and easily.
 
-<h3>WPSSO Core Pro Version Features</h3>
+<h3>WPSSO Core Premium Features</h3>
 
 * Customize default values in the Document SSO metabox when editing posts, pages, custom post types, terms (categories and tags), custom post types, and user profiles:
 
@@ -141,7 +141,7 @@ WPSSO Core and its optional Free add-ons offer meta tags and Schema markup for F
 			* Image ID
 			* or Image URL
 
-* Additional custom Schema property options are also available from the [WPSSO Schema JSON-LD Markup Pro](https://wpsso.com/extend/plugins/wpsso-schema-json-ld/) add-on:
+* Additional custom Schema options are available from the [WPSSO Schema JSON-LD Markup Premium add-on](https://wpsso.com/extend/plugins/wpsso-schema-json-ld/):
 
 	* All Schema Types
 		* Schema Type
@@ -250,7 +250,7 @@ WPSSO Core and its optional Free add-ons offer meta tags and Schema markup for F
 
 * Integrates with services and 3rd party plugins for additional image, video, e-Commerce product details, SEO settings, and more.
 
-* The following integration modules are provided with the Pro version, and are automatically loaded when the supported services are required or 3rd party plugins detected.
+* The following integration modules are provided with the Premium plugin, and are automatically loaded when the supported services are required or 3rd party plugins detected.
 
 	* **Integration with Service APIs:**
 
@@ -294,7 +294,6 @@ WPSSO Core and its optional Free add-ons offer meta tags and Schema markup for F
 		* WP Recipe Maker
 		* WP Ultimate Recipe
 		* Yoast SEO (aka WordPress SEO)
-		* Yotpo Social Reviews for WooCommerce
 
 <h3>Coded for Performance</h3>
 
@@ -302,7 +301,7 @@ WPSSO Core makes full use of all available caching methods &mdash; along with of
 
 <h3>Highly Customizable</h3>
 
-WPSSO Core offers hundreds of filter hooks to customize its behavior and output, provides extensive developer documentation with examples, includes dozens of 3rd party integration modules in the Pro version, and offers several optional Free and Pro add-ons to extend WPSSO Core's functionality.
+WPSSO Core offers hundreds of filter hooks to customize its behavior and output, provides extensive developer documentation with examples, includes dozens of 3rd party integration modules in the Premium plugin, and offers several optional complimentary and Premium add-ons to extend WPSSO Core's functionality.
 
 == Installation ==
 
@@ -326,7 +325,7 @@ WPSSO Core offers hundreds of filter hooks to customize its behavior and output,
 
 <h3 class="top">Frequently Asked Questions</h3>
 
-* [Can I use the Pro version on multiple websites?](https://wpsso.com/docs/plugins/wpsso/faqs/can-i-use-the-pro-version-on-multiple-websites/)
+* [Can I use the Premium plugin on multiple websites?](https://wpsso.com/docs/plugins/wpsso/faqs/can-i-use-the-pro-version-on-multiple-websites/)
 * [Does LinkedIn read the Open Graph meta tags?](https://wpsso.com/docs/plugins/wpsso/faqs/does-linkedin-read-the-open-graph-meta-tags/)
 * [Doesn't an SEO plugin cover that?](https://wpsso.com/docs/plugins/wpsso/faqs/doesnt-an-seo-plugin-cover-that/)
 * [How can I add Schema aggregateRating values?](https://wpsso.com/docs/plugins/wpsso/faqs/how-can-i-add-schema-aggregaterating-values/)
@@ -340,7 +339,7 @@ WPSSO Core offers hundreds of filter hooks to customize its behavior and output,
 * [How do I attach an image without showing it on the webpage?](https://wpsso.com/docs/plugins/wpsso/faqs/how-do-i-attach-an-image-without-showing-it-on-the-webpage/)
 * [How do I fix Google Structured Data &gt; hatom errors?](https://wpsso.com/docs/plugins/wpsso/faqs/how-do-i-fix-google-structured-data-hatom-errors/)
 * [How do I fix my theme's front page pagination?](https://wpsso.com/docs/plugins/wpsso/faqs/how-do-i-fix-my-themes-front-page-pagination/)
-* [How do I install the WPSSO Core Pro version?](https://wpsso.com/docs/plugins/wpsso/faqs/how-do-i-install-the-wpsso-pro-version/)
+* [How do I install the WPSSO Core Premium plugin?](https://wpsso.com/docs/plugins/wpsso/faqs/how-do-i-install-the-wpsso-pro-version/)
 * [How do I remove duplicate meta tags?](https://wpsso.com/docs/plugins/wpsso/faqs/how-do-i-remove-duplicate-meta-tags/)
 * [How does WPSSO Core find / detect / select images?](https://wpsso.com/docs/plugins/wpsso/faqs/how-does-wpsso-find-detect-select-images/)
 * [How does WPSSO Core find / detect / select videos?](https://wpsso.com/docs/plugins/wpsso/faqs/how-does-wpsso-find-detect-select-videos/)
@@ -349,13 +348,12 @@ WPSSO Core offers hundreds of filter hooks to customize its behavior and output,
 * [Why does Facebook play videos instead of linking them?](https://wpsso.com/docs/plugins/wpsso/faqs/why-does-facebook-play-videos-instead-of-linking-them/)
 * [Why does Facebook show the wrong image / text?](https://wpsso.com/docs/plugins/wpsso/faqs/why-does-facebook-show-the-wrong-image-text/)
 * [Why does Google Structured Data Testing Tool show errors?](https://wpsso.com/docs/plugins/wpsso/faqs/why-does-google-structured-data-testing-tool-show-errors/)
-* [Why don't my Twitter Cards show on Twitter?](https://wpsso.com/docs/plugins/wpsso/faqs/why-dont-my-twitter-cards-show-on-twitter/)
 * [Why is the Open Graph title the same for every webpage?](https://wpsso.com/docs/plugins/wpsso/faqs/why-is-the-open-graph-title-the-same-for-every-webpage/)
 * [Why shouldn't I upload small images to the Media library?](https://wpsso.com/docs/plugins/wpsso/faqs/why-shouldnt-i-upload-small-images-to-the-media-library/)
 
 <h3>Advanced Documentation and Notes</h3>
 
-* [About WPSSO Core Pro Integration Modules](https://wpsso.com/docs/plugins/wpsso/notes/modules/)
+* [About WPSSO Core Premium Integration Modules](https://wpsso.com/docs/plugins/wpsso/notes/modules/)
 	* [Author Gravatar](https://wpsso.com/docs/plugins/wpsso/notes/modules/author-gravatar/)
 	* [Co-Author Plus](https://wpsso.com/docs/plugins/wpsso/notes/modules/co-author-plus/)
 	* [Easy Digital Downloads](https://wpsso.com/docs/plugins/wpsso/notes/modules/easy-digital-downloads/)
@@ -366,7 +364,6 @@ WPSSO Core offers hundreds of filter hooks to customize its behavior and output,
 	* [The Events Calendar](https://wpsso.com/docs/plugins/wpsso/notes/modules/the-events-calendar/)
 	* [WooCommerce](https://wpsso.com/docs/plugins/wpsso/notes/modules/woocommerce/)
 	* [Yoast SEO (aka WordPress SEO)](https://wpsso.com/docs/plugins/wpsso/notes/modules/yoast-seo-aka-wordpress-seo/)
-* [Contact Information and Feeds](https://wpsso.com/docs/plugins/wpsso/notes/contact-information/)
 * [Developer Resources](https://wpsso.com/docs/plugins/wpsso/notes/developer/)
 	* [Constants](https://wpsso.com/docs/plugins/wpsso/notes/developer/constants/)
 		* [All Constants](https://wpsso.com/docs/plugins/wpsso/notes/developer/constants/all/)
@@ -380,7 +377,6 @@ WPSSO Core offers hundreds of filter hooks to customize its behavior and output,
 			* [Modify the Default Article Topics List](https://wpsso.com/docs/plugins/wpsso/notes/developer/filters/examples/modify-the-default-topics-list/)
 			* [Modify the Home Page Title for Facebook / Open Graph](https://wpsso.com/docs/plugins/wpsso/notes/developer/filters/examples/modify-the-home-page-title-for-facebook-open-graph/)
 			* [Modify the Sharing URL](https://wpsso.com/docs/plugins/wpsso/notes/developer/filters/examples/modify-the-sharing-url/)
-			* [Read / Import Yoast SEO Social Meta](https://wpsso.com/docs/plugins/wpsso/notes/developer/filters/examples/read-import-yoast-seo-social-meta/)
 			* [Remove / Fix 'hentry' Errors in your Theme Templates](https://wpsso.com/docs/plugins/wpsso/notes/developer/filters/examples/remove-hentry-from-theme-templates/)
 			* [Strip Additional Shortcodes](https://wpsso.com/docs/plugins/wpsso/notes/developer/filters/examples/strip-additional-shortcodes/)
 			* [Use the REQUEST_URI for Post URLs](https://wpsso.com/docs/plugins/wpsso/notes/developer/filters/examples/use-the-request_uri-for-post-urls/)
@@ -418,25 +414,66 @@ Version components: `{major}.{minor}.{bugfix}[-{stage}.{level}]`
 * {bugfix} = Backwards-compatible bug fixes or small improvements.
 * {stage}.{level} = Pre-production release: dev &lt; a (alpha) &lt; b (beta) &lt; rc (release candidate).
 
-<h3>Free / Standard Version Repositories</h3>
+<h3>Standard Add-on Repositories</h3>
 
 * [GitHub](https://surniaulula.github.io/wpsso/)
 * [WordPress.org](https://plugins.trac.wordpress.org/browser/wpsso/)
 
-<h3>Development Updates for Pro Version</h3>
+<h3>Development Updates for Premium Plugin</h3>
 
-<p>Development, alpha, beta, and release candidate updates are available to Pro version customers.</p>
+<p>Development, alpha, beta, and release candidate updates are available to Premium plugin customers.</p>
 
 <p>Under the SSO &gt; Update Manager settings page, select the "Development and Up" version filter for WPSSO Core and all its extensions (to satisfy any version dependencies). Save the plugin settings, and click the "Check for Updates" button to fetch the latest / current WPSSO version information. When new Development versions are available, they will automatically appear under your WordPress Dashboard &gt; Updates page. You can always re-select the "Stable / Production" version filter at any time to re-install the last stable / production version of a plugin.</p>
 
 <h3>Changelog / Release Notes</h3>
+
+**Version 5.0.1-dev.1 (2019/06/24)**
+
+* *New Features*
+	* None.
+* *Improvements*
+	* None.
+* *Bugfixes*
+	* Fixed block editor global variable definition by changing "const" to "var" ([issue from GitHub](https://github.com/siteorigin/siteorigin-panels/issues/677)).
+* *Developer Notes*
+	* None.
+
+**Version 5.0.0 (2019/06/24)**
+
+* *New Features*
+	* None.
+* *Improvements*
+	* Renamed "Pro" distribution to "Premium".
+	* Renamed "Free" distribution to "Standard".
+	* Removed support for the Yotpo Social Reviews for WooCommerce plugin (too many bad reviews and too few active installations).
+	* Added checks for missing WooCommerce "My account page", "Cart page", "Checkout page", and "Shop page" selections (Premium plugin).
+	* Added an action hook to remove duplicate JSON-LD markup in AMP pages from the Yoast SEO plugin.
+	* Added new Schema Article sub-types:
+		* https://schema.org/APIReference
+		* https://schema.org/AdvertiserContentArticle
+		* https://schema.org/AnalysisNewsArticle
+		* https://schema.org/AskPublicNewsArticle
+		* https://schema.org/BackgroundNewsArticle
+		* https://schema.org/LiveBlogPosting
+		* https://schema.org/MedicalScholarlyArticle
+		* https://schema.org/OpinionNewsArticle
+		* https://schema.org/ReportageNewsArticle
+		* https://schema.org/ReviewNewsArticle
+		* https://schema.org/SatiricalArticle
+* *Bugfixes*
+	* None.
+* *Developer Notes*
+	* Renamed the 'gpl' library sub-folder to 'std'.
+	* Added a new 'wpsso_scheduled_task_started' action.
+	* Added a new `SucomUtilWP::doing_frontend()` method.
+	* Improved WP_Query for a post type archive (see https://codex.wordpress.org/Function_Reference/is_post_type_archive) when running as background task.
 
 **Version 4.31.4 (2019/06/14)**
 
 * *New Features*
 	* None.
 * *Improvements*
-	* Removed the WooCommerce `$product` global variable consistency check (Pro version).
+	* Removed the WooCommerce `$product` global variable consistency check (Premium plugin).
 * *Bugfixes*
 	* None.
 * *Developer Notes*
@@ -504,7 +541,11 @@ Version components: `{major}.{minor}.{bugfix}[-{stage}.{level}]`
 
 == Upgrade Notice ==
 
-= 4.31.4 =
+= 5.0.1-dev.1 =
 
-(2019/06/14) Removed the WooCommerce `$product` global variable consistency check (Pro version).
+(2019/06/24) Fixed block editor global variable definition by changing "const" to "var".
+
+= 5.0.0 =
+
+(2019/06/24) Removed support for the Yotpo Social Reviews for WooCommerce plugin. Added checks for missing WooCommerce pages. Added an action hook to remove duplicate JSON-LD markup in AMP pages from the Yoast SEO plugin. Renamed the 'gpl' library sub-folder to 'std'.
 

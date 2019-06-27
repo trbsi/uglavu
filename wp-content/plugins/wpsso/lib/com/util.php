@@ -1783,7 +1783,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 		 */
 		public static function add_before_key( array &$arr, $match_key, $mixed, $add_value = '' ) {
 
-			return self::insert_in_array( 'before', $arr, $match_key, $mixed, $add_value, true ); // $ret_matched = true.
+			return self::insert_in_array( 'before', $arr, $match_key, $mixed, $add_value, $ret_matched = true );
 		}
 
 		/**
@@ -1791,7 +1791,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 		 */
 		public static function add_after_key( array &$arr, $match_key, $mixed, $add_value = '' ) {
 
-			return self::insert_in_array( 'after', $arr, $match_key, $mixed, $add_value, true ); // $ret_matched = true.
+			return self::insert_in_array( 'after', $arr, $match_key, $mixed, $add_value, $ret_matched = true );
 		}
 
 		/**
@@ -1799,7 +1799,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 		 */
 		public static function do_replace_key( array &$arr, $match_key, $mixed, $add_value = '' ) {
 
-			return self::insert_in_array( 'replace', $arr, $match_key, $mixed, $add_value, true ); // $ret_matched = true.
+			return self::insert_in_array( 'replace', $arr, $match_key, $mixed, $add_value, $ret_matched = true );
 		}
 
 		private static function insert_in_array( $rel_pos, array &$arr, $match_key, $mixed, $add_value, $ret_matched = false ) {
@@ -2686,11 +2686,11 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 
 				$ret = true;
 
-			} elseif ( false === $use_post && is_post_type_archive() ) {
+			} elseif ( false === $use_post && is_singular() ) {
 
 				$ret = true;
 
-			} elseif ( false === $use_post && is_singular() ) {
+			} elseif ( false === $use_post && is_post_type_archive() ) {
 
 				$ret = true;
 
@@ -3022,12 +3022,12 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 
 			} elseif ( is_admin() || is_object( $product_obj ) ) {
 
-				if ( ! is_object( $product_obj ) && ! empty( $use_post ) ) {
-					$product_obj = get_post( $use_post );
+				if ( ! is_object( $product_obj ) ) {
+
+					$product_obj = self::get_post_object( $use_post );
 				}
 
-				if ( isset( $product_obj->post_type ) && 
-					$product_obj->post_type === 'product' ) {
+				if ( isset( $product_obj->post_type ) && $product_obj->post_type === 'product' ) {
 
 					$ret = true;
 				}
@@ -3624,12 +3624,12 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			return $val;
 		}
 
-		public static function add_pkg_name( &$name, $type ) {
+		public static function add_dist_name( &$name, $type ) {
 
-			$name = self::get_pkg_name( $name, $type );
+			$name = self::get_dist_name( $name, $type );
 		}
 
-		public static function get_pkg_name( $name, $type ) {
+		public static function get_dist_name( $name, $type ) {
 
 			if ( false !== strpos( $name, $type ) ) {
 				$name = preg_replace( '/^(.*) ' . $type . '( [\[\(].+[\)\]])?$/U', '$1$2', $name );
@@ -3829,6 +3829,53 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			foreach ( $ini_saved as $name => $value ) {
 				ini_set( $name, $value );
 			}
+		}
+
+		public static function pretty_array( $mixed, $flatten = false ) {
+
+			$ret = '';
+
+			if ( is_array( $mixed ) ) {
+
+				foreach ( $mixed as $key => $val ) {
+
+					$val = self::pretty_array( $val, $flatten );
+
+					if ( $flatten ) {
+
+						$ret .= $key.'=' . $val.', ';
+
+					} else {
+
+						if ( is_object( $mixed[ $key ] ) ) {
+							unset ( $mixed[ $key ] );	// Dereference the object first.
+						}
+
+						$mixed[ $key ] = $val;
+					}
+				}
+
+				if ( $flatten ) {
+					$ret = '(' . trim( $ret, ', ' ) . ')';
+				} else {
+					$ret = $mixed;
+				}
+
+			} elseif ( false === $mixed ) {
+				$ret = 'false';
+			} elseif ( true === $mixed ) {
+				$ret = 'true';
+			} elseif ( null === $mixed ) {
+				$ret = 'null';
+			} elseif ( '' === $mixed ) {
+				$ret = '\'\'';
+			} elseif ( is_object( $mixed ) ) {
+				$ret = 'object ' . get_class( $mixed );
+			} else {
+				$ret = $mixed;
+			}
+
+			return $ret;
 		}
 	}
 }

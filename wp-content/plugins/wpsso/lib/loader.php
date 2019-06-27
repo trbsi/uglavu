@@ -58,13 +58,28 @@ if ( ! class_exists( 'WpssoLoader' ) ) {
 
 			foreach ( $this->p->cf[ 'plugin' ] as $ext => $info ) {
 
-				$type = $this->p->check->pp( $this->p->lca, true, $this->p->avail[ '*' ][ 'p_dir' ] ) &&
-					$this->p->check->pp( $ext, true, WPSSO_UNDEF ) === WPSSO_UNDEF ? 'pro' : 'gpl';
+				$type = $this->p->check->pp( $ext, true, WPSSO_UNDEF ) === WPSSO_UNDEF ? 'pro' : 'std';
 
 				if ( ! isset( $info[ 'lib' ][ $type ] ) ) {
 
+					if ( 'std' === $type && isset( $info[ 'lib' ][ 'gpl' ] ) ) {
+
+						$type = 'gpl';
+
+					} else {
+
+						if ( $this->p->debug->enabled ) {
+							$this->p->debug->log( $ext . ' lib/' . $type . ' not defined' );
+						}
+	
+						continue;
+					}
+				}
+
+				if ( ! is_array( $info[ 'lib' ][ $type ] ) ) {
+
 					if ( $this->p->debug->enabled ) {
-						$this->p->debug->log( $ext . ' lib/' . $type . ' not defined' );
+						$this->p->debug->log( $ext . ' lib/' . $type . ' not an array' );
 					}
 
 					continue;

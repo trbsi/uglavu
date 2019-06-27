@@ -3,6 +3,8 @@
 /**
  * Extract of translatable text strings from the static config array.
  */
+_x( 'Premium', 'distribution name', 'wpsso' );
+_x( 'Standard', 'distribution name', 'wpsso' );
 _x( 'Image:', 'option value', 'wpsso' );
 _x( 'Caption:', 'option value', 'wpsso' );
 _x( 'Facebook User URL', 'option value', 'wpsso' );
@@ -23,14 +25,14 @@ _x( 'SSO Contact Fields', 'lib file description', 'wpsso' );
 _x( 'SSO WebSite Pages', 'lib file description', 'wpsso' );
 _x( 'Advanced', 'lib file description', 'wpsso' );
 _x( 'Complementary Add-ons', 'lib file description', 'wpsso' );
-_x( 'Pro Licenses', 'lib file description', 'wpsso' );
+_x( 'Licenses', 'lib file description', 'wpsso' );
 _x( 'Setup Guide', 'lib file description', 'wpsso' );
 _x( 'Tools', 'lib file description', 'wpsso' );
 _x( 'Essential', 'lib file description', 'wpsso' );
 _x( 'General', 'lib file description', 'wpsso' );
 _x( 'Advanced', 'lib file description', 'wpsso' );
 _x( 'Complementary Add-ons', 'lib file description', 'wpsso' );
-_x( 'Pro Licenses', 'lib file description', 'wpsso' );
+_x( 'Licenses', 'lib file description', 'wpsso' );
 _x( 'Dashboard', 'lib file description', 'wpsso' );
 _x( 'Setup Guide', 'lib file description', 'wpsso' );
 _x( 'Tools', 'lib file description', 'wpsso' );
@@ -50,7 +52,7 @@ _x( 'WPSSO Core add-on to remove outdated / incomplete Schema Microdata to use G
 _x( 'WPSSO Core add-on offers Twitter-style quoted text for your content, with a convenient Tweet share link and customizable CSS.', 'plugin description', 'wpsso' );
 _x( 'WPSSO Core add-on offers tuning options for the WordPress image editors and PHP image extensions.', 'plugin description', 'wpsso' );
 _x( 'WPSSO Core add-on provides a convenient locale / language / region selector in the WordPress admin toolbar.', 'plugin description', 'wpsso' );
-_x( 'WPSSO Core add-on provides updates for the WPSSO Core Pro plugin and its complementary Pro add-ons.', 'plugin description', 'wpsso' );
+_x( 'WPSSO Core add-on provides updates for the WPSSO Core Premium plugin and its complementary Premium add-ons.', 'plugin description', 'wpsso' );
 _x( 'SSO', 'menu title', 'wpsso' );
 _x( 'Document SSO (Social and Search Optimization)', 'metabox title', 'wpsso' );
 _x( 'Schema', 'column header', 'wpsso' );

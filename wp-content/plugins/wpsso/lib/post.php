@@ -43,8 +43,7 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 		 */
 		protected function add_wp_hooks() {
 
-			$is_admin   = is_admin();
-			$doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX ? true : false;
+			$is_admin = is_admin();	// Only check once.
 
 			if ( $is_admin ) {
 
@@ -91,7 +90,7 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 			/**
 			 * Add the columns when doing AJAX as well to allow Quick Edit to add the required columns.
 			 */
-			if ( $is_admin || $doing_ajax ) {
+			if ( $is_admin || SucomUtil::get_const( 'DOING_AJAX' ) ) {
 
 				/**
 				 * Only use public post types (to avoid menu items, product variations, etc.).
@@ -191,8 +190,6 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 
 			$mod = WpssoWpMeta::$mod_defaults;
 
-			$post_type = get_post_type( $mod_id );
-
 			/**
 			 * Common elements.
 			 */
@@ -203,17 +200,23 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 			/**
 			 * Post elements.
 			 */
-			$mod[ 'is_post' ]              = true;
-			$mod[ 'is_home_page' ]         = SucomUtil::is_home_page( $mod_id );
-			$mod[ 'is_home_index' ]        = $mod[ 'is_home_page' ] ? false : SucomUtil::is_home_index( $mod_id );
-			$mod[ 'is_home' ]              = $mod[ 'is_home_page' ] || $mod[ 'is_home_index' ] ? true : false;
-			$mod[ 'is_post_type_archive' ] = is_post_type_archive( $post_type );			// Post is an archive.
-			$mod[ 'post_slug' ]            = get_post_field( 'post_name', $mod_id );		// Post name (aka slug).
-			$mod[ 'post_type' ]            = $post_type;						// Post type name.
-			$mod[ 'post_mime' ]            = get_post_mime_type( $mod_id );				// Post mime type (ie. image/jpg).
-			$mod[ 'post_status' ]          = get_post_status( $mod_id );				// Post status name.
-			$mod[ 'post_author' ]          = (int) get_post_field( 'post_author', $mod_id );	// Post author id.
-			$mod[ 'post_coauthors' ]       = array();
+			$mod[ 'is_post' ]	= true;
+			$mod[ 'is_home_page' ]	= SucomUtil::is_home_page( $mod_id );
+			$mod[ 'is_home_index' ]	= $mod[ 'is_home_page' ] ? false : SucomUtil::is_home_index( $mod_id );
+			$mod[ 'is_home' ]	= $mod[ 'is_home_page' ] || $mod[ 'is_home_index' ] ? true : false;
+
+			if ( $mod[ 'id' ] ) {
+
+				$post_type = get_post_type( $mod[ 'id' ] );
+
+				$mod[ 'is_post_type_archive' ]	= is_post_type_archive( $post_type );			// Post is an archive page.
+				$mod[ 'post_slug' ]		= get_post_field( 'post_name', $mod[ 'id' ] );		// Post name (aka slug).
+				$mod[ 'post_type' ]		= $post_type;						// Post type name.
+				$mod[ 'post_mime' ]		= get_post_mime_type( $mod[ 'id' ] );			// Post mime type (ie. image/jpg).
+				$mod[ 'post_status' ]		= get_post_status( $mod[ 'id' ] );			// Post status name.
+				$mod[ 'post_author' ]		= (int) get_post_field( 'post_author', $mod[ 'id' ] );	// Post author id.
+				$mod[ 'post_coauthors' ]	= array();
+			}
 
 			/**
 			 * Hooked by the 'coauthors' pro module.
@@ -626,8 +629,10 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 			}
 
 			switch ( $screen->id ) {
+
 				case 'upload':
 				case ( strpos( $screen->id, 'edit-' ) === 0 ? true : false ):	// Posts list table.
+
 					return;
 			}
 
@@ -669,7 +674,7 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 				$this->p->debug->log( 'locale default = ' . SucomUtil::get_locale( 'default' ) );
 				$this->p->debug->log( 'locale current = ' . SucomUtil::get_locale( 'current' ) );
 				$this->p->debug->log( 'locale mod = ' . SucomUtil::get_locale( $mod ) );
-				$this->p->debug->log( SucomDebug::pretty_array( $mod ) );
+				$this->p->debug->log( SucomUtil::pretty_array( $mod ) );
 			}
 
 			WpssoWpMeta::$head_meta_tags = array();
@@ -713,7 +718,7 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 					/**
 					 * Hooked by woocommerce module to load front-end libraries and start a session.
 					 */
-					do_action( $this->p->lca . '_admin_post_head', $mod, $screen->id );
+					do_action( $this->p->lca . '_admin_post_head', $mod );
 
 					if ( $this->p->debug->enabled ) {
 						$this->p->debug->log( 'setting head_meta_info static property' );
@@ -1077,7 +1082,7 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 
 									$notice_msg .= __( 'Complete and accurate Schema JSON-LD markup is highly recommended for better ranking and click-through in Google search results.', 'wpsso' ) . ' ';
 						
-									$notice_msg .= sprintf( __( 'You should consider purchasing the %1$s Pro version add-on to include better Schema JSON-LD markup for WooCommerce products.', 'wpsso' ), $json_addon_link );
+									$notice_msg .= sprintf( __( 'You should consider purchasing the %1$s %2$s add-on to include better Schema JSON-LD markup for WooCommerce products.', 'wpsso' ), $json_addon_link, _x( $this->p->cf[ 'dist' ][ 'pro' ], 'distribution name', 'wpsso' ) );
 
 									$this->p->notice->warn( $notice_msg, null, $notice_key, true );
 								}
@@ -1243,12 +1248,9 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 
 		public function ajax_metabox_custom_meta() {
 
-			$doing_ajax     = defined( 'DOING_AJAX' ) ? DOING_AJAX : false;
-			$doing_autosave = defined( 'DOING_AUTOSAVE' ) ? DOING_AUTOSAVE : false;
-
-			if ( ! $doing_ajax ) {
+			if ( ! SucomUtil::get_const( 'DOING_AJAX' ) ) {
 				return;
-			} elseif ( $doing_autosave ) {
+			} elseif ( SucomUtil::get_const( 'DOING_AUTOSAVE' ) ) {
 				die( -1 );
 			}
 
@@ -1362,6 +1364,7 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 		protected function get_table_rows( $metabox_id, $tab_key, $head, $mod ) {
 
 			$is_auto_draft  = empty( $mod[ 'post_status' ] ) || $mod[ 'post_status' ] === 'auto-draft' ? true : false;
+
 			$auto_draft_msg = sprintf( __( 'Save a draft version or publish the %s to display these options.', 'wpsso' ),
 				SucomUtil::titleize( $mod[ 'post_type' ] ) );
 

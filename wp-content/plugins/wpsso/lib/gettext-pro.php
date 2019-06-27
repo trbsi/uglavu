@@ -29,7 +29,7 @@ _x( 'Default Currency', 'option label', 'wpsso' );
 __( 'Posts, Pages, Custom Post Types', 'wpsso' );
 __( 'Media Library', 'wpsso' );
 __( 'Terms (Categories and Tags)', 'wpsso' );
-// translators: please ignore - translation uses a different text domain
+// translators: Please ignore - translation uses a different text domain.
 __( 'Users' );
 _x( 'Additional List Table Columns', 'option label', 'wpsso' );
 _x( 'Title / Name Column Width', 'option label', 'wpsso' );
@@ -99,6 +99,7 @@ _x( 'Force Autoplay when Possible', 'option label', 'wpsso' );
 _x( 'Check for Embedded Media', 'option label', 'wpsso' );
 __( 'Activate the %s add-on for additional Schema markup options.', 'wpsso' );
 __( 'This option is disabled (the "%1$s" head tag is disabled or an SEO plugin was detected).', 'wpsso' );
+__( 'Save a draft version or publish the %s to update this value.', 'wpsso' );
 _x( 'Open Graph Type', 'option label', 'wpsso' );
 _x( 'Article Topic', 'option label', 'wpsso' );
 _x( 'Default Title', 'option label', 'wpsso' );
@@ -125,7 +126,6 @@ _x( 'Product Size', 'option label', 'wpsso' );
 _x( 'Product Target Gender', 'option label', 'wpsso' );
 _x( 'Structured Data / Schema Markup', 'metabox title', 'wpsso' );
 _x( 'Description', 'option label', 'wpsso' );
-__( 'Save a draft version or publish the %s to update this value.', 'wpsso' );
 __( 'Activate the %s add-on for additional Schema markup options.', 'wpsso' );
 __( 'This option is disabled (the "%1$s" head tag is disabled or an SEO plugin was detected).', 'wpsso' );
 _x( 'Default Title', 'option label', 'wpsso' );
@@ -159,6 +159,18 @@ _x( 'Maximum Images', 'option label', 'wpsso' );
 _x( 'Image Dimensions', 'option label', 'wpsso' );
 _x( 'Image ID', 'option label', 'wpsso' );
 _x( 'or an Image URL', 'option label', 'wpsso' );
+__( 'Please select a page in the <a href="%s">WooCommerce Settings &gt; Advanced &gt; Page setup</a> section.', 'wpsso' );
+__( 'Please select a page in the <a href="%s">WooCommerce Settings &gt; Products &gt; General</a> section.', 'wpsso' );
+// translators: Please ignore - translation uses a different text domain.
+__( 'My account page', 'woocommerce' );
+// translators: Please ignore - translation uses a different text domain.
+__( 'Cart page', 'woocommerce' );
+// translators: Please ignore - translation uses a different text domain.
+__( 'Checkout page', 'woocommerce' );
+// translators: Please ignore - translation uses a different text domain.
+__( 'Shop page', 'woocommerce' );
+__( 'The WooCommerce "%1$s" option value is empty.', 'wpsso' );
+__( 'The WooCommerce %s method is not available - please update to a newer version of WooCommerce.', 'wpsso' );
 __( '"%s" is  an unknown Schema product item condition.', 'wpsso' );
 __( 'Valid item condition values are (case is important): %s.', 'wpsso' );
 __( 'https://docs.woocommerce.com/wc-apidocs/function-wc_get_price_including_tax.html', 'wpsso' );
@@ -208,19 +220,12 @@ _x( 'Title Field ID', 'option label', 'wpsso' );
 _x( 'Description Field ID', 'option label', 'wpsso' );
 _x( 'Post Image Field ID', 'option label', 'wpsso' );
 __( 'Plugin conflict detected', 'wpsso' );
-// translators: please ignore - translation uses a different text domain
+// translators: Please ignore - translation uses a different text domain.
 __( 'Enable Google Rich Snippets?', 'wp-postratings' );
-// translators: please ignore - translation uses a different text domain
+// translators: Please ignore - translation uses a different text domain.
 __( 'Ratings', 'wp-postratings' );
-// translators: please ignore - translation uses a different text domain
+// translators: Please ignore - translation uses a different text domain.
 __( 'Ratings Options', 'wp-postratings' );
 __( 'please disable the %1$s option in the %2$s settings page.', 'wpsso' );
-__( 'Yotpo for WooCommerce "%s" setting value is empty.', 'wpsso' );
-__( 'Yotpo for WooCommerce "%s" setting value is empty.', 'wpsso' );
-__( 'Yotpo for WooCommerce %s function is missing.', 'wpsso' );
-__( 'Yotpo for WooCommerce %s function returned false.', 'wpsso' );
-__( '"%s" plugin not found in the WPMU_PLUGIN_DIR or WP_PLUGIN_DIR folders.', 'wpsso' );
-__( 'Yotpo for WooCommerce API library file "%s" not found.', 'wpsso' );
-__( 'Yotpo for WooCommerce "%s" class does not exist.', 'wpsso' );
 _x( '%s Organization', 'option value', 'wpsso' );
 _x( '%s Location', 'option value', 'wpsso' );

@@ -3,7 +3,7 @@
 <table>
 <tr><th align="right" valign="top" nowrap>Plugin Name</th><td>WPSSO Core [Main Plugin]</td></tr>
 <tr><th align="right" valign="top" nowrap>Summary</th><td>WPSSO Core makes sure your content looks great on all social and search sites, no matter how URLs are crawled, shared, re-shared, posted or embedded!</td></tr>
-<tr><th align="right" valign="top" nowrap>Stable Version</th><td>4.31.4</td></tr>
+<tr><th align="right" valign="top" nowrap>Stable Version</th><td>5.0.0</td></tr>
 <tr><th align="right" valign="top" nowrap>Requires At Least</th><td>WordPress 3.8</td></tr>
 <tr><th align="right" valign="top" nowrap>Tested Up To</th><td>WordPress 5.2.1</td></tr>
 <tr><th align="right" valign="top" nowrap>Contributors</th><td>jsmoriss</td></tr>
@@ -27,7 +27,7 @@
 
 <p><strong>Creates <em>complete and accurate</em> meta tags and Schema markup:</strong></p>
 
-<p>WPSSO Core and its optional Free add-ons offer meta tags and Schema markup for Facebook / Open Graph, Google's Knowledge Graph, Google Rich Results SEO (<a href="https://wordpress.org/plugins/wpsso-schema-json-ld/">Free add-on</a>), Google Merchant, Mobile Web Browsers, Pinterest Rich Pins, Twitter Cards, Weibo and many more &mdash; including complete markup for images, videos, extensive e-Commerce product markup (for WooCommerce and others), mobile apps, author profile / authorship, co-authors, publisher information, local business markup, aggregate ratings, reviews, recipe information, event details, and much, much more &mdash; all from your existing WordPress content!</p>
+<p>WPSSO Core and its optional add-ons offer meta tags and Schema markup for Facebook / Open Graph, Google's Knowledge Graph, Google Rich Results SEO (see the <a href="https://wordpress.org/plugins/wpsso-schema-json-ld/">WPSSO JSON add-on</a>), Google Merchant, Mobile Web Browsers, Pinterest Rich Pins, Twitter Cards, Weibo and many more &mdash; including complete markup for image SEO, video SEO, extensive e-Commerce product markup (for WooCommerce and others), mobile apps, author profile / authorship, co-authors, publisher information, local business markup, aggregate ratings, reviews, recipe information, event details, and much, much more &mdash; all from your existing WordPress content!</p>
 
 <p><strong>Includes advanced <em>quality assurance</em> features and options:</strong></p>
 
@@ -50,18 +50,18 @@
 
 <p>&#x2605;&#x2605;&#x2605;&#x2605;&#x2605; &mdash; "Yoast on steroids! As an SEO marketer, I love using Yoast for my basic on-page SEO. But Yoast only allows you to enter basic Open Graph social settings. This plugin gives you SO many more options on completing the Open Graph for Facebook, Twitter cards, Pinterest etc. If you use WordPress, I totally recommend using this plugin to help with better rankings in the SERPS!" - <a href="https://wordpress.org/support/topic/yoast-on-steroids/">gregmontag</a></p>
 
-<h3>WPSSO Core Standard Features</h3>
+<h3>WPSSO Core Free / Standard Features</h3>
 
 <ul>
 <li><p><em>Complete and accurate</em> meta tags for all social sites, search engines, web browser extensions, mail and messaging apps, and embedded object / iframe content.</p></li>
 <li><p>Provides meta tags and markup for posts, pages, custom post types, tags, categories, custom taxonomy / terms, user profile pages, search pages, and attachment pages.</p></li>
+<li><p>Optinally customize the Open Graph type "article", "place", "product", or "website" for each individual posts, pages, custom post types, etc.</p></li>
 <li><p>Uses images from numerous sources, including featured, attached, gallery shortcode, images from HTML tags, or a custom fallback image.</p></li>
-<li><p>Customizable image dimensions for Facebook / Open Graph, Schema markup, Google Rich Results SEO, Pinterest Rich Pins, and Twitter Cards.</p></li>
+<li><p>Image dimension settings for Facebook / Open Graph, Schema markup, Google Rich Results SEO, Pinterest Rich Pins, and Twitter Cards.</p></li>
 <li><p>Contextual help for <em>every</em> plugin option and <a href="https://wpsso.com/docs/plugins/wpsso/">comprehensive online documentation</a>.</p></li>
 <li><p>Built-in support for <a href="https://wordpress.org/plugins/amp/">Accelerated Mobile Pages (AMP)</a> and <a href="https://wordpress.org/plugins/accelerated-mobile-pages/">AMP for WP - Accelerated Mobile Pages</a> plugins.</p></li>
-<li><p>Supports advanced WordPress configurations, including WordPress Network / Multisite installations and WordPress MU Domain Mapping.</p></li>
+<li><p>Supports advanced WordPress configurations, including <a href="https://wpsso.com/docs/plugins/wpsso/notes/multisite-network-support/">WordPress Network / Multisite installations</a> and WordPress MU Domain Mapping.</p></li>
 <li><p>Includes advanced <em>quality assurance</em> features and options.</p></li>
-<li><p>Offers an option to easily hide the preview of Pro settings and features. ;-)</p></li>
 </ul>
 
 <h3>Complementary Add-ons</h3>
@@ -82,7 +82,7 @@
 <li><a href="https://wordpress.org/plugins/wpsso-user-locale">WPSSO User Locale Selector</a> to switch languages quickly and easily.</li>
 </ul>
 
-<h3>WPSSO Core Pro Version Features</h3>
+<h3>WPSSO Core Premium Features</h3>
 
 <ul>
 <li><p>Customize default values in the Document SSO metabox when editing posts, pages, custom post types, terms (categories and tags), custom post types, and user profiles:</p>
@@ -155,7 +155,7 @@
 </ul></li>
 </ul></li>
 </ul></li>
-<li><p>Additional custom Schema property options are also available from the <a href="https://wpsso.com/extend/plugins/wpsso-schema-json-ld/">WPSSO Schema JSON-LD Markup Pro</a> add-on:</p>
+<li><p>Additional custom Schema options are available from the <a href="https://wpsso.com/extend/plugins/wpsso-schema-json-ld/">WPSSO Schema JSON-LD Markup Premium add-on</a>:</p>
 
 <ul>
 <li>All Schema Types
@@ -299,7 +299,7 @@
 <li><p>Twitter <a href="https://dev.twitter.com/cards/types/player">Player Card</a> for embedded videos from Facebook, Slideshare, Vimeo, Wistia, and Youtube.</p></li>
 <li><p>URL shortening with Bitly, DLMY.App, Google, Ow.ly, TinyURL, or YOURLS.</p></li>
 <li><p>Integrates with services and 3rd party plugins for additional image, video, e-Commerce product details, SEO settings, and more.</p></li>
-<li><p>The following integration modules are provided with the Pro version, and are automatically loaded when the supported services are required or 3rd party plugins detected.</p>
+<li><p>The following integration modules are provided with the Premium plugin, and are automatically loaded when the supported services are required or 3rd party plugins detected.</p>
 
 <ul>
 <li><p><strong>Integration with Service APIs:</strong></p>
@@ -346,7 +346,6 @@
 <li>WP Recipe Maker</li>
 <li>WP Ultimate Recipe</li>
 <li>Yoast SEO (aka WordPress SEO)</li>
-<li>Yotpo Social Reviews for WooCommerce</li>
 </ul></li>
 </ul></li>
 </ul>
@@ -357,7 +356,7 @@
 
 <h3>Highly Customizable</h3>
 
-<p>WPSSO Core offers hundreds of filter hooks to customize its behavior and output, provides extensive developer documentation with examples, includes dozens of 3rd party integration modules in the Pro version, and offers several optional Free and Pro add-ons to extend WPSSO Core's functionality.</p>
+<p>WPSSO Core offers hundreds of filter hooks to customize its behavior and output, provides extensive developer documentation with examples, includes dozens of 3rd party integration modules in the Premium plugin, and offers several optional complimentary and Premium add-ons to extend WPSSO Core's functionality.</p>
 
 
 <h2>Installation</h2>
@@ -391,7 +390,7 @@
 <h3 class="top">Frequently Asked Questions</h3>
 
 <ul>
-<li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/can-i-use-the-pro-version-on-multiple-websites/">Can I use the Pro version on multiple websites?</a></li>
+<li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/can-i-use-the-pro-version-on-multiple-websites/">Can I use the Premium plugin on multiple websites?</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/does-linkedin-read-the-open-graph-meta-tags/">Does LinkedIn read the Open Graph meta tags?</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/doesnt-an-seo-plugin-cover-that/">Doesn't an SEO plugin cover that?</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/how-can-i-add-schema-aggregaterating-values/">How can I add Schema aggregateRating values?</a></li>
@@ -405,7 +404,7 @@
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/how-do-i-attach-an-image-without-showing-it-on-the-webpage/">How do I attach an image without showing it on the webpage?</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/how-do-i-fix-google-structured-data-hatom-errors/">How do I fix Google Structured Data &gt; hatom errors?</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/how-do-i-fix-my-themes-front-page-pagination/">How do I fix my theme's front page pagination?</a></li>
-<li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/how-do-i-install-the-wpsso-pro-version/">How do I install the WPSSO Core Pro version?</a></li>
+<li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/how-do-i-install-the-wpsso-pro-version/">How do I install the WPSSO Core Premium plugin?</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/how-do-i-remove-duplicate-meta-tags/">How do I remove duplicate meta tags?</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/how-does-wpsso-find-detect-select-images/">How does WPSSO Core find / detect / select images?</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/how-does-wpsso-find-detect-select-videos/">How does WPSSO Core find / detect / select videos?</a></li>
@@ -414,7 +413,6 @@
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/why-does-facebook-play-videos-instead-of-linking-them/">Why does Facebook play videos instead of linking them?</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/why-does-facebook-show-the-wrong-image-text/">Why does Facebook show the wrong image / text?</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/why-does-google-structured-data-testing-tool-show-errors/">Why does Google Structured Data Testing Tool show errors?</a></li>
-<li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/why-dont-my-twitter-cards-show-on-twitter/">Why don't my Twitter Cards show on Twitter?</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/why-is-the-open-graph-title-the-same-for-every-webpage/">Why is the Open Graph title the same for every webpage?</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/why-shouldnt-i-upload-small-images-to-the-media-library/">Why shouldn't I upload small images to the Media library?</a></li>
 </ul>
@@ -422,7 +420,7 @@
 <h3>Advanced Documentation and Notes</h3>
 
 <ul>
-<li><a href="https://wpsso.com/docs/plugins/wpsso/notes/modules/">About WPSSO Core Pro Integration Modules</a>
+<li><a href="https://wpsso.com/docs/plugins/wpsso/notes/modules/">About WPSSO Core Premium Integration Modules</a>
 
 <ul>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/notes/modules/author-gravatar/">Author Gravatar</a></li>
@@ -436,7 +434,6 @@
 <li><a href="https://wpsso.com/docs/plugins/wpsso/notes/modules/woocommerce/">WooCommerce</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/notes/modules/yoast-seo-aka-wordpress-seo/">Yoast SEO (aka WordPress SEO)</a></li>
 </ul></li>
-<li><a href="https://wpsso.com/docs/plugins/wpsso/notes/contact-information/">Contact Information and Feeds</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/notes/developer/">Developer Resources</a>
 
 <ul>
@@ -459,7 +456,6 @@
 <li><a href="https://wpsso.com/docs/plugins/wpsso/notes/developer/filters/examples/modify-the-default-topics-list/">Modify the Default Article Topics List</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/notes/developer/filters/examples/modify-the-home-page-title-for-facebook-open-graph/">Modify the Home Page Title for Facebook / Open Graph</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/notes/developer/filters/examples/modify-the-sharing-url/">Modify the Sharing URL</a></li>
-<li><a href="https://wpsso.com/docs/plugins/wpsso/notes/developer/filters/examples/read-import-yoast-seo-social-meta/">Read / Import Yoast SEO Social Meta</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/notes/developer/filters/examples/remove-hentry-from-theme-templates/">Remove / Fix 'hentry' Errors in your Theme Templates</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/notes/developer/filters/examples/strip-additional-shortcodes/">Strip Additional Shortcodes</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/notes/developer/filters/examples/use-the-request_uri-for-post-urls/">Use the REQUEST_URI for Post URLs</a></li>

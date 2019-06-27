@@ -376,11 +376,10 @@ if ( ! class_exists( 'WpssoWpMeta' ) ) {
 
 		public function get_metabox_javascript( $container_id ) {
 
-			$doing_ajax   = defined( 'DOING_AJAX' ) ? DOING_AJAX : false;
 			$container_id = empty( $container_id ) ? '' : '#' . $container_id;
 			$metabox_html = '';
 
-			if ( $doing_ajax ) {
+			if ( SucomUtil::get_const( 'DOING_AJAX' ) ) {
 				$metabox_html .= '<script type="text/javascript">
 					sucomInitAdminMedia( "' . $container_id . '" );
 					sucomInitMetabox( "' . $container_id . '" );
@@ -502,8 +501,8 @@ if ( ! class_exists( 'WpssoWpMeta' ) ) {
 
 			if ( isset( $mod[ 'post_status' ] ) && $mod[ 'post_status' ] === 'auto-draft' ) {
 
-				$auto_draft_msg = sprintf( __( 'Save a draft version or publish the %s to update this value.',
-					'wpsso' ), SucomUtil::titleize( $mod[ 'post_type' ] ) );
+				$auto_draft_msg = sprintf( __( 'Save a draft version or publish the %s to update this value.', 'wpsso' ),
+					SucomUtil::titleize( $mod[ 'post_type' ] ) );
 
 				$table_rows[] = '' . 
 				$form->get_th_html( _x( 'Sharing URL', 'option label', 'wpsso' ), 'medium' ) .
