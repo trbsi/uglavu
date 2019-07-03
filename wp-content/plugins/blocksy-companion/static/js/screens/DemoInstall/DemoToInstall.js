@@ -26,6 +26,7 @@ import PickBuilder from './Wizzard/PickBuilder'
 import Content from './Wizzard/Content'
 import Plugins from './Wizzard/Plugins'
 import DemoInstaller from './DemoInstaller'
+import { getStepsForDemoConfiguration } from './Installer/useInstaller'
 
 const DemoToInstall = ({ location, navigate }) => {
 	const [showDemoToInstall, setShowDemoToInstall] = useState(true)
@@ -154,36 +155,85 @@ const DemoToInstall = ({ location, navigate }) => {
 			}}
 			render={() => (
 				<div className="ct-demo-step-container">
-					{stepName === 'child_theme' && (
-						<ChildTheme
-							demoConfiguration={demoConfiguration}
-							setDemoConfiguration={setDemoConfiguration}
-						/>
-					)}
-					{stepName === 'plugins' && (
-						<Plugins
-							demoConfiguration={demoConfiguration}
-							setDemoConfiguration={setDemoConfiguration}
-						/>
-					)}
+					<div className="ct-current-step">
+						<Transition
+							items={stepName}
+							from={{ opacity: 0 }}
+							enter={{ opacity: 1 }}
+							leave={{ opacity: 0 }}
+							initial={false}
+							config={(key, phase) => {
+								return phase === 'leave'
+									? {
+											duration: 150
+										}
+									: {
+											delay: 150,
+											duration: 150
+										}
+							}}>
+							{stepName => props => (
+								<Fragment>
+									{stepName === 'child_theme' && (
+										<ChildTheme
+											style={props}
+											demoConfiguration={
+												demoConfiguration
+											}
+											setDemoConfiguration={
+												setDemoConfiguration
+											}
+										/>
+									)}
 
-					{stepName === 'builder' && (
-						<PickBuilder
-							demoConfiguration={demoConfiguration}
-							setDemoConfiguration={setDemoConfiguration}
-						/>
-					)}
+									{stepName === 'plugins' && (
+										<Plugins
+											demoConfiguration={
+												demoConfiguration
+											}
+											style={props}
+											setDemoConfiguration={
+												setDemoConfiguration
+											}
+										/>
+									)}
 
-					{stepName === 'content' && (
-						<Content
-							demoConfiguration={demoConfiguration}
-							setDemoConfiguration={setDemoConfiguration}
-						/>
-					)}
+									{stepName === 'builder' && (
+										<PickBuilder
+											style={props}
+											demoConfiguration={
+												demoConfiguration
+											}
+											setDemoConfiguration={
+												setDemoConfiguration
+											}
+										/>
+									)}
 
-					{stepName === 'installer' && (
-						<DemoInstaller demoConfiguration={demoConfiguration} />
-					)}
+									{stepName === 'content' && (
+										<Content
+											style={props}
+											demoConfiguration={
+												demoConfiguration
+											}
+											setDemoConfiguration={
+												setDemoConfiguration
+											}
+										/>
+									)}
+
+									{stepName === 'installer' && (
+										<DemoInstaller
+											style={props}
+											demoConfiguration={
+												demoConfiguration
+											}
+										/>
+									)}
+								</Fragment>
+							)}
+						</Transition>
+					</div>
 
 					{stepName !== 'installer' && (
 						<div className="ct-demo-step-controls">
@@ -202,7 +252,7 @@ const DemoToInstall = ({ location, navigate }) => {
 								</button>
 							)}
 
-							{configurationSteps.length > 1 && (
+							{configurationSteps.length > 2 && (
 								<ul className="ct-steps-pills">
 									{configurationSteps.map(
 										(step, index) =>
@@ -224,6 +274,14 @@ const DemoToInstall = ({ location, navigate }) => {
 
 							<button
 								className="demo-main-btn"
+								disabled={
+									stepName === 'content' &&
+									getStepsForDemoConfiguration(
+										demoConfiguration,
+										pluginsStatus,
+										is_child_theme
+									).length === 0
+								}
 								onClick={() => {
 									setCurrentConfigurationStep(
 										Math.min(

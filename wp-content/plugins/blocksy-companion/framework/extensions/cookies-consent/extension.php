@@ -52,6 +52,11 @@ class BlocksyExtensionCookiesConsent {
 			return $cookies;
 		});
 
+		add_filter('blocksy-async-scripts-handles', function ($d) {
+			$d[] = 'blocksy-ext-cookies-consent-scripts';
+			return $d;
+		});
+
 		add_filter(
 			'blocksy_extensions_customizer_options',
 			[$this, 'add_options_panel']

@@ -21,8 +21,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			),
 			'plugin' => array(
 				'wpsso' => array(			// Plugin acronym.
-					'version'     => '5.0.0',	// Plugin version.
-					'opt_version' => '643',		// Increment when changing default option values.
+					'version'     => '5.0.1',	// Plugin version.
+					'opt_version' => '644',		// Increment when changing default option values.
 					'short'       => 'WPSSO Core',	// Short plugin name.
 					'name'        => 'WPSSO Core [Main Plugin]',
 					'desc'        => 'WPSSO Core makes sure your content looks great on all social and search sites - no matter how URLs are crawled, shared, re-shared, posted, or embedded!',
@@ -1264,8 +1264,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_bitly_api_key'      => '',
 					'plugin_bitly_domain'       => '',
 					'plugin_dlmyapp_api_key'    => '',
-					//'plugin_google_api_key'     => '',			// Google Project API Key.
-					//'plugin_google_places'      => 0,			// Places API is Enabled.
 					'plugin_owly_api_key'       => '',
 					'plugin_yourls_api_url'     => '',
 					'plugin_yourls_username'    => '',
@@ -1456,7 +1454,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'cf_md_multi' => array(
 					'schema_addl_type_url'      => true,	// Microdata Type URLs.
 					'schema_howto_step'         => array(	// How-To Step Name.
-						'schema_howto_step_section',	// How-To Section (checkbox).
+						'schema_howto_step_section',	// How-To Section (radio buttons).
 						'schema_howto_step_text',	// How-To Direction Text.
 					),
 					'schema_howto_supply'       => true,	// How-To Supplies.
@@ -2434,7 +2432,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 							'bed.details'                 => 'https://schema.org/BedDetails',
 							'brand'                       => 'https://schema.org/Brand',
 							'broadcast.channel'           => 'https://schema.org/BroadcastChannel',
-							'bus.trip'                    => 'https://schema.org/BusTrip',
 							'computer.language'           => 'https://schema.org/ComputerLanguage',
 							'data.feed.item'              => 'https://schema.org/DataFeedItem',
 							'demand'                      => 'https://schema.org/Demand',
@@ -2534,7 +2531,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 								),
 								'warranty.scope' => 'https://schema.org/WarrantyScope',
 							),
-							'flight'      => 'https://schema.org/Flight',
 							'game.server' => 'https://schema.org/GameServer',
 							'intangible'  => 'https://schema.org/Intangible',
 							'invoice'     => 'https://schema.org/Invoice',
@@ -2600,7 +2596,13 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 							'service.channel'  => 'https://schema.org/ServiceChannel',
 							'structured.value' => 'https://schema.org/StructuredValue',
 							'ticket'           => 'https://schema.org/Ticket',
-							'train.trip'       => 'https://schema.org/TrainTrip',
+							'trip'             => array(
+								'trip'         => 'https://schema.org/Trip',
+								'trip.bus'     => 'https://schema.org/BusTrip',
+								'trip.flight'  => 'https://schema.org/Flight',
+								'trip.train'   => 'https://schema.org/TrainTrip',
+								'trip.tourist' => 'https://schema.org/TouristTrip',
+							),
 						),
 						'medical.entity' => array(
 							'medical.anatomical.structure'    => 'https://health-lifesci.schema.org/AnatomicalStructure',
@@ -2868,7 +2870,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 								'residence.apartment.complex' => 'https://schema.org/ApartmentComplex',
 								'residence.gated.community'   => 'https://schema.org/GatedResidenceCommunity',
 							),
-							'tourist.attraction' => 'https://schema.org/TouristAttraction',
+							'tourist.attraction'  => 'https://schema.org/TouristAttraction',
+							'tourist.destination' => 'https://schema.org/TouristDestination',
 						),
 						'product' => array(
 							'individual.product' => 'https://schema.org/IndividualProduct',	// Individual product w unique serial number.
@@ -2937,6 +2940,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'speech.pathology'     => 'speech.pathology.specialty',
 					'surgical'             => 'surgical.specialty',
 					'toxicologic'          => 'toxicologic.specialty',
+					'train.trip'           => 'trip.train',
 					'urologic'             => 'urologic.specialty',
 				),
 			),

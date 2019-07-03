@@ -1935,15 +1935,11 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		}
 
 		/**
-		 * Call as WpssoAdmin::get_nonce_action() to have a reliable __METHOD__ value.
+		 * Always call as WpssoAdmin::get_nonce_action() to have a reliable __METHOD__ value.
 		 */
 		public static function get_nonce_action() {
 
-			$salt = __FILE__.__METHOD__.__LINE__;
-
-			foreach ( array( 'AUTH_SALT', 'NONCE_SALT' ) as $const ) {
-				$salt .= defined( $const ) ? constant( $const ) : '';
-			}
+			$salt = __FILE__ . __LINE__ . __METHOD__;
 
 			return md5( $salt );
 		}
@@ -2531,27 +2527,6 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					}
 
 					$this->p->notice->err( $err_pre . sprintf( __( 'please deactivate the %1$s feature in the %2$s settings.',
-						'wpsso' ), $label_transl, $settings_link ) );
-				}
-
-				if ( isset( $opts[ 'aiosp_google_disable_profile' ] ) && empty( $opts[ 'aiosp_google_disable_profile' ] ) ) {
-
-					// translators: Please ignore - translation uses a different text domain.
-					$label_transl = '<strong>' . __( 'Disable Google Plus Profile', 'all-in-one-seo-pack' ) . '</strong>';
-					$settings_url = get_admin_url( null, 'admin.php?page=all-in-one-seo-pack%2Faioseop_class.php' );
-					$settings_link = '<a href="' . $settings_url . '">' .
-						// translators: Please ignore - translation uses a different text domain.
-						__( 'All in One SEO', 'all-in-one-seo-pack' ) . ' &gt; ' .
-						// translators: Please ignore - translation uses a different text domain.
-						__( 'General Settings', 'all-in-one-seo-pack' ) . ' &gt; ' .
-						// translators: Please ignore - translation uses a different text domain.
-						__( 'Google Settings', 'all-in-one-seo-pack' ) . '</a>';
-
-					if ( $this->p->debug->enabled ) {
-						$this->p->debug->log( $log_pre . 'aioseop google plus profile is enabled' );
-					}
-
-					$this->p->notice->err( $err_pre . sprintf( __( 'please check the %1$s option in the %2$s metabox.',
 						'wpsso' ), $label_transl, $settings_link ) );
 				}
 
@@ -3651,18 +3626,31 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		 */
 		protected function add_schema_knowledge_graph_table_rows( array &$table_rows ) {
 
+			$website_info = __( 'WebSite Information', 'wpsso' );
+
+			$org_social = '<a href="https://developers.google.com/search/docs/guides/enhance-site#add-your-sites-name-logo-and-social-links">' .
+				__( 'Organization Social Profile', 'wpsso' ) . '</a>';
+
+			$person_social = __( 'Person Social Profile', 'wpsso' );
+
 			$table_rows[ 'schema_knowledge_graph' ] = '' . 
 			$this->form->get_th_html( _x( 'Knowledge Graph for Home Page', 'option label', 'wpsso' ), '', 'schema_knowledge_graph' ) . 
 			'<td>' .
-			'<p>' . $this->form->get_checkbox( 'schema_add_home_website' ) . ' ' .
-				sprintf( __( 'Include <a href="%s">WebSite Information</a> for Google Search',
-					'wpsso' ), 'https://developers.google.com/structured-data/site-name' ) . '</p>' .
-			'<p>' . $this->form->get_checkbox( 'schema_add_home_organization' ) . ' ' .
-				sprintf( __( 'Include <a href="%s">Organization Social Profile</a> for a Business Site',
-					'wpsso' ), 'https://developers.google.com/structured-data/customize/social-profiles' ) . '</p>' .
-			'<p>' . $this->form->get_checkbox( 'schema_add_home_person' ) . ' ' .
-				sprintf( __( 'Include <a href="%s">Person Social Profile</a> for a Personal Site',
-					'wpsso' ), 'https://developers.google.com/structured-data/customize/social-profiles' ) . '</p>' .
+			'<p>' .
+				$this->form->get_checkbox( 'schema_add_home_website' ) . ' ' .
+				// translators: %s is "WebSite Information".
+				sprintf( __( 'Include %s for Google Search', 'wpsso' ), $website_info ) .
+			'</p>' .
+			'<p>' .
+				$this->form->get_checkbox( 'schema_add_home_organization' ) . ' ' .
+				// translators: %s is "Organization Social Profile".
+				sprintf( __( 'Include %s for a Business Website', 'wpsso' ), $org_social ) .
+			'</p>' .
+			'<p>' .
+				$this->form->get_checkbox( 'schema_add_home_person' ) . ' ' .
+				// translators: %s is "Person Social Profile".
+				sprintf( __( 'Include %s for a Personal Website', 'wpsso' ), $person_social ) .
+			'</p>' .
 			'</td>';
 
 			$owner_roles = $this->p->cf[ 'wp' ][ 'roles' ][ 'owner' ];

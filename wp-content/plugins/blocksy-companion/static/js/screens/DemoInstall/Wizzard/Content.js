@@ -11,9 +11,14 @@ import { __, sprintf } from 'ct-i18n'
 import classnames from 'classnames'
 import Checkbox from '../../../helpers/Checkbox'
 
-const Content = ({ demoConfiguration, setDemoConfiguration, currentDemo }) => {
+const Content = ({
+	demoConfiguration,
+	setDemoConfiguration,
+	currentDemo,
+	style
+}) => {
 	return (
-		<div>
+		<div style={style}>
 			<i className="ct-demo-icon">
 				<svg width="50" height="50" viewBox="0 0 40 40">
 					<path
@@ -105,7 +110,7 @@ const Content = ({ demoConfiguration, setDemoConfiguration, currentDemo }) => {
 						})
 					}>
 					<div>
-						{__('Erase Content', 'blc')}
+						{__('Clean Install', 'blc')}
 						<i>
 							{__(
 								'Check this option if you want to remove previous installed contend and perform a clean install.',

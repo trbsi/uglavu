@@ -38,6 +38,7 @@ class Autoloader {
 		'DemoInstallContentInstaller' => 'framework/features/demo-install/content-installer.php',
 		'DemoInstallOptionsInstaller' => 'framework/features/demo-install/options-import.php',
 		'DemoInstallWidgetsInstaller' => 'framework/features/demo-install/widgets-import.php',
+		'DemoInstallContentEraser' => 'framework/features/demo-install/content-eraser.php',
 
 		/**
 		 * No namespace

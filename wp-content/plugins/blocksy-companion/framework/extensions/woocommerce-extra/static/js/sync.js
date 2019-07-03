@@ -1,4 +1,5 @@
 import './variables'
+import '../../../instagram/static/js/ct-events'
 import ctEvents from 'ct-events'
 
 import {

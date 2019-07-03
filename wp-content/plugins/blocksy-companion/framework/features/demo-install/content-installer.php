@@ -6,67 +6,89 @@ class DemoInstallContentInstaller {
 	public function import() {
 		Plugin::instance()->demo->start_streaming();
 
+		if (! current_user_can('edit_theme_options')) {
+			Plugin::instance()->demo->emit_sse_message([
+				'action' => 'complete',
+				'error' => 'No permission.',
+			]);
+
+			exit;
+		}
+
 		// Are we allowed to create users?
 		add_filter( 'wxr_importer.pre_process.user', '__return_null' );
 
-		add_action(
-			'wxr_importer.processed.post',
-			array( $this, 'send_update' ),
-			10, 2
-		);
+		add_action('wxr_importer.processed.post', function ($post_id) {
+			if (get_post_type($post_id) === 'attachment') {
+				$this->send_update('media');
+			} else {
+				$this->send_update('post');
+			}
+		}, 10, 1);
 
 		add_action(
 			'wxr_importer.process_failed.post',
-			array( $this, 'send_update' ),
+			function () {
+				$this->send_update();
+			},
 			10, 2
 		);
 
 		add_action(
 			'wxr_importer.process_already_imported.post',
-			array( $this, 'send_update' ),
+			function () {
+				$this->send_update();
+			},
 			10, 2
 		);
 
 		add_action(
 			'wxr_importer.process_skipped.post',
-			array( $this, 'send_update' ),
+			function () {
+				$this->send_update();
+			},
 			10, 2
 		);
 
-		add_action(
-			'wxr_importer.processed.comment',
-			array( $this, 'send_update' )
-		);
+		add_action('wxr_importer.processed.comment', function () {
+			$this->send_update('comment');
+		});
 
 		add_action(
 			'wxr_importer.process_already_imported.comment',
-			array( $this, 'send_update' )
+			function () {
+				$this->send_update();
+			}
 		);
 
-		add_action(
-			'wxr_importer.processed.term',
-			array( $this, 'send_update' )
-		);
+		add_action('wxr_importer.processed.term', function () {
+			$this->send_update('term');
+		});
 
 		add_action(
 			'wxr_importer.process_failed.term',
-			array( $this, 'send_update' )
+			function () {
+				$this->send_update();
+			}
 		);
 
 		add_action(
 			'wxr_importer.process_already_imported.term',
-			array( $this, 'send_update' )
+			function () {
+				$this->send_update();
+			}
 		);
 
-		add_action(
-			'wxr_importer.processed.user',
-			array( $this, 'send_update' )
-		);
+		add_action('wxr_importer.processed.user', function () {
+			$this->send_update('users');
+		});
 
-		add_action(
-			'wxr_importer.process_failed.user',
-			array( $this, 'send_update' )
-		);
+		add_action('wxr_importer.process_failed.user', function () {
+			$this->send_update();
+		});
+
+		add_action('wxr_importer.processed.post', [$this, 'track_post_insert']);
+		add_action('wxr_importer.processed.term', [$this, 'track_term_insert']);
 
 		if (! isset($_REQUEST['demo_name']) || !$_REQUEST['demo_name']) {
 			Plugin::instance()->demo->emit_sse_message([
@@ -87,7 +109,7 @@ class DemoInstallContentInstaller {
 
 		$importer = new \Blocksy_WXR_Importer([
 			'fetch_attachments' => true,
-			'default_author'    => get_current_user_id(),
+			'default_author' => get_current_user_id(),
 		]);
 
 		$logger   = new \Blocksy_WP_Importer_Logger_ServerSentEvents();
@@ -127,9 +149,18 @@ class DemoInstallContentInstaller {
 		exit;
 	}
 
-	public function send_update() {
+	public function track_post_insert($post_id) {
+		update_post_meta($post_id, 'blocksy_demos_imported_post', true);
+	}
+
+	public function track_term_insert($term_id) {
+		update_term_meta($term_id, 'blocksy_demos_imported_term', true);
+	}
+
+	public function send_update($kind = null) {
 		Plugin::instance()->demo->emit_sse_message([
 			'action' => 'content_installer_progress',
+			'kind' => $kind,
 			'error' => false,
 		]);
 	}
@@ -168,12 +199,12 @@ class DemoInstallContentInstaller {
 			'error' => false,
 		]);
 
-		if ( class_exists( '\Elementor\Plugin' ) ) {
+		if (class_exists('\Elementor\Plugin')) {
 			\Elementor\Plugin::$instance->posts_css_manager->clear_cache();
 		}
 
-		if ( is_callable( 'FLBuilderModel::delete_asset_cache_for_all_posts' ) ) {
-			FLBuilderModel::delete_asset_cache_for_all_posts();
+		if (is_callable('FLBuilderModel::delete_asset_cache_for_all_posts')) {
+			\FLBuilderModel::delete_asset_cache_for_all_posts();
 		}
 	}
 

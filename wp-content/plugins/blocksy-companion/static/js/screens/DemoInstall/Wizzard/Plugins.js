@@ -21,7 +21,7 @@ export const getNameForPlugin = plugin =>
 		brizy: 'Brizy'
 	}[plugin])
 
-const Plugins = ({ demoConfiguration, setDemoConfiguration }) => {
+const Plugins = ({ demoConfiguration, setDemoConfiguration, style }) => {
 	const {
 		currentDemo,
 		demos_list,
@@ -36,7 +36,7 @@ const Plugins = ({ demoConfiguration, setDemoConfiguration }) => {
 	)
 
 	return (
-		<div>
+		<div style={style}>
 			<div className="ct-demo-plugins">
 				<i className="ct-demo-icon">
 					<svg width="40" height="40" viewBox="0 0 40 40">

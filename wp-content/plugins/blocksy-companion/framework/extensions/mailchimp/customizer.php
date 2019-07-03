@@ -175,7 +175,7 @@ $options = [
 
 					'value' => [
 						'default' => [
-							'color' => Blocksy_Css_Injector::get_skip_rule_keyword(),
+							'color' => '#ffffff',
 						],
 					],
 

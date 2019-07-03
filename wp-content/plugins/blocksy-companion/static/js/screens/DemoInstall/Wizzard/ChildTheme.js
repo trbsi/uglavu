@@ -13,11 +13,11 @@ import { DemosContext } from '../../DemoInstall'
 import DashboardContext from '../../../DashboardContext'
 import Checkbox from '../../../helpers/Checkbox'
 
-const ChildTheme = ({ demoConfiguration, setDemoConfiguration }) => {
+const ChildTheme = ({ demoConfiguration, setDemoConfiguration, style }) => {
 	const { is_child_theme } = useContext(DashboardContext)
 
 	return (
-		<div className="ct-demo-child">
+		<div className="ct-demo-child" style={style}>
 			<i className="ct-demo-icon">
 				<svg width="40" height="40" viewBox="0 0 43 41.1">
 					<path

@@ -20,6 +20,11 @@ class BlocksyExtensionWoocommerceExtra {
 
 		}, 10, 3);
 
+		add_filter('blocksy-async-scripts-handles', function ($d) {
+			$d[] = 'blocksy-ext-woocommerce-extra-scripts';
+			return $d;
+		});
+
 		add_action('wp_enqueue_scripts', function () {
 			if (! function_exists('get_plugin_data')){
 				require_once( ABSPATH . 'wp-admin/includes/plugin.php' );

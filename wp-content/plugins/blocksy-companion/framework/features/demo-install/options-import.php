@@ -68,6 +68,8 @@ class DemoInstallOptionsInstaller {
 			'error' => false,
 		]);
 
+		global $wp_customize;
+
 		do_action('customize_save', $wp_customize);
 
 		foreach ($options['mods'] as $key => $val) {

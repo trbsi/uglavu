@@ -1,6 +1,7 @@
 import './public-path'
+import { onDocumentLoaded } from '../../../instagram/static/js/helpers'
 
-document.addEventListener('DOMContentLoaded', () => {
+onDocumentLoaded(() => {
 	if (!document.querySelector('.ct-read-progress-bar')) {
 		return
 	}

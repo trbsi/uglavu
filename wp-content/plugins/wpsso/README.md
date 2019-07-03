@@ -3,9 +3,9 @@
 <table>
 <tr><th align="right" valign="top" nowrap>Plugin Name</th><td>WPSSO Core [Main Plugin]</td></tr>
 <tr><th align="right" valign="top" nowrap>Summary</th><td>WPSSO Core makes sure your content looks great on all social and search sites, no matter how URLs are crawled, shared, re-shared, posted or embedded!</td></tr>
-<tr><th align="right" valign="top" nowrap>Stable Version</th><td>5.0.0</td></tr>
+<tr><th align="right" valign="top" nowrap>Stable Version</th><td>5.0.1</td></tr>
 <tr><th align="right" valign="top" nowrap>Requires At Least</th><td>WordPress 3.8</td></tr>
-<tr><th align="right" valign="top" nowrap>Tested Up To</th><td>WordPress 5.2.1</td></tr>
+<tr><th align="right" valign="top" nowrap>Tested Up To</th><td>WordPress 5.2.2</td></tr>
 <tr><th align="right" valign="top" nowrap>Contributors</th><td>jsmoriss</td></tr>
 <tr><th align="right" valign="top" nowrap>License</th><td><a href="https://www.gnu.org/licenses/gpl.txt">GPLv3</a></td></tr>
 <tr><th align="right" valign="top" nowrap>Tags / Keywords</th><td>open graph, meta tags, social sharing, rich results, rich pins, schema.org, structured data, twitter cards, snippet, seo, social, social media, facebook, twitter, linkedin, pinterest, google</td></tr>
@@ -203,7 +203,7 @@
 <li>How-To Total Time </li>
 <li>How-To Supplies </li>
 <li>How-To Tools </li>
-<li>How-To Steps (step name, direction text)</li>
+<li>How-To Steps (section name, section description, step name, and direction text)</li>
 </ul></li>
 <li>Job Posting Information
 

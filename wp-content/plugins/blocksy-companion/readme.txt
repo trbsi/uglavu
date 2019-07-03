@@ -24,6 +24,12 @@ This plugin runs and adds its enhacements only if the Blocksy theme is installed
 
 == Changelog ==
 
+1.1.1: 2019-06-30
+* Fix: Proper capabilities check for extensions API
+
+1.1.0: 2019-06-27
+* New: Demo Install Engine
+
 1.0.11: 2019-06-18
 * New: Author widget
 * New: Quote widget

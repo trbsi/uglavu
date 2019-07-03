@@ -31,7 +31,7 @@ $css->put(
 
 $mailchimpBackground = blocksy_get_colors( get_theme_mod(
 	'mailchimpBackground',
-	[ 'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword() ] ]
+	[ 'default' => [ 'color' => '#ffffff' ] ]
 ));
 
 $css->put(

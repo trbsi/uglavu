@@ -1,7 +1,10 @@
 import './public-path'
+import './ct-events'
+import { onDocumentLoaded } from './helpers'
+
 import ctEvents from 'ct-events'
 
-document.addEventListener('DOMContentLoaded', () => {
+onDocumentLoaded(() => {
 	;[...document.querySelectorAll('.ct-instagram-widget')].map(el =>
 		import('./instagram-widget').then(({ initInstagramWidget }) => {
 			initInstagramWidget(el)

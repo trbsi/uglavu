@@ -9,9 +9,9 @@ Assets URI: https://surniaulula.github.io/wpsso/assets/
 Tags: open graph, meta tags, social sharing, rich results, rich pins, schema.org, structured data, twitter cards, snippet, seo, social, social media, facebook, twitter, linkedin, pinterest, google
 Contributors: jsmoriss
 Requires At Least: 3.8
-Tested Up To: 5.2.1
+Tested Up To: 5.2.2
 WC Tested Up To: 3.6
-Stable Tag: 5.0.0
+Stable Tag: 5.0.1
 
 WPSSO Core makes sure your content looks great on all social and search sites, no matter how URLs are crawled, shared, re-shared, posted or embedded!
 
@@ -177,7 +177,7 @@ WPSSO Core and its optional add-ons offer meta tags and Schema markup for Facebo
 		* How-To Total Time 
 		* How-To Supplies 
 		* How-To Tools 
-		* How-To Steps (step name, direction text)
+		* How-To Steps (section name, section description, step name, and direction text)
 	* Job Posting Information
 		* Job Posting Job Title
 		* Job Posting Hiring Organization
@@ -419,22 +419,40 @@ Version components: `{major}.{minor}.{bugfix}[-{stage}.{level}]`
 * [GitHub](https://surniaulula.github.io/wpsso/)
 * [WordPress.org](https://plugins.trac.wordpress.org/browser/wpsso/)
 
-<h3>Development Updates for Premium Plugin</h3>
+<h3>Development Updates for Premium Users</h3>
 
-<p>Development, alpha, beta, and release candidate updates are available to Premium plugin customers.</p>
+<p>Development, alpha, beta, and release candidate updates are available for Premium users.</p>
 
 <p>Under the SSO &gt; Update Manager settings page, select the "Development and Up" version filter for WPSSO Core and all its extensions (to satisfy any version dependencies). Save the plugin settings, and click the "Check for Updates" button to fetch the latest / current WPSSO version information. When new Development versions are available, they will automatically appear under your WordPress Dashboard &gt; Updates page. You can always re-select the "Stable / Production" version filter at any time to re-install the last stable / production version of a plugin.</p>
 
 <h3>Changelog / Release Notes</h3>
 
-**Version 5.0.1-dev.1 (2019/06/24)**
+**Version 5.1.0-dev.1 (2019/06/29)**
 
 * *New Features*
 	* None.
 * *Improvements*
 	* None.
 * *Bugfixes*
+	* None.
+* *Developer Notes*
+	* Schema method standardization and "@id" optimizations.
+		* Added WpssoSchema::add_videos_data_mt().
+		* Moved WpssoSchema::add_og_single_image_data() to WpssoSchemaSingle::add_image_data_mt().
+		* Renamed WpssoSchema::add_og_image_list_data() to WpssoSchema::add_images_data_mt().
+		* Renamed WpssoSchema::update_json_data_id() to WpssoSchema::update_data_id() and added an $optimize argument (returns only the "@id" from cache after first call).
+		* Renamed WpssoSchemaSingle::have_local_data() to maybe_add_data().
+
+**Version 5.0.1 (2019/06/29)**
+
+* *New Features*
+	* None.
+* *Improvements*
+	* Removed the Google Plus Profile option check in All In One SEO settings (now deprecated).
+	* Updated the WebSite (Front Page) Knowledge Graph option label and link.
+* *Bugfixes*
 	* Fixed block editor global variable definition by changing "const" to "var" ([issue from GitHub](https://github.com/siteorigin/siteorigin-panels/issues/677)).
+	* Fixed markup when selecting an Schema Organization, LocalBusiness, and Person type (or sub-type) in the Document SSO metabox, without specifying an Organization, LocalBusiness, or Person to get additional information about the Organization, LocalBusiness, and Person.
 * *Developer Notes*
 	* None.
 
@@ -468,84 +486,13 @@ Version components: `{major}.{minor}.{bugfix}[-{stage}.{level}]`
 	* Added a new `SucomUtilWP::doing_frontend()` method.
 	* Improved WP_Query for a post type archive (see https://codex.wordpress.org/Function_Reference/is_post_type_archive) when running as background task.
 
-**Version 4.31.4 (2019/06/14)**
-
-* *New Features*
-	* None.
-* *Improvements*
-	* Removed the WooCommerce `$product` global variable consistency check (Premium plugin).
-* *Bugfixes*
-	* None.
-* *Developer Notes*
-	* None.
-
-**Version 4.31.3 (2019/06/12)**
-
-* *New Features*
-	* None.
-* *Improvements*
-	* None.
-* *Bugfixes*
-	* Fixed product sale price specification by adding the 'validFrom' and 'validThrough' properties and removing the 'priceValidUntil' property.
-* *Developer Notes*
-	* None.
-
-**Version 4.31.2 (2019/05/31)**
-
-* *New Features*
-	* None.
-* *Improvements*
-	* Added support for Schema Place mid-day closure.
-* *Bugfixes*
-	* None.
-* *Developer Notes*
-	* Added a new SucomUtil::get_open_close() method.
-	* Added a new SucomUtil::is_valid_midday() method.
-
-**Version 4.31.1 (2019/05/27)**
-
-* *New Features*
-	* None.
-* *Improvements*
-	* Added numbers to multi line input options (SameAs, HowTo Steps, etc).
-	* Added the SEO by Rank Math plugin to the list of recognized SEO plugins.
-* *Bugfixes*
-	* None.
-* *Developer Notes*
-	* None.
-
-**Version 4.31.0 (2019/05/20)**
-
-* *New Features*
-	* None.
-* *Improvements*
-	* None.
-* *Bugfixes*
-	* Fixed an incorrect method call in the 'wpsso_schema_attributes' function.
-	* Fixed an incorrect post status value in WpssoUtil::get_page_url().
-	* Fixed adding an array element to a possible json data string value. 
-* *Developer Notes*
-	* Merged the 'post', 'term', and 'user' module methods into the WpssoPost, WpssoTerm, and WpssoUser classes.
-	* Deprecated the `$this->p->m[ 'util' ][ 'post' ]` class object variable by `$this->p->post`.
-	* Deprecated the `$this->p->m[ 'util' ][ 'term' ]` class object variable by `$this->p->term`.
-	* Deprecated the `$this->p->m[ 'util' ][ 'user' ]` class object variable by `$this->p->user`.
-	* Updated the following add-ons to use the new class object variables:
-		* WPSSO Mobile App Meta
-		* WPSSO Organization Markup 
-		* WPSSO Place / Location and Local Business Meta
-		* WPSSO REST API
-		* WPSSO Ridiculously Responsive Social Sharing Buttons
-		* WPSSO Schema Breadcrumbs Markup
-		* WPSSO Schema JSON-LD Markup
-		* WPSSO Social Sharing Buttons 
-
 == Upgrade Notice ==
 
-= 5.0.1-dev.1 =
+= 5.1.0-dev.1 =
 
-(2019/06/24) Fixed block editor global variable definition by changing "const" to "var".
+(2019/06/29) Schema method standardization and "@id" optimizations.
 
-= 5.0.0 =
+= 5.0.1 =
 
-(2019/06/24) Removed support for the Yotpo Social Reviews for WooCommerce plugin. Added checks for missing WooCommerce pages. Added an action hook to remove duplicate JSON-LD markup in AMP pages from the Yoast SEO plugin. Renamed the 'gpl' library sub-folder to 'std'.
+(2019/06/29) Fixed block editor global variable definition by changing "const" to "var". Fixed markup when selecting an Schema Organization, LocalBusiness, and Person type (or sub-type) in the Document SSO metabox.
 

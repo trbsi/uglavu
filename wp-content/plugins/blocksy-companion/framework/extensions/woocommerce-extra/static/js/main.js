@@ -1,5 +1,6 @@
 import $ from 'jquery'
 import { markImagesAsLoaded } from '../../../instagram/static/js/lazy-load-helpers'
+import { onDocumentLoaded } from '../../../instagram/static/js/helpers'
 
 const store = {}
 
@@ -124,7 +125,7 @@ const mount = () =>
 		})
 	})
 
-document.addEventListener('DOMContentLoaded', () => {
+onDocumentLoaded(() => {
 	mount()
 	ctEvents.on('ct:quick-view:update', () => mount())
 

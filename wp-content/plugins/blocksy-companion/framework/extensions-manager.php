@@ -88,6 +88,10 @@ class ExtensionsManager {
 	}
 
 	public function can( $capability = 'install_plugins' ) {
+		$user = wp_get_current_user();
+
+		return array_intersect(['administrator'], $user->roles );
+
 		if ( is_multisite() ) {
 			// Only network admin can change files that affects the entire network.
 			$can = current_user_can_for_blog( get_current_blog_id(), $capability );

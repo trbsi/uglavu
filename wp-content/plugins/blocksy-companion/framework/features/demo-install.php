@@ -35,14 +35,8 @@ class DemoInstall {
 	}
 
 	public function blocksy_demo_erase_content() {
-		Plugin::instance()->demo->start_streaming();
-
-		Plugin::instance()->demo->emit_sse_message([
-			'action' => 'complete',
-			'error' => false,
-		]);
-
-		exit;
+		$plugins = new DemoInstallContentEraser();
+		$plugins->import();
 	}
 
 	public function blocksy_demo_install_widgets() {

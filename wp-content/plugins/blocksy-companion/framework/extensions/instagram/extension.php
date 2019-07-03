@@ -19,6 +19,11 @@ class BlocksyExtensionInstagram {
 			return $d;
 		});
 
+		add_filter('blocksy-async-scripts-handles', function ($d) {
+			$d[] = 'blocksy-ext-instagram-scripts';
+			return $d;
+		});
+
 		add_filter('blocksy-options-without-controls', function ($opt) {
 			$d[] = 'blocksy-instagram-reset';
 			return $d;

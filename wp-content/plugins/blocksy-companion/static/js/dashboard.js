@@ -26,16 +26,14 @@ ctEvents.on('ct:dashboard:navigation-links', r => {
 		path: '/extensions'
 	})
 
-	if (ct_localizations.is_dev_mode) {
-		r.push({
-			text: __('Demo Install', 'blc'),
-			path: 'demos',
-			getProps: ({ isPartiallyCurrent, isCurrent }) =>
-				isPartiallyCurrent
-					? {
-							'aria-current': 'page'
-						}
-					: {}
-		})
-	}
+	r.push({
+		text: __('Demo Install', 'blc'),
+		path: 'demos',
+		getProps: ({ isPartiallyCurrent, isCurrent }) =>
+			isPartiallyCurrent
+				? {
+						'aria-current': 'page'
+					}
+				: {}
+	})
 })
