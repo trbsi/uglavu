@@ -22,10 +22,10 @@ $options = [
 			'priority' => 1,
 		],
 
-		'layout' => [
-			'title' => __( 'Layout', 'blocksy' ),
+		'general' => [
+			'title' => __( 'General', 'blocksy' ),
 			'container' => [ 'priority' => 1 ],
-			'options' => blocksy_get_options( 'general/layout' ),
+			'options' => blocksy_get_options( 'general/general' ),
 		],
 
 		'header' => [

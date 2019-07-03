@@ -1,4 +1,6 @@
-document.addEventListener('DOMContentLoaded', () => {
+import { onDocumentLoaded } from '../helpers'
+
+onDocumentLoaded(() => {
 	const a = document.createElement('a')
 	const darkModeSwitch = document.createElement('a')
 

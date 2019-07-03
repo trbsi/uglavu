@@ -21,7 +21,7 @@ add_action('admin_print_styles', function () {
 	 * The variable used here has the value escaped properly.
 	 */
 	echo '<style id="ct-main-styles-inline-css" type="text/css">';
-	echo trim( $css->build_css_structure() );
+	echo trim($css->build_css_structure());
 	echo "</style>\n";
 });
 

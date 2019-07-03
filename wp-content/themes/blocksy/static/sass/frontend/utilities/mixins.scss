@@ -99,6 +99,7 @@
 		display: flex,
 		height: 45px,
 		padding: 25px,
+		has_color: true,
 		color: #fff,
 		position: relative,
 		bg_1: var(--buttonInitialColor),
@@ -111,7 +112,6 @@
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
-	color: map-get( $args, color );
 	height: map-get( $args, height );
 	padding: 0 map-get( $args, padding );
 	border: none;
@@ -132,6 +132,12 @@
 
 	&:focus {
 		outline: none;
+	}
+
+	// button text color
+	$has_color: map-get( $args, has_color );
+	@if $has_color == true {
+		color: map-get( $args, color );
 	}
 
 	// button shadow

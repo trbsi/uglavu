@@ -18,6 +18,12 @@ blocksy_theme_get_dynamic_styles('posts-listing', [
 	'tablet_css' => $tablet_css
 ]);
 
+blocksy_theme_get_dynamic_styles('site-background', [
+	'css' => $css,
+	'mobile_css' => $mobile_css,
+	'tablet_css' => $tablet_css
+]);
+
 blocksy_theme_get_dynamic_styles('woocommerce', [
 	'css' => $css,
 	'mobile_css' => $mobile_css,
@@ -40,6 +46,7 @@ $colorPalette = blocksy_get_colors( get_theme_mod( 'colorPalette',
 		'color5' => [ 'color' => '#ffffff' ],
 	]
 ));
+
 
 $css->put(
 	':root',
@@ -66,9 +73,6 @@ $css->put(
 	"--paletteColor5: {$colorPalette['color5']}"
 );
 
-
-
-
 // Colors
 $font_color = blocksy_get_colors( get_theme_mod( 'fontColor',
 	[ 'default' => [ 'color' => 'var(--paletteColor3)' ] ]
@@ -81,7 +85,7 @@ $css->put(
 
 // Headings
 $h1Color = blocksy_get_colors( get_theme_mod( 'h1Color',
-	[ 'default' => [ 'color' => 'var(--paletteColor3)' ] ]
+	[ 'default' => [ 'color' => 'var(--paletteColor4)' ] ]
 ));
 
 $css->put(
@@ -90,7 +94,7 @@ $css->put(
 );
 
 $h2Color = blocksy_get_colors( get_theme_mod( 'h2Color',
-	[ 'default' => [ 'color' => 'var(--paletteColor3)' ] ]
+	[ 'default' => [ 'color' => 'var(--paletteColor4)' ] ]
 ));
 
 $css->put(
@@ -99,7 +103,7 @@ $css->put(
 );
 
 $h3Color = blocksy_get_colors( get_theme_mod( 'h3Color',
-	[ 'default' => [ 'color' => 'var(--paletteColor3)' ] ]
+	[ 'default' => [ 'color' => 'var(--paletteColor4)' ] ]
 ));
 
 $css->put(
@@ -108,7 +112,7 @@ $css->put(
 );
 
 $h4Color = blocksy_get_colors( get_theme_mod( 'h4Color',
-	[ 'default' => [ 'color' => 'var(--paletteColor3)' ] ]
+	[ 'default' => [ 'color' => 'var(--paletteColor4)' ] ]
 ));
 
 $css->put(
@@ -117,7 +121,7 @@ $css->put(
 );
 
 $h5Color = blocksy_get_colors( get_theme_mod( 'h5Color',
-	[ 'default' => [ 'color' => 'var(--paletteColor3)' ] ]
+	[ 'default' => [ 'color' => 'var(--paletteColor4)' ] ]
 ));
 
 $css->put(
@@ -126,7 +130,7 @@ $css->put(
 );
 
 $h6Color = blocksy_get_colors( get_theme_mod( 'h6Color',
-	[ 'default' => [ 'color' => 'var(--paletteColor3)' ] ]
+	[ 'default' => [ 'color' => 'var(--paletteColor4)' ] ]
 ));
 
 $css->put(
@@ -398,7 +402,7 @@ blocksy_output_responsive([
 
 $related_posts_label_color = blocksy_get_colors( get_theme_mod(
 	'relatedPostsLabelColor',
-	[ 'default' => [ 'color' => 'var(--paletteColor3)' ] ]
+	[ 'default' => [ 'color' => 'var(--paletteColor4)' ] ]
 ));
 
 $css->put(
@@ -445,6 +449,18 @@ $related_posts_container_color = blocksy_get_colors( get_theme_mod(
 $css->put(
 	':root',
 	"--relatedPostsContainerColor: {$related_posts_container_color['default']}"
+);
+
+
+// Comments
+$postCommentsBackground = blocksy_get_colors( get_theme_mod(
+	'postCommentsBackground',
+	[ 'default' => [ 'color' => '#f8f9fb' ] ]
+));
+
+$css->put(
+	':root',
+	"--commentsBackground: {$postCommentsBackground['default']}"
 );
 
 
@@ -551,6 +567,78 @@ $css->put(
 );
 
 
+// Post
+$postBackground = blocksy_get_colors( get_theme_mod(
+	'postBackground',
+	[ 'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword() ] ]
+));
+
+$css->put(
+	'.single .site-main',
+	"--siteBackground: {$postBackground['default']}"
+);
+
+blocksy_output_responsive([
+	'css' => $css,
+	'tablet_css' => $tablet_css,
+	'mobile_css' => $mobile_css,
+	'selector' => ':root',
+	'variableName' => 'singleContentBoxedSpacing',
+	'value' => get_theme_mod('singleContentBoxedSpacing', [
+		'mobile' => '40px',
+		'tablet' => '40px',
+		'desktop' => '40px',
+	]),
+	'unit' => ''
+]);
+
+$singleContentBackground = blocksy_get_colors( get_theme_mod(
+	'singleContentBackground',
+	[ 'default' => [ 'color' => '#ffffff' ] ]
+));
+
+$css->put(
+	':root',
+	"--singleContentBackground: {$singleContentBackground['default']}"
+);
+
+
+// Page
+$pageBackground = blocksy_get_colors( get_theme_mod(
+	'pageBackground',
+	[ 'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword() ] ]
+));
+
+$css->put(
+	'.page .site-main',
+	"--siteBackground: {$pageBackground['default']}"
+);
+
+blocksy_output_responsive([
+	'css' => $css,
+	'tablet_css' => $tablet_css,
+	'mobile_css' => $mobile_css,
+	'selector' => ':root',
+	'variableName' => 'pageContentBoxedSpacing',
+	'value' => get_theme_mod('pageContentBoxedSpacing', [
+		'mobile' => '40px',
+		'tablet' => '40px',
+		'desktop' => '40px',
+	]),
+	'unit' => ''
+]);
+
+$pageContentBackground = blocksy_get_colors( get_theme_mod(
+	'pageContentBackground',
+	[ 'default' => [ 'color' => '#ffffff' ] ]
+));
+
+$css->put(
+	':root',
+	"--pageContentBackground: {$pageContentBackground['default']}"
+);
+
+
 // Author Box
 blocksy_output_responsive([
 	'css' => $css,
@@ -568,7 +656,7 @@ blocksy_output_responsive([
 
 $singleAuthorBoxBackground = blocksy_get_colors( get_theme_mod(
 	'singleAuthorBoxBackground',
-	[ 'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword() ] ]
+	[ 'default' => [ 'color' => '#ffffff' ] ]
 ));
 
 $css->put(

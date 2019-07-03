@@ -10,6 +10,7 @@ import './frontend/woocommerce/add-to-cart-single'
 import { watchLayoutContainerForReveal } from './frontend/animated-element'
 import './frontend/parallax/register-listener'
 import './frontend/woocommerce/single-product-gallery'
+import { onDocumentLoaded } from './helpers'
 
 maybeMountPerfLogger()
 
@@ -19,7 +20,7 @@ const importAndInitLazyLoad = (layoutEl, msnry = null) =>
 			maybeInitInfiniteScroll(layoutEl, msnry)
 	)
 
-document.addEventListener('DOMContentLoaded', () => {
+onDocumentLoaded(() => {
 	if (document.querySelector('.ct-quantity')) {
 		import('./frontend/woocommerce/quantity-input').then(({ mount }) =>
 			mount()
@@ -45,9 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		importAndInitLazyLoad(layoutEl)
 		watchLayoutContainerForReveal(layoutEl)
 	})
-})
 
-document.addEventListener('DOMContentLoaded', () => {
 	ctEvents.on('ct:footer-reveal:update', () => {
 		import('./frontend/footer-reveal').then(({ mount }) => mount())
 	})
@@ -120,7 +119,7 @@ ctEvents.on('ct:overlay:handle-click', ({ e, el, options = {} }) => {
 	)
 })
 
-document.addEventListener('DOMContentLoaded', () => {
+onDocumentLoaded(() => {
 	setTimeout(() => {
 		document.body.classList.remove('ct-loading')
 	}, 1500)
@@ -214,7 +213,7 @@ const initSearch = () =>
 		)
 	)
 
-document.addEventListener('DOMContentLoaded', () => {
+onDocumentLoaded(() => {
 	initMenu()
 	initMobileMenu()
 	initSearch()

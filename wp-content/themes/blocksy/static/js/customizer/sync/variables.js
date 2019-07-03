@@ -2,6 +2,7 @@ import { getHeroVariables } from './hero-section'
 import { getPostListingVariables } from './template-parts/content-loop'
 import { getHeaderVariables } from './variables/header'
 import { getTypographyVariablesFor } from './variables/typography'
+import { getSiteBackgroundVariables } from './variables/site-background'
 
 import { handleVariablesFor } from 'customizer-sync-helpers'
 
@@ -33,9 +34,17 @@ handleVariablesFor({
 		}
 	],
 
+	background_pattern: [
+		{
+			variable: 'backgroundPattern'
+		}
+	],
+
 	// Page Hero
 	...getHeroVariables(),
 	...getPostListingVariables(),
+
+	...getSiteBackgroundVariables(),
 
 	...getHeaderVariables(),
 	...getTypographyVariablesFor(),
@@ -49,39 +58,38 @@ handleVariablesFor({
 	h1Color: {
 		variable: 'fontColor',
 		type: 'color',
-		selector: 'h1',
+		selector: 'h1'
 	},
 
 	h2Color: {
 		variable: 'fontColor',
 		type: 'color',
-		selector: 'h2',
+		selector: 'h2'
 	},
 
 	h3Color: {
 		variable: 'fontColor',
 		type: 'color',
-		selector: 'h3',
+		selector: 'h3'
 	},
 
 	h4Color: {
 		variable: 'fontColor',
 		type: 'color',
-		selector: 'h4',
+		selector: 'h4'
 	},
 
 	h5Color: {
 		variable: 'fontColor',
 		type: 'color',
-		selector: 'h5',
+		selector: 'h5'
 	},
 
 	h6Color: {
 		variable: 'fontColor',
 		type: 'color',
-		selector: 'h6',
+		selector: 'h6'
 	},
-
 
 	linkColor: [
 		{
@@ -259,6 +267,12 @@ handleVariablesFor({
 		type: 'color'
 	},
 
+	// Comments
+	postCommentsBackground: {
+		variable: 'commentsBackground',
+		type: 'color'
+	},
+
 	// Pagination
 	paginationSpacing: {
 		variable: 'paginationSpacing',
@@ -329,7 +343,6 @@ handleVariablesFor({
 		type: 'color'
 	},
 
-
 	shareItemsIcon: {
 		variable: 'shareItemsIcon',
 		type: 'color'
@@ -348,6 +361,45 @@ handleVariablesFor({
 			type: 'color:hover'
 		}
 	],
+
+
+	// Post
+	postBackground: {
+		selector: '.single .site-main',
+		variable: 'siteBackground',
+		type: 'color'
+	},
+
+	singleContentBoxedSpacing: {
+		variable: 'singleContentBoxedSpacing',
+		responsive: true,
+		unit: ''
+	},
+
+	singleContentBackground: {
+		variable: 'singleContentBackground',
+		type: 'color'
+	},
+
+
+	// Page
+	pageBackground: {
+		selector: '.page .site-main',
+		variable: 'siteBackground',
+		type: 'color'
+	},
+
+	pageContentBoxedSpacing: {
+		variable: 'pageContentBoxedSpacing',
+		responsive: true,
+		unit: ''
+	},
+
+	pageContentBackground: {
+		variable: 'pageContentBackground',
+		type: 'color'
+	},
+
 
 	// Autor Box
 	singleAuthorBoxSpacing: {

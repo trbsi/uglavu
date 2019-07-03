@@ -186,41 +186,9 @@ $accent-color: #0e8ecc;
 
 
 // colors
-.ct-control[data-type="color-palette"] {
-	> header {
-		margin-bottom: 15px !important;
-	}
-
-	> section > div {
-		width: 100%;
-	}
-
-	.ct-color-picker-container {
-		display: flex;
-		justify-content: space-between;
-		padding-right: 0;
-
-		// > * {
-		// 	&:not(:last-child) {
-		// 		margin-right: 20px;
-		// 	}
-		// }
-	}
-
-	.ct-color-picker-modal {
-		top: 80px;
-		left: 0;
-	}
-
-	.ct-color-picker-single > span {
-		width: 30px;
-		height: 30px;
-	}
-}
-
 .ct-color-picker-container > * {
 	&:not(:last-child) {
-		margin-right: 15px;
+		margin-right: 12px;
 	}
 }
 

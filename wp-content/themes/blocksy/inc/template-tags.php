@@ -92,8 +92,8 @@ function blocksy_post_navigation( $check_for_preview = false ) {
 		'mobile' => true,
 	]));
 
-	$next_post = get_adjacent_post( false, '', false );
-	$previous_post = get_adjacent_post( false, '', true );
+	$next_post = get_adjacent_post( false, '', true );
+	$previous_post = get_adjacent_post( false, '', false );
 
 	$home_page_url = get_home_url();
 
@@ -150,7 +150,7 @@ function blocksy_post_navigation( $check_for_preview = false ) {
 	?>
 
 		<nav class="<?php echo esc_attr( $container_class ); ?>">
-			<?php if ( get_next_post_link() ) { ?>
+			<?php if ( get_previous_post_link() ) { ?>
 				<a href="<?php echo esc_url( get_permalink( $next_post ) ); ?>" class="nav-item-prev">
 					<?php if ( $has_thumb ) { ?>
 						<figure>
@@ -187,7 +187,7 @@ function blocksy_post_navigation( $check_for_preview = false ) {
 				<div class="nav-item-prev"></div>
 			<?php } ?>
 
-			<?php if ( get_previous_post_link() ) { ?>
+			<?php if ( get_next_post_link() ) { ?>
 				<a href="<?php echo esc_url( get_permalink( $previous_post ) ); ?>" class="nav-item-next">
 					<?php if ( $has_thumb ) { ?>
 						<figure>

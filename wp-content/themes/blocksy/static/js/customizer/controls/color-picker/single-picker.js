@@ -100,9 +100,11 @@ export default class SinglePicker extends Component {
 								))
 							}
 						</Transition>,
-						this.el.current
-							.closest('.ct-control')
-							.querySelector('.ct-color-modal-wrapper')
+						this.el.current.closest('.ct-color-modal-wrapper')
+							? this.el.current.closest('.ct-color-modal-wrapper')
+							: this.el.current
+									.closest('.ct-control')
+									.querySelector('.ct-color-modal-wrapper')
 					)}
 			</div>
 		)

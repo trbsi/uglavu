@@ -1,8 +1,10 @@
 import ctEvents from 'ct-events'
 import $ from 'jquery'
+import { onDocumentLoaded } from '../helpers'
 
-document.addEventListener('DOMContentLoaded', () => {
+onDocumentLoaded(() => {
 	let lz = null
+
 	if (document.querySelector('img[data-lazy]')) {
 		import('vanilla-lazyload').then(({ default: lazyload }) => {
 			lz = new lazyload({

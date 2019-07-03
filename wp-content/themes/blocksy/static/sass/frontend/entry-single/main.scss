@@ -7,17 +7,5 @@
 @import 'related-posts';
 @import 'entry-tags';
 @import 'comments';
-
-
-.single-post {
-
-	// post thumbnail
-	.post-thumbnail {
-		display: flex;
-		flex-direction: column;
-
-		img {
-			width: 100%;
-		}
-	}
-}
+@import 'featured-image';
+@import 'content-area';

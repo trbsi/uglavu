@@ -1,3 +1,15 @@
+1.3.0: 2019-06-27
+- New: Multiple color palettes
+- New: Site background options with color, patterns and images
+- New: Load JavaScript with async script
+- New: Single post featured image
+- New: Post archives read more button
+- Improvement: Reverse post navigation logic
+- Improvement: Add `16/9`, `9/16` ratios for images
+- Fix: Posts widget thumbnails in customizer
+- Fix: Posts navigation position
+- Fix: Remove `data-menu-type` and `data-dropdown-animation` attributes from mobile menu
+
 1.2.14: 2019-06-18
 - Improvement: Add check for XMLReader in System Status
 - Fix: Share box fixed for Firefox on iOS

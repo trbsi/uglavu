@@ -1,5 +1,6 @@
 import Selectr from 'mobius1-selectr'
 import $ from 'jquery'
+import { onDocumentLoaded } from '../helpers'
 
 const initCustomSelect = () =>
 	[...document.querySelectorAll('select')].map(el =>
@@ -47,7 +48,7 @@ ctEvents.on('ct:custom-select-allow:init', () => {
 	})
 })
 
-document.addEventListener('DOMContentLoaded', () => {
+onDocumentLoaded(() => {
 	initCustomSelect()
 
 	if ($ && $.fn) {

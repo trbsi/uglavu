@@ -319,7 +319,7 @@ $when_enabled_design_settings = [
 
 		'value' => [
 			'default' => [
-				'color' => 'var(--paletteColor3)',
+				'color' => 'var(--paletteColor4)',
 			],
 
 			'hover' => [

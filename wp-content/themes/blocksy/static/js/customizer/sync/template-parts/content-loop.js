@@ -265,6 +265,22 @@ const renderEntries = prefix => {
 				existingTitle.parentNode.replaceChild(newHeading, existingTitle)
 			}
 
+			if (component.id === 'read_more') {
+				e.querySelector('.entry-button').dataset.type =
+					component.button_type || 'simple'
+
+				e.querySelector('.entry-button').dataset.alignment =
+					component.read_more_alignment || 'left'
+
+				e.querySelector('.entry-button').firstChild.textContent =
+					component.read_more_text || 'Read More'
+
+				if ((component.read_more_arrow || 'no') === 'no') {
+					e.querySelector('.entry-button svg') &&
+						e.querySelector('.entry-button svg').remove()
+				}
+			}
+
 			while (e.firstElementChild) {
 				singleArticle.appendChild(e.firstElementChild)
 			}
@@ -374,6 +390,34 @@ const getVariablesForPrefix = prefix => ({
 		{
 			selector: '.entry-meta',
 			variable: 'linkHoverColor',
+			type: 'color:hover'
+		}
+	],
+
+	[`${prefix}_cardButtonTextColor`]: [
+		{
+			selector: '.entry-button',
+			variable: 'linkInitialColor',
+			type: 'color:default'
+		},
+
+		{
+			selector: '.entry-button',
+			variable: 'linkHoverColor',
+			type: 'color:hover'
+		}
+	],
+
+	[`${prefix}_cardButtonColor`]: [
+		{
+			selector: '.entry-button',
+			variable: 'buttonInitialColor',
+			type: 'color:default'
+		},
+
+		{
+			selector: '.entry-button',
+			variable: 'buttonHoverColor',
 			type: 'color:hover'
 		}
 	],

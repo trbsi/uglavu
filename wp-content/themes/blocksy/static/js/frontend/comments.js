@@ -1,4 +1,6 @@
-document.addEventListener('DOMContentLoaded', () => {
+import { onDocumentLoaded } from '../helpers'
+
+onDocumentLoaded(() => {
 	if (!document.querySelector('.ct-comments')) return
 
 	let inputs = [
@@ -25,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 /**
  * Shim WordPress's addComment.moveForm in order to properly add classes
  */
-document.addEventListener('DOMContentLoaded', () => {
+onDocumentLoaded(() => {
 	if (!window.addComment) return
 	if (!window.addComment.moveForm) return
 

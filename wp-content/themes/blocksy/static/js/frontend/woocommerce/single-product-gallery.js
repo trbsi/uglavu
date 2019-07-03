@@ -1,7 +1,8 @@
 import { Flexy } from 'flexy'
 import $ from 'jquery'
+import { onDocumentLoaded } from '../../helpers'
 
-document.addEventListener('DOMContentLoaded', () => {
+onDocumentLoaded(() => {
 	const wc_single_product_params = {
 		i18n_required_rating_text: 'Please select a rating',
 		review_rating_required: 'yes',

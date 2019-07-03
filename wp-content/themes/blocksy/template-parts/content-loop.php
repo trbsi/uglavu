@@ -46,6 +46,11 @@ $archive_order = blocksy_akg_or_customizer(
 		],
 
 		[
+			'id' => 'read_more',
+			'enabled' => false,
+		],
+
+		[
 			'id' => 'post_meta',
 			'enabled' => true,
 			'meta' => [
@@ -61,6 +66,7 @@ $archive_order = blocksy_akg_or_customizer(
 $featured_image_settings = null;
 $excerpt_settings = null;
 $title_settings = null;
+$read_more_settings = null;
 
 $last_enabled_component = null;
 
@@ -82,6 +88,10 @@ foreach ( array_reverse( $archive_order ) as $index => $value ) {
 
 	if ( $value['id'] === 'featured_image' ) {
 		$featured_image_settings = $value;
+	}
+
+	if ( $value['id'] === 'read_more' ) {
+		$read_more_settings = $value;
 	}
 
 	if ( $value['id'] === 'excerpt' ) {
@@ -129,6 +139,18 @@ if (
 	$featured_image_args['class'] = 'boundless-image';
 }
 
+$read_more_text = blocksy_default_akg(
+	'read_more_text',
+	$read_more_settings,
+	__('Read More', 'blocksy')
+);
+
+$read_more_arrow = '<svg width="17px" height="17px" viewBox="0 0 32 32"><path d="M 21.1875 9.28125 L 19.78125 10.71875 L 24.0625 15 L 4 15 L 4 17 L 24.0625 17 L 19.78125 21.28125 L 21.1875 22.71875 L 27.90625 16 Z "></path></svg>';
+
+if (blocksy_default_akg( 'read_more_arrow', $read_more_settings, 'no' ) === 'yes') {
+	$read_more_text .= $read_more_arrow;
+}
+
 $outputs = [
 	'title' => blocksy_entry_title( blocksy_default_akg( 'heading_tag', $title_settings, 'h2' ) ),
 	'featured_image' => blocksy_image( $featured_image_args ),
@@ -137,6 +159,17 @@ $outputs = [
 			blocksy_default_akg( 'excerpt_length', $excerpt_settings, '40' )
 		)
 	),
+
+	'read_more' => blocksy_html_tag(
+		'a',
+		[
+			'class' => 'entry-button',
+			'data-type' => blocksy_default_akg( 'button_type', $read_more_settings, 'background' ),
+			'data-alignment' => blocksy_default_akg( 'read_more_alignment', $read_more_settings, 'left' ),
+			'href' => esc_url( get_permalink() )
+		],
+		$read_more_text
+	)
 ];
 
 $data_reveal_output = '';
@@ -232,7 +265,7 @@ if (get_theme_mod('has_posts_reveal', 'no') === 'yes') {
 					[ 'data-id' => 'post-' . $id ],
 					array_reduce(
 						$archive_order,
-						function ( $carry, $single_component ) use ( $outputs, $excerpt ) {
+						function ( $carry, $single_component ) use ( $outputs, $excerpt, $read_more_arrow, $read_more_settings) {
 							$output = null;
 
 							if ( isset( $outputs[ $single_component['id'] ] ) ) {
@@ -256,8 +289,27 @@ if (get_theme_mod('has_posts_reveal', 'no') === 'yes') {
 								);
 							}
 
-							if ( 'excerpt' === $single_component['id'] ) {
+							if ('excerpt' === $single_component['id']) {
 								$output = $excerpt;
+							}
+
+							if ('read_more' === $single_component['id']) {
+								$output = blocksy_html_tag(
+									'a',
+									[
+										'class' => 'entry-button',
+										'data-type' => blocksy_default_akg( 'button_type', $read_more_settings, 'background' ),
+										'data-alignment' => blocksy_default_akg( 'read_more_alignment', $read_more_settings, 'left' ),
+										'href' => esc_url( get_permalink() )
+									],
+									(
+										blocksy_default_akg(
+											'read_more_text',
+											$read_more_settings,
+											__('Read More', 'blocksy')
+										) . $read_more_arrow
+									)
+								);
 							}
 
 							return $carry . blocksy_html_tag(

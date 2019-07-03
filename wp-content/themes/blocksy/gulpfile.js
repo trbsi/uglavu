@@ -34,6 +34,7 @@ var options = {
 				'ct-events': 'window.ctEvents',
 				underscore: 'window._',
 				'@wordpress/element': 'window.wp.element',
+				'@wordpress/components': 'window.wp.components',
 				'@wordpress/date': 'window.wp.date',
 				react: 'React',
 				'react-dom': 'ReactDOM'
@@ -53,6 +54,7 @@ var options = {
 				'ct-events': 'window.ctEvents',
 				underscore: 'window._',
 				'@wordpress/element': 'window.wp.element',
+				'@wordpress/components': 'window.wp.components',
 				'@wordpress/date': 'window.wp.date',
 				react: 'React',
 				'react-dom': 'ReactDOM'
@@ -72,6 +74,7 @@ var options = {
 				'ct-events': 'window.ctEvents',
 				underscore: 'window._',
 				'@wordpress/element': 'window.wp.element',
+				'@wordpress/components': 'window.wp.components',
 				'@wordpress/date': 'window.wp.date',
 				react: 'React',
 				'react-dom': 'ReactDOM'

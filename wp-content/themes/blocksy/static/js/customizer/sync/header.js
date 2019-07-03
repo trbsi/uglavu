@@ -94,26 +94,30 @@ const updateHeader = () => {
 		}
 	}
 
-	const miniCartHtml = getCache().querySelector(
-		`.ct-customizer-preview-cache [data-header-cart="${wp.customize(
-			'mini_cart_type'
-		)()}"]`
-	).innerHTML
+	const miniCartHtml = wp.customize('mini_cart_type')
+		? getCache().querySelector(
+				`.ct-customizer-preview-cache [data-header-cart="${wp.customize(
+					'mini_cart_type'
+				)()}"]`
+			).innerHTML
+		: ''
 	;[...document.querySelectorAll('.site-header .ct-cart-icon')].map(
 		el => (el.innerHTML = miniCartHtml)
 	)
 
 	renderCtaButton()
-	;[...document.querySelectorAll('nav.main-navigation')].map(el => {
-		el.removeAttribute('data-menu-divider')
+	;[...document.querySelectorAll('.header-desktop nav.main-navigation')].map(
+		el => {
+			el.removeAttribute('data-menu-divider')
 
-		if (wp.customize('menu_items_divider')() !== 'default') {
-			el.dataset.menuDivider = wp.customize('menu_items_divider')()
+			if (wp.customize('menu_items_divider')() !== 'default') {
+				el.dataset.menuDivider = wp.customize('menu_items_divider')()
+			}
+
+			el.dataset.menuType = wp.customize('header_menu_type')()
+			el.dataset.dropdownAnimation = wp.customize('dropdown_animation')()
 		}
-
-		el.dataset.menuType = wp.customize('header_menu_type')()
-		el.dataset.dropdownAnimation = wp.customize('dropdown_animation')()
-	})
+	)
 
 	ctEvents.trigger('ct:header:update')
 }

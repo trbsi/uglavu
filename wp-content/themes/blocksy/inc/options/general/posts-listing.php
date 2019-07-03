@@ -142,6 +142,12 @@ $options = [
 							],
 
 							[
+								'id' => 'read_more',
+								'button_type' => 'simple',
+								'enabled' => false,
+							],
+
+							[
 								'id' => 'post_meta',
 								'enabled' => true,
 								'meta' => [
@@ -191,18 +197,8 @@ $options = [
 
 									'thumb_ratio' => [
 										'label' => __( 'Image Ratio', 'blocksy' ),
-										'type' => 'ct-radio',
+										'type' => 'ct-ratio',
 										'value' => '4/3',
-										'view' => 'text',
-										'design' => 'block',
-										'attr' => [ 'data-buttons' => 'ratio', 'data-type' => 'compact' ],
-										'choices' => [
-											'4/3' => '4/3',
-											'3/4' => '3/4',
-											'2/1' => '2/1',
-											'1/2' => '1/2',
-											'1/1' => '1/1',
-										],
 									],
 
 									blocksy_rand_md5() => [
@@ -237,6 +233,55 @@ $options = [
 										'value' => 40,
 										'min' => 10,
 										'max' => 100,
+									],
+
+								],
+							],
+
+							'read_more' => [
+								'label' => __( 'Read More Button', 'blocksy' ),
+								'options' => [
+
+									'button_type' => [
+										'label' => false,
+										'type' => 'ct-radio',
+										'value' => 'background',
+										'setting' => [ 'transport' => 'postMessage' ],
+										'inline' => true,
+										'view' => 'text',
+										'choices' => [
+											'simple' => __( 'Simple', 'blocksy' ),
+											'background' => __( 'Background', 'blocksy' ),
+											'outline' => __( 'Outline', 'blocksy' ),
+										],
+									],
+
+									'read_more_text' => [
+										'label' => __( 'Text', 'blocksy' ),
+										'type' => 'text',
+										'design' => 'inline',
+										'value' => __( 'Read More', 'blocksy' ),
+										'setting' => [ 'transport' => 'postMessage' ],
+									],
+
+									'read_more_arrow' => [
+										'label' => __( 'Show Arrow', 'blocksy' ),
+										'type' => 'ct-switch',
+										'value' => 'no',
+									],
+
+									'read_more_alignment' => [
+										'type' => 'ct-radio',
+										'label' => __( 'Alignment', 'blocksy' ),
+										'value' => 'left',
+										'view' => 'text',
+										'attr' => [ 'data-type' => 'alignment' ],
+										'design' => 'block',
+										'choices' => [
+											'left' => '',
+											'center' => '',
+											'right' => '',
+										],
 									],
 
 								],
@@ -304,6 +349,7 @@ $options = [
 										'options' => [
 
 											'category_style' => [
+												'label' => __( 'Category Style', 'blocksy' ),
 												'type' => 'ct-radio',
 												'value' => 'simple',
 												'setting' => [ 'transport' => 'postMessage' ],
@@ -408,93 +454,114 @@ $options = [
 				'type' => 'tab',
 				'options' => [
 
-					$prefix . 'cardTitleFont' => [
-						'type' => 'ct-typography',
-						'label' => __( 'Title Font', 'blocksy' ),
-						'value' => blocksy_typography_default_values([
-							'size' => [
-								'desktop' => '20px',
-								'tablet'  => '20px',
-								'mobile'  => '18px'
-							],
-							'variation' => 'n7',
-							'line-height' => '1.3'
-						]),
-						'setting' => [ 'transport' => 'postMessage' ],
-					],
-
-					$prefix . 'cardTitleColor' => [
-						'label' => __( 'Title Font Color', 'blocksy' ),
-						'type'  => 'ct-color-picker',
-						'design' => 'inline',
-						'setting' => [ 'transport' => 'postMessage' ],
-
-						'value' => [
-							'default' => [
-								'color' => 'var(--paletteColor4)',
-							],
-
-							'hover' => [
-								'color' => 'var(--paletteColor1)',
-							],
+					blocksy_rand_md5() => [
+						'type' => 'ct-condition',
+						'condition' => [
+							$prefix . 'archive_order:array-ids:title:enabled' => '!no'
 						],
+						'options' => [
 
-						'pickers' => [
-							[
-								'title' => __( 'Initial', 'blocksy' ),
-								'id' => 'default',
+							$prefix . 'cardTitleFont' => [
+								'type' => 'ct-typography',
+								'label' => __( 'Title Font', 'blocksy' ),
+								'value' => blocksy_typography_default_values([
+									'size' => [
+										'desktop' => '20px',
+										'tablet'  => '20px',
+										'mobile'  => '18px'
+									],
+									'variation' => 'n7',
+									'line-height' => '1.3'
+								]),
+								'setting' => [ 'transport' => 'postMessage' ],
 							],
 
-							[
-								'title' => __( 'Hover', 'blocksy' ),
-								'id' => 'hover',
+							$prefix . 'cardTitleColor' => [
+								'label' => __( 'Title Font Color', 'blocksy' ),
+								'type'  => 'ct-color-picker',
+								'design' => 'inline',
+								'setting' => [ 'transport' => 'postMessage' ],
+
+								'value' => [
+									'default' => [
+										'color' => 'var(--paletteColor4)',
+									],
+
+									'hover' => [
+										'color' => 'var(--paletteColor1)',
+									],
+								],
+
+								'pickers' => [
+									[
+										'title' => __( 'Initial', 'blocksy' ),
+										'id' => 'default',
+									],
+
+									[
+										'title' => __( 'Hover', 'blocksy' ),
+										'id' => 'hover',
+									],
+								],
 							],
+
+							blocksy_rand_md5() => [
+								'type' => 'ct-divider',
+								'attr' => [ 'data-type' => 'small' ]
+							],
+
 						],
 					],
 
 					blocksy_rand_md5() => [
-						'type' => 'ct-divider',
-						'attr' => [ 'data-type' => 'small' ]
-					],
-
-					$prefix . 'cardExcerptSize' => [
-						'label' => __( 'Excerpt Font Size', 'blocksy' ),
-						'type' => 'ct-slider',
-						'min' => 0,
-						'max' => 100,
-						'responsive' => true,
-						'value' => [
-							'mobile' => 16,
-							'tablet' => 16,
-							'desktop' => 16,
+						'type' => 'ct-condition',
+						'condition' => [
+							$prefix . 'archive_order:array-ids:excerpt:enabled' => '!no'
 						],
-						'setting' => [ 'transport' => 'postMessage' ],
-					],
+						'options' => [
 
-					$prefix . 'cardExcerptColor' => [
-						'label' => __( 'Excerpt Color', 'blocksy' ),
-						'type'  => 'ct-color-picker',
-						'design' => 'inline',
-						'setting' => [ 'transport' => 'postMessage' ],
-
-						'value' => [
-							'default' => [
-								'color' => 'var(--fontColor)',
+							$prefix . 'cardExcerptSize' => [
+								'label' => __( 'Excerpt Font Size', 'blocksy' ),
+								'type' => 'ct-slider',
+								'min' => 0,
+								'max' => 100,
+								'responsive' => true,
+								'value' => [
+									'mobile' => 16,
+									'tablet' => 16,
+									'desktop' => 16,
+								],
+								'setting' => [ 'transport' => 'postMessage' ],
 							],
-						],
 
-						'pickers' => [
-							[
-								'title' => __( 'Initial', 'blocksy' ),
-								'id' => 'default',
+							$prefix . 'cardExcerptColor' => [
+								'label' => __( 'Excerpt Color', 'blocksy' ),
+								'type'  => 'ct-color-picker',
+								'design' => 'inline',
+								'setting' => [ 'transport' => 'postMessage' ],
+
+								'value' => [
+									'default' => [
+										'color' => 'var(--fontColor)',
+									],
+								],
+
+								'pickers' => [
+									[
+										'title' => __( 'Initial', 'blocksy' ),
+										'id' => 'default',
+									],
+								],
 							],
+
+							blocksy_rand_md5() => [
+								'type' => 'ct-divider',
+								'attr' => [ 'data-type' => 'small' ]
+							],
+
 						],
 					],
 
-					blocksy_rand_md5() => [
-						'type' => 'ct-divider',
-						'attr' => [ 'data-type' => 'small' ]
-					],
 
 					$prefix . 'cardMetaSize' => [
 						'label' => __( 'Meta Font Size', 'blocksy' ),
@@ -536,6 +603,92 @@ $options = [
 								'title' => __( 'Hover', 'blocksy' ),
 								'id' => 'hover',
 							],
+						],
+					],
+
+
+					blocksy_rand_md5() => [
+						'type' => 'ct-condition',
+						'condition' => [
+							$prefix . 'archive_order:array-ids:read_more:enabled' => '!no'
+						],
+						'options' => [
+
+							blocksy_rand_md5() => [
+								'type' => 'ct-divider',
+								'attr' => [ 'data-type' => 'small' ]
+							],
+
+							$prefix . 'cardButtonTextColor' => [
+								'label' => __( 'Button Text Color', 'blocksy' ),
+								'type'  => 'ct-color-picker',
+								'design' => 'inline',
+								'setting' => [ 'transport' => 'postMessage' ],
+
+								'value' => [
+									'default' => [
+										'color' => '#ffffff',
+									],
+
+									'hover' => [
+										'color' => '#ffffff',
+									],
+								],
+
+								'pickers' => [
+									[
+										'title' => __( 'Initial', 'blocksy' ),
+										'id' => 'default',
+									],
+
+									[
+										'title' => __( 'Hover', 'blocksy' ),
+										'id' => 'hover',
+									],
+								],
+							],
+
+
+						],
+					],
+
+					blocksy_rand_md5() => [
+						'type' => 'ct-condition',
+						'condition' => [
+							$prefix . 'archive_order:array-ids:read_more:button_type' => '!simple',
+							$prefix . 'archive_order:array-ids:read_more:enabled' => '!no'
+						],
+						'options' => [
+
+							$prefix . 'cardButtonColor' => [
+								'label' => __( 'Button Color', 'blocksy' ),
+								'type'  => 'ct-color-picker',
+								'design' => 'inline',
+								'setting' => [ 'transport' => 'postMessage' ],
+
+								'value' => [
+									'default' => [
+										'color' => 'var(--buttonInitialColor)',
+									],
+
+									'hover' => [
+										'color' => 'var(--buttonHoverColor)',
+									],
+								],
+
+								'pickers' => [
+									[
+										'title' => __( 'Initial', 'blocksy' ),
+										'id' => 'default',
+									],
+
+									[
+										'title' => __( 'Hover', 'blocksy' ),
+										'id' => 'hover',
+									],
+								],
+							],
+
 						],
 					],
 

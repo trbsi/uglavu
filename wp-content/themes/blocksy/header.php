@@ -182,6 +182,9 @@ if (get_theme_mod('has_sticky_header', 'no') === 'yes') {
 	</header>
 
 	<main id="main" class="site-main">
+
+		<?php echo blocksy_site_pattern(); ?>
+
 		<?php if (function_exists('blc_output_read_progress_bar')) { ?>
 			<?php
 				/**

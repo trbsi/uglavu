@@ -385,7 +385,6 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 		$type === 'type-1' ? 'left' : 'center'
 	)) . '"';
 
-
 	if ( $type === 'type-1' ) {
 		ob_start();
 

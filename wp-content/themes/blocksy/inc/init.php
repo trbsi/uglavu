@@ -249,4 +249,31 @@ if ( is_admin() ) {
 	require get_template_directory() . '/admin/init.php';
 }
 
+if (!is_admin()) {
+	add_filter('script_loader_tag', function ($tag, $handle) {
+		$scripts = apply_filters('blocksy-async-scripts-handles', [
+			'ct-scripts'
+		]);
+
+		if (in_array($handle, $scripts)) {
+			return str_replace('<script ', '<script async ', $tag);
+		}
+
+		return $tag;
+
+		// if the unique handle/name of the registered script has 'async' in it
+		if (strpos($handle, 'async') !== false) {
+			// return the tag with the async attribute
+			return str_replace( '<script ', '<script async ', $tag );
+		} else if (
+			// if the unique handle/name of the registered script has 'defer' in it
+			strpos($handle, 'defer') !== false
+		) {
+			// return the tag with the defer attribute
+			return str_replace( '<script ', '<script defer ', $tag );
+		} else {
+			return $tag;
+		}
+	}, 10, 2);
+}
 

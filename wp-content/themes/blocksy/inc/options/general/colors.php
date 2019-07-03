@@ -15,7 +15,7 @@ $options = [
 
 			'colorPalette' => [
 				'label' => __( 'Global Colors', 'blocksy' ),
-				'type'  => 'ct-color-picker',
+				'type'  => 'ct-color-palettes-picker',
 				'design' => 'block',
 				'setting' => [ 'transport' => 'postMessage' ],
 				'predefined' => true,
@@ -30,7 +30,6 @@ $options = [
 						'color' => '#33a370',
 					],
 
-
 					'color3' => [
 						'color' => 'rgba(44, 62, 80, 0.9)',
 					],
@@ -42,33 +41,82 @@ $options = [
 					'color5' => [
 						'color' => '#ffffff',
 					],
-				],
 
-				'pickers' => [
-					[
-						'title' => __( 'Color 1', 'blocksy' ),
-						'id' => 'color1',
-					],
+					'current_palette' => 'palette-1',
 
-					[
-						'title' => __( 'Color 2', 'blocksy' ),
-						'id' => 'color2',
-					],
+					'palettes' => [
+						[
+							'id' => 'palette-1',
 
-					[
-						'title' => __( 'Color 3', 'blocksy' ),
-						'id' => 'color3',
-					],
+							'color1' => [
+								'color' => '#3eaf7c',
+							],
 
-					[
-						'title' => __( 'Color 4', 'blocksy' ),
-						'id' => 'color4',
-					],
+							'color2' => [
+								'color' => '#33a370',
+							],
 
-					[
-						'title' => __( 'Color 5', 'blocksy' ),
-						'id' => 'color5',
-					],
+							'color3' => [
+								'color' => 'rgba(44, 62, 80, 0.9)',
+							],
+
+							'color4' => [
+								'color' => 'rgba(44, 62, 80, 1)',
+							],
+
+							'color5' => [
+								'color' => '#ffffff',
+							],
+						],
+
+						[
+							'id' => 'palette-2',
+
+							'color1' => [
+								'color' => '#2872fa',
+							],
+
+							'color2' => [
+								'color' => '#1559ed',
+							],
+
+							'color3' => [
+								'color' => 'rgba(36,59,86,0.9)',
+							],
+
+							'color4' => [
+								'color' => 'rgba(36,59,86,1)',
+							],
+
+							'color5' => [
+								'color' => '#ffffff',
+							],
+						],
+
+						[
+							'id' => 'palette-3',
+
+							'color1' => [
+								'color' => '#FB7258',
+							],
+
+							'color2' => [
+								'color' => '#F74D67',
+							],
+
+							'color3' => [
+								'color' => '#6e6d76',
+							],
+
+							'color4' => [
+								'color' => '#0e0c1b',
+							],
+
+							'color5' => [
+								'color' => '#ffffff',
+							],
+						]
+					]
 				],
 			],
 
@@ -105,7 +153,7 @@ $options = [
 
 				'value' => [
 					'default' => [
-						'color' => 'var(--paletteColor3)',
+						'color' => 'var(--paletteColor4)',
 					],
 				],
 
@@ -125,7 +173,7 @@ $options = [
 
 				'value' => [
 					'default' => [
-						'color' => 'var(--paletteColor3)',
+						'color' => 'var(--paletteColor4)',
 					],
 				],
 
@@ -145,7 +193,7 @@ $options = [
 
 				'value' => [
 					'default' => [
-						'color' => 'var(--paletteColor3)',
+						'color' => 'var(--paletteColor4)',
 					],
 				],
 
@@ -165,7 +213,7 @@ $options = [
 
 				'value' => [
 					'default' => [
-						'color' => 'var(--paletteColor3)',
+						'color' => 'var(--paletteColor4)',
 					],
 				],
 
@@ -185,7 +233,7 @@ $options = [
 
 				'value' => [
 					'default' => [
-						'color' => 'var(--paletteColor3)',
+						'color' => 'var(--paletteColor4)',
 					],
 				],
 
@@ -205,7 +253,7 @@ $options = [
 
 				'value' => [
 					'default' => [
-						'color' => 'var(--paletteColor3)',
+						'color' => 'var(--paletteColor4)',
 					],
 				],
 
@@ -277,32 +325,6 @@ $options = [
 					[
 						'title' => __( 'Hover', 'blocksy' ),
 						'id' => 'hover',
-					],
-				],
-			],
-
-
-			blocksy_rand_md5() => [
-				'type' => 'ct-divider',
-				'attr' => [ 'data-type' => 'small' ],
-			],
-
-			'siteBackground' => [
-				'label' => __( 'Site Background', 'blocksy' ),
-				'type'  => 'ct-color-picker',
-				'design' => 'inline',
-				'setting' => [ 'transport' => 'postMessage' ],
-
-				'value' => [
-					'default' => [
-						'color' => '#f8f9fb',
-					],
-				],
-
-				'pickers' => [
-					[
-						'title' => __( 'Initial', 'blocksy' ),
-						'id' => 'default',
 					],
 				],
 			],

@@ -95,4 +95,17 @@
 			transform: rotate(180deg);
 		}
 	}
+
+	// repeat
+	&[data-type="repeat"] li {
+		&:not(.active) {
+			color: #5c5c5c;
+		}
+
+		svg {
+			width: 13px;
+			height: 13px;
+			fill: currentColor;
+		}
+	}
 }

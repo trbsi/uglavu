@@ -96,6 +96,48 @@ $css->put(
 	"--linkHoverColor: {$cardMetaColor['hover']}"
 );
 
+
+$cardButtonTextColor = blocksy_get_colors( blocksy_akg_or_customizer(
+	'cardButtonTextColor',
+	$listing_source,
+	[
+		'default' => [ 'color' => '#ffffff' ],
+		'hover' => [ 'color' => '#ffffff' ],
+	]
+));
+
+$css->put(
+	'.entry-button',
+	"--linkInitialColor: {$cardButtonTextColor['default']}"
+);
+
+$css->put(
+	'.entry-button',
+	"--linkHoverColor: {$cardButtonTextColor['hover']}"
+);
+
+
+$cardButtonColor = blocksy_get_colors( blocksy_akg_or_customizer(
+	'cardButtonColor',
+	$listing_source,
+	[
+		'default' => [ 'color' => 'var(--buttonInitialColor)' ],
+		'hover' => [ 'color' => 'var(--buttonHoverColor)' ],
+	]
+));
+
+$css->put(
+	'.entry-button',
+	"--buttonInitialColor: {$cardButtonColor['default']}"
+);
+
+$css->put(
+	'.entry-button',
+	"--buttonHoverColor: {$cardButtonColor['hover']}"
+);
+
+
+
 $card_background = blocksy_get_colors( blocksy_akg_or_customizer(
 	'cardBackground',
 	$listing_source,

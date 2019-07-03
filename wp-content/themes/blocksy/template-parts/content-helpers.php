@@ -27,6 +27,29 @@ function blocksy_single_content( $check_for_preview = false ) {
 		'yes'
 	) === 'yes' || $check_for_preview;
 
+	$featured_image_location = 'none';
+
+	if (get_post_type() === 'post') {
+		$page_title_source = blocksy_get_page_title_source();
+
+		if ($page_title_source) {
+			$actual_type = blocksy_akg_or_customizer(
+				'hero_section',
+				blocksy_get_page_title_source(),
+				'type-1'
+			);
+
+			if ($actual_type !== 'type-2') {
+				$featured_image_location = get_theme_mod(
+					'single_featured_image_location',
+					'above'
+				);
+			} else {
+				$featured_image_location = 'below';
+			}
+		}
+	}
+
 	$share_box_type = get_theme_mod('share_box_type', 'type-1');
 
 	if ($check_for_preview) {
@@ -50,6 +73,14 @@ function blocksy_single_content( $check_for_preview = false ) {
 		];
 	}
 
+	$content_style = get_theme_mod('single_content_style', 'wide');
+
+	if (blocksy_is_page()) {
+		$content_style = get_theme_mod('page_content_style', 'wide');
+	}
+
+	$content_output = 'data-content="' . $content_style . '"';
+
 	ob_start();
 
 	?>
@@ -57,16 +88,25 @@ function blocksy_single_content( $check_for_preview = false ) {
 	<article
 		id="post-<?php the_ID(); ?>"
 		<?php post_class(); ?>
+		<?php echo $content_output ?>
 		<?php echo wp_kses( $page_structure_output, [] ); ?>
 		<?php blocksy_schema_org_definitions_e('single') ?>>
 
 		<?php
+			if ($featured_image_location === 'above' || $check_for_preview) {
+				echo blocksy_get_featured_image_output($check_for_preview);
+			}
+
 			if (!is_singular([ 'product' ])) {
 				/**
 				 * Note to code reviewers: This line doesn't need to be escaped.
 				 * Function blocksy_output_hero_section() used here escapes the value properly.
 				 */
 				echo blocksy_output_hero_section( 'type-1' );
+			}
+
+			if ($featured_image_location === 'below' && !$check_for_preview) {
+				echo blocksy_get_featured_image_output();
 			}
 		?>
 

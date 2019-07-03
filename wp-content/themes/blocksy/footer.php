@@ -67,6 +67,7 @@ if (get_theme_mod('footer_reveal', 'no') === 'yes') {
 }
 
 ?>
+
 	</main>
 
 	<footer
@@ -174,7 +175,6 @@ if (get_theme_mod('footer_reveal', 'no') === 'yes') {
 			<?php } ?>
 		</div>
 	</footer>
-
 
 </div>
 

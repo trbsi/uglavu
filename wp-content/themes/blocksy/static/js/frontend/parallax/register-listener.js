@@ -1,4 +1,5 @@
 import { Rellax } from './rellax'
+import { onDocumentLoaded } from '../../helpers'
 
 export let rel = new Rellax()
 
@@ -35,7 +36,7 @@ const init = () =>
 		}, 0)
 	})
 
-document.addEventListener('DOMContentLoaded', () => {
+onDocumentLoaded(() => {
 	init()
 
 	window.ctEvents.on('blocksy:parallax:init', () => {

@@ -1,6 +1,7 @@
 import $script from 'scriptjs'
+import { onDocumentLoaded } from '../helpers'
 
-document.addEventListener('DOMContentLoaded', () =>
+onDocumentLoaded(() =>
 	[...document.querySelectorAll('[data-share-network]')].map(el =>
 		el.addEventListener('click', e => {
 			const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(

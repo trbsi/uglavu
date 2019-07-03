@@ -1,4 +1,5 @@
 import { createElement, Component, Fragment } from '@wordpress/element'
+import { FocalPointPicker } from '@wordpress/components'
 import classnames from 'classnames'
 import { __ } from 'ct-i18n'
 import _ from 'underscore'
@@ -15,22 +16,36 @@ export default class ImageUploader extends Component {
 		attachment_info: null
 	}
 
-	onChange = value => {
+	getUrlFor = attachmentInfo =>
+		attachmentInfo
+			? (attachmentInfo.width < 700
+					? attachmentInfo.sizes.full
+					: _.max(
+							_.values(
+								_.keys(attachmentInfo.sizes).length === 1
+									? attachmentInfo.sizes
+									: _.omit(attachmentInfo.sizes, 'full')
+							),
+							({ width }) => width
+						)
+				).url || attachmentInfo.url
+			: null
+
+	onChange = (value, attachment_info = null) =>
 		this.props.onChange(
 			this.props.option.inline_value
 				? value || ''
 				: {
 						...this.props.value,
+						url: this.getUrlFor(attachment_info),
 						attachment_id: value
 					}
 		)
-	}
 
-	getAttachmentId = () => {
-		return this.props.option.inline_value
+	getAttachmentId = () =>
+		this.props.option.inline_value
 			? this.props.value
 			: this.props.value.attachment_id
-	}
 
 	/**
 	 * Create a media modal select frame, and store it so the instance can be reused when needed.
@@ -250,7 +265,12 @@ export default class ImageUploader extends Component {
 	 * @param {object} attachment
 	 */
 	setImageFromAttachment(attachment) {
-		this.onChange(attachment.id)
+		this.onChange(
+			attachment.id,
+			JSON.parse(
+				JSON.stringify(wp.media.attachment(attachment.id).toJSON())
+			)
+		)
 		this.updateAttachmentInfo()
 	}
 
@@ -312,36 +332,39 @@ export default class ImageUploader extends Component {
 					<Fragment>
 						<div
 							className="thumbnail thumbnail-image"
-							onClick={() => this.openFrame()}>
-							<img
-								className="attachment-thumb"
-								src={
-									(this.state.attachment_info.width < 700
-										? this.state.attachment_info.sizes.full
-										: _.max(
-												_.values(
-													_.keys(
-														this.state
-															.attachment_info
-															.sizes
-													).length === 1
-														? this.state
-																.attachment_info
-																.sizes
-														: _.omit(
-																this.state
-																	.attachment_info
-																	.sizes,
-																'full'
-															)
-												),
-												({ width }) => width
-											)
-									).url || this.state.attachment_info.url
-								}
-								draggable="false"
-								alt=""
-							/>
+							onClick={() =>
+								!this.props.option.has_position_picker &&
+								this.openFrame()
+							}>
+							{!this.props.option.has_position_picker && (
+								<img
+									className="attachment-thumb"
+									src={this.getUrlFor(
+										this.state.attachment_info
+									)}
+									draggable="false"
+									alt=""
+								/>
+							)}
+
+							{this.props.option.has_position_picker && (
+								<FocalPointPicker
+									url={this.getUrlFor(
+										this.state.attachment_info
+									)}
+									dimensions={{
+										width: 400,
+										height: 100
+									}}
+									value={this.props.value}
+									onChange={drag_position => {
+										this.props.onChange({
+											...this.props.value,
+											...drag_position
+										})
+									}}
+								/>
+							)}
 
 							<span
 								onClick={e => {

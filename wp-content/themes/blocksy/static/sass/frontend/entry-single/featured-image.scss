@@ -1,0 +1,9 @@
+.ct-featured-image {
+	@include media-breakpoint-down (md) {
+		margin-bottom: 30px;
+	}
+
+	@include media-breakpoint-up (lg) {
+		margin-bottom: 50px;
+	}
+}

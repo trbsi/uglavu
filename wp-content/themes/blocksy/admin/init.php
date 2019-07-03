@@ -51,7 +51,8 @@ add_action(
 			'react',
 			'react-dom',
 			'wp-element',
-            'wp-date',
+			'wp-components',
+			'wp-date',
 			'wp-i18n',
 			// 'wp-polyfill'
 		]);

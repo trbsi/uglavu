@@ -42,8 +42,7 @@ p {
 a {
 	color: var(--linkInitialColor);
 	text-decoration: none;
-	transition: color 0.12s cubic-bezier(0.455, 0.03, 0.515, 0.955),
-				opacity 0.12s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+	transition: all 0.12s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 
 	&:hover {
 		color: var(--linkHoverColor);

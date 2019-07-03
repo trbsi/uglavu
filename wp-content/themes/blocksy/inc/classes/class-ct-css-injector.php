@@ -550,6 +550,16 @@ class Blocksy_Css_Injector {
 			$position = strpos( $line, ':' );
 			$key = substr( $line, 0, $position );
 
+			/**
+			 * Skip redundant variables
+			 * --a: var(--a)
+			 */
+			if (strpos($key, '--') === 0) {
+				if (strpos(explode(':', $line)[1], $key) !== false) {
+					continue;
+				}
+			}
+
 			if ( ! in_array( $key, $dublication, true ) ) {
 				$result[] = $line;
 				$dublication[] = $key;

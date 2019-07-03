@@ -46,11 +46,13 @@ export default class Radio extends Component {
 						})}
 						onClick={() => this.props.onChange(choice)}
 						key={choice}
+						dangerouslySetInnerHTML={{
+							__html: this.props.option.choices[choice]
+						}}
 						{...(this.props.singleChoiceProps
 							? this.props.singleChoiceProps(choice)
-							: {})}>
-						{this.props.option.choices[choice]}
-					</li>
+							: {})}
+					/>
 				))}
 			</ul>
 		)

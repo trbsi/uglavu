@@ -14,6 +14,16 @@ add_filter( 'body_class', function ( $classes ) {
 
 	$classes[] = 'ct-loading';
 
+	$site_background_type = get_theme_mod('site_background_type', 'color');
+
+	if ($site_background_type === 'pattern') {
+		$classes[] = 'site-has-pattern';
+	}
+
+	if ($site_background_type === 'image') {
+		$classes[] = 'site-has-background-image';
+	}
+
 	if (blocksy_sidebar_position() !== 'none') {
 		$classes[] = 'ct-has-sidebar';
 	}
@@ -336,4 +346,38 @@ function blocksy_author_box( $check_for_preview = false ) {
 	<?php
 }
 
+function blocksy_get_featured_image_output($check_for_preview = false) {
+	if (get_theme_mod('has_featured_image', 'no') === 'no') {
+		if (! $check_for_preview) {
+			return '';
+		}
+	}
+
+	if (! has_post_thumbnail()) {
+		return '';
+	}
+
+
+	$class = 'ct-featured-image';
+
+	$class .= ' ' . blocksy_visibility_classes(
+		get_theme_mod('single_featured_image_visibility', [
+			'desktop' => true,
+			'tablet' => true,
+			'mobile' => false,
+		])
+	);
+
+	$image_width = get_theme_mod('single_featured_image_width', 'default');
+
+	if ($image_width === 'wide') {
+		$class .= ' alignwide';
+	}
+
+	return blocksy_html_tag('figure', ['class' => $class], blocksy_image([
+		'attachment_id' => get_post_thumbnail_id(),
+		'ratio' => get_theme_mod('single_featured_image_ratio', '4/3'),
+		'size' => 'full'
+	]));
+}
 

@@ -2,6 +2,12 @@
 	max-width: 750px;
 }
 
+// block cover
+.wp-block-cover {
+	h2 {
+		max-width: 100%;
+	}
+}
 
 // pull quote
 [data-type="core/pullquote"] {

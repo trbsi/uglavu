@@ -243,6 +243,7 @@ add_action(
 			'react',
 			'react-dom',
 			'wp-element',
+			'wp-components',
 			'wp-date',
 			'wp-i18n',
 			'customize-controls',

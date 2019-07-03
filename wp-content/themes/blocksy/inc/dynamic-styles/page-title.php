@@ -47,7 +47,7 @@ if ($page_title_source) {
 		'pageTitleFontColor',
 		$page_title_source,
 		[
-			'default' => [ 'color' => 'var(--paletteColor3)' ],
+			'default' => [ 'color' => 'var(--paletteColor4)' ],
 			'hover' => [ 'color' => 'var(--paletteColor1)' ],
 		]
 	));

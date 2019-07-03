@@ -1,7 +1,7 @@
 import { markImagesAsLoaded } from '../../frontend/lazy-load-helpers'
 import { responsiveClassesFor } from './footer'
 import ctEvents from 'ct-events'
-import { getCache } from './helpers'
+import { getCache, setRatioFor } from './helpers'
 import { renderHeroSection, getPrefixFor } from './hero-section'
 
 const pageStructureFor = page_structure_type => {
@@ -105,7 +105,7 @@ const handleForVal = (val, args = {}) => {
 			}
 		}
 
-		// markImagesAsLoaded(document.querySelector('.site-main'))
+		markImagesAsLoaded(document.querySelector('.site-main'))
 		window.ctEvents.trigger('ct:sidebar:update')
 	})
 }
@@ -330,6 +330,65 @@ export const replaceArticleAndRemoveParts = () => {
 		}
 	}
 
+	if ((wp.customize('has_featured_image')() || 'no') === 'no') {
+		const postNav = document.querySelector(
+			'.site-main .content-area article .ct-featured-image'
+		)
+
+		postNav && postNav.remove()
+	} else {
+		const image = document.querySelector(
+			'.site-main .content-area article .ct-featured-image'
+		)
+
+		image && image.classList.remove('alignwide')
+
+		if (wp.customize('single_featured_image_width')() === 'wide') {
+			image.classList.add('alignwide')
+		}
+
+		if (wp.customize('single_featured_image_location')() === 'below') {
+			if (
+				document.querySelector(
+					'.site-main .content-area article .hero-section[data-type="type-1"]'
+				)
+			) {
+				setTimeout(() => {
+					document
+						.querySelector('.site-main .content-area article')
+						.insertBefore(
+							document.querySelector(
+								'.site-main .content-area article .hero-section[data-type="type-1"]'
+							),
+							document.querySelector(
+								'.site-main .content-area article .ct-featured-image'
+							)
+						)
+				})
+			}
+		}
+
+		if (image) {
+			setRatioFor(
+				wp.customize('single_featured_image_ratio')(),
+				image.querySelector('.ct-image-container .ct-ratio')
+			)
+		}
+
+		if (
+			document.querySelector(
+				'.site-main .content-area article .ct-featured-image'
+			)
+		) {
+			responsiveClassesFor(
+				'single_featured_image_visibility',
+				document.querySelector(
+					'.site-main .content-area article .ct-featured-image'
+				)
+			)
+		}
+	}
+
 	renderHeroSection(getPrefixFor())
 
 	markImagesAsLoaded(document.querySelector('.site-main'))
@@ -405,6 +464,50 @@ wp.customize('post_nav_visibility', val =>
 
 wp.customize('has_post_tags', val =>
 	val.bind(() => replaceArticleAndRemoveParts())
+)
+
+wp.customize('has_featured_image', val =>
+	val.bind(() => replaceArticleAndRemoveParts())
+)
+
+wp.customize('single_featured_image_visibility', val =>
+	val.bind(() => replaceArticleAndRemoveParts())
+)
+
+wp.customize('single_featured_image_width', val =>
+	val.bind(() => replaceArticleAndRemoveParts())
+)
+
+wp.customize('single_featured_image_ratio', val =>
+	val.bind(() => replaceArticleAndRemoveParts())
+)
+
+wp.customize('single_featured_image_location', val =>
+	val.bind(() => replaceArticleAndRemoveParts())
+)
+
+wp.customize('single_content_style', val =>
+	val.bind(to => {
+		const article = document.querySelector(
+			'.single-post .site-main .content-area article'
+		)
+
+		if (article) {
+			article.dataset.content = to
+		}
+	})
+)
+
+wp.customize('page_content_style', val =>
+	val.bind(to => {
+		const article = document.querySelector(
+			'.page .site-main .content-area article'
+		)
+
+		if (article) {
+			article.dataset.content = to
+		}
+	})
 )
 
 wp.customize('has_post_comments', val =>
