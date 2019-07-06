@@ -67,7 +67,7 @@ echo $before_title . wp_kses_post( $title ) . $after_title;
 	<?php
 		echo blocksy_social_icons(
 			blocksy_default_akg(
-				'socials',
+				'about_socials',
 				$atts,
 				[
 					[

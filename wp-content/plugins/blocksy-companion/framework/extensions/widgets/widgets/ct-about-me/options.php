@@ -180,6 +180,10 @@ $options = [
 			'vimeo' => [
 				'label' => __( 'Vimeo', 'blc' ),
 			],
+
+			'rss' => [
+				'label' => __( 'RSS', 'blc' ),
+			],
 		],
 	],
 

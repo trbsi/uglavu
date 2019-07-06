@@ -1282,13 +1282,13 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 			$this->stop_refresh_all_cache();	// Just in case.
 
-			wp_cache_flush();			// Clear non-database transients as well.
-
 			$this->delete_all_db_transients( $clear_short );
 
 			$this->delete_all_cache_files();
 
 			$this->delete_all_column_meta();
+
+			wp_cache_flush();	// Clear non-database transients as well.
 
 			$status_msg = $user_id ? sprintf( __( '%s cached files, transient cache, column meta, and the WordPress object cache have been cleared.',
 				'wpsso' ), $this->p->cf[ 'plugin' ][ $this->p->lca ][ 'short' ] ) : '';
@@ -2823,14 +2823,18 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 		private function check_url_string( $url, $context ) {
 
 			if ( is_string( $url ) ) {
+
 				if ( $this->p->debug->enabled ) {
 					$this->p->debug->log( $context . ' url = ' . $url );
 				}
+
 				return $url;	// Stop here.
 			}
 
 			if ( $this->p->debug->enabled ) {
+
 				$this->p->debug->log( $context . ' url is ' . gettype( $url ) );
+
 				if ( is_wp_error( $url ) ) {
 					$this->p->debug->log( $context . ' url error: ' . $url->get_error_message() );
 				}
@@ -3135,7 +3139,9 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 				$classname = apply_filters( $this->p->lca . '_load_lib', false, 'com/bfo', 'SucomBFO' );
 
 				if ( is_string( $classname ) && class_exists( $classname ) ) {
+
 					$bfo_obj = new $classname( $this->p );
+
 					$bfo_obj->add_start_hooks( array( $filter_name ) );
 				}
 			}
@@ -3766,6 +3772,55 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 			}
 
 			return apply_filters( $this->p->lca . '_get_robots_content', rtrim( $content, ', ' ), $mod );
+		}
+
+		public function get_product_attr_names( $prefix = 'product', $sep = ':' ) {
+
+			static $local_cache = null;
+
+			if ( null === $local_cache ) {
+
+				$local_cache = array();
+
+				foreach ( $this->p->options as $key => $val ) {
+
+					if ( 0 === strpos( $key, 'plugin_product_attr_' ) ) {
+
+						/**
+						 * Skip attributes that have no associated name.
+						 */
+						if ( empty( $val ) ) {
+							continue;
+						}
+
+						$key = preg_replace( '/^plugin_product_attr_/', '', $key );
+
+						$local_cache[ $key ] = $val;
+					}
+				}
+
+				$local_cache = apply_filters( $this->p->lca . '_product_attribute_names', $local_cache );
+			}
+
+			if ( empty( $prefix ) ) {
+
+				return $local_cache;
+
+			} else {
+
+				$ret = array();
+
+				foreach ( $local_cache as $key => $val ) {
+
+					if ( $sep !== '_' ) {
+						$key = preg_replace( '/_(value|units)$/', $sep . '$1', $key );
+					}
+
+					$ret[ $prefix . $sep . $key ] = $val;
+				}
+
+				return $ret;
+			}
 		}
 	}
 }

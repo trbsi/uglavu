@@ -1,4 +1,4 @@
-=== WPSSO Core - Complete Open Graph, Rich Pin, Twitter Card, SEO Meta Tags and Rich Results / Schema Markup ===
+=== WPSSO Core - Advanced Open Graph, Rich Pin, Twitter Card, Social Meta Tags, SEO Rich Results, Schema Markup ===
 Plugin Name: WPSSO Core [Main Plugin]
 Plugin Slug: wpsso
 Text Domain: wpsso
@@ -6,12 +6,12 @@ Domain Path: /languages
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl.txt
 Assets URI: https://surniaulula.github.io/wpsso/assets/
-Tags: open graph, meta tags, social sharing, rich results, rich pins, schema.org, structured data, twitter cards, snippet, seo, social, social media, facebook, twitter, linkedin, pinterest, google
+Tags: open graph, meta tags, rich pins, twitter cards, social sharing, rich results, schema.org, structured data, snippet, seo, smo, social, facebook, twitter, linkedin, pinterest, google
 Contributors: jsmoriss
 Requires At Least: 3.8
 Tested Up To: 5.2.2
 WC Tested Up To: 3.6
-Stable Tag: 5.0.1
+Stable Tag: 5.1.0
 
 WPSSO Core makes sure your content looks great on all social and search sites, no matter how URLs are crawled, shared, re-shared, posted or embedded!
 
@@ -94,7 +94,6 @@ WPSSO Core and its optional add-ons offer meta tags and Schema markup for Facebo
 
 	* Customize Text
 		* Open Graph Type
-		* Article Topic
 		* Default Title
 		* Default Description
 		* Schema Description
@@ -102,22 +101,26 @@ WPSSO Core and its optional add-ons offer meta tags and Schema markup for Facebo
 		* Twitter Card Desc
 		* Sharing URL
 		* Canonical URL
-		* Product Availability
-		* Product Brand
-		* Product Color
-		* Product Condition
-		* Product Material
-		* Product MPN
-		* Product SKU
-		* Product EAN
-		* Product GTIN-8
-		* Product GTIN-12
-		* Product GTIN-13
-		* Product GTIN-14
-		* Product ISBN
-		* Product Price
-		* Product Size
-		* Product Target Gender
+		* Article Information
+			* Article Topic
+		* Product Information
+			* Product Brand
+			* Product Availability
+			* Product Price and Currency
+			* Product Condition
+			* Product Material
+			* Product Color
+			* Product Target Gender
+			* Product Size
+			* Product Volume (ml)
+			* Product SKU
+			* Product MPN
+			* Product EAN
+			* Product GTIN-8
+			* Product GTIN-12
+			* Product GTIN-13
+			* Product GTIN-14
+			* Product ISBN
 	* Priority Media
 		* All Social WebSites / Open Graph
 			* Priority Image Information
@@ -286,6 +289,7 @@ WPSSO Core and its optional add-ons offer meta tags and Schema markup for Facebo
 		* The Events Calendar
 		* The SEO Framework
 		* WooCommerce (versions 1, 2, and 3)
+		* WooCommerce Show Single Variations
 		* WP eCommerce
 		* WP Job Manager
 		* WP Meta SEO
@@ -427,21 +431,26 @@ Version components: `{major}.{minor}.{bugfix}[-{stage}.{level}]`
 
 <h3>Changelog / Release Notes</h3>
 
-**Version 5.1.0-dev.1 (2019/06/29)**
+**Version 5.1.0 (2019/07/06)**
 
 * *New Features*
-	* None.
+	* Added support for the WooCommerce Show Single Variations plugin (Premium version).
+	* Added support for a WooCommerce "Volume" (in milliliters) product attribute (Premium version).
+	* Added a new "Product Volume (ml) Custom Field" option in the SSO &gt; Advanced &gt; Integration tab (Premium version).
 * *Improvements*
-	* None.
+	* Added a fallback to the default attribute value when a WooCommerce variation attribute is empty (Premium version).
+	* WooCommerce attributes used for variations (ie. multiple values for a select option) are now excluded from the Facebook / Open Graph meta tags (Premium version).
+	* Facebook / Open Graph product customization fields in the Document SSO metabox are disabled when an e-commerce plugin provides those values (to avoid confusion about the source of product attribute values) (Premium version).
 * *Bugfixes*
 	* None.
 * *Developer Notes*
-	* Schema method standardization and "@id" optimizations.
+	* Added a new 'wpsso_wc_variation_title' filter.
+	* Refactored several Schema methods for standardization and "@id" optimizations:
+		* Added WpssoSchemaGraph class with add(), get(), and optimize() methods.
 		* Added WpssoSchema::add_videos_data_mt().
 		* Moved WpssoSchema::add_og_single_image_data() to WpssoSchemaSingle::add_image_data_mt().
 		* Renamed WpssoSchema::add_og_image_list_data() to WpssoSchema::add_images_data_mt().
-		* Renamed WpssoSchema::update_json_data_id() to WpssoSchema::update_data_id() and added an $optimize argument (returns only the "@id" from cache after first call).
-		* Renamed WpssoSchemaSingle::have_local_data() to maybe_add_data().
+		* Renamed WpssoSchema::update_json_data_id() to WpssoSchema::update_data_id().
 
 **Version 5.0.1 (2019/06/29)**
 
@@ -488,11 +497,7 @@ Version components: `{major}.{minor}.{bugfix}[-{stage}.{level}]`
 
 == Upgrade Notice ==
 
-= 5.1.0-dev.1 =
+= 5.1.0 =
 
-(2019/06/29) Schema method standardization and "@id" optimizations.
-
-= 5.0.1 =
-
-(2019/06/29) Fixed block editor global variable definition by changing "const" to "var". Fixed markup when selecting an Schema Organization, LocalBusiness, and Person type (or sub-type) in the Document SSO metabox.
+(2019/07/06) Added support for the WooCommerce Show Single Variations plugin. Added support for a WooCommerce "Volume" (in milliliters) product attribute.
 

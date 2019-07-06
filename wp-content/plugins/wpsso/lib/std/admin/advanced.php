@@ -62,11 +62,11 @@ if ( ! class_exists( 'WpssoStdAdminAdvanced' ) ) {
 			$form->get_th_html( _x( 'Use WordPress Excerpt Filters', 'option label', 'wpsso' ), '', 'plugin_filter_excerpt' ) . 
 			$form->get_td_no_checkbox( 'plugin_filter_excerpt' );
 
-			$table_rows[ 'plugin_p_strip' ] = $form->get_tr_hide( 'basic', 'plugin_p_strip' ) . 
+			$table_rows[ 'plugin_p_strip' ] = '' .
 			$form->get_th_html( _x( 'Content Starts at 1st Paragraph', 'option label', 'wpsso' ), '', 'plugin_p_strip' ) . 
 			$form->get_td_no_checkbox( 'plugin_p_strip' );
 
-			$table_rows[ 'plugin_use_img_alt' ] = $form->get_tr_hide( 'basic', 'plugin_use_img_alt' ) . 
+			$table_rows[ 'plugin_use_img_alt' ] = '' .
 			$form->get_th_html( _x( 'Use Image Alt if No Content', 'option label', 'wpsso' ), '', 'plugin_use_img_alt' ) . 
 			$form->get_td_no_checkbox( 'plugin_use_img_alt' );
 
@@ -99,19 +99,17 @@ if ( ! class_exists( 'WpssoStdAdminAdvanced' ) ) {
 
 			$table_rows[] = '<td colspan="2">' . $this->p->msgs->get( 'pro-feature-msg' ) . '</td>';
 
-			$table_rows[ 'plugin_html_attr_filter' ] = $form->get_tr_hide( 'basic', 
-				array( 'plugin_html_attr_filter_name', 'plugin_html_attr_filter_prio' ) ).
+			$table_rows[ 'plugin_html_attr_filter' ] = '' .
 			$form->get_th_html( _x( '&lt;html&gt; Attributes Filter Hook', 'option label', 'wpsso' ), '', 'plugin_html_attr_filter' ).
 			'<td class="blank">Name: ' . $form->options[ 'plugin_html_attr_filter_name' ] . ', ' . 
 			'Priority: ' . $form->options[ 'plugin_html_attr_filter_prio' ] . '</td>';
 
-			$table_rows[ 'plugin_head_attr_filter' ] = $form->get_tr_hide( 'basic', 
-				array( 'plugin_head_attr_filter_name', 'plugin_head_attr_filter_prio' ) ).
+			$table_rows[ 'plugin_head_attr_filter' ] = '' .
 			$form->get_th_html( _x( '&lt;head&gt; Attributes Filter Hook', 'option label', 'wpsso' ), '', 'plugin_head_attr_filter' ).
 			'<td class="blank">Name: ' . $form->options[ 'plugin_head_attr_filter_name' ] . ', '.
 			'Priority: ' . $form->options[ 'plugin_head_attr_filter_prio' ] . '</td>';
 
-			$table_rows[ 'plugin_honor_force_ssl' ] = $form->get_tr_hide( 'basic', 'plugin_honor_force_ssl' ) . 
+			$table_rows[ 'plugin_honor_force_ssl' ] = '' .
 			$form->get_th_html( _x( 'Honor the FORCE_SSL Constant', 'option label', 'wpsso' ), '', 'plugin_honor_force_ssl' ) . 
 			$form->get_td_no_checkbox( 'plugin_honor_force_ssl' );
 
@@ -139,19 +137,14 @@ if ( ! class_exists( 'WpssoStdAdminAdvanced' ) ) {
 			$form->get_th_html( _x( 'Media Library Image Upscaling', 'option label', 'wpsso' ), '', 'plugin_upscale_images' ) . 
 			$form->get_td_no_checkbox( 'plugin_upscale_images' );
 
-			$table_rows[ 'plugin_upscale_img_max' ] = $form->get_tr_hide( 'basic', 'plugin_upscale_img_max' ) . 
+			$table_rows[ 'plugin_upscale_img_max' ] = '' .
 			$form->get_th_html( _x( 'Maximum Image Upscale Percent', 'option label', 'wpsso' ), '', 'plugin_upscale_img_max' ) . 
 			'<td class="blank">' . $form->options[ 'plugin_upscale_img_max' ] . ' %</td>';
 
 			/**
 			 * Product attribute names.
 			 */
-			foreach ( $this->p->cf[ 'form' ][ 'product_attr_labels' ] as $opt_key => $opt_label ) {
-
-				$table_rows[ $opt_key ] = $form->get_tr_hide( 'basic', $opt_key ) . 
-				$form->get_th_html( _x( $opt_label, 'option label', 'wpsso' ), '', $opt_key ) . 
-				'<td class="blank">' . $form->get_no_input( $opt_key ) . '</td>';
-			}
+			$this->p->admin->add_advanced_product_attr_table_rows( $table_rows, $form, $hide_in_basic = true, $is_top_section = false );
 
 			return $table_rows;
 		}
@@ -193,23 +186,9 @@ if ( ! class_exists( 'WpssoStdAdminAdvanced' ) ) {
 			'<td class="blank">' . $form->get_no_select( 'plugin_def_currency', SucomUtil::get_currencies() ) . '</td>';
 
 			/**
-			 * Custom fields.
+			 * Custom field names.
 			 */
-			$cf_md_keys = (array) apply_filters( $this->p->lca . '_cf_md_keys', $this->p->cf[ 'opt' ][ 'cf_md_key' ] );
-
-			foreach ( $cf_md_keys as $opt_key => $md_key ) {
-
-				if ( ! empty( $this->p->cf[ 'form' ][ 'cf_labels' ][ $opt_key ] ) ) {
-
-					if ( empty( $md_key ) ) {
-						$form->options[ $opt_key ] = '';
-					}
-
-					$table_rows[ $opt_key ] = $form->get_tr_hide( 'basic', $opt_key ) . 
-					$form->get_th_html( _x( $this->p->cf[ 'form' ][ 'cf_labels' ][ $opt_key ], 'option label', 'wpsso' ), '', $opt_key ) . 
-					'<td class="blank">' . $form->get_no_input( $opt_key ) . '</td>';
-				}
-			}
+			$this->p->admin->add_advanced_custom_fields_table_rows( $table_rows, $form, $hide_in_basic = true, $is_top_section = false );
 
 			return $table_rows;
 		}

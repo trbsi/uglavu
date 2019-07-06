@@ -21,8 +21,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			),
 			'plugin' => array(
 				'wpsso' => array(			// Plugin acronym.
-					'version'     => '5.0.1',	// Plugin version.
-					'opt_version' => '644',		// Increment when changing default option values.
+					'version'     => '5.1.0',	// Plugin version.
+					'opt_version' => '647',		// Increment when changing default option values.
 					'short'       => 'WPSSO Core',	// Short plugin name.
 					'name'        => 'WPSSO Core [Main Plugin]',
 					'desc'        => 'WPSSO Core makes sure your content looks great on all social and search sites - no matter how URLs are crawled, shared, re-shared, posted, or embedded!',
@@ -55,7 +55,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'install'   => 'https://wpsso.com/docs/plugins/wpsso/installation/',
 						'faqs'      => 'https://wpsso.com/docs/plugins/wpsso/faqs/',
 						'notes'     => 'https://wpsso.com/docs/plugins/wpsso/notes/',
-						'support'   => 'https://surniaulula.com/support/create_ticket/',	// Pro support ticket.
+						'support'   => 'https://surniaulula.com/support/create_ticket/',	// Premium support ticket.
 						'purchase'  => 'https://wpsso.com/extend/plugins/wpsso/',		// Purchase page.
 						'info'      => 'https://wpsso.com/extend/plugins/wpsso/info/',		// License information.
 						'update'    => 'https://wpsso.com/extend/plugins/wpsso/update/',
@@ -77,6 +77,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 							),
 							'ecom' => array(
 								'edd'         => '(plugin) Easy Digital Downloads',
+								'jck-wssv'    => '(plugin) WooCommerce Show Single Variations',
 								'marketpress' => '(plugin) MarketPress',
 								'woocommerce' => '(plugin) WooCommerce',
 								'wpecommerce' => '(plugin) WP eCommerce',
@@ -209,7 +210,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'install'   => 'https://wpsso.com/docs/plugins/wpsso-am/installation/',
 						'faqs'      => '',
 						'notes'     => '',
-						'support'   => 'https://surniaulula.com/support/create_ticket/',	// Pro support ticket.
+						'support'   => 'https://surniaulula.com/support/create_ticket/',	// Premium support ticket.
 						'purchase'  => 'https://wpsso.com/extend/plugins/wpsso-am/',		// Purchase page.
 						'info'      => 'https://wpsso.com/extend/plugins/wpsso-am/info/',	// License information.
 						'update'    => 'https://wpsso.com/extend/plugins/wpsso-am/update/',
@@ -247,7 +248,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'install'   => 'https://wpsso.com/docs/plugins/wpsso-breadcrumbs/installation/',
 						'faqs'      => '',
 						'notes'     => '',
-						'support'   => '',	// Pro support ticket.
+						'support'   => '',	// Premium support ticket.
 						'purchase'  => '',	// Purchase page.
 						'info'      => '',	// License information.
 						'update'    => 'https://wpsso.com/extend/plugins/wpsso-breadcrumbs/update/',
@@ -285,7 +286,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'install'   => 'https://wpsso.com/docs/plugins/wpsso-inherit-parent-meta/installation/',
 						'faqs'      => '',
 						'notes'     => '',
-						'support'   => '',	// Pro support ticket.
+						'support'   => '',	// Premium support ticket.
 						'purchase'  => '',	// Purchase page.
 						'info'      => '',	// License information.
 						'update'    => 'https://wpsso.com/extend/plugins/wpsso-inherit-parent-meta/update/',
@@ -324,9 +325,9 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'install'   => 'https://wpsso.com/docs/plugins/wpsso-schema-json-ld/installation/',
 						'faqs'      => '',
 						'notes'     => 'https://wpsso.com/docs/plugins/wpsso-schema-json-ld/notes/',
-						'support'   => 'https://surniaulula.com/support/create_ticket/',	// Pro support ticket.
-						'purchase'  => 'https://wpsso.com/extend/plugins/wpsso-schema-json-ld/',		// Purchase page.
-						'info'      => 'https://wpsso.com/extend/plugins/wpsso-schema-json-ld/info/',		// License information.
+						'support'   => 'https://surniaulula.com/support/create_ticket/',		// Premium support ticket.
+						'purchase'  => 'https://wpsso.com/extend/plugins/wpsso-schema-json-ld/',	// Purchase page.
+						'info'      => 'https://wpsso.com/extend/plugins/wpsso-schema-json-ld/info/',	// License information.
 						'update'    => 'https://wpsso.com/extend/plugins/wpsso-schema-json-ld/update/',
 						'latest'    => '',
 					),
@@ -362,9 +363,9 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'install'   => 'https://wpsso.com/docs/plugins/wpsso-organization/installation/',
 						'faqs'      => '',
 						'notes'     => '',
-						'support'   => 'https://surniaulula.com/support/create_ticket/',	// Pro support ticket.
-						'purchase'  => 'https://wpsso.com/extend/plugins/wpsso-organization/',			// Purchase page.
-						'info'      => 'https://wpsso.com/extend/plugins/wpsso-organization/info/',		// License information.
+						'support'   => 'https://surniaulula.com/support/create_ticket/',		// Premium support ticket.
+						'purchase'  => 'https://wpsso.com/extend/plugins/wpsso-organization/',		// Purchase page.
+						'info'      => 'https://wpsso.com/extend/plugins/wpsso-organization/info/',	// License information.
 						'update'    => 'https://wpsso.com/extend/plugins/wpsso-organization/update/',
 						'latest'    => '',
 					),
@@ -400,9 +401,9 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'install'   => 'https://wpsso.com/docs/plugins/wpsso-plm/installation/',
 						'faqs'      => '',
 						'notes'     => '',
-						'support'   => 'https://surniaulula.com/support/create_ticket/',	// Pro support ticket.
-						'purchase'  => 'https://wpsso.com/extend/plugins/wpsso-plm/',			// Purchase page.
-						'info'      => 'https://wpsso.com/extend/plugins/wpsso-plm/info/',		// License information.
+						'support'   => 'https://surniaulula.com/support/create_ticket/',	// Premium support ticket.
+						'purchase'  => 'https://wpsso.com/extend/plugins/wpsso-plm/',		// Purchase page.
+						'info'      => 'https://wpsso.com/extend/plugins/wpsso-plm/info/',	// License information.
 						'update'    => 'https://wpsso.com/extend/plugins/wpsso-plm/update/',
 						'latest'    => '',
 					),
@@ -438,7 +439,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'install'   => 'https://wpsso.com/docs/plugins/wpsso-ratings-and-reviews/installation/',
 						'faqs'      => '',
 						'notes'     => '',
-						'support'   => '',	// Pro support ticket.
+						'support'   => '',	// Premium support ticket.
 						'purchase'  => '',	// Purchase page.
 						'info'      => '',	// License information.
 						'update'    => 'https://wpsso.com/extend/plugins/wpsso-ratings-and-reviews/update/',
@@ -476,7 +477,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'install'   => 'https://wpsso.com/docs/plugins/wpsso-rest-api/installation/',
 						'faqs'      => '',
 						'notes'     => '',
-						'support'   => '',	// Pro support ticket.
+						'support'   => '',	// Premium support ticket.
 						'purchase'  => '',	// Purchase page.
 						'info'      => '',	// License information.
 						'update'    => 'https://wpsso.com/extend/plugins/wpsso-rest-api/update/',
@@ -514,9 +515,9 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'install'   => 'https://wpsso.com/docs/plugins/wpsso-rrssb/installation/',
 						'faqs'      => '',
 						'notes'     => 'https://wpsso.com/docs/plugins/wpsso-rrssb/notes/',
-						'support'   => 'https://surniaulula.com/support/create_ticket/',	// Pro support ticket.
-						'purchase'  => 'https://wpsso.com/extend/plugins/wpsso-rrssb/',			// Purchase page.
-						'info'      => 'https://wpsso.com/extend/plugins/wpsso-rrssb/info/',		// License information.
+						'support'   => 'https://surniaulula.com/support/create_ticket/',	// Premium support ticket.
+						'purchase'  => 'https://wpsso.com/extend/plugins/wpsso-rrssb/',		// Purchase page.
+						'info'      => 'https://wpsso.com/extend/plugins/wpsso-rrssb/info/',	// License information.
 						'update'    => 'https://wpsso.com/extend/plugins/wpsso-rrssb/update/',
 						'latest'    => '',
 					),
@@ -552,9 +553,9 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'install'   => 'https://wpsso.com/docs/plugins/wpsso-ssb/installation/',
 						'faqs'      => 'https://wpsso.com/docs/plugins/wpsso-ssb/faqs/',
 						'notes'     => 'https://wpsso.com/docs/plugins/wpsso-ssb/notes/',
-						'support'   => 'https://surniaulula.com/support/create_ticket/',	// Pro support ticket.
-						'purchase'  => 'https://wpsso.com/extend/plugins/wpsso-ssb/',			// Purchase page.
-						'info'      => 'https://wpsso.com/extend/plugins/wpsso-ssb/info/',		// License information.
+						'support'   => 'https://surniaulula.com/support/create_ticket/',	// Premium support ticket.
+						'purchase'  => 'https://wpsso.com/extend/plugins/wpsso-ssb/',		// Purchase page.
+						'info'      => 'https://wpsso.com/extend/plugins/wpsso-ssb/info/',	// License information.
 						'update'    => 'https://wpsso.com/extend/plugins/wpsso-ssb/update/',
 						'latest'    => '',
 					),
@@ -590,7 +591,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'install'   => 'https://wpsso.com/docs/plugins/wpsso-strip-schema-microdata/installation/',
 						'faqs'      => '',
 						'notes'     => '',
-						'support'   => '',	// Pro support ticket.
+						'support'   => '',	// Premium support ticket.
 						'purchase'  => '',	// Purchase page.
 						'info'      => '',	// License information.
 						'update'    => 'https://wpsso.com/extend/plugins/wpsso-strip-schema-microdata/update/',
@@ -628,7 +629,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'install'   => 'https://wpsso.com/docs/plugins/wpsso-tweet-a-quote/installation/',
 						'faqs'      => '',
 						'notes'     => '',
-						'support'   => '',	// Pro support ticket.
+						'support'   => '',	// Premium support ticket.
 						'purchase'  => '',	// Purchase page.
 						'info'      => '',	// License information.
 						'update'    => 'https://wpsso.com/extend/plugins/wpsso-tweet-a-quote/update/',
@@ -666,7 +667,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'install'   => 'https://wpsso.com/docs/plugins/wpsso-tune-image-editors/installation/',
 						'faqs'      => '',
 						'notes'     => '',
-						'support'   => 'https://surniaulula.com/support/create_ticket/',	// Pro support ticket.
+						'support'   => 'https://surniaulula.com/support/create_ticket/',			// Premium support ticket.
 						'purchase'  => 'https://wpsso.com/extend/plugins/wpsso-tune-image-editors/',		// Purchase page.
 						'info'      => 'https://wpsso.com/extend/plugins/wpsso-tune-image-editors/info/',	// License information.
 						'update'    => 'https://wpsso.com/extend/plugins/wpsso-tune-image-editors/update/',
@@ -704,7 +705,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'install'   => 'https://wpsso.com/docs/plugins/wpsso-user-locale/installation/',
 						'faqs'      => '',
 						'notes'     => 'https://wpsso.com/docs/plugins/wpsso-user-locale/notes/',
-						'support'   => '',	// Pro support ticket.
+						'support'   => '',	// Premium support ticket.
 						'purchase'  => '',	// Purchase page.
 						'info'      => '',	// License information.
 						'update'    => 'https://wpsso.com/extend/plugins/wpsso-user-locale/update/',
@@ -742,7 +743,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'install'   => 'https://wpsso.com/docs/plugins/wpsso-um/installation/',
 						'faqs'      => '',
 						'notes'     => '',
-						'support'   => '',	// Pro support ticket.
+						'support'   => '',	// Premium support ticket.
 						'purchase'  => '',	// Purchase page.
 						'info'      => '',	// License information.
 						'update'    => 'https://wpsso.com/extend/plugins/wpsso-um/update/',
@@ -785,13 +786,13 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					 */
 					'schema_type_for_tax_category' => 'item.list',
 					'schema_type_for_tax_post_tag' => 'item.list',
-					'schema_type_for_archive_page' => 'webpage.collection',	// Date-based archives.
+					'schema_type_for_archive_page' => 'item.list',
 					'schema_type_for_attachment'   => 'webpage',
 					'schema_type_for_home_index'   => 'blog',
 					'schema_type_for_home_page'    => 'website',
 					'schema_type_for_page'         => 'article',
 					'schema_type_for_post'         => 'blog.posting',
-					'schema_type_for_post_archive' => 'item.list',		// Post type archive page.
+					'schema_type_for_post_archive' => 'item.list',
 					'schema_type_for_search_page'  => 'webpage.search.results',
 					'schema_type_for_user_page'    => 'webpage.profile',
 
@@ -835,13 +836,13 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					 */
 					'og_type_for_tax_category'     => 'website',
 					'og_type_for_tax_post_tag'     => 'website',
-					'og_type_for_archive_page'     => 'website',		// Date-based archives.
+					'og_type_for_archive_page'     => 'website',
 					'og_type_for_attachment'       => 'website',
 					'og_type_for_home_index'       => 'website',
 					'og_type_for_home_page'        => 'website',
 					'og_type_for_page'             => 'article',
 					'og_type_for_post'             => 'article',
-					'og_type_for_post_archive'     => 'website',		// Post type archive page.
+					'og_type_for_post_archive'     => 'website',
 					'og_type_for_search_page'      => 'website',
 					'og_type_for_user_page'        => 'website',
 					
@@ -1123,7 +1124,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_show_opts'          => 'basic',	// Options to Show by Default.
 					
 					/**
-					 * Advanced settings - Content and Filters tab.
+					 * Advanced settings - Content Text tab.
 					 */
 					'plugin_filter_title'   => 0,		// Use Filtered (SEO) Title.
 					'plugin_filter_content' => 0,		// Use WordPress Content Filters.
@@ -1159,7 +1160,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_product_attr_brand'         => 'Brand',			// Product Brand Attribute Name.
 					'plugin_product_attr_color'         => 'Color',			// Product Color Attribute Name.
 					'plugin_product_attr_condition'     => 'Condition',		// Product Condition Attribute Name.
-					'plugin_product_attr_mpn'           => 'MPN',			// Product MPN Attribute Name.
 					'plugin_product_attr_ean'           => 'EAN',			// Product EAN Attribute Name.
 					'plugin_product_attr_gtin8'         => 'GTIN-8',		// Product GTIN-8 Attribute Name.
 					'plugin_product_attr_gtin12'        => 'GTIN-12',		// Product GTIN-12 Attribute Name.
@@ -1167,8 +1167,10 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_product_attr_gtin14'        => 'GTIN-14',		// Product GTIN-14 Attribute Name.
 					'plugin_product_attr_isbn'          => 'ISBN',			// Product ISBN Attribute Name.
 					'plugin_product_attr_material'      => 'Material',		// Product Material Attribute Name.
+					'plugin_product_attr_mpn'           => 'MPN',			// Product MPN Attribute Name.
 					'plugin_product_attr_size'          => 'Size',			// Product Size Attribute Name.
 					'plugin_product_attr_target_gender' => 'Gender',		// Product Target Gender Attr. Name.
+					'plugin_product_attr_volume_value'  => 'Volume',		// Product Volume (ml) Attribute Name.
 					
 					/**
 					 * Advanced settings - Custom Meta tab.
@@ -1192,19 +1194,20 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_cf_product_brand'         => '',			// Product Brand Custom Field.
 					'plugin_cf_product_color'         => '',			// Product Color Custom Field.
 					'plugin_cf_product_condition'     => '',			// Product Condition Custom Field.
-					'plugin_cf_product_material'      => '',			// Product Material Custom Field.
-					'plugin_cf_product_mpn'           => '',			// Product MPN Custom Field.
-					'plugin_cf_product_sku'           => '',			// Product SKU Custom Field.
+					'plugin_cf_product_currency'      => '',			// Product Currency Custom Field.
 					'plugin_cf_product_ean'           => '',			// Product EAN Custom Field.
 					'plugin_cf_product_gtin8'         => '',			// Product GTIN-8 Custom Field.
 					'plugin_cf_product_gtin12'        => '',			// Product GTIN-12 Custom Field.
 					'plugin_cf_product_gtin13'        => '',			// Product GTIN-13 Custom Field.
 					'plugin_cf_product_gtin14'        => '',			// Product GTIN-14 Custom Field.
 					'plugin_cf_product_isbn'          => '',			// Product ISBN Custom Field.
+					'plugin_cf_product_material'      => '',			// Product Material Custom Field.
+					'plugin_cf_product_mpn'           => '',			// Product MPN Custom Field.
 					'plugin_cf_product_price'         => '',			// Product Price Custom Field.
-					'plugin_cf_product_currency'      => '',			// Product Currency Custom Field.
 					'plugin_cf_product_size'          => '',			// Product Size Custom Field.
+					'plugin_cf_product_sku'           => '',			// Product SKU Custom Field.
 					'plugin_cf_product_target_gender' => '',			// Product Target Gender Custom Field.
+					'plugin_cf_product_volume_value'  => '',			// Product Volume (ml) Custom Field.
 					'plugin_cf_recipe_ingredients'    => '',			// Recipe Ingredients Custom Field.
 					'plugin_cf_recipe_instructions'   => '',			// Recipe Instructions Custom Field.
 					'plugin_cf_sameas_urls'           => '',			// Same-As URLs Custom Field.
@@ -1428,19 +1431,20 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_cf_product_brand'         => 'product_brand',
 					'plugin_cf_product_color'         => 'product_color',
 					'plugin_cf_product_condition'     => 'product_condition',
-					'plugin_cf_product_material'      => 'product_material',
-					'plugin_cf_product_mpn'           => 'product_mpn',
-					'plugin_cf_product_sku'           => 'product_sku',
+					'plugin_cf_product_currency'      => 'product_currency',
 					'plugin_cf_product_ean'           => 'product_ean',
 					'plugin_cf_product_gtin8'         => 'product_gtin8',
 					'plugin_cf_product_gtin12'        => 'product_gtin12',
 					'plugin_cf_product_gtin13'        => 'product_gtin13',
 					'plugin_cf_product_gtin14'        => 'product_gtin14',
 					'plugin_cf_product_isbn'          => 'product_isbn',
+					'plugin_cf_product_material'      => 'product_material',
+					'plugin_cf_product_mpn'           => 'product_mpn',
 					'plugin_cf_product_price'         => 'product_price',
-					'plugin_cf_product_currency'      => 'product_currency',
 					'plugin_cf_product_size'          => 'product_size',
+					'plugin_cf_product_sku'           => 'product_sku',
 					'plugin_cf_product_target_gender' => 'product_target_gender',
+					'plugin_cf_product_volume_value'  => 'product_volume_value',
 					'plugin_cf_recipe_ingredients'    => 'schema_recipe_ingredient',
 					'plugin_cf_recipe_instructions'   => 'schema_recipe_instruction',
 					'plugin_cf_sameas_urls'           => 'schema_sameas_url',
@@ -1542,7 +1546,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			'wp' => array(
 				'label'       => 'WordPress',
 				'min_version' => '3.8',		// Hard limit - deactivate the plugin when activating.
-				'rec_version' => '5.0.3',	// Soft limit - issue warning if lower version found.
+				'rec_version' => '5.2.2',	// Soft limit - issue warning if lower version found.
 				'version_url' => 'https://codex.wordpress.org/Supported_Versions?nocache=1',
 				'tb_iframe'   => array(		// Thickbox iframe.
 					'width'  => 772,	// Url query argument.
@@ -1919,19 +1923,20 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_cf_product_brand'         => 'Product Brand Custom Field',
 					'plugin_cf_product_color'         => 'Product Color Custom Field',
 					'plugin_cf_product_condition'     => 'Product Condition Custom Field',
-					'plugin_cf_product_material'      => 'Product Material Custom Field',
-					'plugin_cf_product_mpn'           => 'Product MPN Custom Field',
-					'plugin_cf_product_sku'           => 'Product SKU Custom Field',
+					'plugin_cf_product_currency'      => 'Product Currency Custom Field',
 					'plugin_cf_product_ean'           => 'Product EAN Custom Field',
 					'plugin_cf_product_gtin8'         => 'Product GTIN-8 Custom Field',
 					'plugin_cf_product_gtin12'        => 'Product GTIN-12 Custom Field',
 					'plugin_cf_product_gtin13'        => 'Product GTIN-13 Custom Field',
 					'plugin_cf_product_gtin14'        => 'Product GTIN-14 Custom Field',
 					'plugin_cf_product_isbn'          => 'Product ISBN Custom Field',
+					'plugin_cf_product_material'      => 'Product Material Custom Field',
+					'plugin_cf_product_mpn'           => 'Product MPN Custom Field',
 					'plugin_cf_product_price'         => 'Product Price Custom Field',
-					'plugin_cf_product_currency'      => 'Product Currency Custom Field',
 					'plugin_cf_product_size'          => 'Product Size Custom Field',
+					'plugin_cf_product_sku'           => 'Product SKU Custom Field',
 					'plugin_cf_product_target_gender' => 'Product Target Gender Custom Field',
+					'plugin_cf_product_volume_value'  => 'Product Volume (ml) Custom Field',
 					'plugin_cf_recipe_ingredients'    => 'Recipe Ingredients Custom Field',
 					'plugin_cf_recipe_instructions'   => 'Recipe Instructions Custom Field',
 					'plugin_cf_sameas_urls'           => 'Same-As URLs Custom Field',
@@ -1939,19 +1944,20 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_cf_vid_embed'             => 'Video Embed HTML Custom Field',
 				),
 				'product_attr_labels' => array(		// Product attribute option labels.
-					'plugin_product_attr_brand'          => 'Product Brand Attribute Name',
-					'plugin_product_attr_color'          => 'Product Color Attribute Name',
-					'plugin_product_attr_condition'      => 'Product Condition Attribute Name',
-					'plugin_product_attr_mpn'            => 'Product MPN Attribute Name',
-					'plugin_product_attr_ean'            => 'Product EAN Attribute Name',
-					'plugin_product_attr_gtin8'          => 'Product GTIN-8 Attribute Name',
-					'plugin_product_attr_gtin12'         => 'Product GTIN-12 Attribute Name',
-					'plugin_product_attr_gtin13'         => 'Product GTIN-13 Attribute Name',
-					'plugin_product_attr_gtin14'         => 'Product GTIN-14 Attribute Name',
-					'plugin_product_attr_isbn'           => 'Product ISBN Attribute Name',
-					'plugin_product_attr_material'       => 'Product Material Attribute Name',
-					'plugin_product_attr_size'           => 'Product Size Attribute Name',
-					'plugin_product_attr_target_gender'  => 'Product Target Gender Attr. Name',
+					'plugin_product_attr_brand'         => 'Product Brand Attribute Name',
+					'plugin_product_attr_color'         => 'Product Color Attribute Name',
+					'plugin_product_attr_condition'     => 'Product Condition Attribute Name',
+					'plugin_product_attr_mpn'           => 'Product MPN Attribute Name',
+					'plugin_product_attr_ean'           => 'Product EAN Attribute Name',
+					'plugin_product_attr_gtin8'         => 'Product GTIN-8 Attribute Name',
+					'plugin_product_attr_gtin12'        => 'Product GTIN-12 Attribute Name',
+					'plugin_product_attr_gtin13'        => 'Product GTIN-13 Attribute Name',
+					'plugin_product_attr_gtin14'        => 'Product GTIN-14 Attribute Name',
+					'plugin_product_attr_isbn'          => 'Product ISBN Attribute Name',
+					'plugin_product_attr_material'      => 'Product Material Attribute Name',
+					'plugin_product_attr_size'          => 'Product Size Attribute Name',
+					'plugin_product_attr_target_gender' => 'Product Target Gender Attr. Name',
+					'plugin_product_attr_volume_value'  => 'Product Volume (ml) Attribute Name',
 				),
 				
 				/**
@@ -2020,8 +2026,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'og_img_height'             => 200,
 					'schema_article_img_width'  => 696,	// See https://developers.google.com/search/docs/data-types/articles.
 					'schema_article_img_height' => 279,	// Calculated from the Article minimum image width and maximum image ratio.
-					'schema_img_width'          => 400,	// See https://developers.google.com/+/web/snippet/article-rendering.
 					'schema_desc_len'           => 156,
+					'schema_img_width'          => 400,	// See https://developers.google.com/+/web/snippet/article-rendering.
 					'schema_img_height'         => 160,
 					'seo_desc_len'              => 156,
 					'tc_desc_len'               => 160,
@@ -2148,7 +2154,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'place:postal_code'        => '',
 						'place:country_name'       => '',
 					),
-					'product' => array(	// See https://developers.facebook.com/docs/reference/opengraph/object-type/product/.
+					'product' => array(
 						'product:age_group'               => '',
 						'product:availability'            => 'product_avail',
 						'product:brand'                   => 'product_brand',
@@ -2157,20 +2163,20 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'product:condition'               => 'product_condition',
 						'product:ean'                     => 'product_ean',
 						'product:expiration_time'         => '',
-						'product:gtin8'                   => 'product_gtin8',
-						'product:gtin12'                  => 'product_gtin12',
-						'product:gtin13'                  => 'product_gtin13',
-						'product:gtin14'                  => 'product_gtin14',
+						'product:gtin8'                   => 'product_gtin8',		// Non-standard / internal meta tag.
+						'product:gtin12'                  => 'product_gtin12',		// Non-standard / internal meta tag.
+						'product:gtin13'                  => 'product_gtin13',		// Non-standard / internal meta tag.
+						'product:gtin14'                  => 'product_gtin14',		// Non-standard / internal meta tag.
 						'product:is_product_shareable'    => '',
 						'product:isbn'                    => 'product_isbn',
 						'product:material'                => 'product_material',
 						'product:mfr_part_no'             => 'product_mpn',
-						'product:original_price:amount'   => '',		// Used by WooCommerce module.
-						'product:original_price:currency' => '',		// Used by WooCommerce module.
+						'product:original_price:amount'   => '',			// Used by WooCommerce module.
+						'product:original_price:currency' => '',			// Used by WooCommerce module.
 						'product:pattern'                 => '',
 						'product:plural_title'            => '',
-						'product:pretax_price:amount'     => '',		// Used by WooCommerce module.
-						'product:pretax_price:currency'   => '',		// Used by WooCommerce module.
+						'product:pretax_price:amount'     => '',			// Used by WooCommerce module.
+						'product:pretax_price:currency'   => '',			// Used by WooCommerce module.
 						'product:price:amount'            => 'product_price',
 						'product:price:currency'          => 'product_currency',
 						'product:product_link'            => '',
@@ -2180,18 +2186,20 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'product:retailer_item_id'        => 'product_sku',
 						'product:retailer_part_no'        => '',
 						'product:retailer_title'          => '',
-						'product:sale_price:amount'       => '',		// Used by WooCommerce module.
-						'product:sale_price:currency'     => '',		// Used by WooCommerce module.
-						'product:sale_price_dates:start'  => '',		// Used by WooCommerce module.
-						'product:sale_price_dates:end'    => '',		// Used by WooCommerce module.
+						'product:sale_price:amount'       => '',			// Used by WooCommerce module.
+						'product:sale_price:currency'     => '',			// Used by WooCommerce module.
+						'product:sale_price_dates:start'  => '',			// Used by WooCommerce module.
+						'product:sale_price_dates:end'    => '',			// Used by WooCommerce module.
 						'product:shipping_cost:amount'    => '',
 						'product:shipping_cost:currency'  => '',
 						'product:shipping_weight:value'   => '',
 						'product:shipping_weight:units'   => '',
 						'product:size'                    => 'product_size',
-						'product:sku'                     => 'product_sku',	// Non-standard / internal meta tag.
+						'product:sku'                     => 'product_sku',		// Non-standard / internal meta tag.
 						'product:target_gender'           => 'product_target_gender',
 						'product:upc'                     => '',
+						'product:volume:value'            => 'product_volume_value',	// Non-standard / internal meta tag.
+						'product:volume:units'            => '',			// Non-standard / internal meta tag.
 						'product:weight:value'            => '',
 						'product:weight:units'            => '',
 					),

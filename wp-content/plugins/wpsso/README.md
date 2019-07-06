@@ -1,14 +1,14 @@
-<h1>WPSSO Core</h1><h3>Complete Open Graph, Rich Pin, Twitter Card, SEO Meta Tags and Rich Results / Schema Markup</h3>
+<h1>WPSSO Core</h1><h3>Advanced Open Graph, Rich Pin, Twitter Card, Social Meta Tags, SEO Rich Results, Schema Markup</h3>
 
 <table>
 <tr><th align="right" valign="top" nowrap>Plugin Name</th><td>WPSSO Core [Main Plugin]</td></tr>
 <tr><th align="right" valign="top" nowrap>Summary</th><td>WPSSO Core makes sure your content looks great on all social and search sites, no matter how URLs are crawled, shared, re-shared, posted or embedded!</td></tr>
-<tr><th align="right" valign="top" nowrap>Stable Version</th><td>5.0.1</td></tr>
+<tr><th align="right" valign="top" nowrap>Stable Version</th><td>5.1.0</td></tr>
 <tr><th align="right" valign="top" nowrap>Requires At Least</th><td>WordPress 3.8</td></tr>
 <tr><th align="right" valign="top" nowrap>Tested Up To</th><td>WordPress 5.2.2</td></tr>
 <tr><th align="right" valign="top" nowrap>Contributors</th><td>jsmoriss</td></tr>
 <tr><th align="right" valign="top" nowrap>License</th><td><a href="https://www.gnu.org/licenses/gpl.txt">GPLv3</a></td></tr>
-<tr><th align="right" valign="top" nowrap>Tags / Keywords</th><td>open graph, meta tags, social sharing, rich results, rich pins, schema.org, structured data, twitter cards, snippet, seo, social, social media, facebook, twitter, linkedin, pinterest, google</td></tr>
+<tr><th align="right" valign="top" nowrap>Tags / Keywords</th><td>open graph, meta tags, rich pins, twitter cards, social sharing, rich results, schema.org, structured data, snippet, seo, smo, social, facebook, twitter, linkedin, pinterest, google</td></tr>
 </table>
 
 <h2>Description</h2>
@@ -92,7 +92,6 @@
 
 <ul>
 <li>Open Graph Type</li>
-<li>Article Topic</li>
 <li>Default Title</li>
 <li>Default Description</li>
 <li>Schema Description</li>
@@ -100,22 +99,32 @@
 <li>Twitter Card Desc</li>
 <li>Sharing URL</li>
 <li>Canonical URL</li>
-<li>Product Availability</li>
+<li>Article Information
+
+<ul>
+<li>Article Topic</li>
+</ul></li>
+<li>Product Information
+
+<ul>
 <li>Product Brand</li>
-<li>Product Color</li>
+<li>Product Availability</li>
+<li>Product Price and Currency</li>
 <li>Product Condition</li>
 <li>Product Material</li>
-<li>Product MPN</li>
+<li>Product Color</li>
+<li>Product Target Gender</li>
+<li>Product Size</li>
+<li>Product Volume (ml)</li>
 <li>Product SKU</li>
+<li>Product MPN</li>
 <li>Product EAN</li>
 <li>Product GTIN-8</li>
 <li>Product GTIN-12</li>
 <li>Product GTIN-13</li>
 <li>Product GTIN-14</li>
 <li>Product ISBN</li>
-<li>Product Price</li>
-<li>Product Size</li>
-<li>Product Target Gender</li>
+</ul></li>
 </ul></li>
 <li>Priority Media
 
@@ -338,6 +347,7 @@
 <li>The Events Calendar</li>
 <li>The SEO Framework</li>
 <li>WooCommerce (versions 1, 2, and 3)</li>
+<li>WooCommerce Show Single Variations</li>
 <li>WP eCommerce</li>
 <li>WP Job Manager</li>
 <li>WP Meta SEO</li>

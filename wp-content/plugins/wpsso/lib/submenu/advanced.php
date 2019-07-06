@@ -81,7 +81,7 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 
 			$tabs = apply_filters( $this->p->lca . '_advanced_' . $metabox_id . '_tabs', array(
 				'settings'     => _x( 'Plugin Behavior', 'metabox tab', 'wpsso' ),
-				'content'      => _x( 'Content and Filters', 'metabox tab', 'wpsso' ),
+				'content'      => _x( 'Content Text', 'metabox tab', 'wpsso' ),
 				'integration'  => _x( 'Integration', 'metabox tab', 'wpsso' ),
 				'custom_meta'  => _x( 'Custom Meta', 'metabox tab', 'wpsso' ),
 				'list_columns' => _x( 'Columns', 'metabox tab', 'wpsso' ),
@@ -114,9 +114,12 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 			) );
 
 			foreach ( $tabs as $tab_key => $title ) {
+
+				$filter_name = $this->p->lca . '_' . $metabox_id . '_' . $tab_key . '_rows';
+
 				$table_rows[ $tab_key ] = array_merge(
 					$this->get_table_rows( $metabox_id, $tab_key ),
-					(array) apply_filters( $this->p->lca . '_' . $metabox_id . '_' . $tab_key . '_rows', array(), $this->form, $network = false )
+					(array) apply_filters( $filter_name, array(), $this->form, $network = false )
 				);
 			}
 
@@ -139,9 +142,12 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 			$table_rows = array();
 
 			foreach ( $tabs as $tab_key => $title ) {
+
+				$filter_name = $this->p->lca . '_' . $metabox_id . '_' . $tab_key . '_rows';
+
 				$table_rows[ $tab_key ] = array_merge(
 					$this->get_table_rows( $metabox_id, $tab_key ),
-					(array) apply_filters( $this->p->lca . '_' . $metabox_id . '_' . $tab_key . '_rows', array(), $this->form, $network = false )
+					(array) apply_filters( $filter_name, array(), $this->form, $network = false )
 				);
 			}
 
@@ -157,7 +163,7 @@ if ( ! class_exists( 'WpssoSubmenuAdvanced' ) && class_exists( 'WpssoAdmin' ) ) 
 
 				case 'plugin-settings':
 
-					$this->add_optional_advanced_table_rows( $table_rows );
+					$this->add_advanced_plugin_settings_table_rows( $table_rows );
 
 					break;
 			}
