@@ -14,7 +14,7 @@
  * Requires At Least: 3.8
  * Tested Up To: 5.2.2
  * WC Tested Up To: 3.6
- * Version: 5.1.0
+ * Version: 5.2.0
  *
  * Version Numbering: {major}.{minor}.{bugfix}[-{stage}.{level}]
  *
@@ -260,9 +260,9 @@ if ( ! class_exists( 'Wpsso' ) ) {
 
 								case'force':
 
-									$this->options[ $key . ':is' ] = 'disabled';
-
 									$this->options[ $key ] = $this->site_options[ $key ];
+
+									$this->options[ $key . ':is' ] = 'disabled';
 
 									break;
 

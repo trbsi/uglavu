@@ -11,7 +11,7 @@ Contributors: jsmoriss
 Requires At Least: 3.8
 Tested Up To: 5.2.2
 WC Tested Up To: 3.6
-Stable Tag: 5.1.0
+Stable Tag: 5.2.0
 
 WPSSO Core makes sure your content looks great on all social and search sites, no matter how URLs are crawled, shared, re-shared, posted or embedded!
 
@@ -112,14 +112,9 @@ WPSSO Core and its optional add-ons offer meta tags and Schema markup for Facebo
 			* Product Color
 			* Product Target Gender
 			* Product Size
-			* Product Volume (ml)
+			* Product Weight
 			* Product SKU
 			* Product MPN
-			* Product EAN
-			* Product GTIN-8
-			* Product GTIN-12
-			* Product GTIN-13
-			* Product GTIN-14
 			* Product ISBN
 	* Priority Media
 		* All Social WebSites / Open Graph
@@ -154,6 +149,7 @@ WPSSO Core and its optional add-ons offer meta tags and Schema markup for Facebo
 		* Microdata Type URLs
 		* Same-As URLs
 	* Creative Work Information
+		* Part of URL
 		* Headline
 		* Full Text
 		* Keywords
@@ -197,6 +193,17 @@ WPSSO Core and its optional add-ons offer meta tags and Schema markup for Facebo
 		* Organization
 	* Person Information
 		* Person
+	* Product Information (Additional)
+		* Product Length (cm)
+		* Product Width (cm)
+		* Product Height (cm)
+		* Product Depth (cm)
+		* Product Volume (ml)
+		* Product GTIN-14
+		* Product GTIN-13/EAN
+		* Product GTIN-12/UPC
+		* Product GTIN-8
+		* Product GTIN
 	* QA Page Information
 		* QA Heading
 	* Recipe Information
@@ -418,7 +425,7 @@ Version components: `{major}.{minor}.{bugfix}[-{stage}.{level}]`
 * {bugfix} = Backwards-compatible bug fixes or small improvements.
 * {stage}.{level} = Pre-production release: dev &lt; a (alpha) &lt; b (beta) &lt; rc (release candidate).
 
-<h3>Standard Add-on Repositories</h3>
+<h3>Standard Version Repositories</h3>
 
 * [GitHub](https://surniaulula.github.io/wpsso/)
 * [WordPress.org](https://plugins.trac.wordpress.org/browser/wpsso/)
@@ -431,19 +438,53 @@ Version components: `{major}.{minor}.{bugfix}[-{stage}.{level}]`
 
 <h3>Changelog / Release Notes</h3>
 
+**Version 5.2.0 (2019/07/13)**
+
+* **New Features**
+	* None.
+* **Improvements**
+	* Updated the [WooCommerce Integration Guide](https://wpsso.com/docs/plugins/wpsso/installation/integration/woocommerce-integration/) to include possible use of custom fields and manual entry in the Document SSO metabox for product information.
+	* Moved product options without Open Graph meta tags to the WPSSO JSON add-on:
+		* Product Length
+		* Product Width
+		* Product Height
+		* Product Depth
+		* Product Volume
+		* Product GTIN-14
+		* Product GTIN-13/EAN
+		* Product GTIN-12/UPC
+		* Product GTIN-8
+	* Added a "Product GTIN Attribute Name" and "Product GTIN Custom Field" options in the SSO &gt; Advanced settings page.
+	* Removed the "Product EAN" option (replaced with "Product GTIN-13/EAN").
+	* Removed the "Product EAN Custom Field" option (replaced with "Product GTIN-13 Custom Field").
+	* Removed the "Product EAN Attribute Name" option.
+	* Mapped the `product:upc` meta tag to the 'product_gtin12' value.
+	* Mapped the `product:ean` meta tag to the 'product_gtin13' value.
+	* Added a min/max character counter to the Product ISBN input field.
+* **Bugfixes**
+	* Fixed an incorrect variable use in the WpssoAdmin::get_option_site_use() static method.
+	* Fixed missing "product:weight:units" meta tag when a Product Weight value is entered in the Document SSO metabox.
+* **Developer Notes**
+	* Moved the WpssoWpMeta::get_custom_fields() method to a 'wpsso_get_custom_fields' filter hook.
+	* Added a new WpssoConfig::$cf[ 'head' ][ 'schema_unitcodes' ] array.
+	* Refactored the WpssoSchema::add_data_unitcode_from_assoc() method.
+	* Added a new WpssoSchema::get_data_unitcode_text() static method.
+	* Added a new WpssoAdmin::get_option_unit_comment() static method.
+	* Added minimum text length support to the SucomForm::get_input() method.
+
 **Version 5.1.0 (2019/07/06)**
 
-* *New Features*
+* **New Features**
 	* Added support for the WooCommerce Show Single Variations plugin (Premium version).
 	* Added support for a WooCommerce "Volume" (in milliliters) product attribute (Premium version).
 	* Added a new "Product Volume (ml) Custom Field" option in the SSO &gt; Advanced &gt; Integration tab (Premium version).
-* *Improvements*
+* **Improvements**
 	* Added a fallback to the default attribute value when a WooCommerce variation attribute is empty (Premium version).
 	* WooCommerce attributes used for variations (ie. multiple values for a select option) are now excluded from the Facebook / Open Graph meta tags (Premium version).
-	* Facebook / Open Graph product customization fields in the Document SSO metabox are disabled when an e-commerce plugin provides those values (to avoid confusion about the source of product attribute values) (Premium version).
-* *Bugfixes*
+	* **Facebook / Open Graph product customization fields in the Document SSO metabox are now disabled when an e-commerce plugin provides those values (to avoid confusion about the source of product details) (Premium version).**
+* **Bugfixes**
 	* None.
-* *Developer Notes*
+* **Developer Notes**
 	* Added a new 'wpsso_wc_variation_title' filter.
 	* Refactored several Schema methods for standardization and "@id" optimizations:
 		* Added WpssoSchemaGraph class with add(), get(), and optimize() methods.
@@ -454,22 +495,22 @@ Version components: `{major}.{minor}.{bugfix}[-{stage}.{level}]`
 
 **Version 5.0.1 (2019/06/29)**
 
-* *New Features*
+* **New Features**
 	* None.
-* *Improvements*
+* **Improvements**
 	* Removed the Google Plus Profile option check in All In One SEO settings (now deprecated).
 	* Updated the WebSite (Front Page) Knowledge Graph option label and link.
-* *Bugfixes*
+* **Bugfixes**
 	* Fixed block editor global variable definition by changing "const" to "var" ([issue from GitHub](https://github.com/siteorigin/siteorigin-panels/issues/677)).
 	* Fixed markup when selecting an Schema Organization, LocalBusiness, and Person type (or sub-type) in the Document SSO metabox, without specifying an Organization, LocalBusiness, or Person to get additional information about the Organization, LocalBusiness, and Person.
-* *Developer Notes*
+* **Developer Notes**
 	* None.
 
 **Version 5.0.0 (2019/06/24)**
 
-* *New Features*
+* **New Features**
 	* None.
-* *Improvements*
+* **Improvements**
 	* Renamed "Pro" distribution to "Premium".
 	* Renamed "Free" distribution to "Standard".
 	* Removed support for the Yotpo Social Reviews for WooCommerce plugin (too many bad reviews and too few active installations).
@@ -487,9 +528,9 @@ Version components: `{major}.{minor}.{bugfix}[-{stage}.{level}]`
 		* https://schema.org/ReportageNewsArticle
 		* https://schema.org/ReviewNewsArticle
 		* https://schema.org/SatiricalArticle
-* *Bugfixes*
+* **Bugfixes**
 	* None.
-* *Developer Notes*
+* **Developer Notes**
 	* Renamed the 'gpl' library sub-folder to 'std'.
 	* Added a new 'wpsso_scheduled_task_started' action.
 	* Added a new `SucomUtilWP::doing_frontend()` method.
@@ -497,7 +538,7 @@ Version components: `{major}.{minor}.{bugfix}[-{stage}.{level}]`
 
 == Upgrade Notice ==
 
-= 5.1.0 =
+= 5.2.0 =
 
-(2019/07/06) Added support for the WooCommerce Show Single Variations plugin. Added support for a WooCommerce "Volume" (in milliliters) product attribute.
+(2019/07/13) Fixed an incorrect variable use in the WpssoAdmin::get_option_site_use() static method. Moved product options without Open Graph meta tags to the WPSSO JSON add-on.
 

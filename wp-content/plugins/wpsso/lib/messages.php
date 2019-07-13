@@ -195,11 +195,11 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 
 							if ( ! empty( $cf_info ) ) {	// Just in case.
 
-								$text = sprintf( __( 'The value for %1$s can be used in Open Graph meta tags and Schema Product markup.', 'wpsso' ), $cf_info[ 1 ] ) . ' ';
+								$text = sprintf( __( 'The value of %1$s can be used in meta tags and Schema markup for simple products.', 'wpsso' ), $cf_info[ 1 ] ) . ' ';
 
-								$text .= __( 'When product variations are available, the value retrieved from each variation will be used instead.', 'wpsso' ) . ' ';
+								$text .= __( 'When e-commerce product variations are available, the value from each variation will be used instead.', 'wpsso' ) . ' ';
 
-								$text .= __( 'This option may be disabled when a supported e-commerce plugin provides the source value.', 'wpsso' );
+								$text .= __( 'This option may be disabled when a supported e-commerce plugin manages the source value.', 'wpsso' );
 							}
 
 						 	break;
@@ -1922,15 +1922,38 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 
 						if ( $lca === $this->p->lca ) {
 
-							$text .= sprintf( __( 'Purchase %1$s plugin to get the following features / options.',
+							$text .= sprintf( __( 'Purchase the %1$s plugin to upgrade and get the following features.',
 								'wpsso' ), $info[ 'short_pro' ] );
 
 						} else {
-							$text .= sprintf( __( 'Purchase the %1$s add-on to get the following features / options.',
+							$text .= sprintf( __( 'Purchase the %1$s add-on to upgrade and get the following features.',
 								'wpsso' ), $info[ 'short_pro' ] );
 						}
 
 						$text .= empty( $url[ 'purchase' ] ) ? '' : '</a>';
+						
+						$text .= '</p>';
+
+						break;
+
+					case 'pro-ecom-product-msg':
+
+						$text = '<p class="pro-feature-msg">';
+
+						if ( WpssoAdmin::$pkg[ $this->p->lca ][ 'pp' ] ) {
+
+							$text = __( 'An e-commerce plugin is active &ndash; some product details may be managed by the e-commerce plugin.',
+								'wpsso' );
+
+						} else {
+
+							$text .= empty( $url[ 'purchase' ] ) ? '' : '<a href="' . $url[ 'purchase' ] . '">';
+
+							$text .= sprintf( __( 'An e-commerce plugin is active &ndash; product details may be retrieved by the %s plugin.',
+								'wpsso' ), $info[ 'short_pro' ] );
+
+							$text .= empty( $url[ 'purchase' ] ) ? '' : '</a>';
+						}
 						
 						$text .= '</p>';
 
@@ -2133,7 +2156,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 
 						$text .= '<b>' . sprintf( __( 'At least one Authentication ID has been entered in the %1$s settings page,<br/>but the %2$s add-on is not active.', 'wpsso' ), $settings_page_link, $um_info[ 'name' ] ) . '</b> ';
 
-						$text .= sprintf( __( 'This complementary add-on is required to update and enable the %1$s plugin and its %2$s add-ons.', 'wpsso' ), $info[ 'name_pro' ], $pro_transl );
+						$text .= sprintf( __( 'This complementary add-on is required to update and enable %1$s and its %2$s add-ons.', 'wpsso' ), $info[ 'name_pro' ], $pro_transl );
 
 						$text .= '</p><p>';
 
@@ -2321,6 +2344,45 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						_x( 'Product Currency', 'option label', 'wpsso' ),
 						_x( 'a product currency', 'tooltip fragment', 'wpsso' ),
 					),
+					'product_depth_value' => array(
+						_x( 'Product Depth', 'option label', 'wpsso' ),
+						sprintf( _x( 'a product depth (in %s)', 'tooltip fragment', 'wpsso' ),
+							WpssoSchema::get_data_unitcode_text( 'depth' ) ),
+					),
+					'product_gtin14' => array(
+						_x( 'Product GTIN-14', 'option label', 'wpsso' ),
+						_x( 'a product GTIN-14 code', 'tooltip fragment', 'wpsso' ),
+					),
+					'product_gtin13' => array(
+						_x( 'Product GTIN-13', 'option label', 'wpsso' ),
+						_x( 'a product GTIN-13 code (aka 13-digit ISBN codes or EAN/UCC-13)', 'tooltip fragment', 'wpsso' ),
+					),
+					'product_gtin12' => array(
+						_x( 'Product GTIN-12', 'option label', 'wpsso' ),
+						_x( 'a product GTIN-12 code (12-digit GS1 identification key composed of a U.P.C. company prefix, item reference, and check digit)', 'tooltip fragment', 'wpsso' ),
+					),
+					'product_gtin8' => array(
+						_x( 'Product GTIN-8', 'option label', 'wpsso' ),
+						_x( 'a product GTIN-8 code (aka EAN/UCC-8 or 8-digit EAN)', 'tooltip fragment', 'wpsso' ),
+					),
+					'product_gtin' => array(
+						_x( 'Product GTIN', 'option label', 'wpsso' ),
+						_x( 'a product GTIN code (GTIN-8, GTIN-12/UPC, GTIN-13/EAN, or GTIN-14)', 'tooltip fragment', 'wpsso' ),
+					),
+					'product_height_value' => array(
+						_x( 'Product Height', 'option label', 'wpsso' ),
+						sprintf( _x( 'a product height (in %s)', 'tooltip fragment', 'wpsso' ),
+							WpssoSchema::get_data_unitcode_text( 'height' ) ),
+					),
+					'product_isbn' => array(
+						_x( 'Product ISBN', 'option label', 'wpsso' ),
+						_x( 'an ISBN code (aka International Standard Book Number)', 'tooltip fragment', 'wpsso' ),
+					),
+					'product_length_value' => array(
+						_x( 'Product Length', 'option label', 'wpsso' ),
+						sprintf( _x( 'a product length (in %s)', 'tooltip fragment', 'wpsso' ),
+							WpssoSchema::get_data_unitcode_text( 'length' ) ),
+					),
 					'product_material' => array(
 						_x( 'Product Material', 'option label', 'wpsso' ),
 						_x( 'a product material', 'tooltip fragment', 'wpsso' ),
@@ -2328,30 +2390,6 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					'product_mpn' => array(
 						_x( 'Product MPN', 'option label', 'wpsso' ),
 						_x( 'a Manufacturer Part Number (MPN)', 'tooltip fragment', 'wpsso' ),
-					),
-					'product_ean' => array(
-						_x( 'Product EAN', 'option label', 'wpsso' ),
-						_x( 'an International Article Number (aka European Article Number)', 'tooltip fragment', 'wpsso' ),
-					),
-					'product_gtin8' => array(
-						_x( 'Product GTIN-8', 'option label', 'wpsso' ),
-						_x( 'a product GTIN-8 code (aka EAN/UCC-8 or 8-digit EAN)', 'tooltip fragment', 'wpsso' ),
-					),
-					'product_gtin12' => array(
-						_x( 'Product GTIN-12', 'option label', 'wpsso' ),
-						_x( 'a product GTIN-12 code (12-digit GS1 identification key composed of a U.P.C. company prefix, item reference, and check digit)', 'tooltip fragment', 'wpsso' ),
-					),
-					'product_gtin13' => array(
-						_x( 'Product GTIN-13', 'option label', 'wpsso' ),
-						_x( 'a product GTIN-13 code (aka 13-digit ISBN codes or EAN/UCC-13)', 'tooltip fragment', 'wpsso' ),
-					),
-					'product_gtin14' => array(
-						_x( 'Product GTIN-14', 'option label', 'wpsso' ),
-						_x( 'a product GTIN-14 code', 'tooltip fragment', 'wpsso' ),
-					),
-					'product_isbn' => array(
-						_x( 'Product ISBN', 'option label', 'wpsso' ),
-						_x( 'an ISBN code (aka International Standard Book Number)', 'tooltip fragment', 'wpsso' ),
 					),
 					'product_price' => array(
 						_x( 'Product Price', 'option label', 'wpsso' ),
@@ -2371,7 +2409,18 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					),
 					'product_volume_value' => array(
 						_x( 'Product Volume', 'option label', 'wpsso' ),
-						_x( 'a product volume (in milliliters)', 'tooltip fragment', 'wpsso' ),
+						sprintf( _x( 'a product volume (in %s)', 'tooltip fragment', 'wpsso' ),
+							WpssoSchema::get_data_unitcode_text( 'volume' ) ),
+					),
+					'product_weight_value' => array(
+						_x( 'Product Weight', 'option label', 'wpsso' ),
+						sprintf( _x( 'a product weight (in %s)', 'tooltip fragment', 'wpsso' ),
+							WpssoSchema::get_data_unitcode_text( 'weight' ) ),
+					),
+					'product_width_value' => array(
+						_x( 'Product Width', 'option label', 'wpsso' ),
+						sprintf( _x( 'a product width (in %s)', 'tooltip fragment', 'wpsso' ),
+							WpssoSchema::get_data_unitcode_text( 'width' ) ),
 					),
 					'recipe_ingredients' => array(
 						_x( 'Recipe Ingredients', 'option label', 'wpsso' ),
@@ -2405,6 +2454,80 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 			} else {
 				return $local_cache;
 			}
+		}
+
+		public function pro_feature( $ext ) {
+
+			list( $ext, $p_ext ) = $this->get_ext_p_ext( $ext );
+
+			if ( empty( $ext ) ) {
+				return '';
+			}
+
+			return $this->get( 'pro-feature-msg', array( 'lca' => $ext ) );
+		}
+
+		/**
+		 * If an add-on is not active, return a short message that this add-on is required.
+		 */
+		public function maybe_ext_required( $ext ) {
+
+			list( $ext, $p_ext ) = $this->get_ext_p_ext( $ext );
+
+			if ( empty( $ext ) ) {							// Just in case.
+				return '';
+			} elseif ( $this->p->lca === $ext ) {					// The main plugin is not considered an add-on.
+				return '';
+			} elseif ( ! empty( $this->p->avail[ 'p_ext' ][ $p_ext ] ) ) {		// Add-on is already active.
+				return '';
+			} elseif ( empty( $this->p->cf[ 'plugin' ][ $ext ][ 'short' ] ) ) {	// Unknown add-on.
+				return '';
+			}
+
+			// translators: %s is is the short add-on name.
+			$req_msg_transl = sprintf( _x( '%s required', 'option comment', 'wpsso' ), $this->p->cf[ 'plugin' ][ $ext ][ 'short' ] );
+
+			$req_msg_link = $this->p->util->get_admin_url( 'addons#' . $ext, $req_msg_transl );
+
+			return ' <span class="ext-req-msg">' . $req_msg_link . '</span>';
+		}
+
+		public function seo_option_disabled( $mt_name ) {
+
+			// translators: %s is the meta tag name (ie. meta name canonical).
+			$seo_msg_transl = __( 'Option disabled (<code>%s</code> head tag disabled or SEO plugin detected).', 'wpsso' );
+
+			return '<p class="status-msg smaller">' . sprintf( $seo_msg_transl, $mt_name ) . '</p>';
+		}
+
+		public function more_schema_options() {
+
+			$json_addon_link = $this->p->util->get_admin_url( 'addons#wpssojson', $this->p->cf[ 'plugin' ][ 'wpssojson' ][ 'name' ] );
+		
+			// translators: %s is is the add-on name (and a link to the add-on page).
+			$json_msg_transl = sprintf( __( 'Activate the %s add-on for additional Schema markup options.', 'wpsso' ), $json_addon_link );
+
+			return '<p class="status-msg">' . $json_msg_transl . '</p>';
+		}
+
+		private function get_ext_p_ext( $ext ) {
+
+			if ( is_string( $ext ) ) {
+
+				if ( strpos( $ext, $this->p->lca ) !== 0 ) {
+					$ext = $this->p->lca . $p_ext;
+				}
+
+				$p_ext = substr( $ext, 0, strlen( $this->p->lca ) );
+
+			} else {
+
+				$ext = '';
+
+				$p_ext = '';
+			}
+
+			return array( $ext, $p_ext );
 		}
 	}
 }

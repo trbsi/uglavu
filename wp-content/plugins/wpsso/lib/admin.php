@@ -201,14 +201,17 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				$ext_pp      = $ext_auth_id && $this->p->check->pp( $ext, true, WPSSO_UNDEF ) === WPSSO_UNDEF ? true : false;
 				$ext_stat    = ( $ext_pp ? 'L' : ( $ext_pdir ? 'U' : 'F' ) ) . ( $ext_auth_id ? '*' : '' );
 
-				self::$pkg[ $ext ][ 'pdir' ]  = $ext_pdir;
-				self::$pkg[ $ext ][ 'pp' ]    = $ext_pp;
-				self::$pkg[ $ext ][ 'dist' ]  = $ext_pp ?
+				self::$pkg[ $ext ][ 'pdir' ] = $ext_pdir;
+				self::$pkg[ $ext ][ 'pp' ]   = $ext_pp;
+				self::$pkg[ $ext ][ 'dist' ] = $ext_pp ?
 					_x( $this->p->cf[ 'dist' ][ 'pro' ], 'distribution name', 'wpsso' ) :
 					_x( $this->p->cf[ 'dist' ][ 'std' ], 'distribution name', 'wpsso' );
-				self::$pkg[ $ext ][ 'short' ] = $info[ 'short' ] . ' ' . self::$pkg[ $ext ][ 'dist' ];
-				self::$pkg[ $ext ][ 'name' ]  = SucomUtil::get_dist_name( $info[ 'name' ], self::$pkg[ $ext ][ 'dist' ] );
-				self::$pkg[ $ext ][ 'gen' ]   = $info[ 'short' ] . ( isset( $info[ 'version' ] ) ? ' ' . $info[ 'version' ] . '/' . $ext_stat : '' );
+
+				self::$pkg[ $ext ][ 'short_pro' ] = $info[ 'short' ] . ' ' . _x( $this->p->cf[ 'dist' ][ 'pro' ], 'distribution name', 'wpsso' );
+				self::$pkg[ $ext ][ 'short_std' ] = $info[ 'short' ] . ' ' . _x( $this->p->cf[ 'dist' ][ 'std' ], 'distribution name', 'wpsso' );
+				self::$pkg[ $ext ][ 'short' ]     = $info[ 'short' ] . ' ' . self::$pkg[ $ext ][ 'dist' ];
+				self::$pkg[ $ext ][ 'name' ]      = SucomUtil::get_dist_name( $info[ 'name' ], self::$pkg[ $ext ][ 'dist' ] );
+				self::$pkg[ $ext ][ 'gen' ]       = $info[ 'short' ] . ( isset( $info[ 'version' ] ) ? ' ' . $info[ 'version' ] . '/' . $ext_stat : '' );
 			}
 		}
 
@@ -1757,17 +1760,20 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					$features = array(
 						'(feature) Use Filtered (SEO) Title' => array(
 							'td_class' => self::$pkg[ $ext ][ 'pp' ] ? '' : 'blank',
-							'status'   => $this->p->options[ 'plugin_filter_title' ] ? 'on' : 'off',
+							'status'   => $this->p->options[ 'plugin_filter_title' ] ?
+								( self::$pkg[ $ext ][ 'pp' ] ? 'on' : 'rec' ) : 'off',
 							'link'     => $this->p->util->get_admin_url( 'advanced#sucom-tabset_plugin-tab_content' ),
 						),
 						'(feature) Use WordPress Content Filters' => array(
 							'td_class' => self::$pkg[ $ext ][ 'pp' ] ? '' : 'blank',
-							'status'   => $this->p->options[ 'plugin_filter_content' ] ? 'on' : 'rec',
+							'status'   => $this->p->options[ 'plugin_filter_content' ] ?
+								( self::$pkg[ $ext ][ 'pp' ] ? 'on' : 'rec' ) : 'off',
 							'link'     => $this->p->util->get_admin_url( 'advanced#sucom-tabset_plugin-tab_content' ),
 						),
 						'(feature) Use WordPress Excerpt Filters' => array(
 							'td_class' => self::$pkg[ $ext ][ 'pp' ] ? '' : 'blank',
-							'status'   => $this->p->options[ 'plugin_filter_excerpt' ] ? 'on' : 'off',
+							'status'   => $this->p->options[ 'plugin_filter_excerpt' ] ?
+								( self::$pkg[ $ext ][ 'pp' ] ? 'on' : 'rec' ) : 'off',
 							'link'     => $this->p->util->get_admin_url( 'advanced#sucom-tabset_plugin-tab_content' ),
 						),
 					);
@@ -2208,7 +2214,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 						if ( empty( $val ) ) {	// Add an empty row for empty values.
 							
-							$val = _x( 'Information not available', 'option value', 'wpsso' );
+							$val = _x( 'Not available', 'option value', 'wpsso' );
 
 						} elseif ( $key === 'exp_date' ) {
 
@@ -3679,31 +3685,51 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			}
 
 			/**
-			 * Example:
+			 * Example config:
 			 *
-			 * $cf_md_keys = array(
-			 * 	'plugin_cf_vid_embed' => 'og_vid_embed',
-			 * 	'plugin_cf_vid_url'   => 'og_vid_url',
-			 * ),
+			 * 	$cf_md_keys = array(
+			 *		'plugin_cf_addl_type_urls'        => 'schema_addl_type_url',
+			 *		'plugin_cf_howto_steps'           => 'schema_howto_step',
+			 *		'plugin_cf_howto_supplies'        => 'schema_howto_supply',
+			 *		'plugin_cf_howto_tools'           => 'schema_howto_tool',
+			 *		'plugin_cf_img_url'               => 'og_img_url',
+			 *		'plugin_cf_product_avail'         => 'product_avail',
+			 *		'plugin_cf_product_brand'         => 'product_brand',
+			 *		'plugin_cf_product_color'         => 'product_color',
+			 *		'plugin_cf_product_condition'     => 'product_condition',
+			 *		'plugin_cf_product_material'      => 'product_material',
+			 *		'plugin_cf_product_mpn'           => 'product_mpn',
+			 *		'plugin_cf_product_sku'           => 'product_sku',
+			 *		'plugin_cf_product_price'         => 'product_price',
+			 *		'plugin_cf_product_currency'      => 'product_currency',
+			 *		'plugin_cf_product_size'          => 'product_size',
+			 *		'plugin_cf_product_target_gender' => 'product_target_gender',
+			 *		'plugin_cf_recipe_ingredients'    => 'schema_recipe_ingredient',
+			 *		'plugin_cf_recipe_instructions'   => 'schema_recipe_instruction',
+			 *		'plugin_cf_sameas_urls'           => 'schema_sameas_url',
+			 *		'plugin_cf_vid_embed'             => 'og_vid_embed',
+			 *		'plugin_cf_vid_url'               => 'og_vid_url',
+			 * 	);
+			 *
+			 * Hooked by the WpssoProRecipeWpRecipeMaker and WpssoProRecipeWpUltimateRecipe classes
+			 * to clear the 'plugin_cf_recipe_ingredients' and 'plugin_cf_recipe_instructions' values.
 			 */
 			$cf_md_keys = (array) apply_filters( $this->p->lca . '_cf_md_keys', $this->p->cf[ 'opt' ][ 'cf_md_key' ] );
 
 			foreach ( $cf_md_keys as $opt_key => $cf_md_key ) {
 
 				/**
-				 * Make sure we have a label for the custom
-				 * field option.
+				 * Make sure we have a label for the custom field option.
 				 */
 				if ( empty( $this->p->cf[ 'form' ][ 'cf_labels' ][ $opt_key ] ) ) {
 					continue;
-				} else {
-					$opt_label = $this->p->cf[ 'form' ][ 'cf_labels' ][ $opt_key ];
 				}
 
+				$opt_label = $this->p->cf[ 'form' ][ 'cf_labels' ][ $opt_key ];
+
 				/**
-				 * If we don't have a meta data key, then clear
-				 * the custom field name (just in case) and
-				 * disable the option.
+				 * If we don't have a meta data key, then clear the custom field name (just in case)
+				 * and disable the option.
 				 */
 				if ( empty( $cf_md_key ) ) {
 
@@ -3715,11 +3741,13 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					$disabled = false;
 				}
 
+				$cmt_transl = self::get_option_unit_comment( $opt_key );
+
 				$table_rows[ $opt_key ] = ( $hide_in_basic ? $form->get_tr_hide( 'basic', $opt_key ) : '' ) .
 					$form->get_th_html( _x( $opt_label, 'option label', 'wpsso' ), '', $opt_key ) . 
 						( self::$pkg[ $this->p->lca ][ 'pp' ] ? '<td>' . $form->get_input( $opt_key,
-							$css_class = '', $css_id = '', $len = 0, $placeholder = '', $disabled ) . '</td>' :
-								'<td class="blank">' . $form->get_no_input( $opt_key ) . '</td>' );
+							$css_class = '', $css_id = '', $max_len = 0, $placeholder = '', $disabled ) . $cmt_transl . '</td>' :
+								'<td class="blank">' . $form->get_no_input( $opt_key ) . $cmt_transl . '</td>' );
 			}
 
 		}
@@ -3741,11 +3769,26 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 			foreach ( $this->p->cf[ 'form' ][ 'product_attr_labels' ] as $opt_key => $opt_label ) {
 
+				$cmt_transl = self::get_option_unit_comment( $opt_key );
+
 				$table_rows[ $opt_key ] = ( $hide_in_basic ? $form->get_tr_hide( 'basic', $opt_key ) : '' ) .
 					$form->get_th_html( _x( $opt_label, 'option label', 'wpsso' ), '', $opt_key ) . 
-						( self::$pkg[ $this->p->lca ][ 'pp' ] ? '<td>' . $form->get_input( $opt_key ) . '</td>' :
-							'<td class="blank">' . $form->get_no_input( $opt_key ) . '</td>' );
+						( self::$pkg[ $this->p->lca ][ 'pp' ] ? '<td>' . $form->get_input( $opt_key ) . $cmt_transl . '</td>' :
+							'<td class="blank">' . $form->get_no_input( $opt_key ) . $cmt_transl . '</td>' );
 			}
+		}
+
+		public static function get_option_unit_comment( $opt_key ) {
+
+			$cmt_transl = '';
+
+			if ( preg_match( '/^.*_([^_]+)_value$/', $opt_key, $unit_match ) ) {
+				if ( $unit_text = WpssoSchema::get_data_unitcode_text( $unit_match[ 1 ] ) ) {
+					$cmt_transl = ' ' . sprintf( _x( 'in %s', 'option comment', 'wpsso' ), $unit_text );
+				}
+			}
+
+			return $cmt_transl;
 		}
 
 		public static function get_option_site_use( $name, $form, $network = false, $enabled = false ) {
@@ -3753,7 +3796,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			if ( $network ) {
 
 				return $form->get_th_html( _x( 'Site Use', 'option label (very short)', 'wpsso' ), 'site_use' ) . 
-					( $enabled || self::$pkg[ $this->p->lca ][ 'pp' ] ? '<td class="site_use">' . $form->get_select( $name . ':use',
+					( $enabled || self::$pkg[ 'wpsso' ][ 'pp' ] ? '<td class="site_use">' . $form->get_select( $name . ':use',
 						WpssoConfig::$cf[ 'form' ][ 'site_option_use' ], 'site_use' ) . '</td>' :
 					'<td class="blank site_use">' . $form->get_select( $name . ':use',
 						WpssoConfig::$cf[ 'form' ][ 'site_option_use' ], 'site_use', '', true, true ) . '</td>' );
@@ -3944,9 +3987,9 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 								$url = add_query_arg( array(
 									$this->p->lca . '_pageref_url'   => urlencode( $this->pageref_url ),
 									$this->p->lca . '_pageref_title' => urlencode( $this->pageref_title ),
-								), $matches[2] );
+								), $matches[ 2 ] );
 
-								$html = $matches[1] . $url . $matches[3];
+								$html = $matches[ 1 ] . $url . $matches[ 3 ];
 							}
 
 							break;
@@ -4001,9 +4044,9 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 		}
 
 		/**
-		 * Returns a 128x128px image.
+		 * Returns a 128x128px image by default.
 		 */
-		public function get_ext_img_icon( $ext ) {
+		public function get_ext_img_icon( $ext, $px = 128 ) {
 
 			/**
 			 * The default image is a transparent 1px gif.
@@ -4023,47 +4066,17 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				}
 			}
 
-			return '<img ' . $img_src . ' width="128" height="128" style="width:128px; height:128px;"/>';
+			return '<img ' . $img_src . ' width="' . $px . '" height="' . $px . '" style="width:' . $px . 'px; height:' . $px . 'px;"/>';
 		}
 
 		/**
-		 * If an add-on is not available, return a short sentence that this add-on is required.
+		 * Deprecated on 2019/07/10.
 		 *
-		 * $mixed = wpssojson, json, etc.
+		 * Check that all add-ons are no longer using this method before removing it.
 		 */
 		public function get_ext_required_msg( $mixed ) {
 
-			$html = '';
-
-			if ( ! is_string( $mixed ) ) {						// Just in case.
-				return $html;
-			}
-
-			if ( strpos( $mixed, $this->p->lca ) === 0 ) {				// A complete lower case acronym was provided.
-				$p_ext = substr( $ext, 0, strlen( $this->p->lca ) );		// Change 'wpssojson' to 'json'.
-				$ext   = $mixed;
-			} else {
-				$p_ext = $mixed;
-				$ext   = $this->p->lca . $p_ext;				// Change 'json' to 'wpssojson'.
-			}
-
-			if ( $this->p->lca === $mixed ) {					// The main plugin is not considered an add-on.
-				return $html;
-			} elseif ( ! empty( $this->p->avail[ 'p_ext' ][ $p_ext ] ) ) {		// Add-on is already active.
-				return $html;
-			} elseif ( empty( $this->p->cf[ 'plugin' ][ $ext ][ 'short' ] ) ) {	// Unknown add-on.
-				return $html;
-			}
-
-			$html .= ' <span class="ext-req-msg">';
-
-			$html .= $this->p->util->get_admin_url( 'addons#' . $ext, 
-				sprintf( _x( '%s required', 'option comment', 'wpsso' ),
-					$this->p->cf[ 'plugin' ][ $ext ][ 'short' ] ) );
-
-			$html .= '</span>';
-
-			return $html;
+			return $this->p->msgs->maybe_ext_required( $mixed );
 		}
 
 		/**

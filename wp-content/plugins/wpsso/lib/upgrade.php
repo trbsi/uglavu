@@ -222,6 +222,9 @@ if ( ! class_exists( 'WpssoOptionsUpgrade' ) && class_exists( 'WpssoOptions' ) )
 				641 => array(
 					'plugin_hide_pro' => '',
 				),
+				649 => array(
+					'plugin_cf_product_ean' => 'plugin_cf_product_gtin13',
+				),
 			),
 		);
 
@@ -419,18 +422,16 @@ if ( ! class_exists( 'WpssoOptionsUpgrade' ) && class_exists( 'WpssoOptions' ) )
 					$opts[ 'add_meta_property_product:shipping_cost:currency' ] = 0;
 					$opts[ 'add_meta_property_product:shipping_weight:value' ]  = 0;
 					$opts[ 'add_meta_property_product:shipping_weight:units' ]  = 0;
-					$opts[ 'add_meta_property_product:upc' ]                    = 0;
 				}
 
 				if ( $prev_version > 0 && $prev_version <= 625 ) {
 					$opts[ 'plugin_product_attr_brand' ]     = 'Brand';
 					$opts[ 'plugin_product_attr_color' ]     = 'Color';
 					$opts[ 'plugin_product_attr_condition' ] = 'Condition';
-					$opts[ 'plugin_product_attr_ean' ]       = 'EAN';
-					$opts[ 'plugin_product_attr_gtin8' ]     = 'GTIN-8';
-					$opts[ 'plugin_product_attr_gtin12' ]    = 'GTIN-12';
-					$opts[ 'plugin_product_attr_gtin13' ]    = 'GTIN-13';
 					$opts[ 'plugin_product_attr_gtin14' ]    = 'GTIN-14';
+					$opts[ 'plugin_product_attr_gtin13' ]    = 'GTIN-13';
+					$opts[ 'plugin_product_attr_gtin12' ]    = 'GTIN-12';
+					$opts[ 'plugin_product_attr_gtin8' ]     = 'GTIN-8';
 					$opts[ 'plugin_product_attr_isbn' ]      = 'ISBN';
 					$opts[ 'plugin_product_attr_material' ]  = 'Material';
 					$opts[ 'plugin_product_attr_size' ]      = 'Size';

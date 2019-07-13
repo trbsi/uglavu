@@ -52,11 +52,13 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 			foreach ( $lib_checks as $sub => $lib ) {
 
 				$get_avail[ $sub ] = array();
+
 				$get_avail[ $sub ][ 'any' ] = false;
 
 				foreach ( $lib as $id => $name ) {
 
 					$chk = array();
+
 					$get_avail[ $sub ][ $id ] = false;	// Default value.
 
 					switch ( $sub . '-' . $id ) {
@@ -292,15 +294,15 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 
 							break;
 
-						/*
-						case 'places-google_places':
-							$chk[ 'opt_key' ] = 'plugin_google_places';
-							break;
-						 */
-
 						case 'util-checkimgdims':
 
 							$chk[ 'opt_key' ] = 'plugin_check_img_dims';
+
+							break;
+
+						case 'util-custom_fields':
+
+							$get_avail[ $sub ][ 'any' ] = $get_avail[ $sub ][ $id ] = true;
 
 							break;
 
@@ -347,9 +349,11 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 								 * Check if an option value is also required.
 								 */
 								if ( isset( $chk[ 'opt_key' ] ) ) {
+
 									if ( $this->is_opt_enabled( $chk[ 'opt_key' ] ) ) {
 										$get_avail[ $sub ][ 'any' ] = $get_avail[ $sub ][ $id ] = true;
 									}
+
 								} else {
 									$get_avail[ $sub ][ 'any' ] = $get_avail[ $sub ][ $id ] = true;
 								}

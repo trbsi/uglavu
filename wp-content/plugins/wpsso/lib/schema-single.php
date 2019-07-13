@@ -668,11 +668,12 @@ if ( ! class_exists( 'WpssoSchemaSingle' ) ) {
 				'description'     => 'product:description',
 				'category'        => 'product:category',
 				'mpn'             => 'product:mfr_part_no',
-				'sku'             => 'product:sku',		// Non-standard / internal meta tag.
-				'gtin8'           => 'product:gtin8',		// Valid for products and offers.
-				'gtin12'          => 'product:gtin12',		// Valid for products and offers.
-				'gtin13'          => 'product:gtin13',		// Valid for products and offers.
-				'gtin14'          => 'product:gtin14',		// Valid for products and offers.
+				'sku'             => 'product:sku',
+				'gtin'            => 'product:gtin',		// Valid for both products and offers.
+				'gtin8'           => 'product:gtin8',		// Valid for both products and offers.
+				'gtin12'          => 'product:gtin12',		// Valid for both products and offers.
+				'gtin13'          => 'product:gtin13',		// Valid for both products and offers.
+				'gtin14'          => 'product:gtin14',		// Valid for both products and offers.
 				'itemCondition'   => 'product:condition',
 				'availability'    => 'product:availability',
 				'price'           => 'product:price:amount',
@@ -765,7 +766,7 @@ if ( ! class_exists( 'WpssoSchemaSingle' ) ) {
 				 */
 				if ( is_admin() ) {
 					if ( ! empty( $offer[ 'url' ] ) ) {
-						$wpsso->notice->set_ref( $offer[ 'url' ], $mod, __( 'adding schema for offer', 'wpsso-schema-json-ld' ) );
+						$wpsso->notice->set_ref( $offer[ 'url' ], $mod, __( 'adding schema offer', 'wpsso-schema-json-ld' ) );
 					}
 				}
 
@@ -857,7 +858,7 @@ if ( ! class_exists( 'WpssoSchemaSingle' ) ) {
 
 				$sharing_url = $wpsso->util->get_sharing_url( $mod );
 
-				$wpsso->notice->set_ref( $sharing_url, $mod, __( 'adding schema for organization', 'wpsso' ) );
+				$wpsso->notice->set_ref( $sharing_url, $mod, __( 'adding schema organization', 'wpsso' ) );
 			}
 
 			/**
@@ -1202,7 +1203,7 @@ if ( ! class_exists( 'WpssoSchemaSingle' ) ) {
 
 				$sharing_url = $wpsso->util->get_sharing_url( $mod );
 
-				$wpsso->notice->set_ref( $sharing_url, $mod, __( 'adding schema for place', 'wpsso' ) );
+				$wpsso->notice->set_ref( $sharing_url, $mod, __( 'adding schema place', 'wpsso' ) );
 			}
 
 			/**

@@ -29,6 +29,8 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 
 		protected $types_cache = null;			// Schema types array cache.
 
+		protected static $unitcodes_cache = null;	// Schema unicodes array cache.
+
 		public function __construct( &$plugin ) {
 
 			$this->p =& $plugin;
@@ -39,7 +41,7 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 
 			$this->p->util->add_plugin_filters( $this, array( 
 				'plugin_image_sizes' => 1,
-			), 5 );
+			), $prio = 5 );
 		}
 
 		public function filter_plugin_image_sizes( $sizes ) {
@@ -322,7 +324,7 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 			}
 
 			$page_type_id  = $mt_og[ 'schema:type:id' ]  = $this->get_mod_schema_type( $mod, $get_schema_id = true );	// Example: article.tech.
-			$page_type_url = $mt_og[ 'schema:type:url' ] = $this->get_schema_type_url( $page_type_id );		// Example: https://schema.org/TechArticle.
+			$page_type_url = $mt_og[ 'schema:type:url' ] = $this->get_schema_type_url( $page_type_id );	// Example: https://schema.org/TechArticle.
 			$graph_context = 'https://schema.org';
 			$graph_type    = 'graph';
 			$json_scripts  = array();
@@ -480,9 +482,10 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 
 			$graph_data = apply_filters( $filter_name, $graph_data, $mod, $mt_og, $page_type_id, $is_main );
 
-			$graph_data = WpssoSchemaGraph::optimize( $graph_data );
+			if ( ! empty( $graph_data[ '@graph' ] ) ) {	// Just in case.
 
-			if ( ! empty( $graph_data ) ) {
+				$graph_data = WpssoSchemaGraph::optimize( $graph_data );
+
 				$json_scripts[][] = '<script type="application/ld+json">' .
 					$this->p->util->json_format( $graph_data ) . '</script>' . "\n";
 			}
@@ -1525,13 +1528,6 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 
 			$type_url = set_url_scheme( $type_url, 'https' );	// Just in case.
 
-			/**
-			 * Check for incorrect values provided by other plugin @context and @type combinations.
-			 */
-			if ( isset( WpssoConfig::$cf[ 'head' ][ 'schema_url_fix' ][ $type_url ] ) ) {
-				$type_url = WpssoConfig::$cf[ 'head' ][ 'schema_url_fix' ][ $type_url ];
-			}
-
 			return $type_url;
 		}
 
@@ -1541,9 +1537,13 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 			$ext_data = array_reverse( $json_data );	// Read the array bottom-up.
 
 			foreach ( $ext_data as $val ) {
+
 				if ( is_array( $val ) ) {		// If it's an extension array, drill down and return that value.
+
 					return self::get_context_extension_url( $val );
+
 				} elseif ( is_string( $val ) ) {	// Set a backup value in case there is no extension array.
+
 					$type_url = $val;
 				}
 			}
@@ -1565,7 +1565,8 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 			}
 
 			$social_accounts = apply_filters( $wpsso->lca . '_social_accounts', $wpsso->cf[ 'form' ][ 'social_accounts' ] );
-			$org_sameas      = array();
+
+			$org_sameas = array();
 
 			foreach ( $social_accounts as $social_key => $social_label ) {
 
@@ -2142,7 +2143,7 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 		 */
 		public static function add_data_quant_from_assoc( array &$json_data, array $assoc, array $names ) {
 
-			return $this->add_data_unitcode_from_assoc( $json_data, $assoc, $names );
+			return self::add_data_unitcode_from_assoc( $json_data, $assoc, $names );
 		}
 
 		/**
@@ -2164,80 +2165,101 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 		 */
 		public static function add_data_unitcode_from_assoc( array &$json_data, array $assoc, array $names ) {
 
-			foreach ( $names as $prop_name => $key_name ) {
+			$wpsso =& Wpsso::get_instance();
 
-				if ( isset( $assoc[ $key_name ] ) && $assoc[ $key_name ] !== '' ) {	// Exclude empty strings.
+			if ( $wpsso->debug->enabled ) {
+				$wpsso->debug->mark();
+			}
 
-					switch ( $prop_name ) {
+			if ( null === self::$unitcodes_cache ) {
+				self::$unitcodes_cache = apply_filters( $wpsso->lca . '_schema_unitcodes', $wpsso->cf[ 'head' ][ 'schema_unitcodes' ] );
+			}
 
-						case 'length':
+			if ( ! is_array( self::$unitcodes_cache ) ) {	// Just in case.
+				return;
+			}
 
-							$json_data[ 'additionalProperty' ][] = array(
-								'@context'   => 'https://schema.org',
-								'@type'      => 'PropertyValue',
-								'propertyID' => 'length',
-								'name'       => 'Length',
-								'value'      => $assoc[ $key_name ],
-								'unitText'   => 'cm',
-								'unitCode'   => 'CMT',
-							);
+			foreach ( $names as $idx => $key_name ) {
 
-							break;
+				/**
+				 * Make sure the property name we need (width, height, weight, etc.) is configured.
+				 */
+				if ( empty( self::$unitcodes_cache[ $idx ] ) || ! is_array( self::$unitcodes_cache[ $idx ] ) ) {
+					continue;
+				}
 
-						case 'size':
+				/**
+				 * Exclude empty string values.
+				 */
+				if ( ! isset( $assoc[ $key_name ] ) || $assoc[ $key_name ] === '' ) {
+					continue;
+				}
 
-							$json_data[ 'additionalProperty' ][] = array(
-								'@context'   => 'https://schema.org',
-								'@type'      => 'PropertyValue',
-								'propertyID' => 'size',
-								'name'       => 'Size',
-								'value'      => $assoc[ $key_name ],
-							);
+				/**
+				 * Example unitcode array:
+				 *
+				 *	self::$unitcodes_cache[ 'depth' ] = array(
+				 *		'depth' => array(
+				 *			'@context' => 'https://schema.org',
+				 *			'@type'    => 'QuantitativeValue',
+				 *			'name'     => 'Depth',
+				 *			'unitText' => 'cm',
+				 *			'unitCode' => 'CMT',
+				 *		),
+				 *	),
+				 */
+				foreach ( self::$unitcodes_cache[ $idx ] as $prop_name => $prop_data ) {
 
-							break;
+					$prop_data[ 'value' ] = $assoc[ $key_name ];
 
-						case 'volume':
-
-							$json_data[ 'additionalProperty' ][] = array(
-								'@context'   => 'https://schema.org',
-								'@type'      => 'PropertyValue',
-								'propertyID' => 'volume',
-								'name'       => 'Volume',
-								'value'      => $assoc[ $key_name ],
-								'unitText'   => 'ml',
-								'unitCode'   => 'MLT',
-							);
-
-							break;
-
-						case 'weight':
-
-							$json_data[ $prop_name ] = array(
-								'@context' => 'https://schema.org',
-								'@type'    => 'QuantitativeValue',
-								'value'    => $assoc[ $key_name ],
-								'unitText' => 'kg',
-								'unitCode' => 'KGM',
-							);
-
-							break;
-
-						case 'depth':
-						case 'height':
-						case 'width':
-
-							$json_data[ $prop_name ] = array(
-								'@context' => 'https://schema.org',
-								'@type'    => 'QuantitativeValue',
-								'value'    => $assoc[ $key_name ],
-								'unitText' => 'cm',
-								'unitCode' => 'CMT',
-							);
-
-							break;
-					}
+					$json_data[ $prop_name ][] = $prop_data;
 				}
 			}
+		}
+
+		public static function get_data_unitcode_text( $idx ) {
+
+			$wpsso =& Wpsso::get_instance();
+
+			if ( $wpsso->debug->enabled ) {
+				$wpsso->debug->mark();
+			}
+
+			static $local_cache = array();
+
+			if ( isset( $local_cache[ $idx ] ) ) {
+				return $local_cache[ $idx ];
+			}
+
+			if ( null === self::$unitcodes_cache ) {
+				self::$unitcodes_cache = apply_filters( $wpsso->lca . '_schema_unitcodes', $wpsso->cf[ 'head' ][ 'schema_unitcodes' ] );
+			}
+
+			if ( empty( self::$unitcodes_cache[ $idx ] ) || ! is_array( self::$unitcodes_cache[ $idx ] ) ) {
+				return $local_cache[ $idx ] = '';
+			}
+
+			/**
+			 * Example unitcode array:
+			 *
+			 *	self::$unitcodes_cache[ 'depth' ] = array(
+			 *		'depth' => array(
+			 *			'@context' => 'https://schema.org',
+			 *			'@type'    => 'QuantitativeValue',
+			 *			'name'     => 'Depth',
+			 *			'unitText' => 'cm',
+			 *			'unitCode' => 'CMT',
+			 *		),
+			 *	),
+			 */
+			foreach ( self::$unitcodes_cache[ $idx ] as $prop_name => $prop_data ) {
+
+				if ( isset( $prop_data[ 'unitText' ] ) ) {	// Return the first match.
+					return $local_cache[ $idx ] = $prop_data[ 'unitText' ];
+				}
+			}
+
+			return $local_cache[ $idx ] = '';
 		}
 
 		/**
@@ -2315,11 +2337,6 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 		 *		'description'     => 'product:description',
 		 *		'category'        => 'product:category',
 		 *		'mpn'             => 'product:mfr_part_no',
-		 *		'sku'             => 'product:sku',	// Non-standard / internal meta tag.
-		 *		'gtin8'           => 'product:gtin8',
-		 *		'gtin12'          => 'product:gtin12',
-		 *		'gtin13'          => 'product:gtin13',
-		 *		'gtin14'          => 'product:gtin14',
 		 *		'itemCondition'   => 'product:condition',
 		 *		'availability'    => 'product:availability',
 		 *		'price'           => 'product:price:amount',

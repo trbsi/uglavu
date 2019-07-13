@@ -1839,7 +1839,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 					$this->p->debug->log( 'using the html submitted as the request argument' );
 				}
 
-				$html    = $request;
+				$html = $request;
 				$request = false;	// Just in case.
 
 			} elseif ( filter_var( $request, FILTER_VALIDATE_URL ) === false ) {	// Request is an invalid url.
@@ -1881,9 +1881,20 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 				return false;
 
-			} elseif ( ! class_exists( 'DOMDocument' ) ) {
+			}
+		
+			/**
+			 * Now that we have HTML to parse, make sure we have the required PHP classes and functions.
+			 */
+			if ( ! class_exists( 'DOMDocument' ) ) {
 
-				$this->missing_php_class_error( 'DOMDocument' );
+				$this->php_class_missing( 'DOMDocument' );
+
+				return false;
+
+			} elseif ( ! function_exists( 'mb_convert_encoding' ) ) {
+
+				$this->php_function_missing( 'mb_convert_encoding()' );
 
 				return false;
 			}
@@ -1896,11 +1907,17 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 			if ( $libxml_errors ) {
 
-				if ( function_exists( 'libxml_use_internal_errors' ) ) {		// Since PHP v5.1.
+				if ( ! function_exists( 'libxml_use_internal_errors' ) ) {	// Since PHP v5.1.
+
+					$this->php_function_missing( 'libxml_use_internal_errors()' );
+
+					@$doc->loadHTML( $html );	// Load HTML and ignore errors.
+
+				} else {
 
 					$libxml_prev_state = libxml_use_internal_errors( true );	// Enable user error handling.
 
-					if ( ! $doc->loadHTML( $html ) ) {				// loadXML() is too strict for most webpages.
+					if ( ! $doc->loadHTML( $html ) ) {	// loadXML() is too strict for most webpages.
 
 						$has_errors = true;
 
@@ -1929,37 +1946,17 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 							}
 						}
 
-						libxml_clear_errors();				// Clear any HTML parsing errors.
+						libxml_clear_errors();	// Clear any HTML parsing errors.
 
 					} elseif ( $this->p->debug->enabled ) {
 						$this->p->debug->log( 'loadHTML was successful' );
 					}
 
 					libxml_use_internal_errors( $libxml_prev_state );	// Restore previous error handling.
-
-				} else {
-
-					if ( $this->p->debug->enabled ) {
-						$this->p->debug->log( 'libxml_use_internal_errors() function is missing' );
-					}
-
-					if ( is_admin() ) {
-
-						$func_name = 'simplexml_load_string()';
-						$func_url  = __( 'https://secure.php.net/manual/en/function.simplexml-load-string.php', 'wpsso' );
-
-						$error_msg = sprintf( __( 'The <a href="%1$s">PHP %2$s function</a> is not available.', 'wpsso' ),
-							$func_url, '<code>' . $func_name . '</code>' ) . ' ';
-
-						$error_msg .= __( 'Please contact your hosting provider to have the missing PHP function installed.', 'wpsso' );
-
-						$this->p->notice->err( $error_msg );
-					}
-
-					@$doc->loadHTML( $html );
 				}
+
 			} else {
-				@$doc->loadHTML( $html );
+				@$doc->loadHTML( $html );	// Load HTML and ignore errors.
 			}
 
 			$xpath = new DOMXPath( $doc );
@@ -2063,15 +2060,29 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 			return $html;
 		}
 
-		public function missing_php_class_error( $classname ) {
+		public function php_class_missing( $class ) {
 
 			if ( $this->p->debug->enabled ) {
-				$this->p->debug->log( $classname . ' PHP class is missing' );
+				$this->p->debug->log( $class . ' PHP class is missing' );
 			}
 
 			if ( is_admin() ) {
-				$this->p->notice->err( sprintf( __( 'The %1$s PHP class is missing - please contact your hosting provider to install the missing %1$s PHP class.',
-					'wpsso' ), $classname ) );
+
+				// translators: %1$s is the class name.
+				$this->p->notice->err( sprintf( __( 'The PHP <code>%1$s</code> class is missing &ndash; contact your hosting provider to have the missing class installed.', 'wpsso' ), $class ) );
+			}
+		}
+
+		public function php_function_missing( $function ) {
+
+			if ( $this->p->debug->enabled ) {
+				$this->p->debug->log( $function . ' PHP function is missing' );
+			}
+
+			if ( is_admin() ) {
+
+				// translators: %1$s is the function name.
+				$this->p->notice->err( sprintf( __( 'The PHP <code>%1$s</code> function is missing &ndash; contact your hosting provider to have the missing function installed.', 'wpsso' ), $function ) );
 			}
 		}
 
@@ -2635,8 +2646,11 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 				if ( $mod[ 'is_home' ] ) {
 
 					if ( get_option( 'show_on_front' ) === 'page' ) {	// Show_on_front = posts | page.
+
 						$url = $this->check_url_string( get_permalink( get_option( 'page_for_posts' ) ), 'page for posts' );
+
 					} else {
+
 						$url = apply_filters( $this->p->lca . '_home_url', home_url( '/' ), $mod, $add_page, $src_id );
 
 						if ( $this->p->debug->enabled ) {
@@ -3741,7 +3755,8 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 		 * Check that all add-ons are no longer using this method before removing it.
 		 */
 		public function get_ext_req_msg( $mixed ) {
-			return $this->p->admin->get_ext_required_msg( $mixed );
+
+			return $this->p->msgs->maybe_ext_required( $mixed );
 		}
 
 		public function get_robots_content( array $mod ) {
@@ -3821,6 +3836,56 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 				return $ret;
 			}
+		}
+
+		public function maybe_set_ref( $sharing_url = null, $mod = false, $msg_transl = '' ) {
+
+			static $is_admin = null;
+
+			if ( null === $is_admin ) {
+				$is_admin = is_admin();
+			}
+
+			if ( ! $is_admin ) {
+				return false;
+			}
+
+			if ( empty( $sharing_url ) ) {
+				$sharing_url = $this->get_sharing_url( $mod );
+			}
+
+			if ( empty( $msg_transl ) ) {
+				return $this->p->notice->set_ref( $sharing_url, $mod );
+			}
+			
+			if ( empty( $mod[ 'id' ] ) ) {
+				return $this->p->notice->set_ref( $sharing_url, $mod, $msg_transl );
+			}
+
+			if ( empty( $mod[ 'post_type' ] ) ) {
+				$name = $mod[ 'name' ];
+			} else {
+				$name = $mod[ 'post_type' ];
+			}
+
+			// translators: %1$s is an action message, %2$s is the module or post type name, and %3$s is the object ID.
+			return $this->p->notice->set_ref( $sharing_url, $mod, sprintf( __( '%1$s for %2$s ID %3$s', 'wpsso' ),
+				$msg_transl, $name, $mod[ 'id' ] ) );
+		}
+
+		public function maybe_unset_ref( $sharing_url ) {
+
+			static $is_admin = null;
+
+			if ( null === $is_admin ) {
+				$is_admin = is_admin();
+			}
+
+			if ( ! $is_admin ) {
+				return false;
+			}
+
+			return $this->p->notice->unset_ref( $sharing_url );
 		}
 	}
 }

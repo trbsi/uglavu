@@ -21,8 +21,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			),
 			'plugin' => array(
 				'wpsso' => array(			// Plugin acronym.
-					'version'     => '5.1.0',	// Plugin version.
-					'opt_version' => '647',		// Increment when changing default option values.
+					'version'     => '5.2.0',	// Plugin version.
+					'opt_version' => '650',		// Increment when changing default option values.
 					'short'       => 'WPSSO Core',	// Short plugin name.
 					'name'        => 'WPSSO Core [Main Plugin]',
 					'desc'        => 'WPSSO Core makes sure your content looks great on all social and search sites - no matter how URLs are crawled, shared, re-shared, posted, or embedded!',
@@ -132,10 +132,11 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 								'buddypress' => '(plugin) BuddyPress',
 							),
 							'util' => array(
-								'checkimgdims' => '(feature) Verify Image Dimensions',
-								'coauthors'    => '(plugin) Co-Authors Plus',
-								'shorten'      => '(api) URL Shortening APIs',
-								'wpseo_meta'   => '(feature) Yoast SEO Social Meta',
+								'checkimgdims'  => '(feature) Verify Image Dimensions',
+								'custom_fields' => '(feature) Read Custom Fields by Name',
+								'coauthors'     => '(plugin) Co-Authors Plus',
+								'shorten'       => '(api) URL Shortening APIs',
+								'wpseo_meta'    => '(feature) Yoast SEO Social Meta',
 							),
 						),
 						'profile' => array(
@@ -1160,18 +1161,18 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_product_attr_brand'         => 'Brand',			// Product Brand Attribute Name.
 					'plugin_product_attr_color'         => 'Color',			// Product Color Attribute Name.
 					'plugin_product_attr_condition'     => 'Condition',		// Product Condition Attribute Name.
-					'plugin_product_attr_ean'           => 'EAN',			// Product EAN Attribute Name.
-					'plugin_product_attr_gtin8'         => 'GTIN-8',		// Product GTIN-8 Attribute Name.
-					'plugin_product_attr_gtin12'        => 'GTIN-12',		// Product GTIN-12 Attribute Name.
-					'plugin_product_attr_gtin13'        => 'GTIN-13',		// Product GTIN-13 Attribute Name.
 					'plugin_product_attr_gtin14'        => 'GTIN-14',		// Product GTIN-14 Attribute Name.
+					'plugin_product_attr_gtin13'        => 'GTIN-13',		// Product GTIN-13 Attribute Name.
+					'plugin_product_attr_gtin12'        => 'GTIN-12',		// Product GTIN-12 Attribute Name.
+					'plugin_product_attr_gtin8'         => 'GTIN-8',		// Product GTIN-8 Attribute Name.
+					'plugin_product_attr_gtin'          => '',			// Product GTIN Attribute Name.
 					'plugin_product_attr_isbn'          => 'ISBN',			// Product ISBN Attribute Name.
 					'plugin_product_attr_material'      => 'Material',		// Product Material Attribute Name.
 					'plugin_product_attr_mpn'           => 'MPN',			// Product MPN Attribute Name.
 					'plugin_product_attr_size'          => 'Size',			// Product Size Attribute Name.
 					'plugin_product_attr_target_gender' => 'Gender',		// Product Target Gender Attr. Name.
-					'plugin_product_attr_volume_value'  => 'Volume',		// Product Volume (ml) Attribute Name.
-					
+					'plugin_product_attr_volume_value'  => 'Volume',		// Product Volume Attribute Name.
+
 					/**
 					 * Advanced settings - Custom Meta tab.
 					 */
@@ -1195,19 +1196,24 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_cf_product_color'         => '',			// Product Color Custom Field.
 					'plugin_cf_product_condition'     => '',			// Product Condition Custom Field.
 					'plugin_cf_product_currency'      => '',			// Product Currency Custom Field.
-					'plugin_cf_product_ean'           => '',			// Product EAN Custom Field.
-					'plugin_cf_product_gtin8'         => '',			// Product GTIN-8 Custom Field.
-					'plugin_cf_product_gtin12'        => '',			// Product GTIN-12 Custom Field.
-					'plugin_cf_product_gtin13'        => '',			// Product GTIN-13 Custom Field.
+					'plugin_cf_product_depth_value'   => '',			// Product Depth Custom Field.
 					'plugin_cf_product_gtin14'        => '',			// Product GTIN-14 Custom Field.
+					'plugin_cf_product_gtin13'        => '',			// Product GTIN-13 Custom Field.
+					'plugin_cf_product_gtin12'        => '',			// Product GTIN-12 Custom Field.
+					'plugin_cf_product_gtin8'         => '',			// Product GTIN-8 Custom Field.
+					'plugin_cf_product_gtin'          => 'hwp_product_gtin',	// Product GTIN Custom Field.
+					'plugin_cf_product_height_value'  => '',			// Product Height Custom Field.
 					'plugin_cf_product_isbn'          => '',			// Product ISBN Custom Field.
+					'plugin_cf_product_length_value'  => '',			// Product Length Custom Field.
 					'plugin_cf_product_material'      => '',			// Product Material Custom Field.
 					'plugin_cf_product_mpn'           => '',			// Product MPN Custom Field.
 					'plugin_cf_product_price'         => '',			// Product Price Custom Field.
 					'plugin_cf_product_size'          => '',			// Product Size Custom Field.
 					'plugin_cf_product_sku'           => '',			// Product SKU Custom Field.
 					'plugin_cf_product_target_gender' => '',			// Product Target Gender Custom Field.
-					'plugin_cf_product_volume_value'  => '',			// Product Volume (ml) Custom Field.
+					'plugin_cf_product_volume_value'  => '',			// Product Volume Custom Field.
+					'plugin_cf_product_weight_value'  => '',			// Product Weight Custom Field.
+					'plugin_cf_product_width_value'   => '',			// Product Width Custom Field.
 					'plugin_cf_recipe_ingredients'    => '',			// Recipe Ingredients Custom Field.
 					'plugin_cf_recipe_instructions'   => '',			// Recipe Instructions Custom Field.
 					'plugin_cf_sameas_urls'           => '',			// Same-As URLs Custom Field.
@@ -1432,19 +1438,24 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_cf_product_color'         => 'product_color',
 					'plugin_cf_product_condition'     => 'product_condition',
 					'plugin_cf_product_currency'      => 'product_currency',
-					'plugin_cf_product_ean'           => 'product_ean',
+					'plugin_cf_product_depth_value'   => 'product_depth_value',	// Product Depth Custom Field.
+					'plugin_cf_product_gtin'          => 'product_gtin',
 					'plugin_cf_product_gtin8'         => 'product_gtin8',
 					'plugin_cf_product_gtin12'        => 'product_gtin12',
 					'plugin_cf_product_gtin13'        => 'product_gtin13',
 					'plugin_cf_product_gtin14'        => 'product_gtin14',
+					'plugin_cf_product_height_value'  => 'product_height_value',	// Product Height Custom Field.
 					'plugin_cf_product_isbn'          => 'product_isbn',
+					'plugin_cf_product_length_value'  => 'product_length_value',	// Product Length Custom Field.
 					'plugin_cf_product_material'      => 'product_material',
 					'plugin_cf_product_mpn'           => 'product_mpn',
 					'plugin_cf_product_price'         => 'product_price',
 					'plugin_cf_product_size'          => 'product_size',
 					'plugin_cf_product_sku'           => 'product_sku',
 					'plugin_cf_product_target_gender' => 'product_target_gender',
-					'plugin_cf_product_volume_value'  => 'product_volume_value',
+					'plugin_cf_product_volume_value'  => 'product_volume_value',	// Product Volume Custom Field.
+					'plugin_cf_product_weight_value'  => 'product_weight_value',	// Product Weight Custom Field.
+					'plugin_cf_product_width_value'   => 'product_width_value',	// Product Width Custom Field.
 					'plugin_cf_recipe_ingredients'    => 'schema_recipe_ingredient',
 					'plugin_cf_recipe_instructions'   => 'schema_recipe_instruction',
 					'plugin_cf_sameas_urls'           => 'schema_sameas_url',
@@ -1924,19 +1935,24 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_cf_product_color'         => 'Product Color Custom Field',
 					'plugin_cf_product_condition'     => 'Product Condition Custom Field',
 					'plugin_cf_product_currency'      => 'Product Currency Custom Field',
-					'plugin_cf_product_ean'           => 'Product EAN Custom Field',
-					'plugin_cf_product_gtin8'         => 'Product GTIN-8 Custom Field',
-					'plugin_cf_product_gtin12'        => 'Product GTIN-12 Custom Field',
-					'plugin_cf_product_gtin13'        => 'Product GTIN-13 Custom Field',
+					'plugin_cf_product_depth_value'   => 'Product Depth Custom Field',
 					'plugin_cf_product_gtin14'        => 'Product GTIN-14 Custom Field',
+					'plugin_cf_product_gtin13'        => 'Product GTIN-13 Custom Field',	// aka Product EAN
+					'plugin_cf_product_gtin12'        => 'Product GTIN-12 Custom Field',	// aka Product UPC
+					'plugin_cf_product_gtin8'         => 'Product GTIN-8 Custom Field',
+					'plugin_cf_product_gtin'          => 'Product GTIN Custom Field',
+					'plugin_cf_product_height_value'  => 'Product Height Custom Field',
 					'plugin_cf_product_isbn'          => 'Product ISBN Custom Field',
+					'plugin_cf_product_length_value'  => 'Product Length Custom Field',
 					'plugin_cf_product_material'      => 'Product Material Custom Field',
 					'plugin_cf_product_mpn'           => 'Product MPN Custom Field',
 					'plugin_cf_product_price'         => 'Product Price Custom Field',
 					'plugin_cf_product_size'          => 'Product Size Custom Field',
 					'plugin_cf_product_sku'           => 'Product SKU Custom Field',
 					'plugin_cf_product_target_gender' => 'Product Target Gender Custom Field',
-					'plugin_cf_product_volume_value'  => 'Product Volume (ml) Custom Field',
+					'plugin_cf_product_volume_value'  => 'Product Volume Custom Field',
+					'plugin_cf_product_weight_value'  => 'Product Weight Custom Field',
+					'plugin_cf_product_width_value'   => 'Product Width Custom Field',
 					'plugin_cf_recipe_ingredients'    => 'Recipe Ingredients Custom Field',
 					'plugin_cf_recipe_instructions'   => 'Recipe Instructions Custom Field',
 					'plugin_cf_sameas_urls'           => 'Same-As URLs Custom Field',
@@ -1948,16 +1964,16 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_product_attr_color'         => 'Product Color Attribute Name',
 					'plugin_product_attr_condition'     => 'Product Condition Attribute Name',
 					'plugin_product_attr_mpn'           => 'Product MPN Attribute Name',
-					'plugin_product_attr_ean'           => 'Product EAN Attribute Name',
-					'plugin_product_attr_gtin8'         => 'Product GTIN-8 Attribute Name',
-					'plugin_product_attr_gtin12'        => 'Product GTIN-12 Attribute Name',
-					'plugin_product_attr_gtin13'        => 'Product GTIN-13 Attribute Name',
 					'plugin_product_attr_gtin14'        => 'Product GTIN-14 Attribute Name',
+					'plugin_product_attr_gtin13'        => 'Product GTIN-13 Attribute Name',	// aka Product EAN
+					'plugin_product_attr_gtin12'        => 'Product GTIN-12 Attribute Name',	// aka Product UPC
+					'plugin_product_attr_gtin8'         => 'Product GTIN-8 Attribute Name',
+					'plugin_product_attr_gtin'          => 'Product GTIN Attribute Name',
 					'plugin_product_attr_isbn'          => 'Product ISBN Attribute Name',
 					'plugin_product_attr_material'      => 'Product Material Attribute Name',
 					'plugin_product_attr_size'          => 'Product Size Attribute Name',
 					'plugin_product_attr_target_gender' => 'Product Target Gender Attr. Name',
-					'plugin_product_attr_volume_value'  => 'Product Volume (ml) Attribute Name',
+					'plugin_product_attr_volume_value'  => 'Product Volume Attribute Name',
 				),
 				
 				/**
@@ -2161,14 +2177,21 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'product:category'                => '',
 						'product:color'                   => 'product_color',
 						'product:condition'               => 'product_condition',
-						'product:ean'                     => 'product_ean',
+						'product:depth:value'             => 'product_depth_value',	// Non-standard / internal meta tag.
+						'product:depth:units'             => '',			// Non-standard / internal meta tag.
+						'product:ean'                     => 'product_gtin13',
 						'product:expiration_time'         => '',
+						'product:gtin'                    => 'product_gtin',		// Non-standard / internal meta tag.
 						'product:gtin8'                   => 'product_gtin8',		// Non-standard / internal meta tag.
 						'product:gtin12'                  => 'product_gtin12',		// Non-standard / internal meta tag.
 						'product:gtin13'                  => 'product_gtin13',		// Non-standard / internal meta tag.
 						'product:gtin14'                  => 'product_gtin14',		// Non-standard / internal meta tag.
+						'product:height:value'            => 'product_height_value',	// Non-standard / internal meta tag.
+						'product:height:units'            => '',			// Non-standard / internal meta tag.
 						'product:is_product_shareable'    => '',
 						'product:isbn'                    => 'product_isbn',
+						'product:length:value'            => 'product_length_value',	// Non-standard / internal meta tag.
+						'product:length:units'            => '',			// Non-standard / internal meta tag.
 						'product:material'                => 'product_material',
 						'product:mfr_part_no'             => 'product_mpn',
 						'product:original_price:amount'   => '',			// Used by WooCommerce module.
@@ -2197,11 +2220,13 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'product:size'                    => 'product_size',
 						'product:sku'                     => 'product_sku',		// Non-standard / internal meta tag.
 						'product:target_gender'           => 'product_target_gender',
-						'product:upc'                     => '',
+						'product:upc'                     => 'product_gtin12',
 						'product:volume:value'            => 'product_volume_value',	// Non-standard / internal meta tag.
 						'product:volume:units'            => '',			// Non-standard / internal meta tag.
-						'product:weight:value'            => '',
+						'product:weight:value'            => 'product_weight_value',
 						'product:weight:units'            => '',
+						'product:width:value'             => 'product_width_value',	// Non-standard / internal meta tag.
+						'product:width:units'             => '',			// Non-standard / internal meta tag.
 					),
 					'profile' => array(
 						'profile:first_name' => '',
@@ -2897,9 +2922,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'thing' => 'https://schema.org/Thing',
 					),
 				),
-				'schema_url_fix' => array(	// Element of 'head' array.
-					//'https://schema.org/FAQPage' => 'https://pending.schema.org/FAQPage',
-				),
 				'schema_renamed' => array(	// Element of 'head' array.
 					'anesthesia'           => 'anesthesia.specialty',
 					'cardiovascular'       => 'cardiovascular.specialty',
@@ -2951,6 +2973,72 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'train.trip'           => 'trip.train',
 					'urologic'             => 'urologic.specialty',
 				),
+				'schema_unitcodes' => array(	// Element of 'head' array.
+					'depth' => array(	// Unitcode index value.
+						'depth' => array(	// Schema property name.
+							'@context' => 'https://schema.org',
+							'@type'    => 'QuantitativeValue',
+							'name'     => 'Depth',
+							'unitText' => 'cm',
+							'unitCode' => 'CMT',
+						),
+					),
+					'height' => array(	// Unitcode index value.
+						'height' => array(	// Schema property name.
+							'@context' => 'https://schema.org',
+							'@type'    => 'QuantitativeValue',
+							'name'     => 'Height',
+							'unitText' => 'cm',
+							'unitCode' => 'CMT',
+						),
+					),
+					'length' => array(	// Unitcode index value.
+						'additionalProperty' => array(	// Schema property name.
+							'@context'   => 'https://schema.org',
+							'@type'      => 'PropertyValue',
+							'propertyID' => 'length',
+							'name'       => 'Length',
+							'unitText'   => 'cm',
+							'unitCode'   => 'CMT',
+						),
+					),
+					'size' => array(	// Unitcode index value.
+						'additionalProperty' => array(	// Schema property name.
+							'@context'   => 'https://schema.org',
+							'@type'      => 'PropertyValue',
+							'propertyID' => 'size',
+							'name'       => 'Size',
+						),
+					),
+					'volume' => array(	// Unitcode index value.
+						'additionalProperty' => array(	// Schema property name.
+							'@context'   => 'https://schema.org',
+							'@type'      => 'PropertyValue',
+							'propertyID' => 'volume',
+							'name'       => 'Volume',
+							'unitText'   => 'ml',
+							'unitCode'   => 'MLT',
+						),
+					),
+					'weight' => array(	// Unitcode index value.
+						'weight' => array(	// Schema property name.
+							'@context' => 'https://schema.org',
+							'@type'    => 'QuantitativeValue',
+							'name'     => 'Weight',
+							'unitText' => 'kg',
+							'unitCode' => 'KGM',
+						),
+					),
+					'width' => array(	// Unitcode index value.
+						'width' => array(	// Schema property name.
+							'@context' => 'https://schema.org',
+							'@type'    => 'QuantitativeValue',
+							'name'     => 'Width',
+							'unitText' => 'cm',
+							'unitCode' => 'CMT',
+						),
+					),
+				),
 			),
 			'extend' => array(
 				'https://wpsso.com/extend/plugins/',
@@ -2966,7 +3054,20 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 		}
 
 		/**
-		 * get_config() is called very early, so don't apply filters unless instructed.
+		 * WpccoConfig::get_config() is called very early, so don't
+		 * apply filters by default.
+		 *
+		 * WpccoConfig::get_config() is called with $apply_filters =
+		 * true at WordPress 'init' priority -10, after
+		 * WpssoConfig::set_constants() and WpssoConfig::require_libs()
+		 * have been called, but before any plugin / add-on class
+		 * objects have been defined.
+		 *
+		 * The following hook is standard in the main plugin class of
+		 * every add-on to merge their config with WpssoConfig::$cf.
+		 *
+		 * 	add_filter( 'wpsso_get_config',
+		 		array( $this, 'wpsso_get_config' ), 10, 2 );
 		 */
 		public static function get_config( $cf_key = false, $apply_filters = false ) {
 
@@ -2985,10 +3086,16 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 
 				if ( $apply_filters ) {
 
-					self::$cf[ 'config_filtered' ] = true;	// set before calling filter to prevent recursion
+					self::$cf[ 'config_filtered' ] = true;	// Set before calling filter to prevent recursion.
 
+					/**
+					 * Apply filters to have add-ons include their config.
+					 */
 					self::$cf = apply_filters( 'wpsso_get_config', self::$cf, self::get_version() );
 
+					/**
+					 * Parse the complete config and define some reference values.
+					 */
 					foreach ( self::$cf[ 'plugin' ] as $ext => $info ) {
 
 						if ( defined( strtoupper( $ext ) . '_PLUGINDIR' ) ) {

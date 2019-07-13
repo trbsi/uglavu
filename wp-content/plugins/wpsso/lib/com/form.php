@@ -32,13 +32,14 @@ if ( ! class_exists( 'SucomForm' ) ) {
 				$this->p->debug->log( 'form options name is ' . $opts_name );
 			}
 
-			$this->lca        = $this->p->lca;
-			$this->opts_name  =& $opts_name;
-			$this->options    =& $opts;
-			$this->defaults   =& $def_opts;
-			$this->menu_ext   = empty( $menu_ext ) ? $this->lca : $menu_ext;	// Lca or ext lowercase acronym.
+			$this->lca       = $this->p->lca;
+			$this->opts_name =& $opts_name;
+			$this->options   =& $opts;
+			$this->defaults  =& $def_opts;
+			$this->menu_ext  = empty( $menu_ext ) ? $this->lca : $menu_ext;	// Lca or ext lowercase acronym.
 
 			$this->set_text_domain( $this->menu_ext );
+
 			$this->set_default_text_domain( $this->lca );
 		}
 
@@ -779,11 +780,15 @@ if ( ! class_exists( 'SucomForm' ) ) {
 			$value       = $this->in_options( $name ) ? $this->options[ $name ] : '';
 			$placeholder = $this->get_placeholder_sanitized( $name, $placeholder );
 
-			if ( ! is_array( $len ) ) {
-				$len = array( 'max' => $len );
+			if ( ! is_array( $len ) ) {	// A non-array value defaults to a max length.
+				if ( empty( $len ) ) {
+					$len = array();
+				} else {
+					$len = array( 'max' => $len );
+				}
 			}
 
-			if ( ! empty( $len[ 'max' ] ) ) {
+			if ( ! empty( $len ) ) {
 
 				if ( empty( $css_id ) ) {
 					$css_id = $name;
@@ -798,6 +803,7 @@ if ( ! class_exists( 'SucomForm' ) ) {
 				( empty( $tabindex ) ? '' : ' tabindex="' . esc_attr( $tabindex ) . '"' ) .
 				( empty( $len[ 'max' ] ) ? '' : ' maxLength="' . esc_attr( $len[ 'max' ] ) . '"' ) .
 				( empty( $len[ 'warn' ] ) ? '' : ' warnLength="' . esc_attr( $len[ 'warn' ] ) . '"' ) .
+				( empty( $len[ 'min' ] ) ? '' : ' minLength="' . esc_attr( $len[ 'min' ] ) . '"' ) .
 				( $this->get_placeholder_events( 'input', $placeholder ) ) . ' value="' . esc_attr( $value ) . '" />' . "\n" .
 				( empty( $len[ 'max' ] ) ? '' : ' <div id="text_' . esc_attr( $css_id ) . '-lenMsg"></div>' ) . "\n";
 
@@ -1651,16 +1657,28 @@ if ( ! class_exists( 'SucomForm' ) ) {
 
 			foreach ( $form_rows as $key => $val ) {
 
+				if ( ! isset( $table_rows[ $key ] ) ) {
+					$table_rows[ $key ] = '';
+				}
+
+				/**
+				 * Placeholder.
+				 */
 				if ( empty( $val ) ) {
-
-					$table_rows[ $key ] = '';	// Placeholder.
-
 					continue;
 				}
 
-				if ( ! empty( $val[ 'table_row' ] ) ) {
+				/**
+				 * Table cell HTML.
+				 */
+				if ( isset( $val[ 'table_row' ] ) ) {
 
-					$table_rows[ $key ] = $val[ 'table_row' ];
+					if ( ! empty( $val[ 'table_row' ] ) ) {
+
+						$table_rows[ $key ] = empty( $val[ 'tr_class' ] ) ? '' : '<tr class="' . $val[ 'tr_class' ] . '">' . "\n";
+
+						$table_rows[ $key ] .= $val[ 'table_row' ] . "\n";
+					}
 
 					continue;
 				}
@@ -1703,9 +1721,10 @@ if ( ! class_exists( 'SucomForm' ) ) {
 
 					$table_rows[ $key ] .= $this->get_th_html( $val[ 'label' ], 
 						( empty( $val[ 'th_class' ] ) ? '' : $val[ 'th_class' ] ),
-						( empty( $val[ 'tooltip' ] ) ? '' : $val[ 'tooltip' ] ) ) . "\n";
+						( empty( $val[ 'tooltip' ] ) ? '' : $val[ 'tooltip' ] )
+					) . "\n";
 
-					$table_rows[ $key ] .= '<td'.( empty( $val[ 'td_class' ] ) ? '' : ' class="' . $val[ 'td_class' ] . '"' ) . '>';
+					$table_rows[ $key ] .= '<td' . ( empty( $val[ 'td_class' ] ) ? '' : ' class="' . $val[ 'td_class' ] . '"' ) . '>';
 
 					$table_rows[ $key ] .= $is_auto_draft ? '<em>' . $auto_draft_msg . '</em>' : 
 						( empty( $val[ 'content' ] ) ? '' : $val[ 'content' ] );

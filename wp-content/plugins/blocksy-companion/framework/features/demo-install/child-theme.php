@@ -102,7 +102,7 @@ add_action( 'wp_enqueue_scripts', function () {
 
 		global $wp_filesystem;
 
-		if ($wp_filesystem->exists($this->base_path . '/screenshot.png')) {
+		if ($wp_filesystem->exists($base_path . '/screenshot.png')) {
 			$screenshot = $base_path . '/screenshot.png';
 			$screenshot_ext = 'png';
 		} elseif ( $wp_filesystem->exists( $base_path . '/screenshot.jpg' ) ) {

@@ -24,6 +24,9 @@ This plugin runs and adds its enhacements only if the Blocksy theme is installed
 
 == Changelog ==
 
+1.1.3: 2019-07-10
+* Fix: Demo install process avoid notices
+
 1.1.2: 2019-07-05
 * Improvement: Add RSS social network to About me
 * Fix: About me widget socials

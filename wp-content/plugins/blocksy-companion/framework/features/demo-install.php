@@ -63,7 +63,7 @@ class DemoInstall {
 		$args = wp_parse_args(
 			$args,
 			[
-				'demo' => $demo,
+				'demo' => $args['demo'],
 				'builder' => '',
 				'field' => ''
 			]
@@ -75,7 +75,7 @@ class DemoInstall {
 			'field' => $args['field']
 		]));
 
-		if ( is_wp_error( $request ) ) {
+		if (is_wp_error($request)) {
 			return false;
 		}
 

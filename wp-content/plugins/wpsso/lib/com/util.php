@@ -2034,19 +2034,20 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 				$mt_pre . ':color'                           => '',
 				$mt_pre . ':condition'                       => '',
 				$mt_pre . ':depth:value'                     => '',	// Non-standard / internal meta tag.
-				$mt_pre . ':depth:units'                     => '',	// Non-standard / internal meta tag.
-				$mt_pre . ':ean'                             => '',
+				$mt_pre . ':depth:units'                     => '',	// Non-standard / internal meta tag (units after value).
+				$mt_pre . ':ean'                             => '',	// aka EAN, EAN-13, GTIN-13.
 				$mt_pre . ':expiration_time'                 => '',
+				$mt_pre . ':gtin'                            => '',	// Non-standard / internal meta tag.
 				$mt_pre . ':gtin8'                           => '',	// Non-standard / internal meta tag.
 				$mt_pre . ':gtin12'                          => '',	// Non-standard / internal meta tag.
 				$mt_pre . ':gtin13'                          => '',	// Non-standard / internal meta tag.
 				$mt_pre . ':gtin14'                          => '',	// Non-standard / internal meta tag.
 				$mt_pre . ':height:value'                    => '',	// Non-standard / internal meta tag.
-				$mt_pre . ':height:units'                    => '',	// Non-standard / internal meta tag.
+				$mt_pre . ':height:units'                    => '',	// Non-standard / internal meta tag (units after value).
 				$mt_pre . ':is_product_shareable'            => '',
 				$mt_pre . ':isbn'                            => '',
 				$mt_pre . ':length:value'                    => '',	// Non-standard / internal meta tag.
-				$mt_pre . ':length:units'                    => '',	// Non-standard / internal meta tag.
+				$mt_pre . ':length:units'                    => '',	// Non-standard / internal meta tag (units after value).
 				$mt_pre . ':material'                        => '',
 				$mt_pre . ':mfr_part_no'                     => '',
 				$mt_pre . ':original_price:amount'           => '',
@@ -2066,7 +2067,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 				$mt_pre . ':quantity:unit_text'              => '',	// Non-standard / internal meta tag.
 				$mt_pre . ':retailer'                        => '',
 				$mt_pre . ':retailer_category'               => '',
-				$mt_pre . ':retailer_item_id'                => '',	// https://developers.facebook.com/docs/reference/opengraph/object-type/product.item/.
+				$mt_pre . ':retailer_item_id'                => '',
 				$mt_pre . ':retailer_part_no'                => '',
 				$mt_pre . ':retailer_title'                  => '',
 				$mt_pre . ':rating:average'                  => '',	// Non-standard / internal meta tag.
@@ -2093,13 +2094,13 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 				$mt_pre . ':size'                            => '',
 				$mt_pre . ':sku'                             => '',	// Non-standard / internal meta tag.
 				$mt_pre . ':target_gender'                   => '',
-				$mt_pre . ':upc'                             => '',
+				$mt_pre . ':upc'                             => '',	// aka UPC, UPC-A, UPC, GTIN-12.
 				$mt_pre . ':volume:value'                    => '',	// Non-standard / internal meta tag.
-				$mt_pre . ':volume:units'                    => '',	// Non-standard / internal meta tag.
+				$mt_pre . ':volume:units'                    => '',	// Non-standard / internal meta tag (units after value).
 				$mt_pre . ':weight:value'                    => '',
 				$mt_pre . ':weight:units'                    => '',
 				$mt_pre . ':width:value'                     => '',	// Non-standard / internal meta tag.
-				$mt_pre . ':width:units'                     => '',	// Non-standard / internal meta tag.
+				$mt_pre . ':width:units'                     => '',	// Non-standard / internal meta tag (units after value).
 			);
 
 			if ( isset( $mt_og[ 'og:type' ] ) && $mt_og[ 'og:type' ] === 'product' ) {
@@ -3333,7 +3334,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 
 		private static function replace_unicode_escape_callback( $match ) {
 
-			return mb_convert_encoding( pack( 'H*', $match[1] ), 'UTF-8', 'UCS-2' );
+			return mb_convert_encoding( pack( 'H*', $match[ 1 ] ), 'UTF-8', 'UCS-2' );
 		}
 
 		public static function json_encode_array( array $data, $options = 0, $depth = 32 ) {

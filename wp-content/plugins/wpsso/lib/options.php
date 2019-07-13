@@ -26,8 +26,8 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				$this->p->debug->mark();
 			}
 
-			$this->p->util->add_plugin_filters( $this, array( 'option_type' => 2 ), -100 );
-			$this->p->util->add_plugin_filters( $this, array( 'init_objects' => 0 ), 9000 );
+			$this->p->util->add_plugin_filters( $this, array( 'option_type' => 2 ), $prio = -100 );
+			$this->p->util->add_plugin_filters( $this, array( 'init_objects' => 0 ), $prio = 9000 );
 
 			if ( $this->p->debug->enabled ) {
 				$this->p->debug->log( 'running init_options action' );
@@ -1320,14 +1320,19 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				/**
 				 * Must be numeric (blank and zero are ok).
 				 */
-				case 'product_price':
-				case 'product_ean':
+				case 'product_depth_value':
+				case 'product_gtin':
 				case 'product_gtin8':
 				case 'product_gtin12':
 				case 'product_gtin13':
 				case 'product_gtin14':
+				case 'product_height_value':
 				case 'product_isbn':
+				case 'product_length_value':
+				case 'product_price':
 				case 'product_volume_value':
+				case 'product_weight_value':
+				case 'product_width_value':
 
 					return 'blank_num';
 

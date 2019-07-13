@@ -290,7 +290,8 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 						0 : $this->opts[ $post_id ][ 'plugin_' . $this->p->lca . '_opt_version' ];
 
 					$this->p->util->rename_opts_by_ext( $this->opts[ $post_id ],
-						apply_filters( $this->p->lca . '_rename_md_options_keys', self::$rename_md_options_keys ) );
+						apply_filters( $this->p->lca . '_rename_md_options_keys',
+							self::$rename_md_options_keys ) );
 
 					/**
 					 * Check for schema type IDs to be renamed.
@@ -312,10 +313,13 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 
 				if ( $filter_opts ) {
 
+					$mod = $this->get_mod( $post_id );
+
 					/**
-					 * Allow certain 3rd-party custom field values to override those of our social settings.
+					 * Allow some custom field values to override our option values.
 					 */
-					$this->opts[ $post_id ] = $this->get_custom_fields( $this->opts[ $post_id ], get_post_meta( $post_id ) );
+					$this->opts[ $post_id ] = apply_filters( $this->p->lca . '_get_custom_fields',
+						$this->opts[ $post_id ], get_post_meta( $post_id ), $mod );
 
 					if ( $this->p->debug->enabled ) {
 						$this->p->debug->log( 'applying get_post_options filters for post_id ' . $post_id . ' meta' );
@@ -323,9 +327,8 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 
 					$this->opts[ $post_id ][ 'options_filtered' ] = true;	// Set before calling filter to prevent recursion.
 
-					$mod = $this->get_mod( $post_id );
-
-					$this->opts[ $post_id ] = apply_filters( $this->p->lca . '_get_post_options', $this->opts[ $post_id ], $post_id, $mod );
+					$this->opts[ $post_id ] = apply_filters( $this->p->lca . '_get_post_options',
+						$this->opts[ $post_id ], $post_id, $mod );
 
 					if ( $this->p->debug->enabled ) {
 						$this->p->debug->log_arr( 'post meta options', $this->opts[ $post_id ] );
@@ -732,9 +735,8 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 
 					if ( $mod[ 'post_status' ] === 'publish' ) {
 
-						$this->p->notice->set_ref( WpssoWpMeta::$head_meta_info[ 'og:url' ], $mod,
-							sprintf( __( 'checking meta tags for %1$s ID %2$s', 'wpsso' ),
-								$mod[ 'post_type' ], $mod[ 'id' ] ) );
+						$this->p->util->maybe_set_ref( WpssoWpMeta::$head_meta_info[ 'og:url' ], $mod,
+							__( 'checking meta tags', 'wpsso' ) );
 
 						/**
 						 * Check for missing open graph image and description values.
@@ -754,7 +756,7 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 							}
 						}
 
-						$this->p->notice->unset_ref( WpssoWpMeta::$head_meta_info[ 'og:url' ] );
+						$this->p->util->maybe_unset_ref( WpssoWpMeta::$head_meta_info[ 'og:url' ] );
 
 						/**
 						 * Check duplicates only when the post is available publicly and we have a valid permalink.
@@ -1285,9 +1287,8 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 
 			if ( $mod[ 'post_status' ] === 'publish' ) {
 
-				$this->p->notice->set_ref( WpssoWpMeta::$head_meta_info[ 'og:url' ], $mod,
-					sprintf( __( 'checking meta tags for %1$s ID %2$s', 'wpsso' ),
-						$mod[ 'post_type' ], $mod[ 'id' ] ) );
+				$this->p->util->maybe_set_ref( WpssoWpMeta::$head_meta_info[ 'og:url' ], $mod,
+					__( 'checking meta tags', 'wpsso' ) );
 
 
 				/**
@@ -1304,7 +1305,7 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 					}
 				}
 
-				$this->p->notice->unset_ref( WpssoWpMeta::$head_meta_info[ 'og:url' ] );
+				$this->p->util->maybe_unset_ref( WpssoWpMeta::$head_meta_info[ 'og:url' ] );
 			}
 
 			$metabox_html = $this->get_metabox_custom_meta( $post_obj );
@@ -1640,9 +1641,11 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 			}
 
 			if ( ! $user_can_edit ) {
+
 				if ( $this->p->debug->enabled ) {
 					$this->p->debug->log( 'insufficient privileges to save settings for ' . $post_type . ' ID ' . $post_id );
 				}
+
 				if ( $this->p->notice->is_admin_pre_notices() ) {
 					$this->p->notice->err( sprintf( __( 'Insufficient privileges to save settings for %1$s ID %2$s.',
 						'wpsso' ), $post_type, $post_id ) );

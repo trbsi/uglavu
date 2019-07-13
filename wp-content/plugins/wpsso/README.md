@@ -3,7 +3,7 @@
 <table>
 <tr><th align="right" valign="top" nowrap>Plugin Name</th><td>WPSSO Core [Main Plugin]</td></tr>
 <tr><th align="right" valign="top" nowrap>Summary</th><td>WPSSO Core makes sure your content looks great on all social and search sites, no matter how URLs are crawled, shared, re-shared, posted or embedded!</td></tr>
-<tr><th align="right" valign="top" nowrap>Stable Version</th><td>5.1.0</td></tr>
+<tr><th align="right" valign="top" nowrap>Stable Version</th><td>5.2.0</td></tr>
 <tr><th align="right" valign="top" nowrap>Requires At Least</th><td>WordPress 3.8</td></tr>
 <tr><th align="right" valign="top" nowrap>Tested Up To</th><td>WordPress 5.2.2</td></tr>
 <tr><th align="right" valign="top" nowrap>Contributors</th><td>jsmoriss</td></tr>
@@ -115,14 +115,9 @@
 <li>Product Color</li>
 <li>Product Target Gender</li>
 <li>Product Size</li>
-<li>Product Volume (ml)</li>
+<li>Product Weight</li>
 <li>Product SKU</li>
 <li>Product MPN</li>
-<li>Product EAN</li>
-<li>Product GTIN-8</li>
-<li>Product GTIN-12</li>
-<li>Product GTIN-13</li>
-<li>Product GTIN-14</li>
 <li>Product ISBN</li>
 </ul></li>
 </ul></li>
@@ -180,6 +175,7 @@
 <li>Creative Work Information
 
 <ul>
+<li>Part of URL</li>
 <li>Headline</li>
 <li>Full Text</li>
 <li>Keywords</li>
@@ -241,6 +237,20 @@
 
 <ul>
 <li>Person</li>
+</ul></li>
+<li>Product Information (Additional)
+
+<ul>
+<li>Product Length (cm)</li>
+<li>Product Width (cm)</li>
+<li>Product Height (cm)</li>
+<li>Product Depth (cm)</li>
+<li>Product Volume (ml)</li>
+<li>Product GTIN-14</li>
+<li>Product GTIN-13/EAN</li>
+<li>Product GTIN-12/UPC</li>
+<li>Product GTIN-8</li>
+<li>Product GTIN</li>
 </ul></li>
 <li>QA Page Information
 
