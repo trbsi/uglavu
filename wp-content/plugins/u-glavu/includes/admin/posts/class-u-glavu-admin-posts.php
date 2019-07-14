@@ -93,8 +93,8 @@ class U_Glavu_Admin_Posts {
 			$admin_query->set(
 				'date_query', // I love date_query appeared in WordPress 3.7!
 				array(
-					'after' => $_GET['filterDateFrom'], // any strtotime()-acceptable format!
-					'before' => $_GET['filterDateTo'],
+					'after' => date('Y-m-d 00:00:00', strtotime($_GET['filterDateFrom'])), // any strtotime()-acceptable format!
+					'before' => date('Y-m-d 23:59:59', strtotime($_GET['filterDateTo'])),
 					'inclusive' => true, // include the selected days as well
 					'column'    => 'post_date' // 'post_modified', 'post_date_gmt', 'post_modified_gmt'
 				)
