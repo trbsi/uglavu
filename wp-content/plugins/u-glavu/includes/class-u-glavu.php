@@ -125,16 +125,24 @@ class U_Glavu {
 		/**
 		 * Admin dependecies
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/admin/class-u-glavu-admin-posts.php';
-		require_once(ABSPATH . 'wp-admin/includes/screen.php');
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/admin/posts/class-u-glavu-admin-posts.php';
 		
+		/**
+		 * Front dependecies
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/front/posts/class-u-glavu-front-posts-excerpt.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/front/posts/class-u-glavu-front-posts-posts.php';
+
 		$this->loader = new U_Glavu_Loader(); 
 
 		if (is_admin()) {
 			if ( in_array($pagenow, ['edit.php']) ) {
 				new U_Glavu_Admin_Posts($this->loader);
 			}
-		} 
+		} else {
+			new U_Glavu_Front_Posts_Excerpt($this->loader);
+			new U_Glavu_Front_Posts_Posts($this->loader);
+		}
 
 	}
 
