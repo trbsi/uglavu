@@ -6,9 +6,7 @@
 
 <ol>
 	<li>
-		<b>
-			<?php echo __('Product Quick View', 'blc') ?>
-		</b>
+		<h4><?php echo __('Product Quick View', 'blc') ?></h4>
 		<i>
 		<?php
 			echo sprintf(

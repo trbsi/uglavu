@@ -7,9 +7,7 @@
 <ul>
 
 	<li>
-		<b>
-			<?php echo __('Metabox', 'blc') ?>
-		</b>
+		<h4><?php echo __('Metabox', 'blc') ?></h4>
 		<i>
 		<?php
 			echo __(

@@ -24,6 +24,10 @@ This plugin runs and adds its enhacements only if the Blocksy theme is installed
 
 == Changelog ==
 
+1.1.4: 2019-07-15
+* Fix: Quick view UI when not in Shop
+* Fix: Cookie Notice readme for WP Fastest Cache
+
 1.1.3: 2019-07-10
 * Fix: Demo install process avoid notices
 

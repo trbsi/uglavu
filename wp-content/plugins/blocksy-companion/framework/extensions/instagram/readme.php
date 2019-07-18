@@ -6,9 +6,7 @@
 
 <ol>
 	<li>
-		<b>
-			<?php echo __('Instagram Widget', 'blc') ?>
-		</b>
+		<h4><?php echo __('Instagram Widget', 'blc') ?></h4>
 		<i>
 		<?php
 			echo sprintf(
@@ -23,9 +21,7 @@
 	</li>
 
 	<li>
-		<b>
-			<?php echo __('Instagram Block', 'blc') ?>
-		</b>
+		<h4><?php echo __('Instagram Block', 'blc') ?></h4>
 		<i>
 		<?php
 			echo sprintf(
@@ -39,4 +35,3 @@
 		</i>
 	</li>
 </ol>
-

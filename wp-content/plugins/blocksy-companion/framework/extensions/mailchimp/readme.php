@@ -6,9 +6,7 @@
 
 <ol>
 	<li>
-		<b>
-			<?php echo __('Mailchimp Widget', 'blc') ?>
-		</b>
+		<h4><?php echo __('Mailchimp Widget', 'blc') ?></h4>
 		<i>
 		<?php
 			echo sprintf(
@@ -23,9 +21,7 @@
 	</li>
 
 	<li>
-		<b>
-			<?php echo __('Mailchimp Block', 'blc') ?>
-		</b>
+		<h4><?php echo __('Mailchimp Block', 'blc') ?></h4>
 		<i>
 		<?php
 			echo sprintf(
