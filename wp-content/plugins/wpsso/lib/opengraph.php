@@ -343,7 +343,7 @@ if ( ! class_exists( 'WpssoOpenGraph' ) ) {
 						$type_id = $this->get_og_type_id_for_name( 'tax_' . $mod[ 'tax_slug' ] );
 
 						if ( $this->p->debug->enabled ) {
-							$this->p->debug->log( 'using og type id "' . $type_id . '" from term taxonomy option value' );
+							$this->p->debug->log( 'using og type id "' . $type_id . '" from term option value' );
 						}
 					}
 
@@ -689,92 +689,15 @@ if ( ! class_exists( 'WpssoOpenGraph' ) ) {
 
 			if ( isset( $this->p->cf[ 'head' ][ 'og_type_mt' ][ $type_id ] ) ) {	// Check if og:type is in config.
 
-				$og_type_mt_md = $this->p->cf[ 'head' ][ 'og_type_mt' ][ $type_id ];
-
 				/**
 				 * Optimize and call get_options() only once. Returns an empty string if no meta found.
 				 */
 				$md_opts = empty( $mod[ 'obj' ] ) ? array() : (array) $mod[ 'obj' ]->get_options( $mod[ 'id' ] );
 
-				foreach ( $og_type_mt_md as $mt_name => $md_key ) {
-
-					/**
-					 * Use a custom value if one is available - ignore empty strings and 'none'.
-					 */
-					if ( ! empty( $md_key ) && isset( $md_opts[ $md_key ] ) && $md_opts[ $md_key ] !== '' ) {
-
-						if ( $md_opts[ $md_key ] === 'none' ) {
-
-							if ( $this->p->debug->enabled ) {
-								$this->p->debug->log( $md_key . ' option is "none"' .
-									' - unsetting ' . $mt_name . ' meta tag' );
-							}
-
-							unset( $mt_og[ $mt_name ] );
-
-						} elseif ( preg_match( '/^.*_([^_]+)_value$/', $md_key, $unit_match ) &&
-							preg_match( '/^(.*):value$/', $mt_name, $mt_match ) ) {
-
-							if ( $this->p->debug->enabled ) {
-								$this->p->debug->log( $md_key . ' option is a possible value with units' );
-							}
-
-							if ( $this->p->debug->enabled ) {
-								$this->p->debug->log( $type_id . ' meta tag ' . $mt_name .
-									' from option = ' . $md_opts[ $md_key ] );
-							}
-
-							$mt_og[ $mt_name ] = $md_opts[ $md_key ];
-
-							if ( $unit_text = WpssoSchema::get_data_unitcode_text( $unit_match[ 1 ] ) ) {
-
-								$mt_units = $mt_match[ 1 ] . ':units';
-
-								if ( isset( $og_type_mt_md[ $mt_units ] ) ) {
-							
-									if ( $this->p->debug->enabled ) {
-										$this->p->debug->log( $type_id . ' meta tag ' . $mt_units .
-											' from unitcode text = ' . $unit_text );
-									}
-
-									$mt_og[ $mt_units ] = $unit_text;
-								}
-							}
-
-						/**
-						 * Do not define units by themselves - define units when we define the value.
-						 */
-						} elseif ( preg_match( '/_units$/', $md_key ) ) {
-
-							continue;	// Get the next meta data key.
-
-						} else {
-
-							if ( $this->p->debug->enabled ) {
-								$this->p->debug->log( $type_id . ' meta tag ' . $mt_name .
-									' from option = ' . $md_opts[ $md_key ] );
-							}
-
-							$mt_og[ $mt_name ] = $md_opts[ $md_key ];
-						}
-
-					} elseif ( isset( $mt_og[ $mt_name ] ) ) {
-
-						if ( $this->p->debug->enabled ) {
-							$this->p->debug->log( $type_id . ' meta tag ' . $mt_name .
-								' value kept = ' . $mt_og[ $mt_name ] );
-						}
-
-					} else {
-
-						if ( $this->p->debug->enabled ) {
-							$this->p->debug->log( $type_id . ' meta tag ' . $mt_name .
-								' defined as null' );
-						}
-
-						$mt_og[ $mt_name ] = null;	// Use null so isset() returns false.
-					}
-				}
+				/**
+				 * Add post/term/user meta data to the Open Graph meta tags.
+				 */
+				$this->p->util->add_og_type_mt_md( $type_id, $mt_og, $md_opts );
 
 				/**
 				 * Include variations (aka product offers) if available.

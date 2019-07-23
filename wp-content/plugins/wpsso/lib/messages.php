@@ -485,9 +485,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 
 							break;
 
-						case 'tooltip-og_type_for_ttn':		// Type by Term Taxonomy.
+						case 'tooltip-og_type_for_ttn':		// Type by Taxonomy.
 
-							$text = sprintf( __( 'Select the %1$s type for each WordPress term taxonomy.', 'wpsso' ), 'Open Graph' );
+							$text = __( 'Select the Open Graph type for each WordPress taxonomy.', 'wpsso' );
 
 							break;
 
@@ -663,11 +663,11 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 
 							$metabox_title = _x( $this->p->cf[ 'meta' ][ 'title' ], 'metabox title', 'wpsso' );
 
-							$text = sprintf( __( 'Select the set of options to display by default in %1$s settings pages and %2$s metabox.', 'wpsso' ), $info[ 'short' ], $metabox_title ) . ' ';
+							$text = sprintf( __( 'Select the set of options to display by default in settings pages and the %1$s metabox.', 'wpsso' ), $metabox_title ) . ' ';
 							
-							$text .= __( 'The basic view shows only the most commonly used options, and includes a link to temporarily unhide all options.', 'wpsso' ) . ' ';
+							$text .= __( 'The basic view shows only the most commonly used options, and includes a link to temporarily show all options when necessary.', 'wpsso' ) . ' ';
 							
-							$text .= __( 'Showing all available options by default could prove to be overwhelming for new users.', 'wpsso' );
+							$text .= __( 'Showing all options by default could be a bit overwhelming for new users.', 'wpsso' );
 
 							break;
 
@@ -1406,9 +1406,9 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 
 							break;
 
-						case 'tooltip-schema_type_for_ttn':	// Type by Term Taxonomy.
+						case 'tooltip-schema_type_for_ttn':	// Type by Taxonomy.
 
-							$text = sprintf( __( 'Select the %1$s type for each WordPress term taxonomy.', 'wpsso' ), 'Schema' );
+							$text = __( 'Select the Schema type for each WordPress taxonomy.', 'wpsso' );
 
 
 							break;
@@ -2354,11 +2354,11 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 						_x( 'a product GTIN-14 code', 'tooltip fragment', 'wpsso' ),
 					),
 					'product_gtin13' => array(
-						_x( 'Product GTIN-13', 'option label', 'wpsso' ),
+						_x( 'Product GTIN-13/EAN', 'option label', 'wpsso' ),
 						_x( 'a product GTIN-13 code (aka 13-digit ISBN codes or EAN/UCC-13)', 'tooltip fragment', 'wpsso' ),
 					),
 					'product_gtin12' => array(
-						_x( 'Product GTIN-12', 'option label', 'wpsso' ),
+						_x( 'Product GTIN-12/UPC', 'option label', 'wpsso' ),
 						_x( 'a product GTIN-12 code (12-digit GS1 identification key composed of a U.P.C. company prefix, item reference, and check digit)', 'tooltip fragment', 'wpsso' ),
 					),
 					'product_gtin8' => array(
@@ -2515,10 +2515,10 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 			if ( is_string( $ext ) ) {
 
 				if ( strpos( $ext, $this->p->lca ) !== 0 ) {
-					$ext = $this->p->lca . $p_ext;
+					$ext = $this->p->lca . $ext;
 				}
 
-				$p_ext = substr( $ext, 0, strlen( $this->p->lca ) );
+				$p_ext = substr( $ext, strlen( $this->p->lca ) );
 
 			} else {
 

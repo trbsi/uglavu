@@ -3,7 +3,7 @@
 <table>
 <tr><th align="right" valign="top" nowrap>Plugin Name</th><td>WPSSO Core [Main Plugin]</td></tr>
 <tr><th align="right" valign="top" nowrap>Summary</th><td>WPSSO Core makes sure your content looks great on all social and search sites, no matter how URLs are crawled, shared, re-shared, posted or embedded!</td></tr>
-<tr><th align="right" valign="top" nowrap>Stable Version</th><td>5.2.0</td></tr>
+<tr><th align="right" valign="top" nowrap>Stable Version</th><td>5.3.1</td></tr>
 <tr><th align="right" valign="top" nowrap>Requires At Least</th><td>WordPress 3.8</td></tr>
 <tr><th align="right" valign="top" nowrap>Tested Up To</th><td>WordPress 5.2.2</td></tr>
 <tr><th align="right" valign="top" nowrap>Contributors</th><td>jsmoriss</td></tr>
@@ -321,6 +321,34 @@
 <li><p>The following integration modules are provided with the Premium plugin, and are automatically loaded when the supported services are required or 3rd party plugins detected.</p>
 
 <ul>
+<li><p><strong>Integration with 3rd Party Plugins:</strong></p>
+
+<ul>
+<li><a href="https://wordpress.org/plugins/all-in-one-seo-pack/">All in One SEO Pack</a></li>
+<li><a href="https://wordpress.org/plugins/bbpress/">bbPress</a></li>
+<li><a href="https://wordpress.org/plugins/buddypress/">BuddyPress</a> (including Group Forum Topics)</li>
+<li><a href="https://wordpress.org/plugins/co-authors-plus/">Co-Authors Plus</a> (including Guest Authors)</li>
+<li><a href="https://wordpress.org/plugins/easy-digital-downloads/">Easy Digital Downloads</a></li>
+<li>Gravity Forms + GravityView</li>
+<li><a href="https://wordpress.org/plugins/nextcellent-gallery-nextgen-legacy/">NextCellent Gallery - NextGEN Legacy</a></li>
+<li><a href="https://wordpress.org/plugins/nextgen-gallery/">NextGEN Gallery</a></li>
+<li><a href="https://wordpress.org/plugins/polylang/">Polylang</a></li>
+<li><a href="https://wordpress.org/plugins/product-gtin-ean-upc-isbn-for-woocommerce/">Product GTIN (EAN, UPC, ISBN) for WooCommerce</a></li>
+<li><a href="https://wordpress.org/plugins/buddypress-media/">rtMedia for WordPress, BuddyPress and bbPress</a></li>
+<li><a href="https://wordpress.org/plugins/simple-job-board/">Simple Job Board</a></li>
+<li><a href="https://wordpress.org/plugins/the-events-calendar/">The Events Calendar</a></li>
+<li><a href="https://wordpress.org/plugins/autodescription/">The SEO Framework</a></li>
+<li><a href="https://wordpress.org/plugins/woocommerce/">WooCommerce</a> (versions 1, 2, and 3)</li>
+<li>WooCommerce Show Single Variations</li>
+<li><a href="https://wordpress.org/plugins/wp-e-commerce/">WP eCommerce</a></li>
+<li><a href="https://wordpress.org/plugins/wp-job-manager/">WP Job Manager</a></li>
+<li><a href="https://wordpress.org/plugins/wp-meta-seo/">WP Meta SEO</a></li>
+<li><a href="https://wordpress.org/plugins/wp-postratings/">WP-PostRatings</a></li>
+<li><a href="https://wordpress.org/plugins/wp-product-review/">WP Product Review</a></li>
+<li><a href="https://wordpress.org/plugins/wp-recipe-maker/">WP Recipe Maker</a></li>
+<li><a href="https://wordpress.org/plugins/wp-ultimate-recipe/">WP Ultimate Recipe</a></li>
+<li><a href="https://wordpress.org/plugins/wordpress-seo/">Yoast SEO</a> (aka WordPress SEO)</li>
+</ul></li>
 <li><p><strong>Integration with Service APIs:</strong></p>
 
 <ul>
@@ -337,35 +365,6 @@
 <li>WordPress Video Shortcode (and Self-Hosted Videos)</li>
 <li>Your Own URL Shortener (YOURLS)</li>
 <li>YouTube Videos and Playlists</li>
-</ul></li>
-<li><p><strong>Integration with 3rd Party Plugins:</strong></p>
-
-<ul>
-<li>All in One SEO Pack</li>
-<li>bbPress</li>
-<li>BuddyPress (including Group Forum Topics)</li>
-<li>Co-Authors Plus (including Guest Authors)</li>
-<li>Easy Digital Downloads</li>
-<li>Gravity Forms + GravityView</li>
-<li>HeadSpace2 SEO</li>
-<li>MarketPress - WordPress eCommerce</li>
-<li>NextCellent Gallery - NextGEN Legacy</li>
-<li>NextGEN Gallery</li>
-<li>Polylang</li>
-<li>rtMedia for WordPress, BuddyPress and bbPress</li>
-<li>Simple Job Board</li>
-<li>The Events Calendar</li>
-<li>The SEO Framework</li>
-<li>WooCommerce (versions 1, 2, and 3)</li>
-<li>WooCommerce Show Single Variations</li>
-<li>WP eCommerce</li>
-<li>WP Job Manager</li>
-<li>WP Meta SEO</li>
-<li>WP-PostRatings</li>
-<li>WP Product Review</li>
-<li>WP Recipe Maker</li>
-<li>WP Ultimate Recipe</li>
-<li>Yoast SEO (aka WordPress SEO)</li>
 </ul></li>
 </ul></li>
 </ul>
@@ -412,7 +411,6 @@
 <ul>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/can-i-use-the-pro-version-on-multiple-websites/">Can I use the Premium plugin on multiple websites?</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/does-linkedin-read-the-open-graph-meta-tags/">Does LinkedIn read the Open Graph meta tags?</a></li>
-<li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/doesnt-an-seo-plugin-cover-that/">Doesn't an SEO plugin cover that?</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/how-can-i-add-schema-aggregaterating-values/">How can I add Schema aggregateRating values?</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/how-can-i-exclude-ignore-certain-parts-of-the-content-text/">How can I exclude / ignore certain parts of the content text?</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/how-can-i-fix-a-err_too_many_redirects-error/">How can I fix a ERR_TOO_MANY_REDIRECTS error?</a></li>
@@ -430,7 +428,6 @@
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/how-does-wpsso-find-detect-select-videos/">How does WPSSO Core find / detect / select videos?</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/w3c-says-there-is-no-attribute-property/">W3C says "there is no attribute 'property'"</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/why-are-some-html-elements-missing-misaligned-different/">Why are some HTML elements missing / misaligned / different?</a></li>
-<li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/why-does-facebook-play-videos-instead-of-linking-them/">Why does Facebook play videos instead of linking them?</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/why-does-facebook-show-the-wrong-image-text/">Why does Facebook show the wrong image / text?</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/why-does-google-structured-data-testing-tool-show-errors/">Why does Google Structured Data Testing Tool show errors?</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/faqs/why-is-the-open-graph-title-the-same-for-every-webpage/">Why is the Open Graph title the same for every webpage?</a></li>
@@ -447,7 +444,6 @@
 <li><a href="https://wpsso.com/docs/plugins/wpsso/notes/modules/co-author-plus/">Co-Author Plus</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/notes/modules/easy-digital-downloads/">Easy Digital Downloads</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/notes/modules/facebook-slideshare-vimeo-wistia-youtube-video-apis/">Facebook, Slideshare, Vimeo, Wistia, Youtube Video APIs</a></li>
-<li><a href="https://wpsso.com/docs/plugins/wpsso/notes/modules/headspace2-seo/">HeadSpace2 SEO</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/notes/modules/nextcellent-gallery-and-nextgen-gallery/">NextCellent Gallery and NextGEN Gallery</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/notes/modules/polylang/">Polylang</a></li>
 <li><a href="https://wpsso.com/docs/plugins/wpsso/notes/modules/the-events-calendar/">The Events Calendar</a></li>

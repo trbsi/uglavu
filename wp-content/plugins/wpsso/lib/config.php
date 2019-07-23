@@ -21,8 +21,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			),
 			'plugin' => array(
 				'wpsso' => array(			// Plugin acronym.
-					'version'     => '5.2.0',	// Plugin version.
-					'opt_version' => '650',		// Increment when changing default option values.
+					'version'     => '5.3.1',	// Plugin version.
+					'opt_version' => '651',		// Increment when changing default option values.
 					'short'       => 'WPSSO Core',	// Short plugin name.
 					'name'        => 'WPSSO Core [Main Plugin]',
 					'desc'        => 'WPSSO Core makes sure your content looks great on all social and search sites - no matter how URLs are crawled, shared, re-shared, posted, or embedded!',
@@ -76,11 +76,11 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 								'meta'     => 'Extend Term and User Settings',
 							),
 							'ecom' => array(
-								'edd'         => '(plugin) Easy Digital Downloads',
-								'jck-wssv'    => '(plugin) WooCommerce Show Single Variations',
-								'marketpress' => '(plugin) MarketPress',
-								'woocommerce' => '(plugin) WooCommerce',
-								'wpecommerce' => '(plugin) WP eCommerce',
+								'edd'                 => '(plugin) Easy Digital Downloads',
+								'jsk_wssv'            => '(plugin) WooCommerce Show Single Variations',
+								'woocommerce'         => '(plugin) WooCommerce',
+								'wpecommerce'         => '(plugin) WP eCommerce',
+								'wpm_product_gtin_wc' => '(plugin) Product GTIN for WooCommerce',
 							),
 							'event' => array(
 								'tribe_events' => '(plugin) The Events Calendar',
@@ -124,7 +124,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 							'seo' => array(
 								'aioseop'         => '(plugin) All in One SEO Pack',
 								'autodescription' => '(plugin) The SEO Framework',
-								'headspace2'      => '(plugin) HeadSpace2 SEO',
 								'wpmetaseo'       => '(plugin) WP Meta SEO',
 								'wpseo'           => '(plugin) Yoast SEO',
 							),
@@ -785,20 +784,20 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					/**
 					 * Standard WordPress types.
 					 */
-					'schema_type_for_tax_category' => 'item.list',
-					'schema_type_for_tax_post_tag' => 'item.list',
-					'schema_type_for_archive_page' => 'item.list',
-					'schema_type_for_attachment'   => 'webpage',
-					'schema_type_for_home_index'   => 'blog',
-					'schema_type_for_home_page'    => 'website',
-					'schema_type_for_page'         => 'article',
-					'schema_type_for_post'         => 'blog.posting',
-					'schema_type_for_post_archive' => 'item.list',
-					'schema_type_for_search_page'  => 'webpage.search.results',
-					'schema_type_for_user_page'    => 'webpage.profile',
+					'schema_type_for_tax_category'    => 'item.list',
+					'schema_type_for_tax_post_tag'    => 'item.list',
+					'schema_type_for_archive_page'    => 'item.list',
+					'schema_type_for_attachment'      => 'webpage',
+					'schema_type_for_home_index'      => 'blog',
+					'schema_type_for_home_page'       => 'website',
+					'schema_type_for_page'            => 'article',
+					'schema_type_for_post'            => 'blog.posting',
+					'schema_type_for_post_archive'    => 'item.list',
+					'schema_type_for_search_page'     => 'webpage.search.results',
+					'schema_type_for_user_page'       => 'webpage.profile',
 
 					/**
-					 * Custom post types.
+					 * Other term / post types.
 					 */
 					'schema_type_for_article'         => 'article',
 					'schema_type_for_book'            => 'book',
@@ -806,6 +805,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'schema_type_for_business'        => 'local.business',
 					'schema_type_for_download'        => 'product',		// For Easy Digital Downloads.
 					'schema_type_for_event'           => 'event',
+					'schema_type_for_faq'             => 'webpage.faq',
 					'schema_type_for_howto'           => 'how.to',
 					'schema_type_for_job_listing'     => 'job.posting',	// For WP Job Manager.
 					'schema_type_for_jobpost'         => 'job.posting',	// For Simple Job Board.
@@ -814,10 +814,12 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'schema_type_for_person'          => 'person',
 					'schema_type_for_place'           => 'place',
 					'schema_type_for_product'         => 'product',		// For WooCommerce and most e-commerce plugins.
-					'schema_type_for_tax_product_cat' => 'item.list',	// For WooCommerce.
-					'schema_type_for_tax_product_tag' => 'item.list',	// For WooCommerce.
+					'schema_type_for_qa'              => 'webpage.qa',
+					'schema_type_for_question'        => 'question',
 					'schema_type_for_recipe'          => 'recipe',		// For WP Ultimate Recipe.
 					'schema_type_for_review'          => 'review',		// For WP Product Review.
+					'schema_type_for_tax_product_cat' => 'item.list',	// For WooCommerce.
+					'schema_type_for_tax_product_tag' => 'item.list',	// For WooCommerce.
 					'schema_type_for_tribe_events'    => 'event',
 					'schema_type_for_webpage'         => 'webpage',
 					'schema_type_for_website'         => 'website',
@@ -848,13 +850,14 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'og_type_for_user_page'        => 'website',
 					
 					/**
-					 * Custom post types.
+					 * Other term / post types.
 					 */
 					'og_type_for_article'          => 'article',
 					'og_type_for_download'         => 'product',		// For Easy Digital Downloads.
 					'og_type_for_place'            => 'place',
 					'og_type_for_product'          => 'product',
 					'og_type_for_website'          => 'website',
+
 					'og_art_section'               => 'none',
 					'og_img_width'                 => 600,
 					'og_img_height'                => 315,
@@ -900,7 +903,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'tc_sum_img_crop'   => 1,
 					'tc_sum_img_crop_x' => 'center',
 					'tc_sum_img_crop_y' => 'center',
-					'tc_lrg_img_width'  => 600,			// Large Image Card Img Dimensions.
+					'tc_lrg_img_width'  => 800,			// Large Image Card Img Dimensions.
 					'tc_lrg_img_height' => 1600,
 					'tc_lrg_img_crop'   => 0,
 					'tc_lrg_img_crop_x' => 'center',
@@ -1162,8 +1165,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_product_attr_color'         => 'Color',			// Product Color Attribute Name.
 					'plugin_product_attr_condition'     => 'Condition',		// Product Condition Attribute Name.
 					'plugin_product_attr_gtin14'        => 'GTIN-14',		// Product GTIN-14 Attribute Name.
-					'plugin_product_attr_gtin13'        => 'GTIN-13',		// Product GTIN-13 Attribute Name.
-					'plugin_product_attr_gtin12'        => 'GTIN-12',		// Product GTIN-12 Attribute Name.
+					'plugin_product_attr_gtin13'        => 'GTIN-13',		// Product GTIN-13/EAN Attribute Name.
+					'plugin_product_attr_gtin12'        => 'GTIN-12',		// Product GTIN-12/UPC Attribute Name.
 					'plugin_product_attr_gtin8'         => 'GTIN-8',		// Product GTIN-8 Attribute Name.
 					'plugin_product_attr_gtin'          => '',			// Product GTIN Attribute Name.
 					'plugin_product_attr_isbn'          => 'ISBN',			// Product ISBN Attribute Name.
@@ -1198,10 +1201,10 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_cf_product_currency'      => '',			// Product Currency Custom Field.
 					'plugin_cf_product_depth_value'   => '',			// Product Depth Custom Field.
 					'plugin_cf_product_gtin14'        => '',			// Product GTIN-14 Custom Field.
-					'plugin_cf_product_gtin13'        => '',			// Product GTIN-13 Custom Field.
-					'plugin_cf_product_gtin12'        => '',			// Product GTIN-12 Custom Field.
+					'plugin_cf_product_gtin13'        => '',			// Product GTIN-13/EAN Custom Field.
+					'plugin_cf_product_gtin12'        => '',			// Product GTIN-12/UPC Custom Field.
 					'plugin_cf_product_gtin8'         => '',			// Product GTIN-8 Custom Field.
-					'plugin_cf_product_gtin'          => 'hwp_product_gtin',	// Product GTIN Custom Field.
+					'plugin_cf_product_gtin'          => '_wpm_gtin_code',		// Product GTIN Custom Field.
 					'plugin_cf_product_height_value'  => '',			// Product Height Custom Field.
 					'plugin_cf_product_isbn'          => '',			// Product ISBN Custom Field.
 					'plugin_cf_product_length_value'  => '',			// Product Length Custom Field.
@@ -1439,11 +1442,11 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_cf_product_condition'     => 'product_condition',
 					'plugin_cf_product_currency'      => 'product_currency',
 					'plugin_cf_product_depth_value'   => 'product_depth_value',	// Product Depth Custom Field.
-					'plugin_cf_product_gtin'          => 'product_gtin',
-					'plugin_cf_product_gtin8'         => 'product_gtin8',
-					'plugin_cf_product_gtin12'        => 'product_gtin12',
-					'plugin_cf_product_gtin13'        => 'product_gtin13',
 					'plugin_cf_product_gtin14'        => 'product_gtin14',
+					'plugin_cf_product_gtin13'        => 'product_gtin13',
+					'plugin_cf_product_gtin12'        => 'product_gtin12',
+					'plugin_cf_product_gtin8'         => 'product_gtin8',
+					'plugin_cf_product_gtin'          => 'product_gtin',
 					'plugin_cf_product_height_value'  => 'product_height_value',	// Product Height Custom Field.
 					'plugin_cf_product_isbn'          => 'product_isbn',
 					'plugin_cf_product_length_value'  => 'product_length_value',	// Product Length Custom Field.
@@ -1937,8 +1940,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_cf_product_currency'      => 'Product Currency Custom Field',
 					'plugin_cf_product_depth_value'   => 'Product Depth Custom Field',
 					'plugin_cf_product_gtin14'        => 'Product GTIN-14 Custom Field',
-					'plugin_cf_product_gtin13'        => 'Product GTIN-13 Custom Field',	// aka Product EAN
-					'plugin_cf_product_gtin12'        => 'Product GTIN-12 Custom Field',	// aka Product UPC
+					'plugin_cf_product_gtin13'        => 'Product GTIN-13/EAN Custom Field',
+					'plugin_cf_product_gtin12'        => 'Product GTIN-12/UPC Custom Field',
 					'plugin_cf_product_gtin8'         => 'Product GTIN-8 Custom Field',
 					'plugin_cf_product_gtin'          => 'Product GTIN Custom Field',
 					'plugin_cf_product_height_value'  => 'Product Height Custom Field',
@@ -1965,8 +1968,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_product_attr_condition'     => 'Product Condition Attribute Name',
 					'plugin_product_attr_mpn'           => 'Product MPN Attribute Name',
 					'plugin_product_attr_gtin14'        => 'Product GTIN-14 Attribute Name',
-					'plugin_product_attr_gtin13'        => 'Product GTIN-13 Attribute Name',	// aka Product EAN
-					'plugin_product_attr_gtin12'        => 'Product GTIN-12 Attribute Name',	// aka Product UPC
+					'plugin_product_attr_gtin13'        => 'Product GTIN-13/EAN Attribute Name',
+					'plugin_product_attr_gtin12'        => 'Product GTIN-12/UPC Attribute Name',
 					'plugin_product_attr_gtin8'         => 'Product GTIN-8 Attribute Name',
 					'plugin_product_attr_gtin'          => 'Product GTIN Attribute Name',
 					'plugin_product_attr_isbn'          => 'Product ISBN Attribute Name',
@@ -2181,11 +2184,11 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'product:depth:units'             => '',			// Non-standard / internal meta tag.
 						'product:ean'                     => 'product_gtin13',
 						'product:expiration_time'         => '',
-						'product:gtin'                    => 'product_gtin',		// Non-standard / internal meta tag.
-						'product:gtin8'                   => 'product_gtin8',		// Non-standard / internal meta tag.
-						'product:gtin12'                  => 'product_gtin12',		// Non-standard / internal meta tag.
-						'product:gtin13'                  => 'product_gtin13',		// Non-standard / internal meta tag.
 						'product:gtin14'                  => 'product_gtin14',		// Non-standard / internal meta tag.
+						'product:gtin13'                  => 'product_gtin13',		// Non-standard / internal meta tag.
+						'product:gtin12'                  => 'product_gtin12',		// Non-standard / internal meta tag.
+						'product:gtin8'                   => 'product_gtin8',		// Non-standard / internal meta tag.
+						'product:gtin'                    => 'product_gtin',		// Non-standard / internal meta tag.
 						'product:height:value'            => 'product_height_value',	// Non-standard / internal meta tag.
 						'product:height:units'            => '',			// Non-standard / internal meta tag.
 						'product:is_product_shareable'    => '',
@@ -3245,7 +3248,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			$var_const[ 'WPSSO_GET_POSTS_MAX_TIME' ]          = 0.10;	// Send an error to trigger_error() if get_posts() takes longer.
 			$var_const[ 'WPSSO_PHP_GETIMGSIZE_MAX_TIME' ]     = 1.50;	// Send an error to trigger_error() if getimagesize() takes longer.
 			$var_const[ 'WPSSO_REFRESH_CACHE_SLEEP_TIME' ]    = 0.25;	// Seconds to sleep between requests when refreshing the cache.
-			$var_const[ 'WPSSO_SELECT_PERSON_NAMES_MAX' ]     = 500;	// Maximum number of persons to include in a form select.
+			$var_const[ 'WPSSO_SELECT_PERSON_NAMES_MAX' ]     = 200;	// Maximum number of persons to include in a form select.
 
 			/**
 			 * WPSSO schema limits.
@@ -3273,14 +3276,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			$var_const[ 'WPSSO_META_NAME' ]         = '_wpsso_meta';		// Post meta.
 			$var_const[ 'WPSSO_PREF_NAME' ]         = '_wpsso_pref';		// User meta.
 			$var_const[ 'WPSSO_POST_CHECK_NAME' ]   = 'wpsso_post_head_count';	// Duplicate check counter.
-
-			/**
-			 * WPSSO option and meta array alternate names.
-			 */
-			$var_const[ 'WPSSO_OPTIONS_NAME_ALT' ]      = 'ngfb_options';		// Fallback name.
-			$var_const[ 'WPSSO_SITE_OPTIONS_NAME_ALT' ] = 'ngfb_site_options';	// Fallback name.
-			$var_const[ 'WPSSO_META_NAME_ALT' ]         = '_ngfb_meta';		// Fallback name.
-			$var_const[ 'WPSSO_PREF_NAME_ALT' ]         = '_ngfb_pref';		// Fallback name.
 
 			/**
 			 * WPSSO hook priorities.

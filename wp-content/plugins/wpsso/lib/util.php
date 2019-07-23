@@ -860,7 +860,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 		}
 
 		/**
-		 * Add options using a key prefix string / array and term taxonomy names.
+		 * Add options using a key prefix string / array and term names.
 		 */
 		public function add_ttns_to_opts( array &$opts, $mixed, $default = 1 ) {
 
@@ -1039,7 +1039,21 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 					case 'half_hours':
 
-						self::$form_cache[ $key ] = self::get_hours_range( 0, DAY_IN_SECONDS, 60 * 30, '' );
+						/**
+						 * Returns an array of times without a 'none' value.
+						 */
+						self::$form_cache[ $key ] = self::get_hours_range( $start_secs = 0, $end_secs = DAY_IN_SECONDS,
+							$step_secs = 60 * 30, $label_format = 'H:i' );
+
+						break;
+
+					case 'quarter_hours':
+
+						/**
+						 * Returns an array of times without a 'none' value.
+						 */
+						self::$form_cache[ $key ] = self::get_hours_range( $start_secs = 0, $end_secs = DAY_IN_SECONDS,
+							$step_secs = 60 * 15, $label_format = 'H:i' );
 
 						break;
 
@@ -3600,7 +3614,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 					sprintf( _x( '%1$d additional options not shown in "%2$s" view', 'option comment', 'wpsso' ), $hidden_opts,
 						_x( $show_opts_label, 'option value', 'wpsso' ) ) .
 					' (<a href="javascript:void(0);" onClick="sucomViewUnhideRows( \'' . $class_href_key . '\', \'' . $show_opts . '\' );">' .
-						_x( 'unhide these options', 'option comment', 'wpsso' ) . '</a>)</div>' . "\n";
+						_x( 'show these options', 'option comment', 'wpsso' ) . '</a>)</div>' . "\n";
 
 			} elseif ( $hidden_rows > 0 ) {
 
@@ -3608,7 +3622,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 					sprintf( _x( '%1$d additional rows not shown in "%2$s" view', 'option comment', 'wpsso' ), $hidden_rows,
 						_x( $show_opts_label, 'option value', 'wpsso' ) ) .
 					' (<a href="javascript:void(0);" onClick="sucomViewUnhideRows( \'' . $class_href_key . '\', \'' . $show_opts . '\', \'hide_row_in\' );">' .
-						_x( 'unhide these rows', 'option comment', 'wpsso' ) . '</a>)</div>' . "\n";
+						_x( 'show these rows', 'option comment', 'wpsso' ) . '</a>)</div>' . "\n";
 			}
 
 			return $metabox_html;
@@ -3789,6 +3803,211 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 			return apply_filters( $this->p->lca . '_get_robots_content', rtrim( $content, ', ' ), $mod );
 		}
 
+		/**
+		 * Add post/term/user meta data to the Open Graph meta tags.
+		 *
+		 * Example $og_type_mt_md array:
+		 *
+		 *	'product' => array(
+		 *		'product:age_group'               => '',
+		 *		'product:availability'            => 'product_avail',
+		 *		'product:brand'                   => 'product_brand',
+		 *		'product:category'                => '',
+		 *		'product:color'                   => 'product_color',
+		 *		'product:condition'               => 'product_condition',
+		 *		'product:depth:value'             => 'product_depth_value',
+		 *		'product:depth:units'             => '',
+		 *		'product:ean'                     => 'product_gtin13',
+		 *		'product:expiration_time'         => '',
+		 *		'product:gtin14'                  => 'product_gtin14',
+		 *		'product:gtin13'                  => 'product_gtin13',
+		 *		'product:gtin12'                  => 'product_gtin12',
+		 *		'product:gtin8'                   => 'product_gtin8',
+		 *		'product:gtin'                    => 'product_gtin',
+		 *		'product:height:value'            => 'product_height_value',
+		 *		'product:height:units'            => '',
+		 *		'product:is_product_shareable'    => '',
+		 *		'product:isbn'                    => 'product_isbn',
+		 *		'product:length:value'            => 'product_length_value',
+		 *		'product:length:units'            => '',
+		 *		'product:material'                => 'product_material',
+		 *		'product:mfr_part_no'             => 'product_mpn',
+		 *		'product:original_price:amount'   => '',
+		 *		'product:original_price:currency' => '',
+		 *		'product:pattern'                 => '',
+		 *		'product:plural_title'            => '',
+		 *		'product:pretax_price:amount'     => '',
+		 *		'product:pretax_price:currency'   => '',
+		 *		'product:price:amount'            => 'product_price',
+		 *		'product:price:currency'          => 'product_currency',
+		 *		'product:product_link'            => '',
+		 *		'product:purchase_limit'          => '',
+		 *		'product:retailer'                => '',
+		 *		'product:retailer_category'       => '',
+		 *		'product:retailer_item_id'        => 'product_sku',
+		 *		'product:retailer_part_no'        => '',
+		 *		'product:retailer_title'          => '',
+		 *		'product:sale_price:amount'       => '',
+		 *		'product:sale_price:currency'     => '',
+		 *		'product:sale_price_dates:start'  => '',
+		 *		'product:sale_price_dates:end'    => '',
+		 *		'product:shipping_cost:amount'    => '',
+		 *		'product:shipping_cost:currency'  => '',
+		 *		'product:shipping_weight:value'   => '',
+		 *		'product:shipping_weight:units'   => '',
+		 *		'product:size'                    => 'product_size',
+		 *		'product:sku'                     => 'product_sku',
+		 *		'product:target_gender'           => 'product_target_gender',
+		 *		'product:upc'                     => 'product_gtin12',
+		 *		'product:volume:value'            => 'product_volume_value',
+		 *		'product:volume:units'            => '',
+		 *		'product:weight:value'            => 'product_weight_value',
+		 *		'product:weight:units'            => '',
+		 *		'product:width:value'             => 'product_width_value',
+		 *		'product:width:units'             => '',
+		 *	),
+		 */
+		public function add_og_type_mt_md( $type_id, array &$mt_og, array $md_opts ) {
+
+			if ( $this->p->debug->enabled ) {
+				$this->p->debug->mark();
+			}
+
+			if ( empty( $this->p->cf[ 'head' ][ 'og_type_mt' ][ $type_id ] ) ) {	// Just in case.
+				return;
+			}
+
+			if ( $this->p->debug->enabled ) {
+				$this->p->debug->log( 'loading og_type_mt array for type id ' . $type_id );
+			}
+
+			$og_type_mt_md = $this->p->cf[ 'head' ][ 'og_type_mt' ][ $type_id ];
+
+			foreach ( $og_type_mt_md as $mt_name => $md_key ) {
+
+				/**
+				 * Use a custom value if one is available - ignore empty strings and 'none'.
+				 */
+				if ( ! empty( $md_key ) && isset( $md_opts[ $md_key ] ) && $md_opts[ $md_key ] !== '' ) {
+
+					if ( $md_opts[ $md_key ] === 'none' ) {
+
+						if ( $this->p->debug->enabled ) {
+							$this->p->debug->log( $md_key . ' option is none - unsetting ' . $mt_name );
+						}
+
+						unset( $mt_og[ $mt_name ] );
+
+					/**
+					 * Check for meta data and meta tags that require a unit value.
+					 *
+					 * Example: 
+					 *
+					 *	'product:depth:value'  => 'product_depth_value',
+					 *	'product:height:value' => 'product_height_value',
+					 *	'product:length:value' => 'product_length_value',
+					 *	'product:volume:value' => 'product_volume_value',
+					 *	'product:weight:value' => 'product_weight_value',
+					 *	'product:width:value'  => 'product_width_value',
+					 */
+					} elseif ( preg_match( '/^.*_([^_]+)_value$/', $md_key, $unit_match ) &&
+						preg_match( '/^(.*):value$/', $mt_name, $mt_match ) ) {
+
+						if ( $this->p->debug->enabled ) {
+							$this->p->debug->log( $mt_name . ' from option = ' . $md_opts[ $md_key ] );
+						}
+
+						$mt_og[ $mt_name ] = $md_opts[ $md_key ];
+
+						$mt_units = $mt_match[ 1 ] . ':units';
+
+						if ( $this->p->debug->enabled ) {
+							$this->p->debug->log( 'checking for ' . $mt_units . ' unitcode text' );
+						}
+
+						if ( isset( $og_type_mt_md[ $mt_units ] ) ) {
+
+							if ( $unit_text = WpssoSchema::get_data_unitcode_text( $unit_match[ 1 ] ) ) {
+						
+								if ( $this->p->debug->enabled ) {
+									$this->p->debug->log( $mt_units . ' from unitcode text = ' . $unit_text );
+								}
+
+								$mt_og[ $mt_units ] = $unit_text;
+							}
+						}
+
+					/**
+					 * Do not define units by themselves - define units when we define the value.
+					 */
+					} elseif ( preg_match( '/_units$/', $md_key ) ) {
+
+						continue;	// Get the next meta data key.
+
+					} else {
+
+						if ( $this->p->debug->enabled ) {
+							$this->p->debug->log( $mt_name . ' from option = ' . $md_opts[ $md_key ] );
+						}
+
+						$mt_og[ $mt_name ] = $md_opts[ $md_key ];
+					}
+
+				} elseif ( isset( $mt_og[ $mt_name ] ) ) {
+
+					if ( $this->p->debug->enabled ) {
+						$this->p->debug->log( $mt_name . ' value kept = ' . $mt_og[ $mt_name ] );
+					}
+
+				} else {
+
+					if ( $this->p->debug->enabled ) {
+						$this->p->debug->log( $mt_name . ' = null' );
+					}
+
+					$mt_og[ $mt_name ] = null;	// Use null so isset() returns false.
+				}
+			}
+		}
+
+		/**
+		 * Returns an array of product attribute names, indexed by meta
+		 * tag name ($sep = ":") or option name ($sep = "_").
+		 *
+		 * Example $prefix = "product" and $sep = ":" for meta tag names:
+		 *
+		 * 	Array(
+		 *		[product:brand]         => Brand
+		 *		[product:color]         => Color
+		 *		[product:condition]     => Condition
+		 *		[product:gtin14]        => GTIN-14
+		 *		[product:gtin14]        => GTIN-13
+		 *		[product:gtin14]        => GTIN-12
+		 *		[product:gtin8]         => GTIN-8
+		 *		[product:material]      => Material
+		 *		[product:mpn]           => MPN
+		 *		[product:size]          => Size
+		 *		[product:target_gender] => Gender
+		 *		[product:volume:value]  => Volume
+		 *	)
+		 *
+		 * Example $prefix = "product" and $sep = "_" for option names:
+		 *
+		 * 	Array(
+		 *		[product_brand]         => Brand
+		 *		[product_color]         => Color
+		 *		[product_condition]     => Condition
+		 *		[product_gtin14]        => GTIN-14
+		 *		[product_gtin14]        => GTIN-13
+		 *		[product_gtin14]        => GTIN-12
+		 *		[product_gtin8]         => GTIN-8
+		 *		[product_material]      => Material
+		 *		[product_mpn]           => MPN
+		 *		[product_size]          => Size
+		 *		[product_target_gender] => Gender
+		 *		[product_volume_value]  => Volume
+		 *	)
+		 */
 		public function get_product_attr_names( $prefix = 'product', $sep = ':' ) {
 
 			static $local_cache = null;

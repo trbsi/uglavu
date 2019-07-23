@@ -1029,7 +1029,19 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			}
 		}
 
+		/**
+		 * Checks for 'none' value in midday_close and midday_open.
+		 */
 		public static function is_valid_midday( $open, $midday_close, $midday_open, $close ) {
+
+			/**
+			 * Performa a quick sanitation before using strtotime().
+			 */
+			if ( empty( $midday_close ) || empty( $midday_open ) ||
+				$midday_close === 'none' || $midday_open === 'none' ) {
+
+				return false;
+			}
 
 			if ( strtotime( $midday_close ) < strtotime( $midday_open ) &&
 				strtotime( $open ) < strtotime( $midday_close ) &&
@@ -1623,6 +1635,9 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 
 				if ( ! empty( $opts[ $key_midday_close ] ) && ! empty( $opts[ $key_midday_open ] ) ) {
 
+					/**
+					 * Checks for 'none' value in midday_close and midday_open.
+					 */
 					$has_midday = self::is_valid_midday(
 						$opts[ $key_open ],
 						$opts[ $key_midday_close ],
@@ -2037,11 +2052,11 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 				$mt_pre . ':depth:units'                     => '',	// Non-standard / internal meta tag (units after value).
 				$mt_pre . ':ean'                             => '',	// aka EAN, EAN-13, GTIN-13.
 				$mt_pre . ':expiration_time'                 => '',
-				$mt_pre . ':gtin'                            => '',	// Non-standard / internal meta tag.
-				$mt_pre . ':gtin8'                           => '',	// Non-standard / internal meta tag.
-				$mt_pre . ':gtin12'                          => '',	// Non-standard / internal meta tag.
-				$mt_pre . ':gtin13'                          => '',	// Non-standard / internal meta tag.
 				$mt_pre . ':gtin14'                          => '',	// Non-standard / internal meta tag.
+				$mt_pre . ':gtin13'                          => '',	// Non-standard / internal meta tag.
+				$mt_pre . ':gtin12'                          => '',	// Non-standard / internal meta tag.
+				$mt_pre . ':gtin8'                           => '',	// Non-standard / internal meta tag.
+				$mt_pre . ':gtin'                            => '',	// Non-standard / internal meta tag.
 				$mt_pre . ':height:value'                    => '',	// Non-standard / internal meta tag.
 				$mt_pre . ':height:units'                    => '',	// Non-standard / internal meta tag (units after value).
 				$mt_pre . ':is_product_shareable'            => '',
@@ -3348,9 +3363,13 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 				$php_version = phpversion();
 
 				if ( version_compare( $php_version, '5.5.0', '>=' ) ) {
+
 					return json_encode( $data, $options, $depth );  // $depth since PHP v5.5.0.
+
 				} elseif ( version_compare( $php_version, '5.3.0', '>=' ) ) {
+
 					return json_encode( $data, $options );          // $options since PHP v5.3.0.
+
 				} else {
 					return json_encode( $data );
 				}
@@ -3515,19 +3534,21 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 
 		/**
 		 * Returns an associative array.
+		 *
+		 * Example time formats: 'H:i' (default), 'g:i a'.
 		 */
-		public static function get_hours_range( $start_secs = 0, $end_secs = 86400, $step_secs = 3600, $time_format = 'g:i a' ) {
+		public static function get_hours_range( $start_secs = 0, $end_secs = 86400, $step_secs = 3600, $label_format = 'H:i' ) {
 
 			$times = array();
 
 		        foreach ( range( $start_secs, $end_secs, $step_secs ) as $ts ) {
 
-				$hour_mins = gmdate( 'H:i', $ts );
+				$value = gmdate( 'H:i', $ts );
 
-				if ( ! empty( $time_format ) ) {
-					$times[ $hour_mins ] = gmdate( $time_format, $ts );
+				if ( 'H:i' !== $label_format ) {
+					$times[ $value ] = gmdate( $label_format, $ts );
 				} else {
-					$times[ $hour_mins ] = $hour_mins;
+					$times[ $value ] = $value;
 				}
 			}
 

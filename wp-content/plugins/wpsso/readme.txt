@@ -11,7 +11,7 @@ Contributors: jsmoriss
 Requires At Least: 3.8
 Tested Up To: 5.2.2
 WC Tested Up To: 3.6
-Stable Tag: 5.2.0
+Stable Tag: 5.3.1
 
 WPSSO Core makes sure your content looks great on all social and search sites, no matter how URLs are crawled, shared, re-shared, posted or embedded!
 
@@ -262,6 +262,33 @@ WPSSO Core and its optional add-ons offer meta tags and Schema markup for Facebo
 
 * The following integration modules are provided with the Premium plugin, and are automatically loaded when the supported services are required or 3rd party plugins detected.
 
+	* **Integration with 3rd Party Plugins:** 
+
+		* [All in One SEO Pack](https://wordpress.org/plugins/all-in-one-seo-pack/)
+		* [bbPress](https://wordpress.org/plugins/bbpress/)
+		* [BuddyPress](https://wordpress.org/plugins/buddypress/) (including Group Forum Topics)
+		* [Co-Authors Plus](https://wordpress.org/plugins/co-authors-plus/) (including Guest Authors)
+		* [Easy Digital Downloads](https://wordpress.org/plugins/easy-digital-downloads/)
+		* Gravity Forms + GravityView
+		* [NextCellent Gallery - NextGEN Legacy](https://wordpress.org/plugins/nextcellent-gallery-nextgen-legacy/)
+		* [NextGEN Gallery](https://wordpress.org/plugins/nextgen-gallery/)
+		* [Polylang](https://wordpress.org/plugins/polylang/)
+		* [Product GTIN (EAN, UPC, ISBN) for WooCommerce](https://wordpress.org/plugins/product-gtin-ean-upc-isbn-for-woocommerce/)
+		* [rtMedia for WordPress, BuddyPress and bbPress](https://wordpress.org/plugins/buddypress-media/)
+		* [Simple Job Board](https://wordpress.org/plugins/simple-job-board/)
+		* [The Events Calendar](https://wordpress.org/plugins/the-events-calendar/)
+		* [The SEO Framework](https://wordpress.org/plugins/autodescription/)
+		* [WooCommerce](https://wordpress.org/plugins/woocommerce/) (versions 1, 2, and 3)
+		* WooCommerce Show Single Variations
+		* [WP eCommerce](https://wordpress.org/plugins/wp-e-commerce/)
+		* [WP Job Manager](https://wordpress.org/plugins/wp-job-manager/)
+		* [WP Meta SEO](https://wordpress.org/plugins/wp-meta-seo/)
+		* [WP-PostRatings](https://wordpress.org/plugins/wp-postratings/)
+		* [WP Product Review](https://wordpress.org/plugins/wp-product-review/)
+		* [WP Recipe Maker](https://wordpress.org/plugins/wp-recipe-maker/)
+		* [WP Ultimate Recipe](https://wordpress.org/plugins/wp-ultimate-recipe/)
+		* [Yoast SEO](https://wordpress.org/plugins/wordpress-seo/) (aka WordPress SEO)
+
 	* **Integration with Service APIs:**
 
 		* Bitly
@@ -277,34 +304,6 @@ WPSSO Core and its optional add-ons offer meta tags and Schema markup for Facebo
 		* WordPress Video Shortcode (and Self-Hosted Videos)
 		* Your Own URL Shortener (YOURLS)
 		* YouTube Videos and Playlists
-
-	* **Integration with 3rd Party Plugins:** 
-
-		* All in One SEO Pack
-		* bbPress
-		* BuddyPress (including Group Forum Topics)
-		* Co-Authors Plus (including Guest Authors)
-		* Easy Digital Downloads
-		* Gravity Forms + GravityView
-		* HeadSpace2 SEO
-		* MarketPress - WordPress eCommerce
-		* NextCellent Gallery - NextGEN Legacy
-		* NextGEN Gallery
-		* Polylang
-		* rtMedia for WordPress, BuddyPress and bbPress
-		* Simple Job Board
-		* The Events Calendar
-		* The SEO Framework
-		* WooCommerce (versions 1, 2, and 3)
-		* WooCommerce Show Single Variations
-		* WP eCommerce
-		* WP Job Manager
-		* WP Meta SEO
-		* WP-PostRatings
-		* WP Product Review
-		* WP Recipe Maker
-		* WP Ultimate Recipe
-		* Yoast SEO (aka WordPress SEO)
 
 <h3>Coded for Performance</h3>
 
@@ -338,7 +337,6 @@ WPSSO Core offers hundreds of filter hooks to customize its behavior and output,
 
 * [Can I use the Premium plugin on multiple websites?](https://wpsso.com/docs/plugins/wpsso/faqs/can-i-use-the-pro-version-on-multiple-websites/)
 * [Does LinkedIn read the Open Graph meta tags?](https://wpsso.com/docs/plugins/wpsso/faqs/does-linkedin-read-the-open-graph-meta-tags/)
-* [Doesn't an SEO plugin cover that?](https://wpsso.com/docs/plugins/wpsso/faqs/doesnt-an-seo-plugin-cover-that/)
 * [How can I add Schema aggregateRating values?](https://wpsso.com/docs/plugins/wpsso/faqs/how-can-i-add-schema-aggregaterating-values/)
 * [How can I exclude / ignore certain parts of the content text?](https://wpsso.com/docs/plugins/wpsso/faqs/how-can-i-exclude-ignore-certain-parts-of-the-content-text/)
 * [How can I fix a ERR_TOO_MANY_REDIRECTS error?](https://wpsso.com/docs/plugins/wpsso/faqs/how-can-i-fix-a-err_too_many_redirects-error/)
@@ -356,7 +354,6 @@ WPSSO Core offers hundreds of filter hooks to customize its behavior and output,
 * [How does WPSSO Core find / detect / select videos?](https://wpsso.com/docs/plugins/wpsso/faqs/how-does-wpsso-find-detect-select-videos/)
 * [W3C says "there is no attribute 'property'"](https://wpsso.com/docs/plugins/wpsso/faqs/w3c-says-there-is-no-attribute-property/)
 * [Why are some HTML elements missing / misaligned / different?](https://wpsso.com/docs/plugins/wpsso/faqs/why-are-some-html-elements-missing-misaligned-different/)
-* [Why does Facebook play videos instead of linking them?](https://wpsso.com/docs/plugins/wpsso/faqs/why-does-facebook-play-videos-instead-of-linking-them/)
 * [Why does Facebook show the wrong image / text?](https://wpsso.com/docs/plugins/wpsso/faqs/why-does-facebook-show-the-wrong-image-text/)
 * [Why does Google Structured Data Testing Tool show errors?](https://wpsso.com/docs/plugins/wpsso/faqs/why-does-google-structured-data-testing-tool-show-errors/)
 * [Why is the Open Graph title the same for every webpage?](https://wpsso.com/docs/plugins/wpsso/faqs/why-is-the-open-graph-title-the-same-for-every-webpage/)
@@ -369,7 +366,6 @@ WPSSO Core offers hundreds of filter hooks to customize its behavior and output,
 	* [Co-Author Plus](https://wpsso.com/docs/plugins/wpsso/notes/modules/co-author-plus/)
 	* [Easy Digital Downloads](https://wpsso.com/docs/plugins/wpsso/notes/modules/easy-digital-downloads/)
 	* [Facebook, Slideshare, Vimeo, Wistia, Youtube Video APIs](https://wpsso.com/docs/plugins/wpsso/notes/modules/facebook-slideshare-vimeo-wistia-youtube-video-apis/)
-	* [HeadSpace2 SEO](https://wpsso.com/docs/plugins/wpsso/notes/modules/headspace2-seo/)
 	* [NextCellent Gallery and NextGEN Gallery](https://wpsso.com/docs/plugins/wpsso/notes/modules/nextcellent-gallery-and-nextgen-gallery/)
 	* [Polylang](https://wpsso.com/docs/plugins/wpsso/notes/modules/polylang/)
 	* [The Events Calendar](https://wpsso.com/docs/plugins/wpsso/notes/modules/the-events-calendar/)
@@ -438,6 +434,48 @@ Version components: `{major}.{minor}.{bugfix}[-{stage}.{level}]`
 
 <h3>Changelog / Release Notes</h3>
 
+**Version 5.3.1 (2019/07/23)**
+
+* **New Features**
+	* None.
+* **Improvements**
+	* None.
+* **Bugfixes**
+	* Fixed incorrect substr() in WpssoMessages::get_ext_p_ext().
+* **Developer Notes**
+	* None.
+
+**Version 5.3.0 (2019/07/18)**
+
+This version includes several jQuery improvements to optimize both the size of settings pages and their submitted data.
+
+* **New Features**
+	* Added support for the [Product GTIN (EAN, UPC, ISBN) for WooCommerce](https://wordpress.org/plugins/product-gtin-ean-upc-isbn-for-woocommerce/) plugin (Premium version).
+* **Improvements**
+	* **Removed support for the MarketPress plugin (plugin closed).**
+	* **Removed support for the HeadSpace2 SEO plugin (plugin not updated in 7 years).**
+	* Added an '@id' property to the Schema ImageObject and VideoObject markup.
+	* Added new status messages (min, max, and required) for the option field character count.
+	* Optimized the saving of settings by having the browser exclude unchanged options from the $_POST.
+	* Optimized the SSO &gt; General &gt; Google &gt; Default Schema Types options with jQuery to load the selects as needed.
+	* The WooCommerce integration module now reads variation meta to handle variation custom fields (Premium version).
+* **Bugfixes**
+	* Fixed the metabox tab layout CSS for Safari (needed a vertical align to top).
+	* Fixed the 'on_show_unhide_rows' event by changing the unhide function call from `$(document).ready()` to `$(window).load()`.
+	* Fixed duplicated Schema VideoObject markup from the YouTube integration module (Premium version).
+* **Developer Notes**
+	* Added a new String.prototype.formatUnicorn() javascript function (for min, max, and required status messages).
+	* Added a new WpssoScript::get_metabox_script_data() method (for min, max, and required status message translations).
+	* Added a new 'on_focus_load_json' event name argument for SucomForm::get_select().
+	* Documented the default Schema property maximums (used by the WPSSO JSON add-on) in constants.txt:
+		* WPSSO_SCHEMA_ITEMS_PER_LIST_MAX          = 200
+		* WPSSO_SCHEMA_MENTIONS_PER_COLLECTION_MAX = 30
+		* WPSSO_SCHEMA_MENTIONS_PER_PROFILE_MAX    = 30
+		* WPSSO_SCHEMA_MENTIONS_PER_SEARCH_MAX     = 10
+		* WPSSO_SCHEMA_POSTS_PER_BLOG_MAX          = 50
+		* WPSSO_SCHEMA_QUESTIONS_PER_FAQPAGE_MAX   = 50
+		* WPSSO_SCHEMA_REVIEWS_PER_PAGE_MAX        = 30
+
 **Version 5.2.0 (2019/07/13)**
 
 * **New Features**
@@ -456,7 +494,7 @@ Version components: `{major}.{minor}.{bugfix}[-{stage}.{level}]`
 		* Product GTIN-8
 	* Added a "Product GTIN Attribute Name" and "Product GTIN Custom Field" options in the SSO &gt; Advanced settings page.
 	* Removed the "Product EAN" option (replaced with "Product GTIN-13/EAN").
-	* Removed the "Product EAN Custom Field" option (replaced with "Product GTIN-13 Custom Field").
+	* Removed the "Product EAN Custom Field" option (replaced with "Product GTIN-13/EAN Custom Field").
 	* Removed the "Product EAN Attribute Name" option.
 	* Mapped the `product:upc` meta tag to the 'product_gtin12' value.
 	* Mapped the `product:ean` meta tag to the 'product_gtin13' value.
@@ -511,9 +549,7 @@ Version components: `{major}.{minor}.{bugfix}[-{stage}.{level}]`
 * **New Features**
 	* None.
 * **Improvements**
-	* Renamed "Pro" distribution to "Premium".
-	* Renamed "Free" distribution to "Standard".
-	* Removed support for the Yotpo Social Reviews for WooCommerce plugin (too many bad reviews and too few active installations).
+	* **Removed support for the Yotpo Social Reviews for WooCommerce plugin (too many bad reviews and too few active installations).**
 	* Added checks for missing WooCommerce "My account page", "Cart page", "Checkout page", and "Shop page" selections (Premium plugin).
 	* Added an action hook to remove duplicate JSON-LD markup in AMP pages from the Yoast SEO plugin.
 	* Added new Schema Article sub-types:
@@ -528,6 +564,8 @@ Version components: `{major}.{minor}.{bugfix}[-{stage}.{level}]`
 		* https://schema.org/ReportageNewsArticle
 		* https://schema.org/ReviewNewsArticle
 		* https://schema.org/SatiricalArticle
+	* Renamed "Pro" distribution to "Premium".
+	* Renamed "Free" distribution to "Standard".
 * **Bugfixes**
 	* None.
 * **Developer Notes**
@@ -538,7 +576,7 @@ Version components: `{major}.{minor}.{bugfix}[-{stage}.{level}]`
 
 == Upgrade Notice ==
 
-= 5.2.0 =
+= 5.3.1 =
 
-(2019/07/13) Fixed an incorrect variable use in the WpssoAdmin::get_option_site_use() static method. Moved product options without Open Graph meta tags to the WPSSO JSON add-on.
+(2019/07/23) Fixed incorrect substr() in WpssoMessages::get_ext_p_ext().
 

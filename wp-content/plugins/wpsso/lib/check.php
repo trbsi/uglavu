@@ -75,14 +75,9 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 
 							break;
 
-						case 'ecom-jck-wssv':
+						case 'ecom-jck_wssv':
 
 							$chk[ 'class' ] = 'JCK_WSSV';
-
-							break;
-						case 'ecom-marketpress':
-
-							$chk[ 'class' ] = 'Marketpress';
 
 							break;
 
@@ -95,6 +90,12 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 						case 'ecom-wpecommerce':
 
 							$chk[ 'class' ] = 'WP_eCommerce';
+
+							break;
+
+						case 'ecom-wpm_product_gtin_wc':
+
+							$chk[ 'class' ] = 'WPM_Product_GTIN_WC';
 
 							break;
 
@@ -185,12 +186,6 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 						case 'seo-autodescription':
 
 							$chk[ 'function' ] = 'the_seo_framework';
-
-							break;
-
-						case 'seo-headspace2':
-
-							$chk[ 'class' ] = 'HeadSpace_Plugin';
 
 							break;
 
@@ -519,7 +514,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 				$ext_pdir    = $this->pp( $ext, false );
 				$ext_auth_id = $this->get_ext_auth_id( $ext );
 				$ext_pp      = $ext_auth_id && $this->pp( $ext, true, WPSSO_UNDEF ) === WPSSO_UNDEF ? true : false;
-				$ext_stat    = ( $ext_pp ? 'L' : ( $ext_pdir ? 'U' : 'F' ) ) . ( $ext_auth_id ? '*' : '' );
+				$ext_stat    = ( $ext_pp ? 'L' : ( $ext_pdir ? 'U' : 'S' ) ) . ( $ext_auth_id ? '*' : '' );
 				$ext_list[]  = $info[ 'short' ] . ' ' . $info[ 'version' ] . '/' . $ext_stat;
 			}
 

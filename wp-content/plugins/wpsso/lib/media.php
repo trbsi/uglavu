@@ -1742,7 +1742,9 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 			 *
 			 * get_html_head_meta( $request, $query, $libxml_errors, $curl_opts );
 			 */
-			$curl_opts = array( 'CURLOPT_USERAGENT' => WPSSO_PHP_CURL_USERAGENT_FACEBOOK );
+			$curl_opts = array(
+				'CURLOPT_USERAGENT' => WPSSO_PHP_CURL_USERAGENT_FACEBOOK,
+			);
 
 			$metas = $this->p->util->get_html_head_meta( $url, '//meta', false, $curl_opts );
 
@@ -1841,7 +1843,8 @@ if ( ! class_exists( 'WpssoMedia' ) ) {
 
 								if ( ! empty( $a[ 'content' ] ) ) {
 									if ( preg_match( '/^twitter:app:([a-z]+):([a-z]+)$/', $meta_name, $matches ) ) {
-										$og_single_video[ 'og:video:' . $matches[2] . '_' . $matches[1]] = SucomUtil::decode_html( $a[ 'content' ] );
+										$og_single_video[ 'og:video:' . $matches[2] . '_' .
+											$matches[ 1 ] ] = SucomUtil::decode_html( $a[ 'content' ] );
 									}
 								}
 
