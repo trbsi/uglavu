@@ -57,6 +57,10 @@ class U_Glavu {
 	 */
 	protected $version;
 
+	private $adminLoader;
+	private $frontLoader;
+
+
 	/**
 	 * Define the core functionality of the plugin.
 	 *
@@ -122,26 +126,24 @@ class U_Glavu {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-u-glavu-public.php';
 
-		/**
-		 * Admin dependecies
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/admin/posts/class-u-glavu-admin-posts.php';
-		
-		/**
-		 * Front dependecies
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/front/posts/class-u-glavu-front-posts-excerpt.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/front/posts/class-u-glavu-front-posts-posts.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/admin/class-u-glavu-admin-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/front/class-u-glavu-front-loader.php';
 
 		$this->loader = new U_Glavu_Loader(); 
 
 		if (is_admin()) {
+			$this->adminLoader = new U_Glavu_Admin_Loader($this->loader);
 			if ( in_array($pagenow, ['edit.php']) ) {
-				new U_Glavu_Admin_Posts($this->loader);
+				$this->adminLoader->load_posts_filter();
+			}
+
+			if (in_array($pagenow, ['post-new.php'])) {
+				$this->adminLoader->load_og_tags_scraper_and_saver($this->loader);
 			}
 		} else {
-			new U_Glavu_Front_Posts_Excerpt($this->loader);
-			new U_Glavu_Front_Posts_Posts($this->loader);
+			$this->frontLoader = new U_Glavu_Front_Loader($this->loader);
+			$this->frontLoader->load_posts_excerpt_modifier();
+			$this->frontLoader->load_posts_front_modifier();
 		}
 
 	}
@@ -177,6 +179,12 @@ class U_Glavu {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
+
+		if(is_admin()) {
+			$ogClasses = $this->adminLoader->load_og_tags_scraper_and_saver($this->loader);
+			//ajax action for scraping tags
+			$this->loader->add_action( 'wp_ajax_scrape_fb_og_tags', $ogClasses['scrapeOgTags'], 'scrape_fb_og_tags');
+		}
 	}
 
 	/**

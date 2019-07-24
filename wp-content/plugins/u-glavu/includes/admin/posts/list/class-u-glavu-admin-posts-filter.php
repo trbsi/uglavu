@@ -3,7 +3,7 @@
 /**
  * @see  https://rudrastyh.com/wordpress/date-range-filter.html
  */
-class U_Glavu_Admin_Posts {
+class U_Glavu_Admin_Posts_Filter {
 
 	function __construct(U_Glavu_Loader $loader) {
 

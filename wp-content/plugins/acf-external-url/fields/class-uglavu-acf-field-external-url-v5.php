@@ -7,9 +7,13 @@ if( ! defined( 'ABSPATH' ) ) exit;
 // check if class already exists
 if( !class_exists('uglavu_acf_field_external_url') ) :
 
+require_once WP_PLUGIN_DIR . '/u-glavu/includes/class-u-glavu-loader.php';
+require_once WP_PLUGIN_DIR . '/u-glavu/includes/admin/class-u-glavu-admin-loader.php';
 
 class uglavu_acf_field_external_url extends acf_field {
 	
+	private $loader;
+	private $adminLoader;
 	
 	/*
 	*  __construct
@@ -26,6 +30,9 @@ class uglavu_acf_field_external_url extends acf_field {
 	
 	function __construct( $settings ) {
 		
+		$this->loader = new U_Glavu_Loader(); 
+		$this->adminLoader = new U_Glavu_Admin_Loader($this->loader);
+
 		/*
 		*  name (string) Single word, no spaces. Underscores allowed
 		*/
@@ -132,7 +139,7 @@ class uglavu_acf_field_external_url extends acf_field {
 	*/
 	
 	function render_field( $field ) {
-		
+		$ogClasses = $this->adminLoader->load_og_tags_scraper_and_saver($this->loader);
 		
 		/*
 		*  Review the data of $field.
@@ -144,7 +151,7 @@ class uglavu_acf_field_external_url extends acf_field {
 		*/
 		$image = $url = $title = null;
 		if (isset($_GET['post'])) {
-			$ogPost = get_og_post_by_id($_GET['post']);
+			$ogPost = $ogClasses['scrapeOgTags']->get_og_post_by_id($_GET['post']);
 			$image = $ogPost->image;
 			$url =  $ogPost->url;
 			$title = $ogPost->title;
