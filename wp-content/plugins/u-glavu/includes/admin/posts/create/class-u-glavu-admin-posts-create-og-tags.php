@@ -84,24 +84,13 @@ class U_Glavu_Admin_Posts_Create_Og_Tags {
 		return $sitePostId;
 	}
 
+	/**
+	 * @see https://stackoverflow.com/questions/8520969/php-hashing-function-that-returns-an-integer-32bit-int
+	 */
 	public function extract_site_post_id_from_url(array $urlData): int
 	{
 		$path = strtolower($urlData['path']);
-		$pathArray = str_split(str_replace(['-', '/'], '', $path));
-		$letters = array_flip(range('a', 'z'));
 
-		$sitePostId = 0;
-		foreach ($pathArray as $character) {
-			if (is_numeric($character)) {
-				$sitePostId+= $character;
-			} elseif(isset($letters[$character])) {
-				$sitePostId+= $letters[$character] + 1;
-			} else {
-				$sitePostId+= 1;
-			}
-		}
-		$sitePostId+= strlen($externalUrl);
-
-		return $sitePostId;
+		return crc32($path);
 	}
 }
