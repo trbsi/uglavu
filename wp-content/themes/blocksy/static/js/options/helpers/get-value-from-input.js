@@ -18,6 +18,16 @@ export const getFirstLevelOptions = options => {
 			}
 		}
 
+		if (options[currentOptionId]['inner-options']) {
+			return {
+				...currentOptions,
+				[currentOptionId]: options[currentOptionId],
+				...getFirstLevelOptions(
+					options[currentOptionId]['inner-options']
+				)
+			}
+		}
+
 		return {
 			...currentOptions,
 			[currentOptionId]: options[currentOptionId]
@@ -33,13 +43,13 @@ export const flattenOptions = options =>
 			...(options[currentId].type
 				? { [currentId]: options[currentId] }
 				: currentId === '__CT_KEYS_ORDER__'
-					? { [currentId]: options[currentId] }
-					: flattenOptions(options[currentId]))
+				? { [currentId]: options[currentId] }
+				: flattenOptions(options[currentId]))
 		}),
 		{}
 	)
 
-export const getValueFromInput = (options, values) => {
+export const getValueFromInput = (options, values, valueGetter = null) => {
 	let firstLevelOptions = getFirstLevelOptions(options)
 
 	return {
@@ -70,8 +80,10 @@ export const getValueFromInput = (options, values) => {
 									...(firstLevelOptions[currentOptionId]
 										.value || [])
 									// ...values[currentOptionId],
-								]
+							  ]
 					}
+				} else if (valueGetter) {
+					actualValue = valueGetter(currentOptionId)
 				} else {
 					if (
 						Object.keys(firstLevelOptions[currentOptionId]).indexOf(

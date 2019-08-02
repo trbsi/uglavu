@@ -91,6 +91,7 @@ add_action(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
 				'nonce' => wp_create_nonce( 'ct-ajax-nonce' ),
 				'public_url' => get_template_directory_uri() . '/static/bundle/',
+				'static_public_url' => get_template_directory_uri() . '/static/',
 				'rest_url' => get_rest_url(),
 			]
 		);
@@ -98,6 +99,11 @@ add_action(
 );
 
 add_action('admin_notices', function () {
+	blocksy_output_companion_notice();
+	blocksy_output_header_builder_notice();
+});
+
+function blocksy_output_companion_notice() {
 	if (! current_user_can('activate_plugins') ) return;
 	if (get_option('dismissed-blocksy_plugin_notice', false)) return;
 
@@ -129,11 +135,44 @@ add_action('admin_notices', function () {
 
 	echo '</div>';
 	echo '</div>';
-});
+}
 
+function blocksy_output_header_builder_notice() {
+	if (get_option('dismissed-blocksy_header_builder_notice', false)) return;
+
+	echo '<div class="notice notice-header-builder">';
+	echo '<div class="notice-header-builder-root">';
+
+	?>
+
+	<h1><?php esc_html_e( 'Heads up, Blocksy 2.0 is arriving soon!', 'blocksy' ); ?></h1>
+	<p class="about-description">
+		We are in the process of rebuilding our <b>Header</b> option experience.
+	<p>
+		In the next update we will release the <b>Header Builder</b> module, it will give you the power and freedoom to build any kind of header in just a few minutes.
+	</p>
+	<p>
+		This means that you will have to rebuild your header from scratch (this won't touch the already configured logo and menu elements).
+	</p>
+
+	<div class="notice-actions">
+		<a href="https://creativethemes.com/blocksy/support/?subject_prefix=Header Builder Question" class="button button-primary" target="_blank">I have a question or idea</a>
+		<a href="#" class="button" data-dismiss="header-builder">Awesome, hide notification</a>
+	</div>
+
+	<?php
+
+	echo '</div>';
+	echo '</div>';
+}
 
 add_action( 'wp_ajax_blocksy_dismissed_notice_handler', function () {
 	update_option('dismissed-blocksy_plugin_notice', true);
+	wp_die();
+});
+
+add_action( 'wp_ajax_blocksy_dismissed_notice_header_builder', function () {
+	update_option('dismissed-blocksy_header_builder_notice', true);
 	wp_die();
 });
 

@@ -129,6 +129,10 @@ $options = [
 					'vimeo' => [
 						'label' => __( 'Vimeo', 'blocksy' ),
 					],
+
+					'rss' => [
+						'label' => __( 'RSS', 'blocksy' ),
+					],
 				],
 			],
 		],

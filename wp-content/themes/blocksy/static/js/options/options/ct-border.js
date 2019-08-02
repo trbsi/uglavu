@@ -1,7 +1,7 @@
 import { createElement, Component, useState } from '@wordpress/element'
 import OutsideClickHandler from 'react-outside-click-handler'
 import classnames from 'classnames'
-import ColorPicker from '../../customizer/controls/color-picker'
+import ColorPicker from './ct-color-picker'
 
 const clamp = (min, max, value) => Math.max(min, Math.min(max, value))
 
@@ -57,7 +57,7 @@ const Border = ({ value, option, onChange }) => {
 													][0],
 													el
 												]
-											])
+										  ])
 								],
 								[]
 							)

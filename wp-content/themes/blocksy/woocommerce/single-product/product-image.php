@@ -92,7 +92,7 @@ if (count($gallery_images) === 1) {
 			'href' => $image_href
 		],
 	]);
-} else {
+} else if (count($gallery_images) > 0) {
 	echo blocksy_flexy([
 		'images' => $gallery_images,
 		'size' => 'woocommerce_single',

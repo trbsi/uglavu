@@ -1,5 +1,5 @@
 :root {
-	
+
 	// Menu
 	--menuItemsSpacing: 25px;
 	// --dropdownTopOffset: 15px;
@@ -20,7 +20,11 @@
 	--metaFontSize: 12px;
 
 	// Woocommerce variables
-	--starRatingColor: #FDA256;
+	--starRatingColor: #fda256;
 	--saleBadgeTextColor: #ffffff;
 	--saleBadgeBackgroundColor: var(--paletteColor1);
+
+	--textTransform: none;
+	--textDecoration: none;
+	--fontStyle: normal;
 }

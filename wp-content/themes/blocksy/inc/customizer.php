@@ -5,9 +5,6 @@
  * @package Blocksy
  */
 
-global $blocksy_wp_customize;
-$blocksy_wp_customize = null;
-
 require get_template_directory() . '/inc/validator.php';
 
 function blocksy_get_options( $path, $pass_inside = [], $relative = true ) {
@@ -29,83 +26,63 @@ function blocksy_get_options( $path, $pass_inside = [], $relative = true ) {
 	);
 }
 
-/**
- * Implement customizer controls
- *
- * @param WP_Customize_Manager $wp_customize Theme Customizer object.
- */
-function blocksy_customize_register( $wp_customize ) {
+add_action('customize_register', function ($wp_customize) {
 	require get_template_directory() . '/inc/classes/class-ct-group-title.php';
 
-	global $blocksy_wp_customize;
+	$builder = new Blocksy_Customizer_Builder();
 
-	$blocksy_wp_customize = $wp_customize;
+	foreach ($builder->get_registered_items_by('header', 'secondary') as $item) {
+		blocksy_customizer_register_options(
+			$wp_customize,
+			$builder->get_options_for('header', $item)
+		);
+	}
 
-	$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
-	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
+	$wp_customize->get_setting('blogname')->transport = 'postMessage';
+	$wp_customize->get_setting('blogdescription')->transport = 'postMessage';
 
 	$wp_customize->remove_control('custom_logo');
 
+	$wp_customize->remove_control('blogname');
+	$wp_customize->remove_control('blogdescription');
+
 	if (function_exists('is_shop')) {
-		$wp_customize->remove_section( 'header_image' );
-		$wp_customize->remove_section( 'colors' );
-		$wp_customize->remove_section( 'woocommerce_product_catalog' );
+		$wp_customize->remove_section('header_image');
+		$wp_customize->remove_section('colors');
+		$wp_customize->remove_section('woocommerce_product_catalog');
 
 		$wp_customize->add_section(
 			new Blocksy_Group_Title(
 				$wp_customize,
 				'plugin_integrations',
 				[
-					'title'       => esc_html__( 'Plugin Integrations', 'blocksy' ),
+					'title' => esc_html__('Plugin Integrations', 'blocksy'),
 					'priority' => 3,
 				]
 			)
 		);
 	}
 
-	$wp_customize->add_panel( 'woocommerce', array(
-		'priority'       => 4,
-		'capability'     => 'manage_woocommerce',
+	$wp_customize->add_panel('woocommerce', [
+		'priority' => 4,
+		'capability' => 'manage_woocommerce',
 		'theme_supports' => '',
-		'title'          => __( 'WooCommerce', 'blocksy' ),
-	) );
+		'title' => __( 'WooCommerce', 'blocksy' ),
+	]);
 
 	$wp_customize->add_section(
 		new Blocksy_Group_Title(
 			$wp_customize,
 			'core',
 			[
-				'title'       => esc_html__( 'Core', 'blocksy' ),
+				'title' => esc_html__( 'Core', 'blocksy' ),
 				'priority' => 12,
 			]
 		)
 	);
 
-	blocksy_customizer_register_options( $wp_customize, blocksy_get_options( 'customizer' ) );
-
-	if ( isset( $wp_customize->selective_refresh ) ) {
-		$wp_customize->selective_refresh->add_partial(
-			'blogname',
-			[
-				'selector'        => '.site-title a',
-				'render_callback' => function () {
-					bloginfo( 'name' );
-				},
-			]
-		);
-
-		$wp_customize->selective_refresh->add_partial(
-			'blogdescription',
-			[
-				'selector'        => '.site-description',
-				'render_callback' => function () {
-					bloginfo( 'description' );
-				}
-			]
-		);
-	}
-}
-add_action( 'customize_register', 'blocksy_customize_register' );
+	blocksy_customizer_register_options($wp_customize, blocksy_get_options('customizer'));
+});
 
 function blocksy_add_customizer_preview_cache( $maybe_content ) {
 	add_action(
@@ -219,6 +196,7 @@ function blocksy_customizer_sync_data() {
 
 	return [
 		'future_location' => $location,
+		'svg_patterns' => blocksy_get_patterns_svgs_list()
 	];
 }
 
@@ -253,15 +231,20 @@ add_action(
 			'ct-customizer-controls',
 			get_template_directory_uri() . '/static/bundle/customizer-controls.js',
 			$deps,
-			$theme->get( 'Version' ),
+			$theme->get('Version'),
 			true
 		);
+
+		$b = new Blocksy_Customizer_Builder();
 
 		wp_localize_script(
 			'ct-customizer-controls',
 			'ct_customizer_localizations',
 			[
 				'customizer_reset_none' => wp_create_nonce( 'ct-customizer-reset' ),
+				'static_public_url' => get_template_directory_uri() . '/static/',
+				'header_builder_data' => $b->get_data_for_customizer(),
+				'all_mods' => get_theme_mods()
 			]
 		);
 
@@ -271,13 +254,13 @@ add_action(
 add_action(
 	'wp_ajax_ct_customizer_reset',
 	function () {
-		global $blocksy_wp_customize;
+		global $wp_customize;
 
-		if ( ! $blocksy_wp_customize ) {
+		if ( ! $wp_customize ) {
 			return;
 		}
 
-		if ( ! $blocksy_wp_customize->is_preview() ) {
+		if ( ! $wp_customize->is_preview() ) {
 			wp_send_json_error();
 		}
 
@@ -285,7 +268,7 @@ add_action(
 			wp_send_json_error( 'nonce' );
 		}
 
-		$settings = $blocksy_wp_customize->settings();
+		$settings = $wp_customize->settings();
 
 		foreach ( $settings as $single_setting ) {
 			if ( 'theme_mod' !== $single_setting->type ) {
@@ -329,7 +312,6 @@ function blocksy_customizer_register_options(
 	}
 
 	foreach ( $collected as &$opt ) {
-
 		if (
 			isset( $opt['option']['type'] )
 			&&
@@ -356,7 +338,6 @@ function blocksy_customizer_register_options(
 				]
 			);
 
-
 			$has_containers = ! empty( $_collected );
 			unset( $_collected );
 
@@ -367,11 +348,11 @@ function blocksy_customizer_register_options(
 
 			$args = [
 				'title' => empty( $opt['option']['title'] )
-				? blocksy_id_to_title( $opt['id'] )
-				: $opt['option']['title'],
+					? blocksy_id_to_title( $opt['id'] )
+					: $opt['option']['title'],
 				'description' => empty( $opt['option']['desc'] )
-				? ''
-				: $opt['option']['desc'],
+					? ''
+					: $opt['option']['desc'],
 			];
 
 			if ( isset( $opt['option']['container'] ) && is_array( $opt['option']['container'] ) ) {
@@ -403,6 +384,7 @@ function blocksy_customizer_register_options(
 							esc_html( $opt['id'] ) . ' section can have only panel parent (' . esc_html( $parent_data['id'] ) . ')',
 							E_USER_WARNING
 						);
+
 						break;
 					}
 				}
@@ -421,7 +403,7 @@ function blocksy_customizer_register_options(
 			continue;
 		}
 
-		if ( 'option' === $opt['group'] ) {
+		if ('option' === $opt['group']) {
 			if (
 				(
 					$opt['option']['type'] === 'ct-panel'
@@ -436,17 +418,8 @@ function blocksy_customizer_register_options(
 				blocksy_collect_options(
 					$options_to_send,
 					$opt['option']['inner-options'],
-					[
-						'include_container_types' => false,
-					]
+					['include_container_types' => false]
 				);
-
-				/*
-				$options_to_send = json_decode(
-					wp_json_encode( $options_to_send ),
-					true
-				);
-				 */
 
 				blocksy_customizer_register_options(
 					$wp_customize,
@@ -458,11 +431,11 @@ function blocksy_customizer_register_options(
 
 			$args_control = array(
 				'label' => empty( $opt['option']['label'] )
-				? blocksy_id_to_title( $opt['id'] )
-				: $opt['option']['label'],
+					? blocksy_id_to_title( $opt['id'] )
+					: $opt['option']['label'],
 				'description' => empty( $opt['option']['desc'] )
-				? ''
-				: $opt['option']['desc'],
+					? ''
+					: $opt['option']['desc'],
 				'settings' => $opt['id'],
 				'type' => $opt['option']['type'],
 			);
@@ -474,7 +447,7 @@ function blocksy_customizer_register_options(
 			$args_control = array_merge( $opt['option'], $args_control );
 
 			if ( $parent_data ) {
-				if ( 'section' === $parent_data['customizer_type'] ) {
+				if ('section' === $parent_data['customizer_type']) {
 					$args_control['section'] = $parent_data['id'];
 				} else {
 					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
@@ -485,18 +458,6 @@ function blocksy_customizer_register_options(
 
 					break;
 				}
-			} else {
-				// the option is not placed in a section, create a section automatically.
-				$args_control['section'] = 'fw_option_auto_section_' . $opt['id'];
-
-				$wp_customize->add_section(
-					$args_control['section'],
-					array(
-						'title' => empty( $opt['option']['label'] )
-						? blocksy_id_to_title( $opt['id'] )
-						: $opt['option']['label'],
-					)
-				);
 			}
 
 			$args_setting = array(
@@ -511,8 +472,6 @@ function blocksy_customizer_register_options(
 					$args_setting
 				);
 			}
-
-			// blocksy_print($opt['option']);
 
 			$is_allowed = true;
 

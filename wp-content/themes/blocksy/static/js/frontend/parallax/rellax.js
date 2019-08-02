@@ -13,163 +13,259 @@
 // Allow for decimal pixel values
 const updatePosition = (percentage, speed) => speed * (100 * (1 - percentage))
 
+function elementInViewport(el) {
+  var rect = el.getBoundingClientRect()
+
+  return (
+    rect.bottom > -300 &&
+    rect.top - 300 <
+      (window.innerHeight ||
+        document.documentElement.clientHeight) /* or $(window).height() */
+  )
+}
+
+function nullifyTransforms(el) {
+  if (!el) return null
+
+  //add sanity checks and default values
+
+  let { top, left, right, width, height } = el.getBoundingClientRect()
+
+  let transformArr = window
+    .getComputedStyle(el)
+    .transform.split(/\(|,|\)/)
+    .slice(1, -1)
+    .map(v => parseFloat(v))
+
+  if (transformArr.length != 6) {
+    return el.getBoundingClientRect()
+  }
+
+  // 2D matrix
+  // need some math to apply inverse of matrix
+  // That is the matrix of the transformation of the element
+  var t = transformArr
+  let det = t[0] * t[3] - t[1] * t[2]
+
+  /*if (transformArr.length > 6)*/
+  //3D matrix
+  //haven't done the calculation to apply inverse of 4x4 matrix
+
+  return {
+    width: width / t[0],
+    height: height / t[3],
+    left: (left * t[3] - top * t[2] + t[2] * t[5] - t[4] * t[3]) / det,
+    right: (right * t[3] - top * t[2] + t[2] * t[5] - t[4] * t[3]) / det,
+    top: (-left * t[1] + top * t[0] + t[4] * t[1] - t[0] * t[5]) / det
+  }
+}
+
 export class Rellax {
-	constructor() {
-		this.blocks = []
-		this.oldPosY = false
+  constructor() {
+    this.blocks = []
+    this.oldPosY = false
 
-		this.intersectionObserver = new IntersectionObserver(entries => {
-			entries.map(({ target: el, isIntersecting }) => {
-				let block = this.blocks.filter(
-					({ fitInsideContainer }) => fitInsideContainer === el
-				)[0]
+    this.intersectionObserver = new IntersectionObserver(
+      entries => {
+        entries.map(({ target: el, isIntersecting, intersectionRatio }) => {
+          let blocks = this.blocks.filter(
+            ({ fitInsideContainer, el: blockEl }) =>
+              blockEl.closest('svg')
+                ? blockEl.closest('svg') === el
+                : fitInsideContainer === el || blockEl === el
+          )
 
-				block.isVisible = isIntersecting
+          blocks.map(block => {
+            block.isVisible = isIntersecting
 
-				if (!block.isVisible) block.el.removeAttribute('style')
-			})
-		})
+            this.blocks = this.blocks.map(nestedBlock =>
+              nestedBlock.el === block.el ? block : nestedBlock
+            )
 
-		window.addEventListener('resize', () => {
-			this.oldPosY = false
+            if (!block.isVisible) block.el.removeAttribute('style')
+          })
+        })
+      },
+      {
+        rootMargin: '300px'
+      }
+    )
 
-			this.blocks = this.blocks.map(
-				({
-					el,
-					speed,
-					fitInsideContainer,
-					isVisible,
-					shouldSetHeightToIncrease
-				}) =>
-					createBlock(
-						el,
-						speed,
-						fitInsideContainer,
-						isVisible,
-						shouldSetHeightToIncrease
-					)
-			)
+    window.addEventListener('resize', () => {
+      this.oldPosY = false
 
-			this.animate()
-		})
+      this.blocks = this.blocks.map(
+        ({
+          el,
+          speed,
+          fitInsideContainer,
+          isVisible,
+          shouldSetHeightToIncrease
+        }) => {
+          createBlock(
+            el,
+            speed,
+            fitInsideContainer,
+            isVisible,
+            shouldSetHeightToIncrease
+          )
 
-		// Start the loop
-		this.update()
+          return {
+            el,
+            speed,
+            fitInsideContainer,
+            isVisible,
+            shouldSetHeightToIncrease
+          }
+        }
+      )
 
-		// The loop does nothing if the scrollPosition did not change
-		// so call animate to make sure every element has their transforms
-		this.animate()
-	}
+      this.animate()
+    })
 
-	addEl(
-		el,
-		speed,
-		fitInsideContainer = null,
-		shouldSetHeightToIncrease = true
-	) {
-		this.intersectionObserver.observe(fitInsideContainer)
-		this.blocks.push(
-			createBlock(
-				el,
-				speed,
-				fitInsideContainer,
-				false,
-				shouldSetHeightToIncrease
-			)
-		)
-	}
+    // Start the loop
+    this.update()
 
-	update() {
-		if (!this.oldPosY) {
-			this.animate()
-		}
+    // The loop does nothing if the scrollPosition did not change
+    // so call animate to make sure every element has their transforms
+    this.animate()
+  }
 
-		if (this.setPosition()) {
-			this.animate()
-		}
+  addEl(
+    el,
+    speed,
+    fitInsideContainer = null,
+    shouldSetHeightToIncrease = true
+  ) {
+    if (fitInsideContainer) {
+      this.intersectionObserver.observe(fitInsideContainer)
+    } else {
+      this.intersectionObserver.observe(
+        el.closest('svg') ? el.closest('svg') : el
+      )
+    }
 
-		requestAnimationFrame(this.update.bind(this))
-	}
+    this.blocks.push(
+      createBlock(
+        el,
+        speed,
+        fitInsideContainer,
+        elementInViewport(fitInsideContainer ? fitInsideContainer : el),
+        shouldSetHeightToIncrease
+      )
+    )
+  }
 
-	setPosition() {
-		if (this.blocks.length === 0) return false
+  update() {
+    if (!this.oldPosY) {
+      this.animate()
+    }
 
-		let old = this.oldPosY
-		this.oldPosY = pageYOffset
+    if (this.setPosition()) {
+      this.animate()
+    }
 
-		return old != pageYOffset
-	}
+    requestAnimationFrame(this.update.bind(this))
+  }
 
-	animate() {
-		this.blocks.map(block => {
-			if (!block.isVisible) return
+  setPosition() {
+    if (this.blocks.length === 0) return false
 
-			var percentage =
-				(pageYOffset - block.top + window.innerHeight) /
-				(block.height + window.innerHeight)
+    let old = this.oldPosY
+    this.oldPosY = pageYOffset
 
-			// Subtracting initialize value, so element stays in same spot as HTML
-			var position =
-				updatePosition(percentage, block.speed) -
-				updatePosition(0.5, block.speed)
+    // return true
 
-			// Move that element
-			block.el.style.transform = `translate3d(0, ${position}px, 0)`
-		})
-	}
+    return old != pageYOffset
+  }
+
+  animate() {
+    this.blocks.map(block => {
+      if (!block.isVisible) return
+
+      var percentage =
+        (pageYOffset - block.top + window.innerHeight) /
+        (block.height + window.innerHeight)
+
+      let { top, height } = nullifyTransforms(
+        block.fitInsideContainer ? block.fitInsideContainer : block.el
+      )
+
+      if (!height) {
+        height = (block.fitInsideContainer
+          ? block.fitInsideContainer
+          : block.el
+        ).getBoundingClientRect().height
+      }
+
+      const newPercentage = 1 - (top + height / 2) / innerHeight
+
+      // Subtracting initialize value, so element stays in same spot as HTML
+      var position =
+        updatePosition(
+          block.fitInsideContainer ? percentage : newPercentage,
+          block.speed
+        ) - updatePosition(0.5, block.speed)
+
+      // Move that element
+      block.el.style.transform = `translate3d(0, ${position}px, 0)`
+    })
+  }
 }
 
 // We want to cache the parallax blocks'
 // values: base, top, height, speed
 // el: is dom object, return: el cache values
 function createBlock(
-	el,
-	speed,
-	fitInsideContainer = null,
-	isVisible = false,
-	shouldSetHeightToIncrease = true
+  el,
+  speed,
+  fitInsideContainer = null,
+  isVisible = false,
+  shouldSetHeightToIncrease = true
 ) {
-	// Optional individual block speed as data attr, otherwise global speed
-	// Check if has percentage attr, and limit speed to 5, else limit it to 10
-	// The function is named clamp
-	speed = speed <= -5 ? -5 : speed >= 5 ? 5 : speed
+  // Optional individual block speed as data attr, otherwise global speed
+  // Check if has percentage attr, and limit speed to 5, else limit it to 10
+  // The function is named clamp
+  speed = speed <= -5 ? -5 : speed >= 5 ? 5 : speed
 
-	// We need to guess the position the background will be, when the section
-	// will reach the top of the viewport. This calculation will be based on the
-	// speed for sure
-	if (fitInsideContainer && shouldSetHeightToIncrease) {
-		let heightWeWantToIncrease = 0
+  // We need to guess the position the background will be, when the section
+  // will reach the top of the viewport. This calculation will be based on the
+  // speed for sure
+  if (fitInsideContainer && shouldSetHeightToIncrease) {
+    let heightWeWantToIncrease = 0
 
-		if (speed > 0) {
-			heightWeWantToIncrease = updatePosition(0.5, speed)
-		} else {
-			heightWeWantToIncrease =
-				updatePosition(
-					window.innerHeight /
-						(fitInsideContainer.clientHeight + window.innerHeight),
-					speed
-				) - updatePosition(0.5, speed)
-		}
+    if (speed > 0) {
+      heightWeWantToIncrease = updatePosition(0.5, speed)
+    } else {
+      heightWeWantToIncrease =
+        updatePosition(
+          window.innerHeight /
+            (fitInsideContainer.clientHeight + window.innerHeight),
+          speed
+        ) - updatePosition(0.5, speed)
+    }
 
-		heightWeWantToIncrease = Math.abs(heightWeWantToIncrease) * 2
+    heightWeWantToIncrease = Math.abs(heightWeWantToIncrease) * 2
 
-		el.parentNode.style.height = `calc(100% + ${heightWeWantToIncrease}px)`
-	}
+    el.parentNode.style.height = `calc(100% + ${heightWeWantToIncrease}px)`
+  }
 
-	// initializing at scrollY = 0 (top of browser)
-	// ensures elements are positioned based on HTML layout.
+  // initializing at scrollY = 0 (top of browser)
+  // ensures elements are positioned based on HTML layout.
 
-	let { top } = fitInsideContainer.getBoundingClientRect()
+  let { top, height } = nullifyTransforms(
+    fitInsideContainer ? fitInsideContainer : el
+  )
 
-	var blockTop = pageYOffset + top
+  var blockTop = pageYOffset + top
 
-	return {
-		shouldSetHeightToIncrease,
-		fitInsideContainer,
-		el,
-		top: blockTop,
-		height: fitInsideContainer.clientHeight,
-		speed,
-		isVisible
-	}
+  return {
+    shouldSetHeightToIncrease,
+    fitInsideContainer,
+    el,
+    top: blockTop,
+    height,
+    speed,
+    isVisible
+  }
 }

@@ -17,29 +17,33 @@ export let rel = new Rellax()
  */
 
 const init = () =>
-	[...document.querySelectorAll('[data-parallax]')].map(elWithParallax => {
-		// Consider here storing the rellax instance onto the section DOM
-		// element itself. And do that in a non-leaking fashion.
-		//
-		// section.rellaxInstance would leak memory
-		if (elWithParallax.ctHasParallax) return
+  [...document.querySelectorAll('[data-parallax]')].map(elWithParallax => {
+    // Consider here storing the rellax instance onto the section DOM
+    // element itself. And do that in a non-leaking fashion.
+    //
+    // section.rellaxInstance would leak memory
+    if (elWithParallax.ctHasParallax) return
 
-		elWithParallax.ctHasParallax = true
+    elWithParallax.ctHasParallax = true
 
-		setTimeout(() => {
-			rel.addEl(
-				elWithParallax.querySelector('.ct-image-container > img'),
-				// +elWithParallax.dataset.parallaxSpeed,
-				-5,
-				elWithParallax
-			)
-		}, 0)
-	})
+    if (elWithParallax.querySelector('.ct-image-container > img')) {
+      setTimeout(() => {
+        rel.addEl(
+          elWithParallax.querySelector('.ct-image-container > img'),
+          // +elWithParallax.dataset.parallaxSpeed,
+          -5,
+          elWithParallax
+        )
+      }, 0)
+    } else {
+      rel.addEl(elWithParallax, +elWithParallax.dataset.parallax, null, false)
+    }
+  })
 
 onDocumentLoaded(() => {
-	init()
+  init()
 
-	window.ctEvents.on('blocksy:parallax:init', () => {
-		init()
-	})
+  window.ctEvents.on('blocksy:parallax:init', () => {
+    init()
+  })
 })

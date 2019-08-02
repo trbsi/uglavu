@@ -3,12 +3,78 @@ const buildProcess = require('ct-build-process')
 const removeCode = require('gulp-remove-code')
 const shell = require('gulp-shell')
 
+
+
 const data = require('./package.json')
+
+const libUtils = require('browser-sync/dist/connect-utils.js')
+
+libUtils.getConnectionUrl = function (options) {
+    var socketOpts = options.get("socket").toJS();
+    var namespace = libUtils.getNamespace(socketOpts, options);
+    var protocol = "";
+    var withHostnamePort = "'{protocol}' + 'localhost' + ':{port}{ns}'";
+    var withHost = "'{protocol}' + 'localhost' + '{ns}'";
+    var withDomain = "'{domain}{ns}'";
+    var port = options.get("port");
+    // default use-case is server/proxy
+    var string = withHost;
+    if (options.get("mode") !== "server") {
+        protocol = options.get("scheme") + "://";
+        string = withHostnamePort;
+    }
+    if (options.get("mode") === "proxy" && options.getIn(["proxy", "ws"])) {
+        port = options.getIn(["socket", "port"]);
+    }
+    /**
+     * Ensure socket.domain is always a string (for noop replacements later)
+     */
+    socketOpts.domain = (function () {
+        if (options.get("localOnly")) {
+            string = withDomain;
+            return [
+                options.get("scheme"),
+                "://localhost:",
+                options.get("port")
+            ].join("");
+        }
+        if (socketOpts.domain) {
+            string = withDomain;
+            /**
+             * User provided a function
+             */
+            if (_.isFunction(socketOpts.domain)) {
+                return socketOpts.domain.call(null, options);
+            }
+            /**
+             * User provided a string
+             */
+            if (_.isString(socketOpts.domain)) {
+                return socketOpts.domain;
+            }
+        }
+        return "";
+    })();
+    return string
+        .replace("{protocol}", protocol)
+        .replace("{port}", port)
+        .replace("{domain}", socketOpts.domain.replace("{port}", port))
+        .replace("{ns}", namespace);
+}
 
 var options = {
 	packageType: 'wordpress_theme',
 	packageSlug: 'blocksy',
 	packageI18nSlug: 'blocksy',
+
+            browserSyncInitOptions: {
+                logSnippet: false,
+                port: 9669,
+                domain: 'localhost',
+                ui: {
+                    port: 9068
+                }
+            },
 
 	entries: [
 		{

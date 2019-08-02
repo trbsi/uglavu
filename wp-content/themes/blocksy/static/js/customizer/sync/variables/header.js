@@ -1,8 +1,4 @@
 export const getHeaderVariables = () => ({
-	headerBackground: {
-		variable: 'headerBackground',
-		type: 'color'
-	},
 
 	transparentHeaderBackground: {
 		variable: 'transparentHeaderBackground',
@@ -33,6 +29,28 @@ export const getHeaderVariables = () => ({
 		responsive: true,
 		unit: ''
 	},
+
+	// site title & tagline
+	siteTitleColor: [
+		{
+			selector: '.site-title',
+			variable: 'linkInitialColor',
+			type: 'color:default'
+		},
+
+		{
+			selector: '.site-title',
+			variable: 'linkHoverColor',
+			type: 'color:hover'
+		}
+	],
+
+	siteTaglineColor: {
+		selector: '.site-description',
+		variable: 'fontColor',
+		type: 'color'
+	},
+
 
 	// main menu
 	menuFontColor: [
@@ -142,11 +160,6 @@ export const getHeaderVariables = () => ({
 	},
 
 	// Mobile header
-	mobileHeaderBackground: {
-		variable: 'mobileHeaderBackground',
-		type: 'color'
-	},
-
 	mobileHeaderHeight: {
 		variable: 'mobileHeaderHeight',
 		responsive: true,

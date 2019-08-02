@@ -93,25 +93,29 @@ $options = [
 				'type' => 'tab',
 				'options' => [
 
-					'pageBackground' => [
+					'page_background' => [
 						'label' => __( 'Page Background', 'blocksy' ),
-						'type'  => 'ct-color-picker',
+						'type' => 'ct-background',
 						'design' => 'inline',
 						'setting' => [ 'transport' => 'postMessage' ],
-
-						'value' => [
-							'default' => [
-								'color' => Blocksy_Css_Injector::get_skip_rule_keyword(),
+						'value' => blocksy_background_default_value([
+							'backgroundColor' => [
+								'default' => [
+									'color' => Blocksy_Css_Injector::get_skip_rule_keyword(),
+								],
 							],
-						],
-
-						'pickers' => [
-							[
-								'title' => __( 'Initial', 'blocksy' ),
-								'id' => 'default',
-							],
-						],
+						]),
+						'desc' => sprintf(
+							// translators: placeholder here means the actual URL.
+							__( 'Please note: by default this option is inherited from %sGeneral ➝ Site Background%s.', 'blocksy' ),
+							sprintf(
+								'<a data-trigger-section="general" href="%s">',
+								admin_url('/customize.php?autofocus[section]=general')
+							),
+							'</a>'
+						),
 					],
+
 
 					blocksy_rand_md5() => [
 						'type' => 'ct-condition',
@@ -123,24 +127,18 @@ $options = [
 								'attr' => [ 'data-type' => 'small' ],
 							],
 
-							'pageContentBackground' => [
+							'page_content_background' => [
 								'label' => __( 'Content Area Background', 'blocksy' ),
-								'type'  => 'ct-color-picker',
+								'type' => 'ct-background',
 								'design' => 'inline',
 								'setting' => [ 'transport' => 'postMessage' ],
-
-								'value' => [
-									'default' => [
-										'color' => '#ffffff',
+								'value' => blocksy_background_default_value([
+									'backgroundColor' => [
+										'default' => [
+											'color' => '#ffffff',
+										],
 									],
-								],
-
-								'pickers' => [
-									[
-										'title' => __( 'Initial', 'blocksy' ),
-										'id' => 'default',
-									],
-								],
+								])
 							],
 
 							'pageContentBoxedSpacing' => [
@@ -165,14 +163,33 @@ $options = [
 			],
 
 			blocksy_rand_md5() => [
-				'type' => 'ct-divider',
+				'type' => 'ct-title',
+				'label' => __( 'Page Elements', 'blocksy' ),
 			],
 
 			'has_page_comments' => [
 				'label' => __( 'Comments', 'blocksy' ),
-				'type' => 'ct-switch',
+				'type' => 'ct-panel',
+				'switch' => true,
 				'value' => 'yes',
 				'setting' => [ 'transport' => 'postMessage' ],
+				'inner-options' => [
+
+					'page_comments_background' => [
+						'label' => __( 'Container Background', 'blocksy' ),
+						'type' => 'ct-background',
+						'design' => 'inline',
+						'setting' => [ 'transport' => 'postMessage' ],
+						'value' => blocksy_background_default_value([
+							'backgroundColor' => [
+								'default' => [
+									'color' => '#f8f9fb',
+								],
+							],
+						]),
+					],
+
+				],
 			],
 
 		],

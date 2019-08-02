@@ -1,10 +1,10 @@
 <?php
 
 // pattern
-$patternColor = blocksy_get_colors( get_theme_mod(
-	'patternColor',
-	[ 'default' => [ 'color' => '#e5e7ea' ] ]
-));
+$patternColor = blocksy_get_colors(
+	get_theme_mod('patternColor'),
+	['default' => ['color' => '#e5e7ea']]
+);
 
 $css->put(
 	':root',

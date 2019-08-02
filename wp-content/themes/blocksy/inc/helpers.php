@@ -7,6 +7,11 @@
  * @package Blocksy
  */
 
+add_filter('widget_nav_menu_args', function ($nav_menu_args, $nav_menu, $args, $instance) {
+	$nav_menu_args['menu_class'] = 'widget-menu';
+	return $nav_menu_args;
+}, 10, 4);
+
 class Blocksy_Walker_Page extends Walker_Page {
 	public function start_lvl( &$output, $depth = 0, $args = array() ) {
 		if (
@@ -120,10 +125,16 @@ add_filter(
 				'ct_forced_product' === $request['post_type']
 			)
 		) {
-			$any = 'any';
-			$any = get_theme_mod('search_include_pages', 'no') === 'yes' ? [
-				'post', 'page'
-			] : ['post'];
+			$any = [];
+
+			foreach (get_theme_mod('search_through', [
+				'post' => true,
+				'page' => false,
+				'product' => false,
+			]) as $single_post_type => $enabled) {
+				if (! $enabled) continue;
+				$any[] = $single_post_type;
+			}
 
 			$args = [
 				'posts_per_page' => $args['posts_per_page'],
@@ -143,11 +154,20 @@ if (!is_admin()) {
 	add_filter('pre_get_posts', function ($query) {
 		if ($query->is_search) {
 			if (empty($query->get('post_type'))) {
+				$any = [];
+
+				foreach (get_theme_mod('search_through', [
+					'post' => true,
+					'page' => false,
+					'product' => false,
+				]) as $single_post_type => $enabled) {
+					if (! $enabled) continue;
+					$any[] = $single_post_type;
+				}
+
 				$query->set(
 					'post_type',
-					get_theme_mod('search_include_pages', 'no') === 'yes' ? [
-						'post', 'page'
-					] : ['post']
+					$any
 				);
 			}
 		}
@@ -615,7 +635,7 @@ function blocksy_akg( $keys, $array_or_object, $default_value = null ) {
 	}
 }
 
-function blocksy_akg_or_customizer($key, $source, $default) {
+function blocksy_akg_or_customizer($key, $source, $default = null) {
 	$source = wp_parse_args(
 		$source,
 		[

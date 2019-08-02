@@ -1,0 +1,46 @@
+.ct-view-switch {
+	order: 2;
+	display: flex;
+	position: relative;
+	padding: 0 7px;
+	margin: 0;
+	// background: #fff;
+	border-top: 1px solid #ddd;
+
+	li {
+		display: flex;
+		align-items: center;
+		position: relative;
+		height: 45px;
+		margin: 0;
+		padding: 0 18px;
+		cursor: pointer;
+		font-weight: 600;
+		color: #555D65;
+		transition: color 0.1s ease;
+
+		&:not(:last-child) {
+			margin-right: 10px;
+		}
+
+		&:after {
+			position: absolute;
+			content: '';
+			width: 100%;
+			height: 4px;
+			left: 0;
+			bottom: 0px;
+			opacity: 0;
+			transition: opacity 0.1s ease;
+		}
+
+		&.active {
+			color: #191e23;
+
+			&:after {
+				opacity: 1;
+				background: #191e23;
+			}
+		}
+	}
+}

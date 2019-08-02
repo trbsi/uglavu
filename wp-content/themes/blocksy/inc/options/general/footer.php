@@ -600,24 +600,23 @@ $options = [
 								]
 							],
 
-							'widgetsAreaBackground' => [
-								'label' => __( 'Background Color', 'blocksy' ),
-								'type'  => 'ct-color-picker',
+							blocksy_rand_md5() => [
+								'type' => 'ct-divider',
+								'attr' => [ 'data-type' => 'small' ],
+							],
+
+							'widgets_area_background' => [
+								'label' => __( 'Container Background', 'blocksy' ),
+								'type' => 'ct-background',
 								'design' => 'inline',
 								'setting' => [ 'transport' => 'postMessage' ],
-
-								'value' => [
-									'default' => [
-										'color' => '#f4f5f8',
+								'value' => blocksy_background_default_value([
+									'backgroundColor' => [
+										'default' => [
+											'color' => '#f4f5f8',
+										],
 									],
-								],
-
-								'pickers' => [
-									[
-										'title' => __( 'Initial', 'blocksy' ),
-										'id' => 'default',
-									],
-								],
+								])
 							],
 
 							'widgetAreaSpacing' => [

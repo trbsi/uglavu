@@ -45,11 +45,12 @@ function blocksy_image( $args = [] ) {
 		]
 	);
 
-	//CUSTOM
+	//CUSTOM START
 	if (!empty($post->og_url)) {
 		$args['html_atts']['href'] = $post->og_url;
 		$args['html_atts']['target'] = '_blank';
 	}
+	//CUSTOM END
 
 	$classes = $args['class'];
 
@@ -78,9 +79,7 @@ function blocksy_image( $args = [] ) {
 	}
 
 	if ( $args['ratio_blocks'] ) {
-		$args['inner_content'] = blocksy_generate_ratio(
-			$args['ratio']
-		) . $args['inner_content'];
+		$args['inner_content'] .= blocksy_generate_ratio($args['ratio']);
 	}
 
 	if ( isset( $args['html_atts']['class'] ) ) {
@@ -95,7 +94,7 @@ function blocksy_image( $args = [] ) {
 	$other_html_atts = trim( $other_html_atts );
 	$other_html_atts .= ' ' . blocksy_schema_org_definitions('image');
 
-	//CUSTOM
+	//CUSTOM START
 	if (!empty($post->og_url)) {
 		$image = sprintf('<img width="640" height="640" 
 			class="attachment-medium_large size-medium_large" 
@@ -105,12 +104,14 @@ function blocksy_image( $args = [] ) {
 	} else {
 		$image = blocksy_get_image_element( $args );
 	}
+	//CUSTOM END
 
-	//CUSTOM + EDIT
+	//CUSTOM + EDIT START
 	return '<' . $args['tag_name'] . ' ' . $other_html_atts . '>' .
 		$image .
 		$args['inner_content'] .
 	'</' . $args['tag_name'] . '>';
+	//CUSTOM + EDIT END
 }
 
 
@@ -132,12 +133,17 @@ function blocksy_get_image_element( $args ) {
 
 	$has_srcset = strpos( $image, 'srcset' ) !== false;
 
+	$output = '';
+
 	if ( $args['lazyload'] ) {
+		$output = '<noscript>' . $image . '</noscript>';
+
 		$image = $parser->rename_attribute_from_images(
 			$image,
 			'src',
 			'data-lazy'
 		);
+
 
 		if ( $has_srcset ) {
 			$image = $parser->rename_attribute_from_images(
@@ -148,9 +154,11 @@ function blocksy_get_image_element( $args ) {
 		}
 	}
 
-	$image = $parser->add_attribute_to_images( $image, 'data-object-fit', '~' );
+	$output = $parser->add_attribute_to_images(
+		$image, 'data-object-fit', '~'
+	) . $output;
 
-	return $image;
+	return $output;
 }
 
 /**
@@ -196,6 +204,13 @@ function blocksy_simple_image( $image_src, $args = [] ) {
 	);
 
 	$original = 'ct-image-container';
+	$image_attr = 'src';
+
+	$other_img_atts = '';
+
+	foreach ( $args['img_atts'] as $attr => $value ) {
+		$other_img_atts .= $attr . '="' . $value . '" ';
+	}
 
 	if ( $args['lazyload'] ) {
 		$original .= ' ct-lazy';
@@ -203,6 +218,12 @@ function blocksy_simple_image( $image_src, $args = [] ) {
 		if ($args['lazyload_type'] === 'none') {
 			$original .= ' ct-lazy-static';
 		}
+
+		$args['inner_content'] .= '<noscript>';
+		$args['inner_content'] .= '<img ' . $image_attr . '="' . $image_src . '" data-object-fit="~" ' . $other_img_atts . '>';
+		$args['inner_content'] .= '</noscript>';
+
+		$image_attr = 'data-lazy';
 
 		if ($args['lazyload_type'] === 'default') {
 			$args['inner_content'] .= '<span data-loader="circles"><span></span><span></span><span></span></span>';
@@ -224,22 +245,9 @@ function blocksy_simple_image( $image_src, $args = [] ) {
 	$other_html_atts = trim( $other_html_atts );
 
 	if ( $args['ratio_blocks'] ) {
-		$args['inner_content'] = blocksy_generate_ratio(
-			$args['ratio']
-		) . $args['inner_content'];
+		$args['inner_content'] .= blocksy_generate_ratio($args['ratio']);
 	}
 
-	$image_attr = 'src';
-
-	if ( $args['lazyload'] ) {
-		$image_attr = 'data-lazy';
-	}
-
-	$other_img_atts = '';
-
-	foreach ( $args['img_atts'] as $attr => $value ) {
-		$other_img_atts .= $attr . '="' . $value . '" ';
-	}
 
 	return '<' . $args['tag_name'] . ' ' . $other_html_atts . '>' .
 		'<img ' . $image_attr . '="' . $image_src . '" data-object-fit="~" ' . $other_img_atts . '>' .

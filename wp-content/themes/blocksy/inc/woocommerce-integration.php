@@ -77,10 +77,6 @@ function blocksy_get_woocommerce_ratio() {
 	return '1/1';
 }
 
-add_filter('woocommerce_style_smallscreen_breakpoint', function ($current) {
-	return '690px';
-});
-
 add_filter('woocommerce_output_related_products_args', function ($args) {
 	if (! is_customize_preview()) {
 		$args['posts_per_page'] = intval(get_theme_mod('related_products', 4));
@@ -91,9 +87,10 @@ add_filter('woocommerce_output_related_products_args', function ($args) {
 	return $args;
 });
 
+add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
+
 add_action('wp_enqueue_scripts', function () {
 	if (! function_exists('is_shop')) return;
-
 
 	if (
 		is_shop()
@@ -211,6 +208,8 @@ function blocksy_output_woo_mini_cart($for_preview = false) {
 	if (get_theme_mod('has_cart_badge', 'yes') === 'no') {
 		$badge_output === 'data-skip-badge';
 	}
+
+	$type = get_theme_mod('mini_cart_type', 'type-1');
 
 	if (empty($type)) {
 		$type = 'type-1';

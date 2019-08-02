@@ -273,7 +273,7 @@ $when_enabled_general_settings = [
 	],
 
 	$prefix . 'page_excerpt_visibility' => [
-		'label' => __( 'Page Excerpt Visibility', 'blocksy' ),
+		'label' => __( 'Page Info Visibility', 'blocksy' ),
 		'type' => 'ct-visibility',
 		'design' => $has_default ? 'inline' : false,
 		'allow_empty' => true,

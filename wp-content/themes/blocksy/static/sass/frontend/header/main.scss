@@ -11,7 +11,6 @@
 .site-header {
 	position: relative;
 	z-index: 2; // or higher
-	background: var(--headerBackground);
 }
 
 
@@ -31,6 +30,11 @@
 
 .site-title {
 	margin: 0;
+}
+
+.site-description {
+	font-size: 13px;
+	font-weight: 500;
 }
 
 

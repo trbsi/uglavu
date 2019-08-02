@@ -2,13 +2,13 @@
 
 if (function_exists('is_woocommerce') && is_woocommerce()) {
 
-	$cardProductTitleColor = blocksy_get_colors( get_theme_mod(
-		'cardProductTitleColor',
+	$cardProductTitleColor = blocksy_get_colors(
+		get_theme_mod('cardProductTitleColor'),
 		[
 			'default' => [ 'color' => 'var(--paletteColor3)' ],
 			'hover' => [ 'color' => 'var(--paletteColor1)' ],
 		]
-	));
+	);
 
 	$css->put(
 		'.shop-entry-card',
@@ -21,49 +21,51 @@ if (function_exists('is_woocommerce') && is_woocommerce()) {
 	);
 
 
-	$cardProductCategoriesColor = blocksy_get_colors( get_theme_mod(
-		'cardProductCategoriesColor',
+	$cardProductCategoriesColor = blocksy_get_colors(
+		get_theme_mod('cardProductCategoriesColor'),
 		[
 			'default' => [ 'color' => 'rgba(44,62,80,0.7)' ],
 			'hover' => [ 'color' => 'var(--paletteColor1)' ],
 		]
-	));
+	);
 
 	$css->put(
-		'.product-categories',
+		'article .product-categories',
 		"--linkInitialColor: {$cardProductCategoriesColor['default']}"
 	);
 
 	$css->put(
-		'.product-categories',
+		'article .product-categories',
 		"--linkHoverColor: {$cardProductCategoriesColor['hover']}"
 	);
 
-	$cardProductPriceColor = blocksy_get_colors( get_theme_mod( 'cardProductPriceColor',
+	$cardProductPriceColor = blocksy_get_colors(
+		get_theme_mod('cardProductPriceColor'),
 		[ 'default' => [ 'color' => 'var(--paletteColor3)' ] ]
-	));
+	);
 
 	$css->put(
 		'.shop-entry-card .price',
 		"--fontColor: {$cardProductPriceColor['default']}"
 	);
 
-	$cardStarRatingColor = blocksy_get_colors( get_theme_mod( 'cardStarRatingColor',
-		[ 'default' => [ 'color' => '#FDA256' ] ]
-	));
+	$cardStarRatingColor = blocksy_get_colors(
+		get_theme_mod('cardStarRatingColor'),
+		['default' => ['color' => '#FDA256']]
+	);
 
 	$css->put(
 		'.shop-entry-card',
 		"--starRatingColor: {$cardStarRatingColor['default']}"
 	);
 
-	$saleBadgeColor = blocksy_get_colors( get_theme_mod(
-		'saleBadgeColor',
+	$saleBadgeColor = blocksy_get_colors(
+		get_theme_mod('saleBadgeColor'),
 		[
 			'text' => [ 'color' => '#ffffff' ],
 			'background' => [ 'color' => 'var(--paletteColor1)' ],
 		]
-	));
+	);
 
 	$css->put(
 		'.shop-entry-card',
@@ -75,22 +77,23 @@ if (function_exists('is_woocommerce') && is_woocommerce()) {
 		"--saleBadgeBackgroundColor: {$saleBadgeColor['background']}"
 	);
 
-	$cardProductImageOverlay = blocksy_get_colors( get_theme_mod( 'cardProductImageOverlay',
-		[ 'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword() ] ]
-	));
+	$cardProductImageOverlay = blocksy_get_colors(
+		get_theme_mod('cardProductImageOverlay'),
+		['default' => ['color' => Blocksy_Css_Injector::get_skip_rule_keyword()]]
+	);
 
 	$css->put(
 		'.shop-entry-card',
 		"--imageOverlay: {$cardProductImageOverlay['default']}"
 	);
 
-	$cardProductAction1Color = blocksy_get_colors( get_theme_mod(
-		'cardProductAction1Color',
+	$cardProductAction1Color = blocksy_get_colors(
+		get_theme_mod('cardProductAction1Color'),
 		[
-			'default' => [ 'color' => 'var(--paletteColor3)' ],
-			'hover' => [ 'color' => 'var(--paletteColor1)' ],
+			'default' => ['color' => 'var(--paletteColor3)'],
+			'hover' => ['color' => 'var(--paletteColor1)'],
 		]
-	));
+	);
 
 	$css->put(
 		'.woo-card-actions',
@@ -102,13 +105,13 @@ if (function_exists('is_woocommerce') && is_woocommerce()) {
 		"--linkHoverColor: {$cardProductAction1Color['hover']}"
 	);
 
-	$cardProductAction2Color = blocksy_get_colors( get_theme_mod(
-		'cardProductAction2Color',
+	$cardProductAction2Color = blocksy_get_colors(
+		get_theme_mod('cardProductAction2Color'),
 		[
 			'default' => [ 'color' => 'var(--buttonInitialColor)' ],
 			'hover' => [ 'color' => 'var(--buttonHoverColor)' ],
 		]
-	));
+	);
 
 	$css->put(
 		'.woo-card-actions',
@@ -125,10 +128,10 @@ if (function_exists('is_woocommerce') && is_woocommerce()) {
 	$productGalleryWidth = get_theme_mod( 'productGalleryWidth', 50 );
 	$css->put( ':root', '--productGalleryWidth: ' . $productGalleryWidth . '%' );
 
-
-	$singleProductPriceColor = blocksy_get_colors( get_theme_mod( 'singleProductPriceColor',
+	$singleProductPriceColor = blocksy_get_colors(
+		get_theme_mod('singleProductPriceColor'),
 		[ 'default' => [ 'color' => 'var(--paletteColor3)' ] ]
-	));
+	);
 
 	$css->put(
 		'.entry-summary .price',
@@ -136,13 +139,13 @@ if (function_exists('is_woocommerce') && is_woocommerce()) {
 	);
 
 
-	$singleSaleBadgeColor = blocksy_get_colors( get_theme_mod(
-		'singleSaleBadgeColor',
+	$singleSaleBadgeColor = blocksy_get_colors(
+		get_theme_mod('singleSaleBadgeColor'),
 		[
 			'text' => [ 'color' => '#ffffff' ],
 			'background' => [ 'color' => 'var(--paletteColor1)' ],
 		]
-	));
+	);
 
 	$css->put(
 		'.product > span.onsale',
@@ -155,9 +158,10 @@ if (function_exists('is_woocommerce') && is_woocommerce()) {
 	);
 
 
-	$singleStarRatingColor = blocksy_get_colors( get_theme_mod( 'singleStarRatingColor',
+	$singleStarRatingColor = blocksy_get_colors(
+		get_theme_mod('singleStarRatingColor'),
 		[ 'default' => [ 'color' => '#FDA256' ] ]
-	));
+	);
 
 	$css->put(
 		'.entry-summary,.woocommerce-tabs',

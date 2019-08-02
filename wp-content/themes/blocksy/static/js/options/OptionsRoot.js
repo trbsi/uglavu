@@ -37,11 +37,11 @@ export default class OptionsRoot extends Component {
 
 				<OptionsPanel
 					hasRevertButton={this.props.hasRevertButton}
-					onChange={newValue => {
+					onChange={(key, newValue) => {
 						this.setState(({ value }) => ({
 							value: {
 								...value,
-								...newValue
+								[key]: newValue
 							}
 						}))
 						$(this.input.current).change()

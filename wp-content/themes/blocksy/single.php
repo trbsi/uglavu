@@ -10,6 +10,10 @@
 $has_related_posts = get_theme_mod( 'has_related_posts', 'yes' ) === 'yes';
 $has_post_comments = get_theme_mod( 'has_post_comments', 'yes' ) === 'yes';
 
+if (blocksy_is_page()) {
+	$has_post_comments = get_theme_mod('has_page_comments', 'yes') === 'yes';
+}
+
 get_header();
 
 if (

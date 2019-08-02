@@ -41,8 +41,11 @@ const updateHeader = () => {
 		`.ct-customizer-preview-cache [data-id="header"] [data-type="${to}"]`
 	).innerHTML
 
+	const oldTitle = document.querySelector('.site-title').innerHTML
+
 	const e = document.createElement('div')
 	e.innerHTML = newHtml
+	;[...e.querySelectorAll('.site-title')].map(el => (el.innerHTML = oldTitle))
 
 	if (header.querySelector('.header-desktop')) {
 		header.removeChild(header.querySelector('.header-desktop'))
@@ -80,6 +83,15 @@ const updateHeader = () => {
 	;[...document.querySelectorAll('.site-header .ct-header-cart')].map(el =>
 		responsiveClassesFor('header_cart_visibility', el)
 	)
+	;[...document.querySelectorAll('.site-description')].map(el => {
+		el.innerHTML = wp.customize('blogdescription')()
+		responsiveClassesFor('tagline_search_visibility', el)
+	})
+	;[...document.querySelectorAll('.site-title a')].map(el => {
+		if (wp.customize('logo_type')() === 'text') {
+			el.innerHTML = wp.customize('blogname')()
+		}
+	})
 
 	if (wp.customize('has_cart_badge')) {
 		if (wp.customize('has_cart_badge')() === 'yes') {
@@ -137,6 +149,7 @@ wp.customize('menu_alignment', val => val.bind(to => updateHeader()))
 wp.customize('header_search_visibility', val => val.bind(to => updateHeader()))
 wp.customize('header_cart_visibility', val => val.bind(to => updateHeader()))
 wp.customize('has_cart_badge', val => val.bind(to => updateHeader()))
+wp.customize('tagline_search_visibility', val => val.bind(to => updateHeader()))
 wp.customize('mini_cart_type', val => val.bind(to => updateHeader()))
 wp.customize('header_container', val =>
 	val.bind(to => {

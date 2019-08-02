@@ -25,13 +25,10 @@
 	}
 
 	&[data-type="background"] {
-		@include button((
-			height: 39px,
-			padding: 18px,
-			has_color: false,
-			shadow: false,
-			translate: false
-		));
+		--height: 39px;
+		--padding: 0 18px;
+		--buttonShadow: none;
+		--buttonTransform: none;
 	}
 
 	// icon

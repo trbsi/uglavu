@@ -48,6 +48,22 @@ $options = [
 					],
 
 					blocksy_rand_md5() => [
+						'type' => 'ct-condition',
+						'condition' => [ 'pagination_global_type' => 'load_more' ],
+						'options' => [
+
+							'load_more_label' => [
+								'label' => __( 'Label', 'blocksy' ),
+								'type' => 'text',
+								'design' => 'inline',
+								'value' => __( 'Load More', 'blocksy' ),
+								'setting' => [ 'transport' => 'postMessage' ],
+							],
+
+						],
+					],
+
+					blocksy_rand_md5() => [
 						'type' => 'ct-divider',
 						'attr' => [ 'data-type' => 'small' ],
 					],
@@ -83,12 +99,21 @@ $options = [
 							'default' => [
 								'color' => 'var(--paletteColor3)',
 							],
+
+							'hover' => [
+								'color' => '#ffffff',
+							],
 						],
 
 						'pickers' => [
 							[
 								'title' => __( 'Initial', 'blocksy' ),
 								'id' => 'default',
+							],
+
+							[
+								'title' => __( 'Active/Hover', 'blocksy' ),
+								'id' => 'hover',
 							],
 						],
 					],

@@ -28,6 +28,38 @@ add_action('after_setup_theme', function () {
 	add_theme_support( 'title-tag' );
 	add_theme_support('custom-logo');
 
+	add_theme_support( 'editor-color-palette', [
+		[
+			'name' => __( 'Palette Color 1', 'blocksy' ),
+			'slug' => 'palette-color-1',
+			'color' => 'var(--paletteColor1)',
+		],
+
+		[
+			'name' => __( 'Palette Color 2', 'blocksy' ),
+			'slug' => 'palette-color-2',
+			'color' => 'var(--paletteColor2)',
+		],
+
+		[
+			'name' => __( 'Palette Color 3', 'blocksy' ),
+			'slug' => 'palette-color-3',
+			'color' => 'var(--paletteColor3)',
+		],
+
+		[
+			'name' => __( 'Palette Color 4', 'blocksy' ),
+			'slug' => 'palette-color-4',
+			'color' => 'var(--paletteColor4)',
+		],
+
+		[
+			'name' => __( 'Palette Color 5', 'blocksy' ),
+			'slug' => 'palette-color-5',
+			'color' => 'var(--paletteColor5)',
+		]
+	]);
+
 	/*
 	 * Enable support for Post Thumbnails on posts and pages.
 	 *
@@ -200,6 +232,7 @@ add_action(
 	}
 );
 
+require get_template_directory() . '/inc/classes/customizer-builder.php';
 require get_template_directory() . '/inc/schema-org.php';
 require get_template_directory() . '/inc/classes/class-ct-css-injector.php';
 require get_template_directory() . '/inc/classes/class-ct-attributes-parser.php';
@@ -231,6 +264,7 @@ require get_template_directory() . '/inc/hero-section.php';
 require get_template_directory() . '/inc/woocommerce-integration.php';
 require get_template_directory() . '/inc/posts-listing.php';
 require get_template_directory() . '/inc/gallery.php';
+require get_template_directory() . '/inc/backgrounds.php';
 require get_template_directory() . '/inc/typography/core.php';
 
 require get_template_directory() . '/template-parts/content-helpers.php';

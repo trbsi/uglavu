@@ -185,6 +185,7 @@ const FontOptions = ({ option, value, sizeRef, onChange, props }) => {
 				<ul className={classnames('ct-text-decoration')}>
 					{['line-through', 'underline'].map(variant => (
 						<li
+							key={variant}
 							onClick={() =>
 								onChange({
 									...value,

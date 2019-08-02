@@ -366,4 +366,34 @@
 			}
 		}
 	}
+
+	// color pallete
+	.ct-color-palettes {
+		li {
+			&.active,
+			&:hover {
+				background: $background_light;
+			}
+		}
+	}
+
+	// typography
+	.ct-typohraphy-value {
+		border-color: $border;
+		background: $background_light;
+
+		> div > span {
+			&:hover span {
+				color: $light;
+			}
+
+			&:after {
+				background: $accent;
+			}
+		}
+
+		> a {
+			color: $light;
+		}
+	}
 }

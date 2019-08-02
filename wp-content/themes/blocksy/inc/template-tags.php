@@ -15,7 +15,7 @@
 function blocksy_entry_title( $tag = 'h2' ) {
 	ob_start();
 
-	//CUSTOM
+	//CUSTOM START
  	$post = get_post();
  	if (!empty($post->og_url)) {
  		$url = $post->og_url;
@@ -24,14 +24,16 @@ function blocksy_entry_title( $tag = 'h2' ) {
  		$url = esc_url( get_permalink() );
  		$target = '';
  	}
+ 	//CUSTOM END
 	?>
 
-	<?php //CUSTOM + EDIT ?>
+	<?php //CUSTOM + EDIT START ?>
 	<<?php echo esc_attr( $tag ); ?> class="entry-title">
 		<a href="<?php echo $url ?>" <?=$target?>>
 			<?php the_title(); ?> 
 		</a>
 	</<?php echo esc_attr( $tag ); ?>>
+	<?php //CUSTOM + EDIT END ?>
 
 	<?php
 

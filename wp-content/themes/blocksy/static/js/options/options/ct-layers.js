@@ -26,7 +26,7 @@ const valueWithUniqueIds = value =>
 			? {}
 			: {
 					__id: nanoid()
-				})
+			  })
 	}))
 
 const itemsThatAreNotAdded = (value, option) =>
@@ -51,17 +51,16 @@ const LayerControls = SortableHandle(
 						onClick={e => {
 							e.stopPropagation()
 							onChange(
-								items.map(
-									l =>
-										l.__id === value.__id
-											? {
-													...l,
-													enabled: !{
-														enabled: true,
-														...l
-													}.enabled
-												}
-											: l
+								items.map(l =>
+									l.__id === value.__id
+										? {
+												...l,
+												enabled: !{
+													enabled: true,
+													...l
+												}.enabled
+										  }
+										: l
 								)
 							)
 						}}>
@@ -160,16 +159,15 @@ class SingleItem extends Component {
 								<div className="ct-layer-content">
 									<OptionsPanel
 										hasRevertButton={false}
-										onChange={newValue => {
+										onChange={(key, newValue) => {
 											onChange(
-												items.map(
-													l =>
-														l.__id === value.__id
-															? {
-																	...l,
-																	...newValue
-																}
-															: l
+												items.map(l =>
+													l.__id === value.__id
+														? {
+																...l,
+																[key]: newValue
+														  }
+														: l
 												)
 											)
 										}}

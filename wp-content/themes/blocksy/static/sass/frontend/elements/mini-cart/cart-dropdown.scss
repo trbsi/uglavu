@@ -180,19 +180,16 @@
 			// background: rgba(41, 51, 60, 1);
 
 			> * {
-				font-size: 11px;
-				font-weight: 600;
+				--buttonFontSize: 11px;
+				--buttonFontWeight: 600;
+				--height: 40px;
+				--padding: 20px;
+				--buttonShadow: none;
+				--buttonTransform: none;
+				
+				width: calc(50% - 8px);
 				letter-spacing: 0.05em;
 				text-transform: uppercase;
-				width: calc(50% - 8px);
-
-				@include button((
-					display: inline-flex,
-					height: 40px,
-					padding: 23px,
-					shadow: false,
-					translate: false,
-				));
 
 				&:hover {
 					color: inherit !important;

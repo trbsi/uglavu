@@ -33,6 +33,7 @@ class Blocksy_Fonts_Manager {
 			'sidebarWidgetsHeadingsFont',
 			'singleProductTitleFont',
 			'cardProductTitleFont',
+			'siteTaglineFont',
 			blocksy_get_posts_listing_source()['prefix'] . '_cardTitleFont',
 		];
 
@@ -356,20 +357,26 @@ function blocksy_output_font_css($args = []) {
 		"--fontWeight: {$weight_and_style['weight']}"
 	);
 
-	$args['css']->put(
-		$args['selector'],
-		"--fontStyle: {$weight_and_style['style']}"
-	);
+	if ($weight_and_style['style'] !== 'normal') {
+		$args['css']->put(
+			$args['selector'],
+			"--fontStyle: {$weight_and_style['style']}"
+		);
+	}
 
-	$args['css']->put(
-		$args['selector'],
-		"--textTransform: {$args['font_value']['text-transform']}"
-	);
+	if ($args['font_value']['text-transform'] !== 'none') {
+		$args['css']->put(
+			$args['selector'],
+			"--textTransform: {$args['font_value']['text-transform']}"
+		);
+	}
 
-	$args['css']->put(
-		$args['selector'],
-		"--textDecoration: {$args['font_value']['text-decoration']}"
-	);
+	if ($args['font_value']['text-decoration'] !== 'none') {
+		$args['css']->put(
+			$args['selector'],
+			"--textDecoration: {$args['font_value']['text-decoration']}"
+		);
+	}
 
 	blocksy_output_responsive([
 		'css' => $args['css'],

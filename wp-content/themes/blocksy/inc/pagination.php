@@ -23,7 +23,7 @@ function blocksy_display_posts_pagination( $args = [] ) {
 		]
 	);
 
-	if ( ! $args['has_pagination'] ) {
+	if (! $args['has_pagination']) {
 		return '';
 	}
 
@@ -45,7 +45,12 @@ function blocksy_display_posts_pagination( $args = [] ) {
 		&&
 		intval($current_page) !== intval($wp_query->max_num_pages)
 	) {
-		$button_output = '<a class="ct-load-more">' . __('Load more', 'blocksy') . '</a>';
+		$label_button = get_theme_mod(
+			'load_more_label',
+			__('Load More', 'blocksy')
+		);
+
+		$button_output = '<a class="ct-button ct-load-more">' . $label_button . '</a>';
 	}
 
     if (
@@ -89,13 +94,9 @@ function blocksy_display_posts_pagination( $args = [] ) {
 			'mid_size' => 0,
 			'end_size' => 0,
 			'type' => 'array',
-			'prev_text' => '<svg width="10px" height="10px" viewBox="0 0 15 15"><path class="st0" d="M10.9,15c-0.2,0-0.4-0.1-0.6-0.2L3.6,8c-0.3-0.3-0.3-0.8,0-1.1l6.6-6.6c0.3-0.3,0.8-0.3,1.1,0c0.3,0.3,0.3,0.8,0,1.1L5.2,7.4l6.2,6.2c0.3,0.3,0.3,0.8,0,1.1C11.3,14.9,11.1,15,10.9,15z"/></svg>' . (
-				$args['pagination_type'] === 'next_prev' ? '<span>' . __('Previous Post', 'blocksy') . '</span>' : ''
-			),
+			'prev_text' => '<svg width="9px" height="9px" viewBox="0 0 15 15"><path class="st0" d="M10.9,15c-0.2,0-0.4-0.1-0.6-0.2L3.6,8c-0.3-0.3-0.3-0.8,0-1.1l6.6-6.6c0.3-0.3,0.8-0.3,1.1,0c0.3,0.3,0.3,0.8,0,1.1L5.2,7.4l6.2,6.2c0.3,0.3,0.3,0.8,0,1.1C11.3,14.9,11.1,15,10.9,15z"/></svg>' . __('Prev', 'blocksy'),
 
-			'next_text' => (
-				$args['pagination_type'] === 'next_prev' ? '<span>' . __('Next Post', 'blocksy') . '</span>' : ''
-			) . '<svg width="10px" height="10px" viewBox="0 0 15 15"><path class="st0" d="M4.1,15c0.2,0,0.4-0.1,0.6-0.2L11.4,8c0.3-0.3,0.3-0.8,0-1.1L4.8,0.2C4.5-0.1,4-0.1,3.7,0.2C3.4,0.5,3.4,1,3.7,1.3l6.1,6.1l-6.2,6.2c-0.3,0.3-0.3,0.8,0,1.1C3.7,14.9,3.9,15,4.1,15z"/></svg>',
+			'next_text' => __('Next', 'blocksy') . ' <svg width="9px" height="9px" viewBox="0 0 15 15"><path class="st0" d="M4.1,15c0.2,0,0.4-0.1,0.6-0.2L11.4,8c0.3-0.3,0.3-0.8,0-1.1L4.8,0.2C4.5-0.1,4-0.1,3.7,0.2C3.4,0.5,3.4,1,3.7,1.3l6.1,6.1l-6.2,6.2c-0.3,0.3-0.3,0.8,0,1.1C3.7,14.9,3.9,15,4.1,15z"/></svg>',
 		]
 	);
 
@@ -105,12 +106,16 @@ function blocksy_display_posts_pagination( $args = [] ) {
 		$proper_links = [];
 
 		foreach ($links as $link) {
-			if (
-				strpos($link, 'next') !== false
-				||
-				strpos($link, 'prev') !== false
-			) {
-				$proper_links[] = $link;
+			preg_match('/class="[^"]+"/', $link, $matches);
+
+			if (count($matches) > 0) {
+				if (
+					strpos($matches[0], 'next') !== false
+					||
+					strpos($matches[0], 'prev') !== false
+				) {
+					$proper_links[] = $link;
+				}
 			}
 		}
 	}

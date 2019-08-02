@@ -21,20 +21,32 @@
 
 	.ct-search-input {
 		input[type="search"] {
-			height: 100px;
-			@include action-fields((
-				type: modern,
-				background: false,
-				padding-left: 25px,
-				padding-right: 90px,
-				border-color: rgba(255, 255, 255, 0.2),
-			));
+			--formInputHeight: 100px;
+			--formPadding: 0 90px 0 25px;
+			--formFontSize: 35px;
+			--formBorderInitialColor: rgba(255, 255, 255, 0.2);
 
-			font-size: 35px;
 			font-weight: 500;
 			color: #fff !important;
 			letter-spacing: 0.03em;
 			border-radius: 0;
+			border: none;
+			background-color: transparent;
+			background-image: 
+				linear-gradient(
+					transparent calc(100% - var(--formBorderSize)), 
+					var(--formBorderFocusColor) calc(100% - var(--formBorderSize)),
+					var(--formBorderFocusColor) calc(100% - var(--formBorderSize))
+				),
+
+				linear-gradient(
+					transparent calc(100% - var(--formBorderSize)), 
+					var(--formBorderInitialColor) calc(100% - var(--formBorderSize)),
+					var(--formBorderInitialColor) calc(100% - var(--formBorderSize))
+				);
+			;
+			background-size: 0% 100%, 100% 100%;
+			background-repeat: no-repeat;
 
 			@include input-placeholder {
 				color: #fff;

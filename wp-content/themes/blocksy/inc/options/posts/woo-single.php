@@ -7,87 +7,43 @@ $options = [
 		'inner-options' => [
 
 			blocksy_rand_md5() => [
-				'type'  => 'ct-title',
-				'label' => __( 'Gallery Style', 'blocksy' ),
-			],
-
-			'gallery_style' => [
-				'label' => false,
-				'type' => 'ct-image-picker',
-				'value' => 'horizontal',
-				'attr' => [ 'data-type' => 'background' ],
-				'setting' => [ 'transport' => 'postMessage' ],
-				'choices' => [
-
-					'horizontal' => [
-						'src'   => blocksy_image_picker_url( 'woo-gallery-type-1.svg' ),
-						'title' => __( 'Horizontal', 'blocksy' ),
-					],
-
-					'vertical' => [
-						'src'   => blocksy_image_picker_url( 'woo-gallery-type-2.svg' ),
-						'title' => __( 'Vertical', 'blocksy' ),
-					],
-
-				],
-			],
-
-			'productGalleryWidth' => [
-				'label' => __( 'Image/Gallery Width', 'blocksy' ),
-				'type' => 'ct-slider',
-				'defaultUnit' => '%',
-				'value' => 48,
-				'min' => 20,
-				'max' => 70,
-				'setting' => [ 'transport' => 'postMessage' ],
-			],
-
-			blocksy_rand_md5() => [
-				'type'  => 'ct-title',
-				'label' => __( 'Page Elements', 'blocksy' ),
-			],
-
-			blocksy_rand_md5() => [
 				'title' => __( 'General', 'blocksy' ),
 				'type' => 'tab',
 				'options' => [
 
-					'has_product_breadcrumbs' => [
-						'label' => __( 'Breadcrumbs', 'blocksy' ),
-						'type' => 'ct-switch',
-						'value' => 'yes',
+					'gallery_style' => [
+						'label' => __( 'Gallery Style', 'blocksy' ),
+						'type' => 'ct-image-picker',
+						'value' => 'horizontal',
+						'attr' => [ 'data-type' => 'background' ],
 						'setting' => [ 'transport' => 'postMessage' ],
+						'choices' => [
+
+							'horizontal' => [
+								'src'   => blocksy_image_picker_url( 'woo-gallery-type-1.svg' ),
+								'title' => __( 'Horizontal', 'blocksy' ),
+							],
+
+							'vertical' => [
+								'src'   => blocksy_image_picker_url( 'woo-gallery-type-2.svg' ),
+								'title' => __( 'Vertical', 'blocksy' ),
+							],
+
+						],
 					],
 
-					'has_product_single_onsale' => [
-						'label' => __( 'Sale Badge', 'blocksy' ),
-						'type' => 'ct-switch',
-						'value' => 'yes',
-						'setting' => [ 'transport' => 'postMessage' ],
-					],
-
-					'has_product_single_rating' => [
-						'label' => __( 'Star Rating', 'blocksy' ),
-						'type' => 'ct-switch',
-						'value' => 'yes',
-						'setting' => [ 'transport' => 'postMessage' ],
-					],
-
-					'has_product_single_lightbox' => [
-						'label' => __( 'Image Lightbox', 'blocksy' ),
-						'type' => 'ct-switch',
-						'value' => 'no'
-					],
-
-					'has_product_single_meta' => [
-						'label' => __( 'Product Meta', 'blocksy' ),
-						'type' => 'ct-switch',
-						'value' => 'yes',
+					'productGalleryWidth' => [
+						'label' => __( 'Image/Gallery Width', 'blocksy' ),
+						'type' => 'ct-slider',
+						'defaultUnit' => '%',
+						'value' => 48,
+						'min' => 20,
+						'max' => 70,
 						'setting' => [ 'transport' => 'postMessage' ],
 					],
 
 					'product_gallery_ratio' => [
-						'label' => __( 'Product Image/Gallery Ratio', 'blocksy' ),
+						'label' => __( 'Image/Gallery Ratio', 'blocksy' ),
 						'type' => 'ct-radio',
 						'value' => '3/4',
 						'view' => 'text',
@@ -100,6 +56,7 @@ $options = [
 							'3/4' => '3/4',
 						],
 					],
+
 				],
 			],
 
@@ -113,6 +70,7 @@ $options = [
 						'label' => __( 'Product Title Font', 'blocksy' ),
 						'value' => blocksy_typography_default_values([
 							'size' => '30px',
+							'line-height' => '1.4'
 						]),
 						'setting' => [ 'transport' => 'postMessage' ],
 					],
@@ -202,11 +160,74 @@ $options = [
 						],
 					],
 
+					blocksy_rand_md5() => [
+						'type' => 'ct-divider',
+						'attr' => [ 'data-type' => 'small' ],
+					],
+
+					'product_page_background' => [
+						'label' => __( 'Page Background', 'blocksy' ),
+						'type' => 'ct-background',
+						'design' => 'inline',
+						'setting' => [ 'transport' => 'postMessage' ],
+						'value' => blocksy_background_default_value([
+							'backgroundColor' => [
+								'default' => [
+									'color' => Blocksy_Css_Injector::get_skip_rule_keyword(),
+								],
+							],
+						]),
+						'desc' => sprintf(
+							// translators: placeholder here means the actual URL.
+							__( 'Please note: by default this option is inherited from %sGeneral ➝ Site Background%s.', 'blocksy' ),
+							sprintf(
+								'<a data-trigger-section="general" href="%s">',
+								admin_url('/customize.php?autofocus[section]=general')
+							),
+							'</a>'
+						),
+					],
+
 				],
 			],
 
 			blocksy_rand_md5() => [
-				'type' => 'ct-divider',
+				'type'  => 'ct-title',
+				'label' => __( 'Page Elements', 'blocksy' ),
+			],
+
+			'has_product_breadcrumbs' => [
+				'label' => __( 'Breadcrumbs', 'blocksy' ),
+				'type' => 'ct-switch',
+				'value' => 'yes',
+				'setting' => [ 'transport' => 'postMessage' ],
+			],
+
+			'has_product_single_onsale' => [
+				'label' => __( 'Sale Badge', 'blocksy' ),
+				'type' => 'ct-switch',
+				'value' => 'yes',
+				'setting' => [ 'transport' => 'postMessage' ],
+			],
+
+			'has_product_single_rating' => [
+				'label' => __( 'Star Rating', 'blocksy' ),
+				'type' => 'ct-switch',
+				'value' => 'yes',
+				'setting' => [ 'transport' => 'postMessage' ],
+			],
+
+			'has_product_single_lightbox' => [
+				'label' => __( 'Image Lightbox', 'blocksy' ),
+				'type' => 'ct-switch',
+				'value' => 'no'
+			],
+
+			'has_product_single_meta' => [
+				'label' => __( 'Product Meta', 'blocksy' ),
+				'type' => 'ct-switch',
+				'value' => 'yes',
+				'setting' => [ 'transport' => 'postMessage' ],
 			],
 
 			'has_product_related' => [

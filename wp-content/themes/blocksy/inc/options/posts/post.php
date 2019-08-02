@@ -9,7 +9,7 @@ $options = [
 
 			[
 				'single_blog_post_title_enabled' => [
-					'label' => __( 'Page Title', 'blocksy' ),
+					'label' => __( 'Post Title', 'blocksy' ),
 					'type' => 'ct-panel',
 					'switch' => true,
 					'value' => 'yes',
@@ -27,7 +27,7 @@ $options = [
 
 				blocksy_rand_md5() => [
 					'type' => 'ct-title',
-					'label' => __( 'Article Structure', 'blocksy' ),
+					'label' => __( 'Post Structure', 'blocksy' ),
 				],
 
 				blocksy_rand_md5() => [
@@ -87,24 +87,27 @@ $options = [
 					'type' => 'tab',
 					'options' => [
 
-						'postBackground' => [
+						'post_background' => [
 							'label' => __( 'Page Background', 'blocksy' ),
-							'type'  => 'ct-color-picker',
+							'type' => 'ct-background',
 							'design' => 'inline',
 							'setting' => [ 'transport' => 'postMessage' ],
-
-							'value' => [
-								'default' => [
-									'color' => Blocksy_Css_Injector::get_skip_rule_keyword(),
+							'value' => blocksy_background_default_value([
+								'backgroundColor' => [
+									'default' => [
+										'color' => Blocksy_Css_Injector::get_skip_rule_keyword(),
+									],
 								],
-							],
-
-							'pickers' => [
-								[
-									'title' => __( 'Initial', 'blocksy' ),
-									'id' => 'default',
-								],
-							],
+							]),
+							'desc' => sprintf(
+								// translators: placeholder here means the actual URL.
+								__( 'Please note: by default this option is inherited from %sGeneral ➝ Site Background%s.', 'blocksy' ),
+								sprintf(
+									'<a data-trigger-section="general" href="%s">',
+									admin_url('/customize.php?autofocus[section]=general')
+								),
+								'</a>'
+							),
 						],
 
 						blocksy_rand_md5() => [
@@ -117,24 +120,18 @@ $options = [
 									'attr' => [ 'data-type' => 'small' ],
 								],
 
-								'singleContentBackground' => [
+								'single_content_background' => [
 									'label' => __( 'Content Area Background', 'blocksy' ),
-									'type'  => 'ct-color-picker',
+									'type' => 'ct-background',
 									'design' => 'inline',
 									'setting' => [ 'transport' => 'postMessage' ],
-
-									'value' => [
-										'default' => [
-											'color' => '#ffffff',
+									'value' => blocksy_background_default_value([
+										'backgroundColor' => [
+											'default' => [
+												'color' => '#ffffff',
+											],
 										],
-									],
-
-									'pickers' => [
-										[
-											'title' => __( 'Initial', 'blocksy' ),
-											'id' => 'default',
-										],
-									],
+									])
 								],
 
 								'singleContentBoxedSpacing' => [
@@ -157,8 +154,6 @@ $options = [
 
 					],
 				],
-
-
 
 				blocksy_rand_md5() => [
 					'type' => 'ct-title',
@@ -204,16 +199,27 @@ $options = [
 							'setting' => [ 'transport' => 'postMessage' ],
 						],
 
-						'single_featured_image_width' => [
-							'label' => __( 'Image Width', 'blocksy' ),
-							'type' => 'ct-radio',
-							'value' => 'default',
-							'view' => 'text',
-							'design' => 'block',
-							'setting' => [ 'transport' => 'postMessage' ],
-							'choices' => [
-								'default' => __( 'Default Width', 'blocksy' ),
-								'wide' => __( 'Wide Width', 'blocksy' ),
+						blocksy_rand_md5() => [
+							'type' => 'ct-condition',
+							'condition' => [
+								'single_blog_post_structure' => 'type-3 | type-4',
+								'single_content_style' => 'wide',
+							],
+							'options' => [
+
+								'single_featured_image_width' => [
+									'label' => __( 'Image Width', 'blocksy' ),
+									'type' => 'ct-radio',
+									'value' => 'default',
+									'view' => 'text',
+									'design' => 'block',
+									'setting' => [ 'transport' => 'postMessage' ],
+									'choices' => [
+										'default' => __( 'Default Width', 'blocksy' ),
+										'wide' => __( 'Wide Width', 'blocksy' ),
+									],
+								],
+
 							],
 						],
 
@@ -1030,24 +1036,18 @@ $options = [
 									'attr' => [ 'data-type' => 'small' ],
 								],
 
-								'relatedPostsContainerColor' => [
-									'label' => __( 'Container Color', 'blocksy' ),
-									'type'  => 'ct-color-picker',
+								'related_posts_background' => [
+									'label' => __( 'Container Background', 'blocksy' ),
+									'type' => 'ct-background',
 									'design' => 'inline',
 									'setting' => [ 'transport' => 'postMessage' ],
-
-									'value' => [
-										'default' => [
-											'color' => '#eff1f5',
+									'value' => blocksy_background_default_value([
+										'backgroundColor' => [
+											'default' => [
+												'color' => '#eff1f5',
+											],
 										],
-									],
-
-									'pickers' => [
-										[
-											'title' => __( 'Initial', 'blocksy' ),
-											'id' => 'default',
-										],
-									],
+									])
 								],
 
 								'relatedPostsContainerSpacing' => [
@@ -1083,24 +1083,18 @@ $options = [
 					'setting' => [ 'transport' => 'postMessage' ],
 					'inner-options' => [
 
-						'postCommentsBackground' => [
-							'label' => __( 'Container Color', 'blocksy' ),
-							'type'  => 'ct-color-picker',
+						'post_comments_background' => [
+							'label' => __( 'Container Background', 'blocksy' ),
+							'type' => 'ct-background',
 							'design' => 'inline',
 							'setting' => [ 'transport' => 'postMessage' ],
-
-							'value' => [
-								'default' => [
-									'color' => '#f8f9fb',
+							'value' => blocksy_background_default_value([
+								'backgroundColor' => [
+									'default' => [
+										'color' => '#f8f9fb',
+									],
 								],
-							],
-
-							'pickers' => [
-								[
-									'title' => __( 'Initial', 'blocksy' ),
-									'id' => 'default',
-								],
-							],
+							])
 						],
 
 					],

@@ -1,9 +1,3 @@
-.post[data-content="boxed"] {
+[data-content="boxed"] {
 	padding: var(--singleContentBoxedSpacing);
-	background: var(--singleContentBackground);
-}
-
-.page[data-content="boxed"] {
-	padding: var(--pageContentBoxedSpacing);
-	background: var(--pageContentBackground);
 }

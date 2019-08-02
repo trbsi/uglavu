@@ -61,7 +61,6 @@ function blocksy_has_transparent_header($check_only_forced = false) {
 		]);
 
 		$is_enabled_by_rules = false;
-
 		$has_transparent_header = false;
 
 		if (is_home() && is_front_page()) {
@@ -80,35 +79,35 @@ function blocksy_has_transparent_header($check_only_forced = false) {
 
 		if (is_singular('post')) {
 			if (!blocksy_akg('posts', $rules)) {
-				$has_transparent_header = false;
+				$has_transparent_header = true;
 				$is_enabled_by_rules = true;
 			}
 		}
 
 		if (blocksy_is_page()) {
 			if (!blocksy_akg('pages', $rules)) {
-				$has_transparent_header = false;
+				$has_transparent_header = true;
 				$is_enabled_by_rules = true;
 			}
 		}
 
 		if (is_search()) {
 			if (!blocksy_akg('search', $rules)) {
-				$has_transparent_header = false;
+				$has_transparent_header = true;
 				$is_enabled_by_rules = true;
 			}
 		}
 
 		if (is_404()) {
 			if (!blocksy_akg('error', $rules)) {
-				$has_transparent_header = false;
+				$has_transparent_header = true;
 				$is_enabled_by_rules = true;
 			}
 		}
 
 		if (function_exists('is_shop') && is_shop()) {
 			if (!blocksy_akg('shop_home', $rules)) {
-				$has_transparent_header = false;
+				$has_transparent_header = true;
 				$is_enabled_by_rules = true;
 			}
 		}
@@ -119,7 +118,7 @@ function blocksy_has_transparent_header($check_only_forced = false) {
 			) && blocksy_akg('shop_arhives', $rules)
 		) {
 			if (!blocksy_akg('shop_home', $rules)) {
-				$has_transparent_header = false;
+				$has_transparent_header = true;
 				$is_enabled_by_rules = true;
 			}
 		}

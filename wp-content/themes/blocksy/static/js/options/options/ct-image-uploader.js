@@ -80,6 +80,9 @@ export default class ImageUploader extends Component {
 		})
 
 		this.frame.on('select', this.onSelect, this)
+		this.frame.on('close', () => {
+			this.props.option.onFrameClose && this.props.option.onFrameClose()
+		})
 		this.frame.on('cropped', this.onCropped, this)
 		this.frame.on('skippedcrop', this.onSkippedCrop, this)
 	}
@@ -90,6 +93,7 @@ export default class ImageUploader extends Component {
 	openFrame() {
 		this.initFrame()
 		this.frame.setState('library').open()
+		this.props.option.onFrameOpen && this.props.option.onFrameOpen()
 	}
 
 	/**

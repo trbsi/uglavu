@@ -15,6 +15,20 @@ function blocksy_output_site_branding($is_mobile = false) {
 		$transparent_logo_output = 'data-transparent-logo';
 	}
 
+	$tagline_class = 'site-description ' . blocksy_visibility_classes(
+		get_theme_mod('tagline_search_visibility', [
+			'desktop' => false,
+			'tablet' => false,
+			'mobile' => false,
+		])
+	);
+
+	$tag = 'h1';
+
+	if ($is_mobile) {
+		$tag = 'h2';
+	}
+
 	?>
 
 	<div
@@ -22,15 +36,19 @@ function blocksy_output_site_branding($is_mobile = false) {
 		<?php blocksy_schema_org_definitions_e('logo') ?>
 		<?php echo wp_kses_post($transparent_logo_output) ?>>
 
-		<?php if ( ! blocksy_has_default_logo($is_mobile) ) { ?>
-			<h4 class="site-title">
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-					<?php bloginfo( 'name' ); ?>
+		<<?php echo $tag ?> class="site-title">
+			<?php if ( ! blocksy_has_default_logo($is_mobile) ) { ?>
+				<a href="<?php echo esc_url(home_url('/')); ?>" rel="home">
+					<?php bloginfo('name'); ?>
 				</a>
-			</h4>
-		<?php } ?>
+			<?php } else { ?>
+				<?php echo wp_kses_post(blocksy_get_custom_logo($is_mobile)); ?>
+			<?php } ?>
+		</<?php echo $tag ?>>
 
-		<?php echo wp_kses_post(blocksy_get_custom_logo($is_mobile)); ?>
+		<h2 class="<?php echo $tagline_class ?>">
+			<?php bloginfo('description'); ?>
+		</h2>
 	</div>
 
 	<?php
@@ -42,6 +60,10 @@ function blocksy_output_site_branding_mobile() {
 }
 
 function blocksy_has_default_logo($is_mobile = false) {
+	if (get_theme_mod('logo_type', 'image') === 'text') {
+		return false;
+	}
+
 	$custom_logo_id = get_theme_mod( 'custom_logo', '' );
 
 	if ($is_mobile && get_theme_mod('has_mobile_logo', 'yes') === 'yes') {

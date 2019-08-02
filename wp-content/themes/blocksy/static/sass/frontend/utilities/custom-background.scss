@@ -1,33 +1,15 @@
-.ct-site-pattern {
-	display: none;
-}
-
-.site-has-pattern {
-	
-	.site-main {
-		position: relative;
-
-		> * {
-			position: relative;
-		}
-	}
-
-	.ct-site-pattern {
-		position: absolute;
-		display: block;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-	}
-}
-
-.site-has-background-image {
-	.site-main {
-		background-image: var(--siteBackgroundImage);
-		background-size: var(--siteBackgroundSize);
-		background-repeat: var(--siteBackgroundRepeat);
-		background-position: var(--siteBackgroundPosition);
-		background-attachment: var(--siteBackgroundAttachment);
-	}
+.site-main,
+.header-mobile,
+.header-desktop,
+.ct-related-posts,
+.footer-widgets-area,
+.ct-comments-container,
+.post[data-content="boxed"],
+.page[data-content="boxed"] {
+	background-color: var(--backgroundColor);
+	background-image: var(--backgroundImage);
+	background-size: var(--backgroundSize);
+	background-repeat: var(--backgroundRepeat);
+	background-position: var(--backgroundPosition);
+	background-attachment: var(--backgroundAttachment);
 }

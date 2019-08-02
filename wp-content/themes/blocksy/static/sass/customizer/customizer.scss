@@ -16,7 +16,7 @@ $customizer-width: 320px;
 		width: 49px;
 
 		.preview {
-			font-size: 0;			
+			font-size: 0;
 
 			&:before {
 				height: 100%;
@@ -228,7 +228,7 @@ $customizer-width: 320px;
 		box-shadow: 0 0 25px rgba(0, 0, 0, 0.11), 0 0 0 1px rgba(0, 0, 0, 0.025);
 	}
 
-	// canvas with spacing	
+	// canvas with spacing
 	&:not(.preview-mobile):not(.preview-tablet) {
 		.wp-full-overlay-main {
 			right: auto;

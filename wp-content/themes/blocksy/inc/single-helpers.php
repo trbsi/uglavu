@@ -13,6 +13,7 @@ add_filter( 'body_class', function ( $classes ) {
 	}
 
 	$classes[] = 'ct-loading';
+	$classes[] = 'ct-no-js';
 
 	$site_background_type = get_theme_mod('site_background_type', 'color');
 
@@ -32,11 +33,11 @@ add_filter( 'body_class', function ( $classes ) {
 		$classes[] = 'ct-has-sidebar';
 	}
 
-    $forms_type = get_theme_mod('forms_type', 'classic-forms');
+	$forms_type = get_theme_mod('forms_type', 'classic-forms');
 
-	$classes[] = 'ct-' . (
-		$forms_type === 'classic-forms' ? 'classic-forms' : 'modern-forms'
-	);
+	if ($forms_type !== 'classic-forms') {
+		$classes[] = 'ct-' . $forms_type;
+	}
 
 	$behavior = get_theme_mod('mobile_menu_modal_behavior', 'modal');
 
@@ -368,10 +369,17 @@ function blocksy_get_featured_image_output($check_for_preview = false) {
 		])
 	);
 
-	$image_width = get_theme_mod('single_featured_image_width', 'default');
 
-	if ($image_width === 'wide') {
-		$class .= ' alignwide';
+	if (
+		blocksy_sidebar_position() === 'none'
+		&&
+		get_theme_mod('single_content_style', 'wide') === 'wide'
+	) {
+		$image_width = get_theme_mod('single_featured_image_width', 'default');
+
+		if ($image_width === 'wide') {
+			$class .= ' alignwide';
+		}
 	}
 
 	return blocksy_html_tag('figure', ['class' => $class], blocksy_image([

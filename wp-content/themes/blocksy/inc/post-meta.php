@@ -156,7 +156,7 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 								$plural_text = '';
 							}
 
-							echo esc_html(get_comments_number_text(
+							echo wp_kses_post(get_comments_number_text(
 								'',
 								'1' . $singular_text,
 								'%' . $plural_text
@@ -268,8 +268,10 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 			</ul>
 		<?php if (!$args['plain']) { ?>
 		</div>
-		<?php //CUSTOM ?>
+		<?php //CUSTOM START ?>
 		<div class="fb-comments" data-href="<?= (isset($post->og_url)) ? $post->og_url : esc_url( get_permalink() ) ?>"  data-width="100%" data-numposts="3"></div>
+		<?php //CUSTOM END ?>
+
 		<?php } ?>
 
 		<?php
@@ -278,19 +280,19 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 	}
 }
 
-function blocksy_get_categories_list( $between = '', $is_category = true ) {
+function blocksy_get_categories_list($between = '', $is_category = true) {
 	global $post;
 
 	$category = $is_category ? 'category' : 'post_tag';
 
-	if ( get_post_type( $post ) === 'fw-portfolio' ) {
+	if (get_post_type($post) === 'fw-portfolio') {
 		$category = 'fw-portfolio-category';
 	}
 
-	if ( get_post_type( $post ) === 'product' ) {
+	if (get_post_type($post) === 'product') {
 		$category = $is_category ? 'product_cat' : 'product_tag';
 	}
 
-	return get_the_term_list( $post, $category, '', $between );
+	return get_the_term_list($post, $category, '', $between);
 }
 

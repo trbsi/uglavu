@@ -1,410 +1,397 @@
 import { createElement, Fragment, Component } from '@wordpress/element'
 import classnames from 'classnames'
 import ResponsiveControls, {
-	maybePromoteScalarValueIntoResponsive,
-	isOptionEnabledFor
+  maybePromoteScalarValueIntoResponsive,
+  isOptionEnabledFor
 } from '../customizer/components/responsive-controls'
 import deepEqual from 'deep-equal'
 
 const CORE_OPTIONS_CONTEXT = require.context('./options/', true, /\.js$/)
 
 const hasCoreOptionModifier = type => {
-	let index = CORE_OPTIONS_CONTEXT.keys()
-		.map(module => module.replace(/^\.\//, '').replace(/\.js$/, ''))
-		.indexOf(type)
+  let index = CORE_OPTIONS_CONTEXT.keys()
+    .map(module => module.replace(/^\.\//, '').replace(/\.js$/, ''))
+    .indexOf(type)
 
-	return index > -1 && CORE_OPTIONS_CONTEXT.keys()[index]
+  return index > -1 && CORE_OPTIONS_CONTEXT.keys()[index]
 }
 
 const capitalizeFirstLetter = str => {
-	str = str == null ? '' : String(str)
-	return str.charAt(0).toUpperCase() + str.slice(1)
+  str = str == null ? '' : String(str)
+  return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
 export const getOptionFor = option => {
-	const dynamicOptionTypes = {}
-	ctEvents.trigger('blocksy:options:register', dynamicOptionTypes)
+  const dynamicOptionTypes = {}
+  ctEvents.trigger('blocksy:options:register', dynamicOptionTypes)
 
-	if (hasCoreOptionModifier(option.type)) {
-		return CORE_OPTIONS_CONTEXT(hasCoreOptionModifier(option.type)).default
-	}
+  if (hasCoreOptionModifier(option.type)) {
+    return CORE_OPTIONS_CONTEXT(hasCoreOptionModifier(option.type)).default
+  }
 
-	if (dynamicOptionTypes[option.type]) {
-		return dynamicOptionTypes[option.type]
-	}
+  if (dynamicOptionTypes[option.type]) {
+    return dynamicOptionTypes[option.type]
+  }
 
-	return null
+  return null
 }
 
 class GenericOptionType extends Component {
-	state = {
-		device:
-			wp.customize && wp.customize.previewedDevice
-				? wp.customize.previewedDevice()
-				: 'desktop'
-	}
+  state = {
+    device:
+      wp.customize && wp.customize.previewedDevice
+        ? wp.customize.previewedDevice()
+        : 'desktop'
+  }
 
-	listener = () =>
-		this.setState({
-			device:
-				wp.customize && wp.customize.previewedDevice
-					? wp.customize.previewedDevice()
-					: 'desktop'
-		})
+  listener = () =>
+    this.setState({
+      device:
+        wp.customize && wp.customize.previewedDevice
+          ? wp.customize.previewedDevice()
+          : 'desktop'
+    })
 
-	componentDidMount() {
-		if (this.props.option.type !== 'ct-typography') {
-			if (!this.props.option.responsive) return
-		}
-		if (!wp.customize) return
-		setTimeout(() => wp.customize.previewedDevice.bind(this.listener), 1000)
-	}
+  componentDidMount() {
+    if (this.props.option.type !== 'ct-typography') {
+      if (!this.props.option.responsive) return
+    }
+    if (!wp.customize) return
 
-	componentWillUnmount() {
-		if (this.props.option.type !== 'ct-typography') {
-			if (!this.props.option.responsive) return
-		}
-		if (!wp.customize) return
-		wp.customize.previewedDevice.unbind(this.listener)
-	}
+    setTimeout(() => wp.customize.previewedDevice.bind(this.listener), 1000)
+  }
 
-	setDevice(device) {
-		this.setState({ device })
-		wp.customize && wp.customize.previewedDevice.set(device)
-	}
+  componentWillUnmount() {
+    if (this.props.option.type !== 'ct-typography') {
+      if (!this.props.option.responsive) return
+    }
+    if (!wp.customize) return
+    wp.customize.previewedDevice.unbind(this.listener)
+  }
 
-	render() {
-		let { value, values, onChange, option, id, purpose } = this.props
+  setDevice(device) {
+    this.setState({ device })
+    wp.customize && wp.customize.previewedDevice.set(device)
+  }
 
-		let OptionComponent = getOptionFor(option)
+  render() {
+    let {
+      value,
+      values,
+      onChange,
+      onChangeFor,
+      option,
+      id,
+      purpose
+    } = this.props
 
-		const valueWithResponsive = option.responsive
-			? maybePromoteScalarValueIntoResponsive(value)[this.state.device]
-			: value
+    let OptionComponent = getOptionFor(option)
 
-		const onChangeWithMobileBridge = value => {
-			if (
-				option.switchDeviceOnChange &&
-				wp.customize &&
-				wp.customize.previewedDevice() !== option.switchDeviceOnChange
-			) {
-				wp.customize.previewedDevice.set(option.switchDeviceOnChange)
-			}
+    const valueWithResponsive = option.responsive
+      ? maybePromoteScalarValueIntoResponsive(value)[this.state.device]
+      : value
 
-			onChange(value)
-		}
+    const onChangeWithMobileBridge = value => {
+      if (
+        option.switchDeviceOnChange &&
+        wp.customize &&
+        wp.customize.previewedDevice() !== option.switchDeviceOnChange
+      ) {
+        wp.customize.previewedDevice.set(option.switchDeviceOnChange)
+      }
 
-		const onChangeWithResponsiveBridge = scalarValue => {
-			const responsiveValue = maybePromoteScalarValueIntoResponsive(value)
+      onChange(value)
+    }
 
-			onChangeWithMobileBridge(
-				option.responsive
-					? {
-							...responsiveValue,
-							[this.state.device]: scalarValue,
-							...(this.state.device === 'desktop'
-								? Object.keys(responsiveValue).reduce(
-										(currentValue, key) => ({
-											...currentValue,
-											...(key !== 'desktop' &&
-											key !== '__changed' &&
-											Object.keys(
-												maybePromoteScalarValueIntoResponsive(
-													option.value
-												)
-											).reduce(
-												(result, key) =>
-													result
-														? maybePromoteScalarValueIntoResponsive(
-																option.value
-															)[key] ===
-															maybePromoteScalarValueIntoResponsive(
-																option.value
-															).desktop
-														: false,
-												true
-											) &&
-											(
-												responsiveValue.__changed || []
-											).indexOf('tablet') === -1
-												? {
-														[key]: scalarValue
-													}
-												: {})
-										}),
-										{}
-									)
-								: {}),
-							...(this.state.device === 'tablet'
-								? Object.keys(responsiveValue).reduce(
-										(currentValue, key) => ({
-											...currentValue,
-											...(key !== 'desktop' &&
-											key !== 'tablet' &&
-											key !== '__changed' &&
-											Object.keys(
-												maybePromoteScalarValueIntoResponsive(
-													option.value
-												)
-											).reduce(
-												(result, key) =>
-													result
-														? maybePromoteScalarValueIntoResponsive(
-																option.value
-															)[key] ===
-															maybePromoteScalarValueIntoResponsive(
-																option.value
-															).desktop
-														: false,
-												true
-											) &&
-											(
-												responsiveValue.__changed || []
-											).indexOf(key) === -1
-												? {
-														[key]: scalarValue
-													}
-												: {})
-										}),
-										{}
-									)
-								: {}),
-							__changed: [
-								...(responsiveValue.__changed || []),
-								...(this.state.device !== 'desktop'
-									? [this.state.device]
-									: [])
-							]
-						}
-					: scalarValue
-			)
-		}
+    const onChangeWithResponsiveBridge = scalarValue => {
+      const responsiveValue = maybePromoteScalarValueIntoResponsive(value)
 
-		/**
-		 * Handle transparent components
-		 */
-		if (!OptionComponent) {
-			return <div>Unimplemented option: {option.type}</div>
-		}
+      onChangeWithMobileBridge(
+        option.responsive
+          ? {
+              ...responsiveValue,
+              [this.state.device]: scalarValue,
+              ...(this.state.device === 'desktop'
+                ? Object.keys(responsiveValue).reduce(
+                    (currentValue, key) => ({
+                      ...currentValue,
+                      ...(key !== 'desktop' &&
+                      key !== '__changed' &&
+                      Object.keys(
+                        maybePromoteScalarValueIntoResponsive(option.value)
+                      ).reduce(
+                        (result, key) =>
+                          result
+                            ? maybePromoteScalarValueIntoResponsive(
+                                option.value
+                              )[key] ===
+                              maybePromoteScalarValueIntoResponsive(
+                                option.value
+                              ).desktop
+                            : false,
+                        true
+                      ) &&
+                      (responsiveValue.__changed || []).indexOf('tablet') === -1
+                        ? {
+                            [key]: scalarValue
+                          }
+                        : {})
+                    }),
+                    {}
+                  )
+                : {}),
+              ...(this.state.device === 'tablet'
+                ? Object.keys(responsiveValue).reduce(
+                    (currentValue, key) => ({
+                      ...currentValue,
+                      ...(key !== 'desktop' &&
+                      key !== 'tablet' &&
+                      key !== '__changed' &&
+                      Object.keys(
+                        maybePromoteScalarValueIntoResponsive(option.value)
+                      ).reduce(
+                        (result, key) =>
+                          result
+                            ? maybePromoteScalarValueIntoResponsive(
+                                option.value
+                              )[key] ===
+                              maybePromoteScalarValueIntoResponsive(
+                                option.value
+                              ).desktop
+                            : false,
+                        true
+                      ) &&
+                      (responsiveValue.__changed || []).indexOf(key) === -1
+                        ? {
+                            [key]: scalarValue
+                          }
+                        : {})
+                    }),
+                    {}
+                  )
+                : {}),
+              __changed: [
+                ...(responsiveValue.__changed || []),
+                ...(this.state.device !== 'desktop' ? [this.state.device] : [])
+              ]
+            }
+          : scalarValue
+      )
+    }
 
-		let renderingConfig = { design: true, label: true, wrapperAttr: {} }
-		let LabelToolbar = () => null
-		let OptionMetaWrapper = null
-		let ControlEnd = () => null
+    /**
+     * Handle transparent components
+     */
+    if (!OptionComponent) {
+      return <div>Unimplemented option: {option.type}</div>
+    }
 
-		renderingConfig = {
-			...renderingConfig,
-			...(OptionComponent.renderingConfig || {})
-		}
+    let renderingConfig = { design: true, label: true, wrapperAttr: {} }
+    let LabelToolbar = () => null
+    let OptionMetaWrapper = null
+    let ControlEnd = () => null
 
-		if (option.design) {
-			renderingConfig.design = option.design
-		}
+    renderingConfig = {
+      ...renderingConfig,
+      ...(OptionComponent.renderingConfig || {})
+    }
 
-		if (OptionComponent.LabelToolbar) {
-			LabelToolbar = OptionComponent.LabelToolbar
-		}
+    if (option.design) {
+      renderingConfig.design = option.design
+    }
 
-		if (OptionComponent.ControlEnd) {
-			ControlEnd = OptionComponent.ControlEnd
-		}
+    if (OptionComponent.LabelToolbar) {
+      LabelToolbar = OptionComponent.LabelToolbar
+    }
 
-		if (OptionComponent.MetaWrapper) {
-			OptionMetaWrapper = OptionComponent.MetaWrapper
-		}
+    if (OptionComponent.ControlEnd) {
+      ControlEnd = OptionComponent.ControlEnd
+    }
 
-		let OptionComponentWithoutDesign = (
-			<OptionComponent
-				key={id}
-				{...{
-					option: {
-						...option,
-						value: option.responsive
-							? maybePromoteScalarValueIntoResponsive(
-									option.value || ''
-								)
-							: option.value || ''
-					},
-					value: valueWithResponsive,
-					id,
-					values,
-					device: this.state.device,
-					onChange: onChangeWithResponsiveBridge
-				}}
-			/>
-		)
+    if (OptionComponent.MetaWrapper) {
+      OptionMetaWrapper = OptionComponent.MetaWrapper
+    }
 
-		if (!renderingConfig.design || renderingConfig.design === 'none') {
-			return OptionComponentWithoutDesign
-		}
+    let OptionComponentWithoutDesign = (
+      <OptionComponent
+        key={id}
+        {...{
+          option: {
+            ...option,
+            value: option.responsive
+              ? maybePromoteScalarValueIntoResponsive(option.value || '')
+              : option.value || ''
+          },
+          value: valueWithResponsive,
+          id,
+          values,
+          onChangeFor,
+          device: this.state.device,
+          onChange: onChangeWithResponsiveBridge
+        }}
+      />
+    )
 
-		let maybeLabel =
-			Object.keys(option).indexOf('label') === -1
-				? capitalizeFirstLetter(id).replace(/\_|\-/g, ' ')
-				: option.label
+    if (!renderingConfig.design || renderingConfig.design === 'none') {
+      return OptionComponentWithoutDesign
+    }
 
-		let maybeDesc =
-			Object.keys(option).indexOf('desc') === -1 ? false : option.desc
+    let maybeLabel =
+      Object.keys(option).indexOf('label') === -1
+        ? capitalizeFirstLetter(id).replace(/\_|\-/g, ' ')
+        : option.label
 
-		/**
-		 * Fuck JS
-		 */
-		if (maybeLabel === '') {
-			maybeLabel = true
-		}
+    let maybeDesc =
+      Object.keys(option).indexOf('desc') === -1 ? false : option.desc
 
-		if (!renderingConfig.label) {
-			maybeLabel = false
-		}
+    /**
+     * Fuck JS
+     */
+    if (maybeLabel === '') {
+      maybeLabel = true
+    }
 
-		const actualDesignType =
-			typeof renderingConfig.design === 'boolean'
-				? 'block'
-				: renderingConfig.design
+    if (!renderingConfig.label) {
+      maybeLabel = false
+    }
 
-		// if (purpose === 'customizer') {
-		const getActualOption = ({
-			wrapperAttr: { className, ...additionalWrapperAttr } = {},
-			...props
-		} = {}) => (
-			<div
-				className={classnames('ct-control', className, {})}
-				data-design={actualDesignType}
-				{...{
-					...((option.responsive &&
-						!isOptionEnabledFor(
-							this.state.device,
-							option.responsive
-						)) ||
-					option.state === 'disabled'
-						? { 'data-state': 'disabled' }
-						: {})
-				}}
-				{...{
-					...(option.wrapperAttr || {}),
-					...additionalWrapperAttr
-				}}>
-				<header>
-					{maybeLabel && <label>{maybeLabel}</label>}
+    const actualDesignType =
+      typeof renderingConfig.design === 'boolean'
+        ? 'block'
+        : renderingConfig.design
 
-					{option.type !== 'ct-image-picker' &&
-						option.type !== 'ct-layers' &&
-						option.type !== 'ct-image-uploader' &&
-						option.type !== 'ct-panel' &&
-						this.props.hasRevertButton &&
-						!option.disableRevertButton && (
-							<button
-								type="button"
-								disabled={deepEqual(option.value, value)}
-								className="ct-revert"
-								onClick={() =>
-									onChangeWithMobileBridge(option.value)
-								}
-							/>
-						)}
+    // if (purpose === 'customizer') {
+    const getActualOption = ({
+      wrapperAttr: { className, ...additionalWrapperAttr } = {},
+      ...props
+    } = {}) => (
+      <div
+        className={classnames('ct-control', className, {})}
+        data-design={actualDesignType}
+        {...{
+          ...((option.responsive &&
+            !isOptionEnabledFor(this.state.device, option.responsive)) ||
+          option.state === 'disabled'
+            ? { 'data-state': 'disabled' }
+            : {})
+        }}
+        {...{
+          ...(option.wrapperAttr || {}),
+          ...additionalWrapperAttr
+        }}>
+        <header>
+          {maybeLabel && <label>{maybeLabel}</label>}
 
-					<LabelToolbar
-						{...{
-							option,
-							value: valueWithResponsive,
-							id,
-							onChange: onChangeWithResponsiveBridge
-						}}
-					/>
+          {option.type !== 'ct-image-picker' &&
+            option.type !== 'ct-layers' &&
+            option.type !== 'ct-image-uploader' &&
+            option.type !== 'ct-panel' &&
+            this.props.hasRevertButton &&
+            !option.disableRevertButton && (
+              <button
+                type="button"
+                disabled={deepEqual(option.value, value)}
+                className="ct-revert"
+                onClick={() => onChangeWithMobileBridge(option.value)}
+              />
+            )}
 
-					{option.responsive &&
-						actualDesignType === 'block' && (
-							<ResponsiveControls
-								device={this.state.device}
-								responsiveDescriptor={option.responsive}
-								setDevice={device => this.setDevice(device)}
-							/>
-						)}
-				</header>
+          <LabelToolbar
+            {...{
+              option,
+              value: valueWithResponsive,
+              id,
+              onChange: onChangeWithResponsiveBridge
+            }}
+          />
 
-				{option.responsive &&
-					!isOptionEnabledFor(
-						this.state.device,
-						option.responsive
-					) && (
-						<div className="ct-disabled-notification">
-							Option can't be edited for current device
-						</div>
-					)}
+          {option.responsive && actualDesignType === 'block' && (
+            <ResponsiveControls
+              device={this.state.device}
+              responsiveDescriptor={option.responsive}
+              setDevice={device => this.setDevice(device)}
+            />
+          )}
+        </header>
 
-				{((option.responsive &&
-					isOptionEnabledFor(this.state.device, option.responsive)) ||
-					!option.responsive) && (
-					<Fragment>
-						<section
-							className={classnames({
-								'ct-responsive-container':
-									option.responsive &&
-									actualDesignType === 'inline'
-							})}>
-							{option.responsive &&
-								actualDesignType === 'inline' && (
-									<ResponsiveControls
-										device={this.state.device}
-										responsiveDescriptor={option.responsive}
-										setDevice={device =>
-											this.setDevice(device)
-										}
-									/>
-								)}
-							{OptionComponentWithoutDesign}
-						</section>
+        {option.responsive &&
+          !isOptionEnabledFor(this.state.device, option.responsive) && (
+            <div className="ct-disabled-notification">
+              Option can't be edited for current device
+            </div>
+          )}
 
-						{maybeDesc && (
-							<div
-								dangerouslySetInnerHTML={{
-									__html: maybeDesc
-								}}
-								className="ct-option-description"
-							/>
-						)}
-					</Fragment>
-				)}
+        {((option.responsive &&
+          isOptionEnabledFor(this.state.device, option.responsive)) ||
+          !option.responsive) && (
+          <Fragment>
+            <section
+              className={classnames({
+                'ct-responsive-container':
+                  option.responsive && actualDesignType === 'inline'
+              })}>
+              {option.responsive && actualDesignType === 'inline' && (
+                <ResponsiveControls
+                  device={this.state.device}
+                  responsiveDescriptor={option.responsive}
+                  setDevice={device => this.setDevice(device)}
+                />
+              )}
+              {OptionComponentWithoutDesign}
+            </section>
 
-				<ControlEnd />
-			</div>
-		)
+            {maybeDesc && (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: maybeDesc
+                }}
+                className="ct-option-description"
+              />
+            )}
+          </Fragment>
+        )}
 
-		return OptionMetaWrapper ? (
-			<OptionMetaWrapper
-				option={option}
-				value={valueWithResponsive}
-				getActualOption={getActualOption}
-			/>
-		) : (
-			getActualOption()
-		)
-		// }
+        <ControlEnd />
+      </div>
+    )
 
-		return (
-			<div
-				className="ct-option-container"
-				{...option.wrapperAttr || {}}
-				{...(renderingConfig.design && renderingConfig.design !== true
-					? { ['data-design']: renderingConfig.design }
-					: {})}>
-				{maybeLabel && <label>{maybeLabel}</label>}
+    return OptionMetaWrapper ? (
+      <OptionMetaWrapper
+        option={option}
+        value={valueWithResponsive}
+        onChangeFor={onChangeFor}
+        values={values}
+        getActualOption={getActualOption}
+      />
+    ) : (
+      getActualOption()
+    )
+    // }
 
-				<section>
-					<div key={'option'} className="ct-option">
-						{OptionComponentWithoutDesign}
-					</div>
+    return (
+      <div
+        className="ct-option-container"
+        {...(option.wrapperAttr || {})}
+        {...(renderingConfig.design && renderingConfig.design !== true
+          ? { ['data-design']: renderingConfig.design }
+          : {})}>
+        {maybeLabel && <label>{maybeLabel}</label>}
 
-					{maybeDesc && (
-						<div
-							dangerouslySetInnerHTML={{ __html: maybeDesc }}
-							className="ct-option-description"
-						/>
-					)}
-				</section>
-			</div>
-		)
-	}
+        <section>
+          <div key={'option'} className="ct-option">
+            {OptionComponentWithoutDesign}
+          </div>
+
+          {maybeDesc && (
+            <div
+              dangerouslySetInnerHTML={{ __html: maybeDesc }}
+              className="ct-option-description"
+            />
+          )}
+        </section>
+      </div>
+    )
+  }
 }
 
 export default GenericOptionType

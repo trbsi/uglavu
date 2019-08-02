@@ -71,9 +71,7 @@ const renderEntries = prefix => {
 			if (!component.enabled) return
 
 			const newHtml = htmlCache.querySelector(
-				`.ct-customizer-preview-cache [data-id="${
-					singleArticle.id
-				}"] [data-component="${component.id}"]`
+				`.ct-customizer-preview-cache [data-id="${singleArticle.id}"] [data-component="${component.id}"]`
 			).innerHTML
 
 			const e = document.createElement('div')
@@ -125,15 +123,13 @@ const renderEntries = prefix => {
 						component.has_author_avatar !== 'yes') ||
 					(component.meta && !component.meta.author)
 				) {
-					e
-						.querySelector('.entry-meta.has-avatar')
-						.classList.remove('has-avatar')
+					e.querySelector('.entry-meta.has-avatar').classList.remove(
+						'has-avatar'
+					)
 
-					e
-						.querySelector('.entry-meta')
-						.removeChild(
-							e.querySelector('.entry-meta .avatar-container')
-						)
+					e.querySelector('.entry-meta').removeChild(
+						e.querySelector('.entry-meta .avatar-container')
+					)
 				}
 
 				if (component.meta && !component.meta.author) {
@@ -235,18 +231,18 @@ const renderEntries = prefix => {
 					e.querySelector('.ct-image-container .ct-ratio')
 				)
 
-				e
-					.querySelector('.ct-image-container')
-					.classList.remove('boundless-image')
+				e.querySelector('.ct-image-container').classList.remove(
+					'boundless-image'
+				)
 
 				if (
 					(component.is_boundless || 'yes') === 'yes' &&
 					getOptionFor('card_type', prefix) === 'boxed' &&
 					getOptionFor('structure', prefix) !== 'gutenberg'
 				) {
-					e
-						.querySelector('.ct-image-container')
-						.classList.add('boundless-image')
+					e.querySelector('.ct-image-container').classList.add(
+						'boundless-image'
+					)
 				}
 			}
 
@@ -268,6 +264,12 @@ const renderEntries = prefix => {
 			if (component.id === 'read_more') {
 				e.querySelector('.entry-button').dataset.type =
 					component.button_type || 'simple'
+
+				e.querySelector('.entry-button').classList.remove('ct-button')
+
+				if ((component.button_type || 'simple') === 'background') {
+					e.querySelector('.entry-button').classList.add('ct-button')
+				}
 
 				e.querySelector('.entry-button').dataset.alignment =
 					component.read_more_alignment || 'left'
@@ -397,13 +399,13 @@ const getVariablesForPrefix = prefix => ({
 	[`${prefix}_cardButtonTextColor`]: [
 		{
 			selector: '.entry-button',
-			variable: 'linkInitialColor',
+			variable: 'buttonTextInitialColor',
 			type: 'color:default'
 		},
 
 		{
 			selector: '.entry-button',
-			variable: 'linkHoverColor',
+			variable: 'buttonTextHoverColor',
 			type: 'color:hover'
 		}
 	],

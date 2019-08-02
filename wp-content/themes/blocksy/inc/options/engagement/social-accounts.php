@@ -115,6 +115,14 @@ $options = [
 				'setting' => [ 'transport' => 'postMessage' ],
 			],
 
+			'rss' => [
+				'label' => __( 'RSS', 'blocksy' ),
+				'type' => 'text',
+				'design' => 'inline',
+				'value' => '',
+				'setting' => [ 'transport' => 'postMessage' ],
+			],
+
 		],
 	],
 ];

@@ -1,0 +1,85 @@
+.ct-background-modal {
+
+	.ct-color-modal-wrapper {
+		position: relative;
+		width: 100%;
+	}
+
+	.ct-color-picker-modal {
+		position: relative;
+		z-index: 0;
+		width: calc(100% + 40px);
+		top: initial;
+		right: initial;
+		margin: 0 -20px;
+		box-shadow: none;
+		opacity: 1 !important;
+		border-radius: 0;
+		transform: none !important;
+		transition: none !important;
+
+		.ct-color-picker-top,
+		.wp-picker-holder,
+		.ct-color-picker-bottom {
+			padding: 25px 20px;
+		}
+
+		.ct-color-picker-bottom {
+			padding-bottom: 0;
+		}
+
+		.wp-picker-holder {
+			> .iris-picker .iris-square {
+				width: 189px !important;
+			}
+		}
+	}
+
+	.ct-color-picker-single {
+		.ct-tooltip-top {
+			display: none;
+		}
+	}
+}
+
+
+// color tab
+.ct-color-tab .ct-control {
+	margin-top: 0;
+
+	> header, > section {
+		display: none;
+	}
+}
+
+
+.ct-image-tab,
+.ct-patterns-tab {
+	.ct-color-picker-modal {
+		margin-top: 20px;
+		border-top: 1px solid #eee;
+
+		.wp-picker-holder,
+		.ct-color-picker-top {
+			border-bottom: none;
+		}
+
+		.wp-picker-holder,
+		.ct-color-picker-bottom {
+			padding-top: 0;
+		}
+	}
+
+	.ct-color-modal-wrapper .ct-arrow {
+		top: 14px;
+		left: 234px !important;
+		bottom: initial;
+		width: 12px;
+		height: 12px;
+		background: #fff;
+		border: none;
+		border-top: 1px solid #e6e6e6;
+		border-left: 1px solid #e6e6e6;
+		transform: rotate(45deg);
+	}
+}

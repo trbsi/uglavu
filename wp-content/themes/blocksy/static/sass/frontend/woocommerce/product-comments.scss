@@ -1,11 +1,27 @@
-.woocommerce #reviews #comments {
+.woocommerce-Reviews {
+	@include media-breakpoint-down (md) {
+		#comments {
+			margin-bottom: 40px;
+		}
+	}
+	
+	@include media-breakpoint-up (lg) {
+		display: flex;
+		justify-content: space-between;
+
+		#comments,
+		#review_form_wrapper {
+			width: 47%;
+		}
+	}
+
 	h2 {
-		font-size: 20px;
+		--fontSize: 20px;
 		margin-bottom: 30px;
 	}
 
-	ol.commentlist {
-		padding: 0;
+	.commentlist {
+		@include list-normalize;
 		border-top: 1px solid $border-color;
 
 		li {
@@ -17,68 +33,65 @@
 					border-bottom: 1px solid $border-color;
 				}
 			}
+		}
+	}
 
-			.comment_container {
-				padding-top: 40px;
-				padding-left: 0;				
-				padding-right: 0;
-			}
+	.comment_container {
+		position: relative;
+		padding-top: 40px;
+	}
 
-			img.avatar {
-				top: initial;
-				width: 45px;
-				height: 45px;
-				border: none;
-				padding: 0;
-				background: transparent;
-				border-radius: 100%;
-			}
+	.avatar {
+		position: absolute;
+		left: 0;
+		width: 45px;
+		height: 45px;
+		border-radius: 100%;
+	}
 
-			.comment-text {
-				margin: 0;
-				padding: 0 0 0 70px;
-				border: none;
+	.comment-text {
+		padding-left: 70px;
 
-				p.meta {
-					display: flex;
-					align-items: center;
-					// font-size: initial;
-					color: inherit;
-					line-height: 20px;
+		.description > * {
+			margin: 20px 0 0 0;
 
-					strong {
-						// font-size: em;
-					}
-
-					span {
-						display: inline-block;
-						text-indent: -99999px;
-						margin: 0 10px;
-
-						&:before {
-							font-size: 10px;
-							float: left;
-							content: '/';
-							text-indent: 1px !important;
-						}
-					}
-
-					time {
-						font-size: 11px;
-						font-weight: 500;
-						text-transform: uppercase;
-						// color: rgba(44, 62, 80, 0.6);
-					}
-				}
-
-				.description > * {
-					margin: 20px 0 0 0;
-
-					&:first-child {
-						margin-top: 0;
-					}
-				}
+			&:first-child {
+				margin-top: 0;
 			}
 		}
+	}
+
+	.star-rating {
+		float: right;
+		margin-top: 3px;
+	}
+
+	.meta {
+		display: flex;
+		align-items: center;
+		line-height: 20px;
+
+		span {
+			display: inline-block;
+			text-indent: -99999px;
+			margin: 0 10px;
+
+			&:before {
+				font-size: 10px;
+				float: left;
+				content: '/';
+				text-indent: 1px;
+			}
+		}
+
+		time {
+			font-size: 11px;
+			font-weight: 500;
+			text-transform: uppercase;
+		}
+	}
+
+	> .clear {
+		display: none;
 	}
 }

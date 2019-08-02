@@ -29,8 +29,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<button class="search-submit">
 			<i>
 				<svg
-					width="14px"
-					height="14px"
+					width="12px"
+					height="12px"
 					viewBox="0 0 24 24">
 
 					<path d="M23.3,23.3c-0.9,0.9-2.3,0.9-3.2,0l-4-4c-1.6,1-3.6,1.7-5.7,1.7C4.7,21,0,16.3,0,10.5S4.7,0,10.5,0C16.3,0,21,4.7,21,10.5
@@ -38,6 +38,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 					C18,6.4,14.7,3,10.5,3z"/>
 				</svg>
 			</i>
+
+			<span data-loader="circles"><span></span><span></span><span></span></span>
 		</button>
 	</div>
 

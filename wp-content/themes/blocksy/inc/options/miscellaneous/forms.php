@@ -91,24 +91,24 @@ $options = [
 				'variation' => 'small',
 			],
 
-			'formLabelColor' => [
-				'label' => __( 'Label Color', 'blocksy' ),
-				'type'  => 'ct-color-picker',
-				'design' => 'inline',
-				'setting' => [ 'transport' => 'postMessage' ],
-				'value' => [
-					'default' => [
-						'color' => 'var(--paletteColor3)',
-					],
-				],
+			// 'formLabelColor' => [
+			// 	'label' => __( 'Label Color', 'blocksy' ),
+			// 	'type'  => 'ct-color-picker',
+			// 	'design' => 'inline',
+			// 	'setting' => [ 'transport' => 'postMessage' ],
+			// 	'value' => [
+			// 		'default' => [
+			// 			'color' => 'var(--paletteColor3)',
+			// 		],
+			// 	],
 
-				'pickers' => [
-					[
-						'title' => __( 'Initial', 'blocksy' ),
-						'id' => 'default',
-					],
-				],
-			],
+			// 	'pickers' => [
+			// 		[
+			// 			'title' => __( 'Initial', 'blocksy' ),
+			// 			'id' => 'default',
+			// 		],
+			// 	],
+			// ],
 
 			'formBorderColor' => [
 				'label' => __( 'Border Color', 'blocksy' ),
@@ -171,7 +171,7 @@ $options = [
 				'type' => 'ct-number',
 				'design' => 'inline',
 				'value' => 1,
-				'min' => 0,
+				'min' => 1,
 				'max' => 5,
 				'setting' => [ 'transport' => 'postMessage' ],
 			],

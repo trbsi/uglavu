@@ -34,7 +34,7 @@ if (get_theme_mod('gallery_style', 'horizontal') === 'vertical') {
 	}
 }
 
-if ( post_password_required() ) {
+if (post_password_required()) {
 	echo get_the_password_form(); // WPCS: XSS ok.
 	return;
 }
@@ -44,9 +44,6 @@ if ( post_password_required() ) {
 <div id="product-<?php the_ID(); ?>" <?php wc_product_class($product_class, get_the_ID()); ?>>
 
 	<?php
-		if (get_theme_mod('has_product_single_onsale', 'yes') === 'yes') {
-			woocommerce_show_product_sale_flash();
-		}
 
 		blocksy_add_customizer_preview_cache(function () {
 			return blocksy_html_tag(
@@ -59,6 +56,10 @@ if ( post_password_required() ) {
 		});
 
 		echo '<div class="product-entry-wrapper">';
+
+		if (get_theme_mod('has_product_single_onsale', 'yes') === 'yes') {
+			woocommerce_show_product_sale_flash();
+		}
 
 		/**
 		 * Hook: woocommerce_before_single_product_summary.

@@ -136,12 +136,6 @@ if (is_customize_preview()) {
 	}
 }
 
-$sticky_output = '';
-
-if (get_theme_mod('has_sticky_header', 'no') === 'yes') {
-	$sticky_output = 'data-sticky';
-}
-
 ?>
 
 <!doctype html>
@@ -159,7 +153,6 @@ if (get_theme_mod('has_sticky_header', 'no') === 'yes') {
 
 	<header
 		class="site-header"
-		<?php echo $sticky_output ?>
 		<?php blocksy_schema_org_definitions_e('header') ?>
 		<?php echo wp_kses_post($stacking_output) ?>
 		<?php echo wp_kses_post($transparent_border_output) ?>>
@@ -182,8 +175,6 @@ if (get_theme_mod('has_sticky_header', 'no') === 'yes') {
 	</header>
 
 	<main id="main" class="site-main">
-
-		<?php echo blocksy_site_pattern(); ?>
 
 		<?php if (function_exists('blc_output_read_progress_bar')) { ?>
 			<?php

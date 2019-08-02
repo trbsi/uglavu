@@ -31,31 +31,30 @@ const Condition = ({
 		)
 	}, [])
 
-	return renderingChunk.map(
-		conditionOption =>
-			matchValuesWithCondition(
-				normalizeCondition(conditionOption.condition),
-				conditionOption.global
-					? Object.keys(conditionOption.condition).reduce(
-							(current, key) => ({
-								...current,
-								[key]: wp.customize(key)()
-							}),
-							{}
-						)
-					: value
-			) ? (
-				<OptionsPanel
-					purpose={purpose}
-					key={conditionOption.id}
-					onChange={val => onChange({ ...value, ...val })}
-					options={conditionOption.options}
-					value={value}
-					hasRevertButton={hasRevertButton}
-				/>
-			) : (
-				[]
-			)
+	return renderingChunk.map(conditionOption =>
+		matchValuesWithCondition(
+			normalizeCondition(conditionOption.condition),
+			conditionOption.global
+				? Object.keys(conditionOption.condition).reduce(
+						(current, key) => ({
+							...current,
+							[key]: wp.customize(key)()
+						}),
+						{}
+				  )
+				: value
+		) ? (
+			<OptionsPanel
+				purpose={purpose}
+				key={conditionOption.id}
+				onChange={onChange}
+				options={conditionOption.options}
+				value={value}
+				hasRevertButton={hasRevertButton}
+			/>
+		) : (
+			[]
+		)
 	)
 }
 

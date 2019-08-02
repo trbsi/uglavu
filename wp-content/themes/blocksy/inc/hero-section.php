@@ -340,6 +340,14 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 				__( '<span>Search Results for</span> %s', 'blocksy' ),
 				get_search_query()
 			);
+
+			if (! have_posts()) {
+				$description = '<div class="' . $description_class . '">Sorry, but nothing matched your search terms. Please try again with some different keywords.</div>';
+			}
+		}
+
+		if (!have_posts()) {
+			$title = __('Nothing Found', 'blocksy');
 		}
 	}
 
@@ -415,7 +423,12 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 						);
 					}
 
-					echo wp_kses_post($description);
+					/**
+					 * Note to code reviewers: This line doesn't need to be escaped.
+					 * Mainly because the $description variable comes from core
+					 * fns that return escaped strings.
+					 */
+					echo $description;
 				?>
 			</header>
 		</section>

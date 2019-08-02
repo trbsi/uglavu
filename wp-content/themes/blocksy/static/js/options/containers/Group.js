@@ -6,10 +6,10 @@ const Group = ({ renderingChunk, value, onChange, purpose, hasRevertButton }) =>
 		<div
 			key={conditionOption.id}
 			className="ct-controls-group"
-			{...conditionOption.attr || {}}>
+			{...(conditionOption.attr || {})}>
 			<OptionsPanel
 				purpose={purpose}
-				onChange={val => onChange({ ...value, ...val })}
+				onChange={onChange}
 				options={conditionOption.options}
 				value={value}
 				hasRevertButton={hasRevertButton}

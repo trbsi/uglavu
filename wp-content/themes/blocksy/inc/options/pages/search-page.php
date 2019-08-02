@@ -10,26 +10,23 @@
 $options = [
 	'search_section_options' => [
 		'type' => 'ct-options',
-		'setting' => [ 'transport' => 'postMessage' ],
+		'setting' => ['transport' => 'postMessage'],
 		'inner-options' => [
-
 			[
 				'search_page_title_enabled' => [
-					'label' => __( 'Page Title', 'blocksy' ),
+					'label' => __('Page Title', 'blocksy'),
 					'type' => 'ct-panel',
 					'switch' => true,
 					'value' => 'yes',
-					'wrapperAttr' => [ 'data-label' => 'heading-label' ],
-					'setting' => [ 'transport' => 'postMessage' ],
+					'wrapperAttr' => ['data-label' => 'heading-label'],
+					'setting' => ['transport' => 'postMessage'],
 					'inner-options' => [
-
 						blocksy_get_options('general/page-title', [
 							'prefix' => 'search',
 							'is_search' => true
 						])
-
-					],
-				],
+					]
+				]
 			],
 
 			blocksy_get_options('general/posts-listing', [
@@ -40,24 +37,39 @@ $options = [
 			[
 				blocksy_rand_md5() => [
 					'type' => 'ct-title',
-					'label' => __( 'Search Options', 'blocksy' ),
+					'label' => __('Search Through', 'blocksy'),
+					'desc' => __(
+						'Chose in which post types do you want to perform searches.',
+						'blocksy'
+					)
 				],
 
-				'search_include_pages' => [
-					'label' => __( 'Include pages in Searches', 'blocksy' ),
-					'type' => 'ct-switch',
-					'value' => 'no',
+				'search_through' => [
+					'label' => false,
+					'type' => 'ct-checkboxes',
+					'attr' => ['data-columns' => '2'],
+					'disableRevertButton' => true,
+					'choices' => blocksy_ordered_keys([
+						'post' => __('Posts', 'blocksy'),
+						'page' => __('Pages', 'blocksy'),
+						'product' => __('Products', 'blocksy')
+					]),
+
+					'value' => [
+						'post' => true,
+						'page' => false,
+						'product' => false
+					]
 				],
 
 				blocksy_rand_md5() => [
-					'type' => 'ct-divider',
-				],
+					'type' => 'ct-divider'
+				]
 			],
 
 			blocksy_get_options('general/sidebar-particular', [
-				'prefix' => 'search',
-			]),
-
-		],
-	],
+				'prefix' => 'search'
+			])
+		]
+	]
 ];

@@ -106,4 +106,3 @@ function blocksy_custom_comment_template( $comment, $args, $depth ) {
 	</li>
 	<?php
 }
-

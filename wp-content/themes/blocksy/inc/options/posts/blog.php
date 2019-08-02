@@ -21,7 +21,7 @@ $options = [
 					'options' => [
 
 						'blog_page_title_enabled' => [
-							'label' => __( 'Page Title', 'blocksy' ),
+							'label' => __( 'Blog Title', 'blocksy' ),
 							'type' => 'ct-panel',
 							'switch' => true,
 							'value' => 'no',

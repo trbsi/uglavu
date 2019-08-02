@@ -1,20 +1,19 @@
-.woocommerce div.product .woocommerce-tabs {
+.woocommerce-tabs {
 	padding-top: 60px;
-	// padding-bottom: 60px;
-	// border-bottom: 1px solid $border-color;
 
-	ul.tabs {
+	ul {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		flex-wrap: wrap;
-		padding: 0;
+		@include list-normalize;
 		margin-bottom: 55px;
 
 		&:before, &:after {
+			content: '' !important;
 			display: block;
 			flex: 1 0 auto;
-			position: relative;
+			position: relative !important;
 			border: none;
 			width: auto;
 			height: 1px;
@@ -26,6 +25,8 @@
 		}
 
 		li {
+			border: 1px solid $border-color;
+
 			@include media-breakpoint-down (sm) {
 				width: 100%;
 				
@@ -34,18 +35,9 @@
 				}
 			}
 
-			border: 1px solid $border-color;
-			padding: 0;
-			margin: 0;
-			border-radius: 0;
-			background: transparent;
 			@include media-breakpoint-up (md) {
 				flex: 0 1 auto;
 				margin-right: -1px;
-			}
-
-			&:before, &:after {
-				display: none;
 			}
 
 			&.active, &:hover {
@@ -61,9 +53,8 @@
 				padding: 0 25px;
 				font-size: 12px;
 				font-weight: 600;
-				text-transform: uppercase;
 				letter-spacing: 0.1em;
-				color: inherit;
+				text-transform: uppercase;
 
 				&:hover {
 					color: inherit;
@@ -73,10 +64,8 @@
 	}
 
 	.woocommerce-Tabs-panel {
-		margin-bottom: 0;
-
 		> h2 {
-			font-size: 20px;
+			--fontSize: 20px;
 			margin-bottom: 30px;
 		}
 	}

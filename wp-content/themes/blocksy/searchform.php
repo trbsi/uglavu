@@ -7,6 +7,17 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU General Public License
  */
 
+$any = [];
+
+foreach (get_theme_mod('search_through', [
+	'post' => true,
+	'page' => false,
+	'product' => false,
+]) as $single_post_type => $enabled) {
+	if (! $enabled) continue;
+	$any[] = $single_post_type;
+}
+
 ?>
 
 <form role="search" method="get" class="search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
@@ -28,6 +39,10 @@
 
 			<span data-loader="circles"><span></span><span></span><span></span></span>
 		</button>
+
+		<?php if (count($any) === 1 && $any[0] === 'product') { ?>
+			<input type="hidden" name="post_type" value="product">
+		<?php } ?>
 	</div>
 </form>
 

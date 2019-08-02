@@ -63,27 +63,24 @@ const TypographyModal = ({
 	const [isSearch, setIsSearch] = useState(false)
 	const [searchTerm, setSearchTerm] = useState('')
 
-	const direction = useMemo(
-		() => {
-			if (
-				(currentView === 'search' && previousView === 'fonts') ||
-				(previousView === 'search' && currentView === 'fonts')
-			) {
-				return 'static'
-			}
+	const direction = useMemo(() => {
+		if (
+			(currentView === 'search' && previousView === 'fonts') ||
+			(previousView === 'search' && currentView === 'fonts')
+		) {
+			return 'static'
+		}
 
-			if (previousView === 'options') {
-				return 'right'
-			}
+		if (previousView === 'options') {
+			return 'right'
+		}
 
-			if (previousView === 'fonts' && currentView === 'variations') {
-				return 'right'
-			}
+		if (previousView === 'fonts' && currentView === 'variations') {
+			return 'right'
+		}
 
-			return 'left'
-		},
-		[currentView, previousView]
-	)
+		return 'left'
+	}, [currentView, previousView])
 
 	const inputEl = useRef(null)
 	const sizeEl = useRef(null)
@@ -91,8 +88,9 @@ const TypographyModal = ({
 	const linearFontsList = Object.keys(typographyList).reduce(
 		(currentList, currentSource) => [
 			...currentList,
-			...typographyList[currentSource].families.filter(({ family }) =>
-				fuzzysearch(searchTerm.toLowerCase(), family.toLowerCase())
+			...(typographyList[currentSource].families || []).filter(
+				({ family }) =>
+					fuzzysearch(searchTerm.toLowerCase(), family.toLowerCase())
 			)
 		],
 		[]
@@ -147,7 +145,7 @@ const TypographyModal = ({
 													'i9'
 												]
 											}
-										]),
+									  ]),
 
 								...data.fonts.system.families
 							]
@@ -158,34 +156,28 @@ const TypographyModal = ({
 		} catch (e) {}
 	}
 
-	useEffect(
-		() => {
-			if (initialView && initialView !== 'done') {
-				setSearchTerm('')
-				setTimeout(() => {
-					setInititialView('done')
-				})
-			}
+	useEffect(() => {
+		if (initialView && initialView !== 'done') {
+			setSearchTerm('')
+			setTimeout(() => {
+				setInititialView('done')
+			})
+		}
 
-			if (initialView === 'font_size') {
-				setTimeout(() => sizeEl.current && sizeEl.current.focus(), 100)
-			}
-		},
-		[initialView]
-	)
+		if (initialView === 'font_size') {
+			setTimeout(() => sizeEl.current && sizeEl.current.focus(), 100)
+		}
+	}, [initialView])
 
 	useEffect(() => {
 		fetchFontsList()
 	}, [])
 
-	useEffect(
-		() => {
-			if (currentView === 'search') {
-				inputEl.current.focus()
-			}
-		},
-		[currentView]
-	)
+	useEffect(() => {
+		if (currentView === 'search') {
+			inputEl.current.focus()
+		}
+	}, [currentView])
 
 	const pickFontFamily = family => {
 		onChange({

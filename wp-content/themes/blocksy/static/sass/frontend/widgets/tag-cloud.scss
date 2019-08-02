@@ -1,4 +1,5 @@
-.widget_tag_cloud {
+.widget_tag_cloud,
+.widget_product_tag_cloud {
 	.tagcloud {
 		display: flex;
 		flex-wrap: wrap;
@@ -7,7 +8,7 @@
 		a {
 			display: flex;
 			align-items: center;
-			height: 35px;
+			height: 36px;
 			font-size: 14px !important;
 			line-height: 100%;
 			padding: 0 12px;

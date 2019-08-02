@@ -58,7 +58,7 @@ $options = [
 					// translators: placeholder here means the actual URL.
 					__( 'You can configure social URLs %shere%s.', 'blocksy' ),
 					sprintf(
-						'<a href="%s">',
+						'<a href="%s" data-trigger-section="social_accounts">',
 						admin_url('/customize.php?autofocus[section]=social_accounts')
 					),
 					'</a>'
@@ -128,6 +128,10 @@ $options = [
 
 					'vimeo' => [
 						'label' => __( 'Vimeo', 'blocksy' ),
+					],
+
+					'rss' => [
+						'label' => __( 'RSS', 'blocksy' ),
 					],
 				],
 			],

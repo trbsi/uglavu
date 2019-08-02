@@ -45,16 +45,16 @@ echo blocksy_output_hero_section( 'type-2' );
 	<div class="ct-container" <?php echo wp_kses_post(blocksy_sidebar_position_attr()); ?>>
 
 		<section>
-			<?php if ( have_posts() ) { ?>
-				<?php
-					/**
-					 * Note to code reviewers: This line doesn't need to be escaped.
-					 * Function blocksy_output_hero_section() used here
-					 * escapes the value properly.
-					 */
-					echo blocksy_output_hero_section( 'type-1' );
-				?>
+			<?php
+				/**
+				 * Note to code reviewers: This line doesn't need to be escaped.
+				 * Function blocksy_output_hero_section() used here
+				 * escapes the value properly.
+				 */
+				echo blocksy_output_hero_section( 'type-1' );
+			?>
 
+			<?php if ( have_posts() ) { ?>
 				<?php if ( have_posts() ) { ?>
 					<div class="entries"
 						data-layout="<?php echo esc_attr($blog_post_structure); ?>"

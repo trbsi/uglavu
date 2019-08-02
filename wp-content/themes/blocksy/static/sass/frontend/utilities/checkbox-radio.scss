@@ -1,8 +1,11 @@
 input[type="radio"],
 input[type="checkbox"] {
 	position: relative;
+	flex: 0 0 17px;
+	align-self: flex-start;
 	width: 17px;
 	height: 17px;
+	margin: 0;
 	cursor: pointer;
 	appearance: none;
 	border: var(--formBorderSize) solid var(--radioCheckboxInitialColor);

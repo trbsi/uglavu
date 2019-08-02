@@ -12,3 +12,9 @@ wp.customize('site_background_type', val =>
 		}
 	})
 )
+
+wp.customize('load_more_label', val =>
+	val.bind(to => {
+		document.querySelector('.ct-load-more').innerHTML = to
+	})
+)

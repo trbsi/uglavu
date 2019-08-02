@@ -1,4 +1,5 @@
 .woocommerce-account {
+
 	.hero-section {
 		display: none;
 	}
@@ -9,63 +10,69 @@
 			margin: 0 0 30px 0;
 		}
 	}
-
-	.woocommerce form.login {
-		max-width: 450px;
-		margin: 50px auto;
-		padding: 30px;
-		border-radius: 3px;
-		border-color: $border-color;
-		box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.01);
-
-		.form-row {
-			> button {
-				width: 50%;
-				margin-right: 2em;
-			}
-
-			> label {
-				font-size: 15px;
-			}
-
-			.woocommerce-form-login__rememberme {
-				display: inline-flex;
-				align-items: center;
-				height: 40px;
-				font-size: 13px;
+}
 
 
-				span {
-					margin-left: 8px;
-				}
-			}
-		}
+// login form
+.woocommerce-form-login {
+	max-width: 450px;
+	margin: 50px auto;
+	padding: 30px;
+	border-radius: 5px;
+	background: #fff;
+	border: 1px solid $border-color;
+	box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.03);
 
-		p.woocommerce-LostPassword {
-			font-size: 13px;
-			text-align: center;
-			margin-top: 20px;
+	label {
+		font-size: 15px;
+	}
+
+	button {
+		width: 50%;
+		margin-right: 2em;
+		float: left;
+	}
+
+	.woocommerce-form-login__rememberme {
+		display: inline-flex;
+		align-items: center;
+		height: 45px;
+		font-size: 13px;
+		margin-bottom: 0;
+
+
+		span {
+			margin-left: 8px;
 		}
 	}
 
-	.woocommerce-ResetPassword {
-		max-width: 450px;
-		margin: 100px auto;
-		padding: 30px;
-		border-radius: 3px;
-		border: 1px solid $border-color;
-		box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.01);
+	.woocommerce-LostPassword {
+		font-size: 13px;
+		text-align: center;
+		margin-top: 20px;
+	}
+}
 
-		p {
-			width: 100%;
 
-			> label {
-				font-size: 15px;
-			}
+// reset password
+.woocommerce-ResetPassword {
+	max-width: 450px;
+	margin: 100px auto;
+	padding: 30px;
+	border-radius: 3px;
+	border: 1px solid $border-color;
+	box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.01);
 
-			&:last-of-type {
-				margin-bottom: 0;
-			}
+	p {
+		width: 100%;
+
+		> label {
+			font-size: 15px;
+			margin-bottom: 5px;
+		}
+
+		&:last-of-type {
+			margin-bottom: 0;
 		}
 	}
 }

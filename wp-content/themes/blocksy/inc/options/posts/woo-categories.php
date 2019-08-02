@@ -7,7 +7,7 @@ $options = [
 		'inner-options' => [
 			[
 				'woo_categories_has_page_title' => [
-					'label' => __( 'Page Title', 'blocksy' ),
+					'label' => __( 'Shop Page Title', 'blocksy' ),
 					'type' => 'ct-panel',
 					'switch' => true,
 					'value' => 'yes',
@@ -25,7 +25,7 @@ $options = [
 
 				blocksy_rand_md5() => [
 					'type'  => 'ct-title',
-					'label' => __( 'Shop Structure', 'blocksy' ),
+					'label' => __( 'Shop Page Structure', 'blocksy' ),
 				],
 
 				'shop_structure' => [
@@ -170,6 +170,7 @@ $options = [
 									'value' => blocksy_typography_default_values([
 										'size' => '17px',
 										'variation' => 'n5',
+										'line-height' => '1.4'
 									]),
 									'setting' => [ 'transport' => 'postMessage' ],
 								],
@@ -462,7 +463,7 @@ $options = [
 
 				blocksy_rand_md5() => [
 					'type'  => 'ct-title',
-					'label' => __( 'Page Elements', 'blocksy' ),
+					'label' => __( 'Shop Page Elements', 'blocksy' ),
 				],
 
 				'has_shop_sort' => [

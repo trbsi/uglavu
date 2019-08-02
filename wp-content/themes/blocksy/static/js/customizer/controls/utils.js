@@ -69,6 +69,8 @@ export const defineCustomizerControl = (type, Component) =>
 		},
 
 		renderContent() {
+			return
+
 			const ChildComponent = Component
 
 			let MyChildComponent = Component
@@ -155,6 +157,10 @@ export const defineCustomizerControl = (type, Component) =>
 						</MyChildComponent>
 					</OptionWrapper>
 				)
+			}
+
+			if (this.params.option.customizer_section !== 'layout') {
+				// return
 			}
 
 			render(

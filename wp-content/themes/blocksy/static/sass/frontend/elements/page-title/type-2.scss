@@ -50,7 +50,9 @@
 				margin-top: var(--heroContentSpacing);
 			}
 		}
+	}
 
+	&[data-alignment="center"] .entry-header {
 		@include media-breakpoint-up (lg) {
 			width: 60%;
 			margin: 0 auto;
@@ -105,13 +107,10 @@
 
 		.ct-meta-element {
 			a {
-				font-size: 10px;
-
-				@include button((
-					height: 26px,
-					padding: 10px,
-					shadow: false,
-				));
+				--buttonFontSize: 10px;
+				--height: 26px;
+				--padding: 0 10px;
+				--buttonShadow: none;
 
 				&:after {
 					display: none;

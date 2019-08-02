@@ -1,52 +1,82 @@
-.woocommerce {
-	// a.button,
-	a.button.alt,
-	button.button,
-	button.button.alt,
-	.woo-review-submit,
-	.button.wc-backward,
-	.entry-summary .added_to_cart {
-		font-size: 15px;
-		font-weight: 600;
+.button {
+	// loading state
+	&.loading {
+		position: relative;
 
-		@include button((
-			display: inline-flex,
-			height: 40px,
-			padding: 18px,
-			// shadow: false,
-			// translate: false,
-		));
+		&:after {
+			position: var(--loadingIndicatorPosition, absolute);
+			font-family: 'woo';
+			content: "\e982";
+			color: var(--fontColor);
+			opacity: 0.5;
+			width: 15px;
+			height: 15px;
+			font-size: 15px;
+			line-height: 15px;
+			animation: spin 1.5s linear infinite;
+			// animation-play-state: paused;
+		}
+	}
+}
 
-		&:hover {
-			color: #fff;
+
+// form cart buttons
+form.cart {
+
+	.button {
+		--height: 40px;
+		--padding: 0 18px;
+
+		@include media-breakpoint-down (sm) {
+			flex-grow: 1;
 		}
 
 		&:after {
-			position: static !important;
-			top: initial !important;
+			--fontColor: #fff;
+			--loadingIndicatorPosition: relative;
+			margin-left: 10px;
 			opacity: 1;
-			font-size: 12px;
-			color: currentColor;
-			margin-left: 10px !important;
-		}
-
-		&.loading {
-			// should be the same as initial padding
-			padding-right: 18px !important;
 		}
 	}
 
-	a.button.alt {
-		display: flex;
-		height: 45px;
+	// entry summary added to cart
+	.added_to_cart {
+		--height: 40px;
+		--padding: 0 18px;
+		--buttonFontWeight: 500;
+		--buttonInitialColor: #f4f5f8;
+		--buttonTextInitialColor: var(--fontColor);
+		--buttonTextHoverColor: #fff;
+
+		text-transform: capitalize;
+		border: 1px solid $border-color;
+
+		&:hover {
+			border-color: var(--buttonHoverColor);
+		}
+
+		@include media-breakpoint-down (xs) {
+			margin-top: 30px;
+			min-width: 200px
+		}
+
+		@include media-breakpoint-only (sm) {
+			margin-left: 15px;
+		}
+
+		@include media-breakpoint-down (sm) {
+			flex-grow: 1;
+		}
+
+		@include media-breakpoint-up (md) {
+			margin-left: 20px;
+		}
 	}
+}
 
 
-	// disabled button
-	button.button:disabled,
-	button.button.alt.disabled {
-		color: #fff !important;
-		pointer-events: none;
-		background-color: var(--paletteColor1);
-	}
+// spin animation
+@keyframes spin {
+	0% { transform:rotate(0deg) }
+	100% { transform:rotate(360deg) }
 }

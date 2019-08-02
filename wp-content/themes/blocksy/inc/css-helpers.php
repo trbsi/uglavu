@@ -12,18 +12,34 @@
  *
  * @param array $color_descriptor Colors array.
  */
-function blocksy_get_colors( $color_descriptor ) {
+function blocksy_get_colors( $color_descriptor, $defaults ) {
 	$result = [];
 
+	/*
 	if ( is_array( $color_descriptor ) ) {
 		foreach ( $color_descriptor as $id => $data ) {
 			$result[ $id ] = blocksy_get_color( $data );
 		}
+	}
+	 */
 
-		return $result;
+	foreach ($defaults as $id => $default_data) {
+		$data = $default_data;
+
+		if (
+			is_array($color_descriptor)
+			&&
+			isset($color_descriptor[$id])
+			&&
+			is_array($color_descriptor[$id])
+		) {
+			$data = $color_descriptor[$id];
+		}
+
+		$result[$id] = blocksy_get_color($data);
 	}
 
-	return false;
+	return $result;
 }
 
 /**
@@ -204,8 +220,9 @@ function blocksy_output_border($args = []) {
 		return;
 	}
 
-
 	$color = blocksy_get_colors([
+		'default' => $args['value']['color']
+	], [
 		'default' => $args['value']['color']
 	]);
 
@@ -216,3 +233,4 @@ function blocksy_output_border($args = []) {
 		$args['value']['style'] . ' ' . $color['default']
 	);
 }
+

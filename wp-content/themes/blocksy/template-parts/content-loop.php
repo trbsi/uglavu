@@ -151,6 +151,12 @@ if (blocksy_default_akg( 'read_more_arrow', $read_more_settings, 'no' ) === 'yes
 	$read_more_text .= $read_more_arrow;
 }
 
+$button_type = blocksy_default_akg(
+	'button_type',
+	$read_more_settings,
+	'background'
+);
+
 $outputs = [
 	'title' => blocksy_entry_title( blocksy_default_akg( 'heading_tag', $title_settings, 'h2' ) ),
 	'featured_image' => blocksy_image( $featured_image_args ),
@@ -163,8 +169,10 @@ $outputs = [
 	'read_more' => blocksy_html_tag(
 		'a',
 		[
-			'class' => 'entry-button',
-			'data-type' => blocksy_default_akg( 'button_type', $read_more_settings, 'background' ),
+            'class' => 'entry-button' . (
+				$button_type === 'background' ? ' ct-button' : ''
+			),
+			'data-type' => $button_type,
 			'data-alignment' => blocksy_default_akg( 'read_more_alignment', $read_more_settings, 'left' ),
 			'href' => esc_url( get_permalink() )
 		],

@@ -46,9 +46,11 @@
 		}
 
 		.site-header {
-			//background
-			--headerBackground: var(--transparentHeaderBackground);
-			--mobileHeaderBackground: var(--transparentHeaderBackground);
+			.header-mobile,
+			.header-desktop {
+				--backgroundColor: var(--transparentHeaderBackground);
+				--backgroundImage: none;
+			}
 
 			// content
 			--menuInitialColor: var(--transparentHeaderInitialFontColor);
@@ -60,6 +62,10 @@
 			.mobile-menu-toggle {
 				--linkInitialColor: var(--transparentHeaderInitialFontColor);
 				--linkHoverColor: var(--transparentHeaderHoverFontColor);
+			}
+
+			.site-description {
+				--fontColor: var(--transparentHeaderInitialFontColor);
 			}
 
 			.ct-header-button {

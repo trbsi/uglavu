@@ -1,6 +1,14 @@
 .header-desktop[data-type="type-2"] {
 	flex-direction: column;
 
+	.site-branding {
+		text-align: center;
+
+		.custom-logo-link {
+			justify-content: center;
+		}
+	}
+
 	.branding-row {
 		[class*="ct-container"] {
 			display: flex;

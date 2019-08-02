@@ -45,9 +45,7 @@ export default class Tabs extends Component {
 					<OptionsPanel
 						purpose={this.props.purpose}
 						key={currentTab.id}
-						onChange={val =>
-							this.props.onChange({ ...this.props.value, ...val })
-						}
+						onChange={(key, val) => this.props.onChange(key, val)}
 						options={currentTab.options}
 						value={this.props.value}
 					/>

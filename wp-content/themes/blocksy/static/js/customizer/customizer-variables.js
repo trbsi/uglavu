@@ -1,4 +1,4 @@
-import { handleVariablesFor } from 'customizer-sync-helpers'
+import { handleVariablesFor } from 'customizer-sync-helpers/dist/simplified'
 
 export const listenToVariables = () => {
 	handleVariablesFor({
@@ -46,6 +46,6 @@ export const listenToVariables = () => {
 		fontColor: {
 			variable: 'fontColor',
 			type: 'color'
-		},
+		}
 	})
 }

@@ -94,16 +94,6 @@ $options = [
 				'attr' => [ 'data-type' => 'small' ],
 			],
 
-			'siteTitle' => [
-				'type' => 'ct-typography',
-				'label' => __( 'Site Title', 'blocksy' ),
-				'value' => blocksy_typography_default_values([
-					'size' => '25px',
-					'variation' => 'n7',
-				]),
-				'setting' => [ 'transport' => 'postMessage' ],
-			],
-
 			'blockquote' => [
 				'type' => 'ct-typography',
 				'label' => __( 'Blockquote', 'blocksy' ),

@@ -1,5 +1,3 @@
-export const listenToPreviewEventsAndAct = () => {}
-
 const locations = {
 	post: 'single_blog_posts',
 	page: 'single_pages',
@@ -22,6 +20,7 @@ wp.customize.bind('ready', () => {
 
 		if (location === 'home') {
 			console.log('home!!')
+
 			/*
 			Object.values(wp.customize.section._value)
 				.filter(s => s.expanded())

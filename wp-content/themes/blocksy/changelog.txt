@@ -1,3 +1,55 @@
+1.3.5: 2019-08-01
+- Improvement: Remove `.ct-classic-forms` from `body`
+- Improvement: Add more styling options for pagination (button color, text color)<Paste>
+- Improvement: Refactor css code
+- Improvement: Refactor WooCommerce css
+- Improvement: WooCommerce pagination with global options
+- Improvement: Cleaned up demo content
+- Improvement: Remove woo code that changes the css breakpoints
+- Fix: Hide number when pagination type is set to Next/Prev (visible only in Customizer)
+- Fix: Page title meta sync
+- Fix: Error on product single page
+- Fix: Cart icon type output
+- Fix: Flexy doesn't work on Android devices
+- Fix: Lazy load attributes when dropping a product image in Elementor
+- Fix: Selectr init in Elementor
+
+1.3.4: 2019-07-15
+- New: Add option for search through Posts, Pages, Products
+- Improvement: Major performance boost in customizer options
+- Fix: Disqus comments system fix for post meta
+- Fix: Change color palette from Gutenberg, based on colors from customizer
+- Fix: Fix Contact Info icons
+- Fix: Remove child theme from theme folder
+- Fix: Fix Navigation Menu widget dropdown
+
+1.3.3: 2019-07-10
+- Fix: Search results page style when no results
+- Fix: Header mobile H1 duplicate
+- Fix: Rename Page Excerpt Visibility to Page Info Visibility
+- Fix: Page title `type-2` alignment
+
+1.3.2: 2019-07-06
+- Fix: Background color option properly transform from color picker
+- Fix: Make logo `image` by default
+
+1.3.1: 2019-07-05
+- New: Background option type
+- New: Add slogan option for logo area in header
+- New: Add background Image for header
+- Improvement: Make the Site Tagline visibility option
+- Improvement: Add Styling options (font, color) when logo is text
+- Improvement: Add possibility to change Load More label text
+- Improvement: Add RSS icon in top bar and footer
+- Improvement: Allow HTML in taxonomy description
+- Fix: Remove old logic for background and pattern from options and frontend
+- Fix: Lazy load images broken when JavaScript disabled
+- Fix: Blog page title alignment is not working in customizer
+- Fix: Fix Design tab in Card Options
+- Fix: Color palettes properly handle old values
+- Fix: Fix page comments option
+- Fix: Remove Accent Color option from categories
+
 1.3.0: 2019-06-27
 - New: Multiple color palettes
 - New: Site background options with color, patterns and images

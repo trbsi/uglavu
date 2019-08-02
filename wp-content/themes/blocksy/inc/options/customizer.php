@@ -28,6 +28,14 @@ $options = [
 			'options' => blocksy_get_options( 'general/general' ),
 		],
 
+        /*
+		'new_header' => [
+			'title' => __( 'Header', 'blocksy' ),
+			'container' => [ 'priority' => 1.5 ],
+			'options' => blocksy_get_options( 'general/new-header' ),
+		],
+         */
+
 		'header' => [
 			'title' => __( 'Header', 'blocksy' ),
 			'container' => [ 'priority' => 1 ],

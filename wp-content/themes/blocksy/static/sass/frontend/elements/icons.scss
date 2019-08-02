@@ -28,7 +28,8 @@
 [data-icons*="small-rounded"],
 [data-icons*="small-square"] {
 	i {
-		width: 36px;
+		flex: 0 0 36px;
+		max-width: 36px;
 		height: 36px;
 	}
 }
@@ -36,7 +37,8 @@
 [data-icons*="medium-rounded"],
 [data-icons*="medium-square"] {
 	i {
-		width: 48px;
+		flex: 0 0 48px;
+		max-width: 48px;
 		height: 48px;
 	}
 }
@@ -44,7 +46,8 @@
 [data-icons*="large-rounded"],
 [data-icons*="large-square"] {
 	i {
-		width: 70px;
+		flex: 0 0 70px;
+		max-width: 70px;
 		height: 70px;
 	}
 }

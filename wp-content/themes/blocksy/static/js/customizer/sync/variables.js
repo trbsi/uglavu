@@ -3,6 +3,8 @@ import { getPostListingVariables } from './template-parts/content-loop'
 import { getHeaderVariables } from './variables/header'
 import { getTypographyVariablesFor } from './variables/typography'
 import { getSiteBackgroundVariables } from './variables/site-background'
+import { getBackgroundVariablesFor } from './variables/background'
+import { getFormsVariablesFor } from './variables/forms'
 
 import { handleVariablesFor } from 'customizer-sync-helpers'
 
@@ -48,6 +50,8 @@ handleVariablesFor({
 
 	...getHeaderVariables(),
 	...getTypographyVariablesFor(),
+	...getBackgroundVariablesFor(),
+	...getFormsVariablesFor(),
 
 	// Colors
 	fontColor: {
@@ -287,10 +291,19 @@ handleVariablesFor({
 		unit: ''
 	},
 
-	paginationFontColor: {
-		variable: 'paginationFontColor',
-		type: 'color'
-	},
+	paginationFontColor: [
+		{
+			selector: ':root',
+			variable: 'paginationFontInitialColor',
+			type: 'color:default'
+		},
+
+		{
+			selector: ':root',
+			variable: 'paginationFontHoverColor',
+			type: 'color:hover'
+		}
+	],
 
 	paginationAccentColor: [
 		{
@@ -362,7 +375,6 @@ handleVariablesFor({
 		}
 	],
 
-
 	// Post
 	postBackground: {
 		selector: '.single .site-main',
@@ -381,7 +393,6 @@ handleVariablesFor({
 		type: 'color'
 	},
 
-
 	// Page
 	pageBackground: {
 		selector: '.page .site-main',
@@ -399,7 +410,6 @@ handleVariablesFor({
 		variable: 'pageContentBackground',
 		type: 'color'
 	},
-
 
 	// Autor Box
 	singleAuthorBoxSpacing: {
@@ -538,13 +548,13 @@ handleVariablesFor({
 
 	cardProductCategoriesColor: [
 		{
-			selector: '.product-categories',
+			selector: 'article .product-categories',
 			variable: 'linkInitialColor',
 			type: 'color:default'
 		},
 
 		{
-			selector: '.product-categories',
+			selector: 'article .product-categories',
 			variable: 'linkHoverColor',
 			type: 'color:hover'
 		}
@@ -665,131 +675,6 @@ handleVariablesFor({
 			type: 'color:hover'
 		}
 	],
-
-	// Forms
-	formLabelColor: {
-		selector: ':root',
-		variable: 'formLabelColor',
-		type: 'color'
-	},
-
-	formBorderColor: [
-		{
-			selector: ':root',
-			variable: 'formBorderInitialColor',
-			type: 'color:default'
-		},
-
-		{
-			selector: ':root',
-			variable: 'formBorderFocusColor',
-			type: 'color:focus'
-		}
-	],
-
-	formBackgroundColor: [
-		{
-			selector: ':root',
-			variable: 'formBackgroundInitialColor',
-			type: 'color:default'
-		},
-
-		{
-			selector: ':root',
-			variable: 'formBackgroundFocusColor',
-			type: 'color:focus'
-		}
-	],
-
-	formTextColor: [
-		{
-			selector: ':root',
-			variable: 'formTextInitialColor',
-			type: 'color:default'
-		},
-
-		{
-			selector: ':root',
-			variable: 'formTextFocusColor',
-			type: 'color:focus'
-		}
-	],
-
-	formFontSize: {
-		variable: 'formFontSize',
-		unit: 'px'
-	},
-
-	formBorderSize: {
-		variable: 'formBorderSize',
-		unit: 'px'
-	},
-
-	formInputHeight: {
-		variable: 'formInputHeight',
-		unit: 'px'
-	},
-
-	formTextAreaHeight: {
-		variable: 'formTextAreaHeight',
-		unit: 'px'
-	},
-
-	// radio & checkbox
-	radioCheckboxColor: [
-		{
-			selector: ':root',
-			variable: 'radioCheckboxInitialColor',
-			type: 'color:default'
-		},
-
-		{
-			selector: ':root',
-			variable: 'radioCheckboxAccentColor',
-			type: 'color:accent'
-		}
-	],
-
-	// select box
-	selectDropdownTextColor: [
-		{
-			selector: ':root',
-			variable: 'selectDropdownTextInitialColor',
-			type: 'color:default'
-		},
-
-		{
-			selector: ':root',
-			variable: 'selectDropdownTextHoverColor',
-			type: 'color:hover'
-		},
-
-		{
-			selector: ':root',
-			variable: 'selectDropdownTextActiveColor',
-			type: 'color:active'
-		}
-	],
-
-	selectDropdownItemColor: [
-		{
-			selector: ':root',
-			variable: 'selectDropdownItemHoverColor',
-			type: 'color:hover'
-		},
-
-		{
-			selector: ':root',
-			variable: 'selectDropdownItemActiveColor',
-			type: 'color:active'
-		}
-	],
-
-	selectDropdownBackground: {
-		selector: ':root',
-		variable: 'selectDropdownBackground',
-		type: 'color'
-	},
 
 	// Passepartout
 	passepartoutSize: {

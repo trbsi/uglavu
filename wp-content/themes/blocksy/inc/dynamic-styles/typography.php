@@ -229,6 +229,7 @@ blocksy_output_font_css([
 		'singleProductTitleFont',
 		blocksy_typography_default_values([
 			'size' => '30px',
+			'line-height' => '1.4'
 		])
 	),
 	'css' => $css,
@@ -237,16 +238,33 @@ blocksy_output_font_css([
 	'selector' => '.product_title'
 ]);
 
+if (class_exists('WooCommerce')) {
+	blocksy_output_font_css([
+		'font_value' => get_theme_mod(
+			'cardProductTitleFont',
+			blocksy_typography_default_values([
+				'size' => '17px',
+				'variation' => 'n5',
+				'line-height' => '1.4'
+			])
+		),
+		'css' => $css,
+		'tablet_css' => $tablet_css,
+		'mobile_css' => $mobile_css,
+		'selector' => '.woocommerce-loop-product__title'
+	]);
+}
+
 blocksy_output_font_css([
 	'font_value' => get_theme_mod(
-		'cardProductTitleFont',
+		'siteTaglineFont',
 		blocksy_typography_default_values([
-			'size' => '17px',
+			'size' => '13px',
 			'variation' => 'n5',
 		])
 	),
 	'css' => $css,
 	'tablet_css' => $tablet_css,
 	'mobile_css' => $mobile_css,
-	'selector' => '.woocommerce-loop-product__title'
+	'selector' => '.site-description'
 ]);

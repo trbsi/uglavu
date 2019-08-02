@@ -124,6 +124,15 @@ export const replaceArticleAndRemoveParts = () => {
 		'.ct-customizer-preview-cache .single-content-cache > article'
 	).innerHTML
 
+	const article = document.querySelector(
+		'.single-post .site-main .content-area article'
+	)
+
+	if (article) {
+		article.dataset.content =
+			wp.customize('single_content_style')() || 'wide'
+	}
+
 	if ((wp.customize('has_share_box')() || 'yes') === 'no') {
 		const shareBox = document.querySelectorAll(
 			'.site-main .content-area article .share-box'
@@ -343,8 +352,14 @@ export const replaceArticleAndRemoveParts = () => {
 
 		image && image.classList.remove('alignwide')
 
-		if (wp.customize('single_featured_image_width')() === 'wide') {
-			image.classList.add('alignwide')
+		if (
+			getSidebarTypeFor(wp.customize('single_page_structure')()) ===
+				'none' &&
+			(wp.customize('single_content_style')() || 'wide') === 'wide'
+		) {
+			if (wp.customize('single_featured_image_width')() === 'wide') {
+				image.classList.add('alignwide')
+			}
 		}
 
 		if (wp.customize('single_featured_image_location')() === 'below') {
@@ -487,15 +502,7 @@ wp.customize('single_featured_image_location', val =>
 )
 
 wp.customize('single_content_style', val =>
-	val.bind(to => {
-		const article = document.querySelector(
-			'.single-post .site-main .content-area article'
-		)
-
-		if (article) {
-			article.dataset.content = to
-		}
-	})
+	val.bind(to => replaceArticleAndRemoveParts())
 )
 
 wp.customize('page_content_style', val =>

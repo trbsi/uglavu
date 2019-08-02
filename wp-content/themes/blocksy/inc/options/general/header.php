@@ -154,6 +154,8 @@ $options = [
 									],
 								],
 
+
+
 								'topBarBackground' => [
 									'label' => __( 'Background Color', 'blocksy' ),
 									'type'  => 'ct-color-picker',
@@ -322,22 +324,17 @@ $options = [
 						],
 
 						'headerBackground' => [
-							'label' => __( 'Background Color', 'blocksy' ),
-							'type'  => 'ct-color-picker',
+							'label' => __( 'Background', 'blocksy' ),
+							'type'  => 'ct-background',
 							'design' => 'inline',
 							'setting' => [ 'transport' => 'postMessage' ],
-							'value' => [
-								'default' => [
-									'color' => '#ffffff',
+							'value' => blocksy_background_default_value([
+								'backgroundColor' => [
+									'default' => [
+										'color' => '#ffffff',
+									],
 								],
-							],
-
-							'pickers' => [
-								[
-									'title' => __( 'Initial', 'blocksy' ),
-									'id' => 'default',
-								],
-							],
+							])
 						],
 
 						blocksy_rand_md5() => [
@@ -519,22 +516,17 @@ $options = [
 					'options' => [
 
 						'mobileHeaderBackground' => [
-							'label' => __( 'Background Color', 'blocksy' ),
-							'type'  => 'ct-color-picker',
+							'label' => __( 'Background', 'blocksy' ),
+							'type' => 'ct-background',
 							'design' => 'inline',
 							'setting' => [ 'transport' => 'postMessage' ],
-							'value' => [
-								'default' => [
-									'color' => 'var(--paletteColor5)',
+							'value' => blocksy_background_default_value([
+								'backgroundColor' => [
+									'default' => [
+										'color' => '#ffffff',
+									],
 								],
-							],
-
-							'pickers' => [
-								[
-									'title' => __( 'Initial', 'blocksy' ),
-									'id' => 'default',
-								],
-							],
+							])
 						],
 
 						'mobileHeaderHeight' => [
@@ -568,115 +560,300 @@ $options = [
 				],
 
 				'header_logo_panel' => [
-					'label' => __( 'Logo', 'blocksy' ),
+					'label' => __( 'Logo & Tagline', 'blocksy' ),
 					'type' => 'ct-panel',
 					'switch' => false,
 					'setting' => [ 'transport' => 'postMessage' ],
 					'inner-options' => [
 
-						'custom_logo' => [
-							'label' => false,
-							'type' => 'ct-image-uploader',
-							'value' => '',
-							'inline_value' => true,
-							'attr' => [ 'data-height' => 'small' ],
-							'setting' => [ 'transport' => 'postMessage' ],
-							'selective_refresh' => [
-								'selector' => '.site-branding',
-								'render_callback' => 'blocksy_output_site_branding',
-							],
-						],
-
 						blocksy_rand_md5() => [
-							'type' => 'ct-divider',
-							'attr' => [ 'data-type' => 'small' ],
-						],
-
-						'has_retina_logo' => [
-							'label' => __( 'Retina Logo', 'blocksy' ),
-							'type' => 'ct-switch',
-							'value' => 'no',
-							'desc' => __( 'Set up a different logo for retina devices.', 'blocksy' ),
-							'setting' => [ 'transport' => 'postMessage' ],
-							'selective_refresh' => [
-								'selector' => '.site-branding',
-								'render_callback' => 'blocksy_output_site_branding',
-							],
-						],
-
-						blocksy_rand_md5() => [
-							'type' => 'ct-condition',
-							'condition' => [ 'has_retina_logo' => 'yes' ],
+							'title' => __( 'General', 'blocksy' ),
+							'type' => 'tab',
 							'options' => [
 
-								'retina_header_logo' => [
-									'label' => false,
-									'type' => 'ct-image-uploader',
-									'value' => [ 'attachment_id' => null ],
-									'attr' => [ 'data-height' => 'small' ],
+								'logo_type' => [
+									'label' => __( 'Logo Type', 'blocksy' ),
+									'type' => 'ct-radio',
+									'value' => 'image',
+									'view' => 'text',
+									'design' => 'block',
+									'allow_empty' => true,
 									'setting' => [ 'transport' => 'postMessage' ],
+									'choices' => [
+										'image' => __( 'Image', 'blocksy' ),
+										'text' => __( 'Text', 'blocksy' ),
+									],
+
 									'selective_refresh' => [
 										'selector' => '.site-branding',
 										'render_callback' => 'blocksy_output_site_branding',
 									],
 								],
 
-							],
-						],
+								blocksy_rand_md5() => [
+									'type' => 'ct-condition',
+									'condition' => [ 'logo_type' => 'text' ],
+									'options' => [
 
-						blocksy_rand_md5() => [
-							'type' => 'ct-divider',
-							'attr' => [ 'data-type' => 'small' ],
-						],
+										'blogname' => [
+											'label' => __( 'Site Title', 'blocksy' ),
+											'type' => 'text',
+											'design' => 'block',
+											'value' => get_option( 'blogname' ),
+											'setting' => [
+												'transport' => 'postMessage',
+												'type' => 'option'
+											],
+										],
 
-						'has_mobile_logo' => [
-							'label' => __( 'Mobile Logo', 'blocksy' ),
-							'type' => 'ct-switch',
-							'value' => 'no',
-							'switchDeviceOnChange' => 'tablet',
-							'desc' => __( 'Set up a different logo for mobile devices.', 'blocksy' ),
-							'setting' => [ 'transport' => 'postMessage' ],
-							'selective_refresh' => [
-								'selector' => '.header-mobile .site-branding',
-								'render_callback' => 'blocksy_output_site_branding_mobile',
-							],
-						],
-
-						blocksy_rand_md5() => [
-							'type' => 'ct-condition',
-							'condition' => [ 'has_mobile_logo' => 'yes' ],
-							'options' => [
-
-								'mobile_header_logo' => [
-									'label' => false,
-									'type' => 'ct-image-uploader',
-									'value' => [ 'attachment_id' => null ],
-									'switchDeviceOnChange' => 'tablet',
-									'attr' => [ 'data-height' => 'small' ],
-									'setting' => [ 'transport' => 'postMessage' ],
-									'selective_refresh' => [
-										'selector' => '.header-mobile .site-branding',
-										'render_callback' => 'blocksy_output_site_branding_mobile',
 									],
+								],
+
+								blocksy_rand_md5() => [
+									'type' => 'ct-condition',
+									'condition' => [ 'logo_type' => 'image' ],
+									'options' => [
+
+										'custom_logo' => [
+											'label' => false,
+											'type' => 'ct-image-uploader',
+											'value' => '',
+											'inline_value' => true,
+											'attr' => [ 'data-height' => 'small' ],
+											'setting' => [ 'transport' => 'postMessage' ],
+											'selective_refresh' => [
+												'selector' => '.site-branding',
+												'render_callback' => 'blocksy_output_site_branding',
+											],
+										],
+
+										blocksy_rand_md5() => [
+											'type' => 'ct-divider',
+											'attr' => [ 'data-type' => 'small' ],
+										],
+
+										'has_retina_logo' => [
+											'label' => __( 'Retina Logo', 'blocksy' ),
+											'type' => 'ct-switch',
+											'value' => 'no',
+											'desc' => __( 'Set up a different logo for retina devices.', 'blocksy' ),
+											'setting' => [ 'transport' => 'postMessage' ],
+											'selective_refresh' => [
+												'selector' => '.site-branding',
+												'render_callback' => 'blocksy_output_site_branding',
+											],
+										],
+
+										blocksy_rand_md5() => [
+											'type' => 'ct-condition',
+											'condition' => [ 'has_retina_logo' => 'yes' ],
+											'options' => [
+
+												'retina_header_logo' => [
+													'label' => false,
+													'type' => 'ct-image-uploader',
+													'value' => [ 'attachment_id' => null ],
+													'attr' => [ 'data-height' => 'small' ],
+													'setting' => [ 'transport' => 'postMessage' ],
+													'selective_refresh' => [
+														'selector' => '.site-branding',
+														'render_callback' => 'blocksy_output_site_branding',
+													],
+												],
+
+											],
+										],
+
+										blocksy_rand_md5() => [
+											'type' => 'ct-divider',
+											'attr' => [ 'data-type' => 'small' ],
+										],
+
+										'has_mobile_logo' => [
+											'label' => __( 'Mobile Logo', 'blocksy' ),
+											'type' => 'ct-switch',
+											'value' => 'no',
+											'switchDeviceOnChange' => 'tablet',
+											'desc' => __( 'Set up a different logo for mobile devices.', 'blocksy' ),
+											'setting' => [ 'transport' => 'postMessage' ],
+											'selective_refresh' => [
+												'selector' => '.header-mobile .site-branding',
+												'render_callback' => 'blocksy_output_site_branding_mobile',
+											],
+										],
+
+										blocksy_rand_md5() => [
+											'type' => 'ct-condition',
+											'condition' => [ 'has_mobile_logo' => 'yes' ],
+											'options' => [
+
+												'mobile_header_logo' => [
+													'label' => false,
+													'type' => 'ct-image-uploader',
+													'value' => [ 'attachment_id' => null ],
+													'switchDeviceOnChange' => 'tablet',
+													'attr' => [ 'data-height' => 'small' ],
+													'setting' => [ 'transport' => 'postMessage' ],
+													'selective_refresh' => [
+														'selector' => '.header-mobile .site-branding',
+														'render_callback' => 'blocksy_output_site_branding_mobile',
+													],
+												],
+
+											],
+										],
+
+										blocksy_rand_md5() => [
+											'type' => 'ct-divider',
+											'attr' => [ 'data-type' => 'small' ],
+										],
+
+										'logoMaxHeight' => [
+											'label' => __( 'Maximum Height', 'blocksy' ),
+											'type' => 'ct-slider',
+											'min' => 0,
+											'max' => 300,
+											'value' => 50,
+											'responsive' => true,
+											'setting' => [ 'transport' => 'postMessage' ],
+										],
+
+									],
+								],
+
+								blocksy_rand_md5() => [
+									'type' => 'ct-divider',
+									'attr' => [ 'data-type' => 'small' ],
+								],
+
+								'blogdescription' => [
+									'label' => __( 'Site Tagline', 'blocksy' ),
+									'type' => 'text',
+									'design' => 'block',
+									'value' => get_option( 'blogdescription' ),
+									'disableRevertButton' => true,
+                                    'setting' => [
+                                        'transport' => 'postMessage' ,
+                                        'type' => 'option'
+                                    ],
+								],
+
+								'tagline_search_visibility' => [
+									'label' => __( 'Site Tagline Visibility', 'blocksy' ),
+									'type' => 'ct-visibility',
+									'design' => 'block',
+									'setting' => [ 'transport' => 'postMessage' ],
+									'allow_empty' => true,
+									'value' => [
+										'desktop' => false,
+										'tablet' => false,
+										'mobile' => false,
+									],
+
+									'choices' => blocksy_ordered_keys([
+										'desktop' => __( 'Desktop', 'blocksy' ),
+										'tablet' => __( 'Tablet', 'blocksy' ),
+										'mobile' => __( 'Mobile', 'blocksy' ),
+									]),
 								],
 
 							],
 						],
 
 						blocksy_rand_md5() => [
-							'type' => 'ct-divider',
-							'attr' => [ 'data-type' => 'small' ],
+							'title' => __( 'Design', 'blocksy' ),
+							'type' => 'tab',
+							'options' => [
+
+								blocksy_rand_md5() => [
+									'type' => 'ct-condition',
+									'condition' => [ 'logo_type' => 'text' ],
+									'options' => [
+
+										'siteTitle' => [
+											'type' => 'ct-typography',
+											'label' => __( 'Site Title', 'blocksy' ),
+											'value' => blocksy_typography_default_values([
+												'size' => '25px',
+												'variation' => 'n7',
+											]),
+											'setting' => [ 'transport' => 'postMessage' ],
+										],
+
+										'siteTitleColor' => [
+											'label' => __( 'Site Title Color', 'blocksy' ),
+											'type'  => 'ct-color-picker',
+											'design' => 'inline',
+											'setting' => [ 'transport' => 'postMessage' ],
+
+											'value' => [
+												'default' => [
+													'color' => 'var(--paletteColor4)',
+												],
+
+												'hover' => [
+													'color' => 'var(--paletteColor1)',
+												],
+											],
+
+											'pickers' => [
+												[
+													'title' => __( 'Initial', 'blocksy' ),
+													'id' => 'default',
+												],
+
+												[
+													'title' => __( 'Hover', 'blocksy' ),
+													'id' => 'hover',
+												],
+											],
+										],
+
+										blocksy_rand_md5() => [
+											'type' => 'ct-divider',
+											'attr' => [ 'data-type' => 'small' ],
+										],
+
+									],
+								],
+
+								'siteTaglineFont' => [
+									'type' => 'ct-typography',
+									'label' => __( 'Site Tagline Font', 'blocksy' ),
+									'value' => blocksy_typography_default_values([
+										'size' => [
+											'desktop' => '13px',
+											'tablet'  => '13px',
+											'mobile'  => '12px'
+										],
+										'variation' => 'n5',
+									]),
+									'setting' => [ 'transport' => 'postMessage' ],
+								],
+
+								'siteTaglineColor' => [
+									'label' => __( 'Site Tagline Color', 'blocksy' ),
+									'type'  => 'ct-color-picker',
+									'design' => 'inline',
+									'setting' => [ 'transport' => 'postMessage' ],
+
+									'value' => [
+										'default' => [
+											'color' => 'var(--paletteColor3)',
+										],
+									],
+
+									'pickers' => [
+										[
+											'title' => __( 'Initial', 'blocksy' ),
+											'id' => 'default',
+										],
+									],
+								],
+
+							],
 						],
 
-						'logoMaxHeight' => [
-							'label' => __( 'Maximum Height', 'blocksy' ),
-							'type' => 'ct-slider',
-							'min' => 0,
-							'max' => 300,
-							'value' => 50,
-							'responsive' => true,
-							'setting' => [ 'transport' => 'postMessage' ],
-						],
 					],
 				],
 
@@ -1172,7 +1349,7 @@ $options = [
 										'size' => [
 											'desktop' => '30px',
 											'tablet'  => '30px',
-											'mobile'  => '23px' 
+											'mobile'  => '23px'
 										],
 										'variation' => 'n7',
 									]),

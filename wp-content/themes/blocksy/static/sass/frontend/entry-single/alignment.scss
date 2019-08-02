@@ -63,15 +63,20 @@
 			margin-right: calc( -50vw + 50% );
 		}
 	}
+}
 
+
+.ct-container:not([data-sidebar]) {
 	@include media-breakpoint-up (lg) {
 		[data-page-structure="narrow"] {
-			.alignleft {
-				margin-left: calc( var(--wideOffset) * -1 );
-			}
+			&:not([data-content="boxed"]) {
+				.alignleft {
+					margin-left: calc( var(--wideOffset) * -1 );
+				}
 
-			.alignright {
-				margin-right: calc( var(--wideOffset) * -1 );
+				.alignright {
+					margin-right: calc( var(--wideOffset) * -1 );
+				}
 			}
 		}
 	}

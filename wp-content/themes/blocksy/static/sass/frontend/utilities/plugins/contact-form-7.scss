@@ -17,7 +17,6 @@
 
 	.wpcf7-submit {
 		float: left;
-		@include button();
 
 		+ .ajax-loader {
 			float: left;

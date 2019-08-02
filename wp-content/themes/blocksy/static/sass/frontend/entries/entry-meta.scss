@@ -66,16 +66,13 @@
 
 		.ct-meta-element {
 			a {
-				font-size: 11px;
-
-				@include button((
-					height: 25px,
-					padding: 8px,
-					bg_1: var(--paletteColor1),
-					bg_2: var(--paletteColor2),
-					shadow: false,
-					translate: false,
-				));
+				--buttonFontSize: 11px;
+				--height: 25px;
+				--padding: 0 8px;
+				--buttonShadow: none;
+				--buttonTransform: none;
+				--buttonInitialColor: var(--paletteColor1);
+				--buttonHoverColor: var(--paletteColor2);
 			}
 		}
 	}
@@ -169,9 +166,3 @@
 		}
 	}
 }
-
-
-
-
-
-

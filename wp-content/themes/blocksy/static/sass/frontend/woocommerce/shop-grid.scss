@@ -1,13 +1,18 @@
-.woocommerce [data-layout="grid"] {
+[data-layout="grid"] {
 
 	.shop-entry-card {
 		display: flex;
 		flex-direction: column;
+		text-align: center;
+		overflow: hidden;
 		background: #fff;
 		border-radius: 2px;
-		overflow: hidden;
-		text-align: center;
 		box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.01);
+
+		> .onsale {
+			top: 18px;
+			right: 18px;
+		}
 
 		&:hover {
 			.star-rating {
@@ -16,31 +21,21 @@
 		}
 	}
 
-	span.onsale {
-		top: 0;
-		left: initial;
-		right: 0;
-		margin: 18px 18px 0 0;
-	}
-
 	.star-rating {
-		position: absolute;
+		--starRatingPosition: absolute;
 		top: 25px;
-		left: 20px;
+		left: 25px;
 		opacity: 0;
 		transition: opacity 0.12s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 	}
 
 	.woocommerce-loop-product__title {
 		flex: 1 0 auto;
-		// font-size: 17px;
-		// font-weight: 500;
 		margin-top: 25px;
 	}
 
 	.product-categories {
-		justify-content: center;
-		margin: 5px 0 0 0;
+		margin-top: 5px;
 	}
 
 	.woo-card-actions {
@@ -48,27 +43,21 @@
 		margin-top: 25px;
 		border-top: 1px solid #eff1f5;
 
-		.price, a.button, a.added_to_cart {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-
+		> * {
 			width: 50%;
 			min-height: 55px;
-			font-size: 14px;
-			font-weight: 500;
-			padding: 5px;
-			background: transparent;
-
-			&:hover {
-				background: transparent;
-			}
 		}
 
 		.price {
+			display: flex;
+			align-items: center;
+			justify-content: center;
 			position: relative;
+			font-size: 14px;
+			font-weight: 500;
+			padding: 5px;
 			color: var(--fontColor);
-			
+
 			&:after {
 				position: absolute;
 				content: '';
@@ -80,16 +69,15 @@
 			}
 		}
 
-		a.button {
-			color: var(--linkInitialColor);
-
-			&:hover {
-				color: var(--linkHoverColor);
-			}
-
-			&.loading {
-				padding-right: 5px;
-			}
+		a {
+			--padding: 5px;
+			--buttonFontSize: 14px;
+			--buttonTextInitialColor: var(--linkInitialColor);
+			--buttonTextHoverColor: var(--linkHoverColor);
+			--buttonInitialColor: transparent;
+			--buttonHoverColor: transparent;
+			--buttonShadow: none;
+			--buttonTransform: none;
 		}
 	}
 }
