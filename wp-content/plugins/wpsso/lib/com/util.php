@@ -1100,12 +1100,8 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 
 			if ( ! empty( $url ) ) {
 
-				if ( strpos( $url, '://' ) && 
-
-					parse_url( $url, PHP_URL_SCHEME ) === 'https' ) {
-
+				if ( strpos( $url, '://' ) && parse_url( $url, PHP_URL_SCHEME ) === 'https' ) {
 					return $local_cache[ $url ] = true;
-
 				} else {
 					return $local_cache[ $url ] = false;
 				}
@@ -2044,7 +2040,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 				$mt_pre . ':id'                              => '',	// Non-standard / internal meta tag.
 				$mt_pre . ':age_group'                       => '',
 				$mt_pre . ':availability'                    => '',
-				$mt_pre . ':brand'                           => '',
+				$mt_pre . ':brand'                           => '',	// There can only be one Open Graph brand meta tag, which must be a string, not an array.
 				$mt_pre . ':category'                        => '',
 				$mt_pre . ':color'                           => '',
 				$mt_pre . ':condition'                       => '',
@@ -2064,7 +2060,7 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 				$mt_pre . ':length:value'                    => '',	// Non-standard / internal meta tag.
 				$mt_pre . ':length:units'                    => '',	// Non-standard / internal meta tag (units after value).
 				$mt_pre . ':material'                        => '',
-				$mt_pre . ':mfr_part_no'                     => '',
+				$mt_pre . ':mfr_part_no'                     => '',	// aka product:mpn.
 				$mt_pre . ':original_price:amount'           => '',
 				$mt_pre . ':original_price:currency'         => '',
 				$mt_pre . ':pattern'                         => '',
@@ -2695,6 +2691,19 @@ if ( ! class_exists( 'SucomUtil' ) ) {
 			}
 
 			return apply_filters( 'sucom_is_home_index', $ret, $use_post );
+		}
+
+		public static function is_auto_draft( $mod ) {
+
+			if ( $mod[ 'is_post' ] && isset( $mod[ 'post_status' ] ) ) {
+
+				if ( empty( $mod[ 'post_status' ] ) || $mod[ 'post_status' ] === 'auto-draft' ) {
+					
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		public static function is_post_exists( $post_id ) {

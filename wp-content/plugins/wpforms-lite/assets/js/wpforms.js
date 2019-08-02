@@ -284,8 +284,10 @@ var wpforms = window.wpforms || ( function( document, window, $ ) {
 
 								// Normal form.
 								if ( altText ) {
-									$submit.text( altText ).prop( 'disabled', true );
+									$submit.text( altText );
 								}
+
+								$submit.prop( 'disabled', true );
 
 								// Remove name attributes if needed.
 								$( '.wpforms-input-temp-name' ).removeAttr( 'name' );

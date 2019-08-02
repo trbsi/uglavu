@@ -152,10 +152,10 @@ if ( ! class_exists( 'WpssoSchemaSingle' ) ) {
 			}
 
 			/**
-			 * Update the @id string based on $ret[ 'url' ], $image_type_id, and the og:image:id values.
+			 * Update the @id string based on $ret[ 'url' ] and $image_type_id.
 			 */
 			if ( ! empty( $mt_single[ $mt_prefix . ':id' ] ) ) {
-				WpssoSchema::update_data_id( $ret, $image_type_id . '/' . $mt_single[ $mt_prefix . ':id' ] );
+				WpssoSchema::update_data_id( $ret, $image_type_id );
 			}
 
 			if ( empty( $list_element ) ) {		// Add a single item.
@@ -256,7 +256,7 @@ if ( ! class_exists( 'WpssoSchemaSingle' ) ) {
 			/**
 			 * Update the @id string based on $ret[ 'url' ] and $video_type_id.
 			 */
-			WpssoSchema::update_data_id( $ret, $video_type_id . ( empty( $ret[ 'fileFormat' ] ) ? '' : '/' . $ret[ 'fileFormat' ] ) );
+			WpssoSchema::update_data_id( $ret, $video_type_id );
 
 			if ( empty( $list_element ) ) {		// Add a single item.
 				$json_data = $ret;
@@ -706,6 +706,8 @@ if ( ! class_exists( 'WpssoSchemaSingle' ) ) {
 				return false;
 			}
 
+			WpssoSchema::check_gtin_prop_value( $offer );
+
 			WpssoSchema::check_itemprop_content_map( $offer, 'itemCondition', 'product:condition' );
 
 			WpssoSchema::check_itemprop_content_map( $offer, 'availability', 'product:availability' );
@@ -741,7 +743,7 @@ if ( ! class_exists( 'WpssoSchemaSingle' ) ) {
 			) );
 
 			if ( false !== $quantity ) {
-				$offer[ 'eligibleQuantity' ] = WpssoSchema::get_schema_type_context( 'https://schema.org/QuantitativeValue ', $quantity );
+				$offer[ 'eligibleQuantity' ] = WpssoSchema::get_schema_type_context( 'https://schema.org/QuantitativeValue', $quantity );
 			}
 
 			$price_spec = WpssoSchema::get_data_itemprop_from_assoc( $mt_offer, array( 

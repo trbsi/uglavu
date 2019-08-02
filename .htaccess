@@ -1,5 +1,4 @@
 
-
 # BEGIN WordPress
 <IfModule mod_expires.c>
 	ExpiresActive On
@@ -18,7 +17,6 @@
 Header set X-Endurance-Cache-Level "2"
 </ifModule>
 Options -Indexes 
-
 				<IfModule mod_rewrite.c>
 					RewriteEngine On
 					RewriteBase /
@@ -37,5 +35,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.php [L]
 </IfModule>
-
 # END WordPress

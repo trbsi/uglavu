@@ -1487,7 +1487,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 		public function show_metabox_cache_status() {
 
-			$table_cols         = 3;
+			$table_cols         = 4;
 			$db_transient_keys  = $this->p->util->get_db_transient_keys();
 			$all_transients_pre = $this->p->lca . '_';
 			$have_filtered_exp  = false;
@@ -1501,7 +1501,8 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			echo '<tr>';
 			echo '<th class="cache-label"></th>';
 			echo '<th class="cache-count">' . __( 'Count', 'wpsso' ) . '</th>';
-			echo '<th class="cache-expiration">' . __( 'Expiration', 'wpsso' ) . '</th>';
+			echo '<th class="cache-size">' . __( 'MB', 'wpsso' ) . '</th>';
+			echo '<th class="cache-expiration">' . __( 'Hours', 'wpsso' ) . '</th>';
 			echo '</tr>';
 
 			/**
@@ -1523,9 +1524,10 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				$cache_text_dom     = empty( $cache_info[ 'text_domain' ] ) ? $this->p->lca : $cache_info[ 'text_domain' ];
 				$cache_label_transl = _x( $cache_info[ 'label' ], 'option label', $cache_text_dom );
 				$cache_count        = count( preg_grep( '/^' . $cache_md5_pre . '/', $db_transient_keys ) );
+				$cache_size         = $this->p->util->get_db_transient_size_mb( $decimals = 1, $dec_point = '.', $thousands_sep = '', $cache_md5_pre );
 				$cache_opt_key      = isset( $cache_info[ 'opt_key' ] ) ? $cache_info[ 'opt_key' ] : false;
 				$cache_exp_secs     = $cache_opt_key && isset( $this->p->options[ $cache_opt_key ] ) ? $this->p->options[ $cache_opt_key ] : 0;
-				$cache_exp_html     = $cache_opt_key ? $cache_exp_secs : '';
+				$cache_exp_suffix   = '';
 				
 				if ( ! empty( $cache_info[ 'filter' ] ) ) {
 
@@ -1533,22 +1535,25 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 					$cache_exp_filtered = (int) apply_filters( $filter_name, $cache_exp_secs );
 
 					if ( $cache_exp_secs !== $cache_exp_filtered ) {
-						$cache_exp_html    = $cache_exp_filtered . ' [F]';	// Show that value has changed.
+						$cache_exp_secs    = $cache_exp_filtered;
+						$cache_exp_suffix  = ' [F]';	// Show that value has changed.
 						$have_filtered_exp = true;
 					}
+				}
+
+				if ( is_numeric( $cache_exp_secs ) && $cache_exp_secs > 0 ) {
+					$cache_exp_hours = number_format( $cache_exp_secs / 60 / 60, $decimals = 1, $dec_point = '.', $thousands_sep = '' );
+				} else {
+					$cache_exp_hours = $cache_exp_secs;
 				}
 
 				echo '<tr>';
 				echo '<th class="cache-label">' . $cache_label_transl . ':</th>';
 				echo '<td class="cache-count">' . $cache_count . '</td>';
+				echo '<td class="cache-size">' . $cache_size . '</td>';
 
-				if ( $cache_md5_pre === $all_transients_pre ) {
-					echo '</tr>' . "\n" . '<tr>';
-					echo '<th class="cache-label"></th>';
-					echo '<td class="cache-count">' . $this->p->util->get_db_transient_size_mb( $decimals = 1 ) . '</td>';
-					echo '<td class="cache-expiration" style="text-align:left;">' . __( 'MB', 'wpsso' ) . '</td>';
-				} else {
-					echo '<td class="cache-expiration">' . $cache_exp_html . '</td>';
+				if ( $cache_md5_pre !== $all_transients_pre ) {
+					echo '<td class="cache-expiration">' . $cache_exp_hours . $cache_exp_suffix . '</td>';
 				}
 
 				echo '</tr>' . "\n";
@@ -1559,7 +1564,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			if ( $have_filtered_exp ) {
 				echo '<tr><td></td></tr>' . "\n";
 				echo '<tr><td colspan="' . $table_cols . '"><p><small>[F] ' .
-					__( 'Expiration value modified by filter.',
+					__( 'Cache expiration modified by filter.',
 						'wpsso' ) . '</small></p></td></tr>' . "\n";
 			}
 
@@ -3456,20 +3461,23 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			 * Type by Post Type
 			 */
 			$type_select = '';
-			$type_keys = array();
+			$type_keys   = array();
+			$post_types  = $this->p->util->get_post_types( 'objects' );
 
-			foreach ( $this->p->util->get_post_types( 'objects' ) as $pt ) {
+			foreach ( $post_types as $obj ) {
 
-				$type_keys[] = $opt_key = 'og_type_for_' . $pt->name;
+				$type_keys[] = $opt_key = 'og_type_for_' . $obj->name;
+
+				$type_label = $obj->label . ' [' . $obj->name . ']';
 
 				$type_select .= '<p>' . $form->get_select( $opt_key, $og_types, 'og_type' ) . ' ' .
-					sprintf( _x( 'for %s', 'option comment', 'wpsso' ), $pt->label ) . '</p>' . "\n";
+					sprintf( _x( 'for %s', 'option comment', 'wpsso' ), $type_label ) . '</p>' . "\n";
 			}
 
 			$type_keys[] = $opt_key = 'og_type_for_post_archive';
 
 			$type_select .= '<p>' . $form->get_select( $opt_key, $og_types, 'og_type' ) . ' ' .
-				sprintf( _x( 'for %s', 'option comment', 'wpsso' ), _x( '(Post Type) Archive Page', 'option comment', 'wpsso' ) ) . '</p>' . "\n";
+				sprintf( _x( 'for %s', 'option comment', 'wpsso' ), _x( 'Post Type Archive Page', 'option comment', 'wpsso' ) ) . '</p>' . "\n";
 
 			$tr_key   = 'og_type_for_ptn';
 			$th_label = _x( 'Type by Post Type', 'option label', 'wpsso' );
@@ -3485,17 +3493,19 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			 * Type by Taxonomy
 			 */
 			$type_select = '';
-			$type_keys = array();
+			$type_keys   = array();
+			$taxonomies  = $this->p->util->get_taxonomies( 'objects' );
 
-			foreach ( $this->p->util->get_taxonomies( 'objects' ) as $tax ) {
+			foreach ( $taxonomies as $obj ) {
 
-				$type_keys[] = $opt_key = 'og_type_for_tax_' . $tax->name;
+				$type_keys[] = $opt_key = 'og_type_for_tax_' . $obj->name;
+
+				$type_label = $obj->label . ' [' . $obj->name . ']';
 
 				$type_select .= '<p>' . $form->get_select( $opt_key, $og_types, 'og_type' ) . ' ' .
-					sprintf( _x( 'for %s', 'option comment', 'wpsso' ), $tax->label ) . '</p>' . "\n";
+					sprintf( _x( 'for %s', 'option comment', 'wpsso' ), $type_label ) . '</p>' . "\n";
 			}
 
-			$tr_html  = '';
 			$tr_key   = 'og_type_for_ttn';
 			$th_label = _x( 'Type by Taxonomy', 'option label', 'wpsso' );
 			$tr_html  = $hide_in_basic ? $form->get_tr_hide( 'basic', $type_keys ) : '';
@@ -3612,16 +3622,19 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			 * Type by Post Type
 			 */
 			$type_select = '';
-			$type_keys = array();
+			$type_keys   = array();
+			$post_types  = $this->p->util->get_post_types( 'objects' );
 
-			foreach ( $this->p->util->get_post_types( 'objects' ) as $pt ) {
+			foreach ( $post_types as $obj ) {
 
-				$type_keys[] = $opt_key = 'schema_type_for_' . $pt->name;
+				$type_keys[] = $opt_key = 'schema_type_for_' . $obj->name;
+
+				$type_label = $obj->label . ' [' . $obj->name . ']';
 
 				$type_select .= '<p>' . $form->get_select( $opt_key, $schema_types,
 					$css_class = 'schema_type', $css_id = '', $is_assoc = true, $is_disabled = false,
 						$selected = false, $event_name = 'on_focus_load_json', $event_args = 'schema_item_types' ) . ' ' .
-					sprintf( _x( 'for %s', 'option comment', 'wpsso' ), $pt->label ) . '</p>' . "\n";
+					sprintf( _x( 'for %s', 'option comment', 'wpsso' ), $type_label ) . '</p>' . "\n";
 			}
 
 			$type_keys[] = $opt_key = 'schema_type_for_post_archive';
@@ -3629,7 +3642,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			$type_select .= '<p>' . $form->get_select( $opt_key, $schema_types,
 				$css_class = 'schema_type', $css_id = '', $is_assoc = true, $is_disabled = false,
 					$selected = false, $event_name = 'on_focus_load_json', $event_args = 'schema_item_types' ) . ' ' .
-				sprintf( _x( 'for %s', 'option comment', 'wpsso' ), _x( '(Post Type) Archive Page',
+				sprintf( _x( 'for %s', 'option comment', 'wpsso' ), _x( 'Post Type Archive Page',
 					'option comment', 'wpsso' ) ) . '</p>' . "\n";
 
 			$tr_key   = 'schema_type_for_ptn';
@@ -3645,17 +3658,20 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			/**
 			 * Type by Taxonomy
 			 */
-			$type_select   = '';
-			$type_keys = array();
+			$type_select = '';
+			$type_keys   = array();
+			$taxonomies  = $this->p->util->get_taxonomies( 'objects' );
 
-			foreach ( $this->p->util->get_taxonomies( 'objects' ) as $tax ) {
+			foreach ( $taxonomies as $obj ) {
 
-				$type_keys[] = $opt_key = 'schema_type_for_tax_' . $tax->name;
+				$type_keys[] = $opt_key = 'schema_type_for_tax_' . $obj->name;
+
+				$type_label = $obj->label . ' [' . $obj->name . ']';
 
 				$type_select .= '<p>' . $form->get_select( $opt_key, $schema_types,
 					$css_class = 'schema_type', $css_id = '', $is_assoc = true, $is_disabled = false,
 						$selected = false, $event_name = 'on_focus_load_json', $event_args = 'schema_item_types' ) . ' ' .
-					sprintf( _x( 'for %s', 'option comment', 'wpsso' ), $tax->label ) . '</p>' . "\n";
+					sprintf( _x( 'for %s', 'option comment', 'wpsso' ), $type_label ) . '</p>' . "\n";
 			}
 
 			$tr_key   = 'schema_type_for_ttn';
@@ -3733,8 +3749,14 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 			if ( $is_top_section ) {
 				if ( ! self::$pkg[ $this->p->lca ][ 'pp' ] ) {
-					$table_rows[] = '<td colspan="2">' . $this->p->msgs->get( 'pro-feature-msg' ) . '</td>';
+					$table_rows[] = ( $hide_in_basic ? $form->get_tr_hide( 'basic' ) : '' ) .
+						'<td colspan="2">' . $this->p->msgs->get( 'pro-feature-msg' ) . '</td>';
 				}
+			}
+
+			if ( ! empty( $this->p->avail[ 'ecom' ][ 'woocommerce' ] ) ) {
+				$table_rows[] = ( $hide_in_basic ? $form->get_tr_hide( 'basic' ) : '' ) .
+					'<td colspan="2">' . $this->p->msgs->get( 'info-woocommerce-cf-attr' ) . '</td>';
 			}
 
 			/**
@@ -3810,7 +3832,7 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 			$cmt_transl = '';
 
 			if ( preg_match( '/^.*_([^_]+)_value$/', $opt_key, $unit_match ) ) {
-				if ( $unit_text = WpssoSchema::get_data_unitcode_text( $unit_match[ 1 ] ) ) {
+				if ( $unit_text = WpssoSchema::get_data_unit_text( $unit_match[ 1 ] ) ) {
 					$cmt_transl = ' ' . sprintf( _x( 'in %s', 'option comment', 'wpsso' ), $unit_text );
 				}
 			}

@@ -9,11 +9,15 @@
 		right: 0;
 		z-index: 1;
 		height: calc(100% - 55px);
-		padding: 40px;
+		padding: 30px 40px 40px 40px;
 		overflow-y: auto;
 
 		&:focus {
 			outline: none;
+		}
+
+		.product_title {
+			padding-right: 25px;
 		}
 	}
 
@@ -21,19 +25,32 @@
 		position: absolute;
 		z-index: 2;
 		top: 35px;
-		right: 35px;
-		width: 40px;
-		height: 40px;
+		right: 30px;
+		width: 34px;
+		height: 34px;
+		opacity: 1;
 		border-radius: 100%;
-		background: rgba(0,0,0,.05);
+		background: #F6F6F6;
 
 		.close {
 			color: inherit;
 		}
 
 		.lines-button {
-			width: 16px;
+			width: 12px;
 		}
+	}
+
+	&:before {
+		position: absolute;
+		z-index: 2;
+		content: '';
+		top: -2px;
+		left: 0;
+		width: 100%;
+		height: 5px;
+		background: #fff;
+		box-shadow: 0px 0px 20px 20px #fff;
 	}
 }
 
@@ -95,15 +112,15 @@
 
 		&.loading {
 			&:after {
-				font-family: WooCommerce;
-				content: "\e01c";
+				font-family: 'woo';
+				content: "\e982";
 				font-size: 14px;
 				line-height: 14px;
 				font-weight: 400;
 				color: currentColor;
 				margin-left: 10px;
 				margin-top: 2px;
-				animation: spin 2s linear infinite;
+				animation: spin 1.5s linear infinite;
 			}
 		}
 	}

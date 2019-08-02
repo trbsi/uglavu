@@ -100,15 +100,11 @@
 	}
 
 	.ct-accept {
-		font-size: 13px;
-		font-weight: 500;
-
-		@include button((
-			height: 35px,
-			padding: 20px,
-			shadow: false,
-			translate: false
-		));
+		--buttonFontSize: 13px;
+		--height: 35px;
+		--padding: 0 20px;
+		--buttonShadow: none;
+		--buttonTransform: none;
 
 		@include media-breakpoint-down (xs) {
 			width: 100%;

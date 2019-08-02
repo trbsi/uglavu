@@ -51,7 +51,7 @@ function blocksy_ext_cookies_consent_output($forced = false) {
 				<p><?php echo wp_kses_post($content) ?></p>
 			<?php } ?>
 
-			<button class="ct-accept"><?php echo esc_html($button_text) ?></button>
+			<button type="submit" class="ct-accept"><?php echo esc_html($button_text) ?></button>
 
 			<?php if ($type === 'type-1' || is_customize_preview()) { ?>
 				<button class="ct-close">×</button>
@@ -67,11 +67,12 @@ function blocksy_ext_cookies_consent_output($forced = false) {
 function blocksy_ext_cookies_checkbox() {
 	ob_start();
 
-	$message = sprintf(
-		__('I accept the %s', 'blc'),
+	$message = get_theme_mod(
+		'forms_cookie_consent_content',
 		sprintf(
-			'<a href="' . site_url('/privacy-policy') . '">%s</a>',
-			__('Privacy Policy', 'blc')
+			__('I accept the %sPrivacy Policy%s', 'blc'),
+			'<a href="/privacy-policy">',
+			'</a>'
 		)
 	);
 

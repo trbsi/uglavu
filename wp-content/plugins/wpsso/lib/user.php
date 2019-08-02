@@ -451,6 +451,11 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 		}
 
 		public function add_column_headings( $columns ) {
+
+			if ( $this->p->debug->enabled ) {
+				$this->p->debug->mark();
+			}
+
 			return $this->add_mod_column_headings( $columns, 'user' );
 		}
 
@@ -732,12 +737,12 @@ if ( ! class_exists( 'WpssoUser' ) ) {
 			$metabox_context = 'normal';
 
 			echo "\n" . '<!-- ' . $this->p->lca . ' user metabox section begin -->' . "\n";
-			echo '<h3 id="' . $this->p->lca . '-metaboxes">' . WpssoAdmin::$pkg[ $this->p->lca ][ 'short' ] . '</h3>' . "\n";
-			echo '<div id="poststuff">' . "\n";
+			echo '<h3>' . WpssoAdmin::$pkg[ $this->p->lca ][ 'short' ] . '</h3>' . "\n";
+			echo '<div id="poststuff" class="' . $this->p->lca . '-metaboxes metabox-holder">' . "\n";
 
 			do_meta_boxes( $metabox_screen, $metabox_context, $user_obj );
 
-			echo "\n" . '</div><!-- .poststuff -->' . "\n";
+			echo "\n" . '</div><!-- #poststuff -->' . "\n";
 			echo '<!-- ' . $this->p->lca . ' user metabox section end -->' . "\n";
 		}
 

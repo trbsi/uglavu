@@ -90,21 +90,13 @@
 }
 
 .ct-instagram-follow {
+	--height: 40px;
+	--padding: 0 18px;
+	--buttonTextInitialColor: var(--fontColor);
+	--buttonTextHoverColor: #fff;
+	--buttonInitialColor: #fff;
+
+	position: absolute;
 	top: calc(50% - 19px);
 	font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Courier, monospace;
-	font-size: 15px;
-
-	@include button((
-		display: flex,
-		height: 40px,
-		padding: 18px,
-		position: absolute,
-		bg_1: #fff,
-	));
-
-	color: inherit;
-
-	&:hover {
-		color: #fff;
-	}
 }

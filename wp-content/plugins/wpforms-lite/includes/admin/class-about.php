@@ -274,8 +274,7 @@ class WPForms_About {
 				<figure>
 					<img src="<?php echo WPFORMS_PLUGIN_URL; ?>assets/images/about/team.jpg" alt="<?php esc_attr_e( 'The WPForms Team photo', 'wpforms-lite' ); ?>">
 					<figcaption>
-						<?php esc_html_e( 'The WPForms Team: Ethan, Jess, Slava, Syed, Jared, and Lindsay.', 'wpforms-lite' ); ?><br>
-						<?php esc_html_e( 'Not pictured: Pavlo, Matt, Calista, Daisy, Ijiene.', 'wpforms-lite' ); ?>
+						<?php esc_html_e( 'The WPForms Team', 'wpforms-lite' ); ?><br>
 					</figcaption>
 				</figure>
 			</div>
@@ -351,7 +350,7 @@ class WPForms_About {
 									<strong>
 										<?php
 										printf(
-											/* translators: %s - status text. */
+											/* translators: %s - addon status label. */
 											esc_html__( 'Status: %s', 'wpforms-lite' ),
 											'<span class="status-label ' . $status_class . '">' . $status_text . '</span>'
 										);

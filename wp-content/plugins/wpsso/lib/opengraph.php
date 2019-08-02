@@ -699,6 +699,8 @@ if ( ! class_exists( 'WpssoOpenGraph' ) ) {
 				 */
 				$this->p->util->add_og_type_mt_md( $type_id, $mt_og, $md_opts );
 
+				self::check_gtin_mt_value( $mt_og );
+
 				/**
 				 * Include variations (aka product offers) if available.
 				 */
@@ -717,6 +719,8 @@ if ( ! class_exists( 'WpssoOpenGraph' ) ) {
 								}
 							}
 						}
+				
+						self::check_gtin_mt_value( $offer );
 					}
 				
 				} elseif ( isset( $mt_og[ 'product:price:amount' ] ) ) {
@@ -921,7 +925,7 @@ if ( ! class_exists( 'WpssoOpenGraph' ) ) {
 					$use_prev = $mod_prev;	// use true/false/1/0 value from the custom option
 
 					if ( $this->p->debug->enabled ) {
-						$this->p->debug->log( 'setting use_prev to '.( empty( $use_prev ) ? 'false' : 'true' ).' from meta data' );
+						$this->p->debug->log( 'setting use_prev to ' . ( empty( $use_prev ) ? 'false' : 'true' ) . ' from meta data' );
 					}
 				}
 
@@ -1003,67 +1007,57 @@ if ( ! class_exists( 'WpssoOpenGraph' ) ) {
 				}
 			}
 
-			if ( ! empty( $this->p->options[ 'og_vid_html_type' ] ) ) {
+			$og_extend = array();
 
-				$og_extend = array();
+			foreach ( $og_ret as $num => $og_single_video ) {
 
-				foreach ( $og_ret as $num => $og_single_video ) {
+				if ( ! empty( $og_single_video[ 'og:video:embed_url' ] ) ) {
 
-					if ( ! empty( $og_single_video[ 'og:video:embed_url' ] ) ) {
+					/**
+					 * Start with a fresh copy of all og meta tags.
+					 */
+					$og_single_embed = SucomUtil::get_mt_video_seed( 'og', $og_single_video, false );
 
-						/**
-						 * Start with a fresh copy of all og meta tags.
-						 */
-						$og_single_embed = SucomUtil::get_mt_video_seed( 'og', $og_single_video, false );
+					/**
+					 * Exclude the facebook applink meta tags.
+					 */
+					$og_single_embed = SucomUtil::preg_grep_keys( '/^og:/', $og_single_embed );
 
-						/**
-						 * Exclude the facebook applink meta tags.
-						 */
-						$og_single_embed = SucomUtil::preg_grep_keys( '/^og:/', $og_single_embed );
+					unset( $og_single_embed[ 'og:video:secure_url' ] );	// Just in case.
 
-						unset( $og_single_embed[ 'og:video:secure_url' ] );	// Just in case.
+					$og_single_embed[ 'og:video:url' ]  = $og_single_video[ 'og:video:embed_url' ];
+					$og_single_embed[ 'og:video:type' ] = 'text/html';
 
-						$og_single_embed[ 'og:video:url' ]  = $og_single_video[ 'og:video:embed_url' ];
-						$og_single_embed[ 'og:video:type' ] = 'text/html';
-
-						/**
-						 * Embedded videos may not have width / height information defined.
-						 */
-						foreach ( array( 'og:video:width', 'og:video:height' ) as $mt_name ) {
-							if ( isset( $og_single_embed[ $mt_name ] ) && $og_single_embed[ $mt_name ] === '' ) {
-								unset( $og_single_embed[ $mt_name ] );
-							}
+					/**
+					 * Embedded videos may not have width / height information defined.
+					 */
+					foreach ( array( 'og:video:width', 'og:video:height' ) as $mt_name ) {
+						if ( isset( $og_single_embed[ $mt_name ] ) && $og_single_embed[ $mt_name ] === '' ) {
+							unset( $og_single_embed[ $mt_name ] );
 						}
+					}
 
-						/**
-						 * Add application/x-shockwave-flash video first and the text/html video second.
-						 */
-						if ( SucomUtil::get_mt_media_url( $og_single_video, $mt_media_pre = 'og:video',
-							$mt_suffixes = array( ':secure_url', ':url', '' ) ) ) {
+					/**
+					 * Add application/x-shockwave-flash video first and the text/html video second.
+					 */
+					if ( SucomUtil::get_mt_media_url( $og_single_video, $mt_media_pre = 'og:video',
+						$mt_suffixes = array( ':secure_url', ':url', '' ) ) ) {
 
-							$og_extend[] = $og_single_video;
-						}
-
-						$og_extend[] = $og_single_embed;
-
-					} else {
 						$og_extend[] = $og_single_video;
 					}
+
+					$og_extend[] = $og_single_embed;
+
+				} else {
+					$og_extend[] = $og_single_video;
 				}
-
-				if ( $this->p->debug->enabled ) {
-					$this->p->debug->log( 'returning ' . count( $og_extend ) . ' videos' );
-				}
-
-				return $og_extend;
-
-			} else {
-				if ( $this->p->debug->enabled ) {
-					$this->p->debug->log( 'returning ' . count( $og_ret ) . ' videos' );
-				}
-
-				return $og_ret;
 			}
+
+			if ( $this->p->debug->enabled ) {
+				$this->p->debug->log( 'returning ' . count( $og_extend ) . ' videos' );
+			}
+
+			return $og_extend;
 		}
 
 		public function get_thumbnail_url( $size_name = 'thumbnail', array $mod, $md_pre = 'og' ) {
@@ -1143,7 +1137,7 @@ if ( ! class_exists( 'WpssoOpenGraph' ) ) {
 					if ( count( $query_images ) > 0 ) {
 
 						if ( $this->p->debug->enabled ) {
-							$this->p->debug->log( 'skipping NGG shortcode check - '.count( $query_images ).' query image(s) returned' );
+							$this->p->debug->log( 'skipping NGG shortcode check - ' . count( $query_images ) . ' query image(s) returned' );
 						}
 
 						$og_ret = array_merge( $og_ret, $query_images );
@@ -1285,51 +1279,51 @@ if ( ! class_exists( 'WpssoOpenGraph' ) ) {
 
 					case 'img_alt':
 
-						$ret[ $key ] = $this->get_media_value( $og_images, $mt_pre.':image:alt' );
+						$ret[ $key ] = $this->get_media_value( $og_images, $mt_pre . ':image:alt' );
 
 						break;
 
 					case 'video':
 					case 'vid_url':
 
-						$ret[ $key ] = $this->get_media_value( $og_videos, $mt_pre.':video' );
+						$ret[ $key ] = $this->get_media_value( $og_videos, $mt_pre . ':video' );
 
 						break;
 
 					case 'vid_type':
 
-						$ret[ $key ] = $this->get_media_value( $og_videos, $mt_pre.':video:type' );
+						$ret[ $key ] = $this->get_media_value( $og_videos, $mt_pre . ':video:type' );
 
 						break;
 
 					case 'vid_title':
 
-						$ret[ $key ] = $this->get_media_value( $og_videos, $mt_pre.':video:title' );
+						$ret[ $key ] = $this->get_media_value( $og_videos, $mt_pre . ':video:title' );
 
 						break;
 
 					case 'vid_desc':
 
-						$ret[ $key ] = $this->get_media_value( $og_videos, $mt_pre.':video:description' );
+						$ret[ $key ] = $this->get_media_value( $og_videos, $mt_pre . ':video:description' );
 
 						break;
 
 					case 'vid_width':
 
-						$ret[ $key ] = $this->get_media_value( $og_videos, $mt_pre.':video:width' );
+						$ret[ $key ] = $this->get_media_value( $og_videos, $mt_pre . ':video:width' );
 
 						break;
 
 					case 'vid_height':
 
-						$ret[ $key ] = $this->get_media_value( $og_videos, $mt_pre.':video:height' );
+						$ret[ $key ] = $this->get_media_value( $og_videos, $mt_pre . ':video:height' );
 
 						break;
 
 					case 'prev_url':
 					case 'preview':
 
-						$ret[ $key ] = $this->get_media_value( $og_videos, $mt_pre.':video:thumbnail_url' );
+						$ret[ $key ] = $this->get_media_value( $og_videos, $mt_pre . ':video:thumbnail_url' );
 
 						break;
 
@@ -1392,13 +1386,13 @@ if ( ! class_exists( 'WpssoOpenGraph' ) ) {
 				} elseif ( $og_media[ $key ] === '' || $og_media[ $key ] === null ) {	// Allow for 0.
 
 					if ( $this->p->debug->enabled ) {
-						$this->p->debug->log( $og_media[ $key ].' value is empty (skipped)' );
+						$this->p->debug->log( $og_media[ $key ] . ' value is empty (skipped)' );
 					}
 
 				} elseif ( $og_media[ $key ] === WPSSO_UNDEF || $og_media[ $key ] === (string) WPSSO_UNDEF ) {
 
 					if ( $this->p->debug->enabled ) {
-						$this->p->debug->log( $og_media[ $key ].' value is '.WPSSO_UNDEF.' (skipped)' );
+						$this->p->debug->log( $og_media[ $key ] . ' value is ' . WPSSO_UNDEF . ' (skipped)' );
 					}
 
 				} else {
@@ -1469,7 +1463,7 @@ if ( ! class_exists( 'WpssoOpenGraph' ) ) {
 			if ( ! empty( $fb_pub_lang[ $locale ] ) ) {
 
 				if ( $this->p->debug->enabled ) {
-					$this->p->debug->log( 'returning valid facebook locale "'.$locale.'"' );
+					$this->p->debug->log( 'returning valid facebook locale "' . $locale . '"' );
 				}
 
 				return $locale;
@@ -1484,7 +1478,7 @@ if ( ! class_exists( 'WpssoOpenGraph' ) ) {
 			if ( ! empty( $fb_pub_lang[ $def_locale ] ) ) {
 
 				if ( $this->p->debug->enabled ) {
-					$this->p->debug->log( 'returning default locale "'.$def_locale.'"' );
+					$this->p->debug->log( 'returning default locale "' . $def_locale . '"' );
 				}
 
 				return $def_locale;
@@ -1567,6 +1561,38 @@ if ( ! class_exists( 'WpssoOpenGraph' ) ) {
 			}
 
 			return $mt_og;
+		}
+
+		public static function check_gtin_mt_value( &$mt_og, $prefix = 'product' ) {
+
+			if ( ! empty( $mt_og[ $prefix . ':gtin' ] ) ) {
+
+				/**
+				 * The value may come from a custom field, so trim it, just in case.
+				 */
+				$mt_og[ $prefix . ':gtin' ] = trim( $mt_og[ $prefix . ':gtin' ] );
+
+				$gtin_len = strlen( $mt_og[ $prefix . ':gtin' ] );
+
+				switch ( $gtin_len ) {
+
+					case 13:
+
+						if ( empty( $mt_og[ $prefix . ':ean' ] ) ) {
+							$mt_og[ $prefix . ':ean' ] = $mt_og[ $prefix . ':gtin' ];
+						}
+
+						break;
+
+					case 12:
+
+						if ( empty( $mt_og[ $prefix . ':upc' ] ) ) {
+							$mt_og[ $prefix . ':upc' ] = $mt_og[ $prefix . ':gtin' ];
+						}
+
+						break;
+				}
+			}
 		}
 	}
 }

@@ -28,12 +28,6 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 
 			$this->p->util->add_plugin_filters( $this, array( 'option_type' => 2 ), $prio = -100 );
 			$this->p->util->add_plugin_filters( $this, array( 'init_objects' => 0 ), $prio = 9000 );
-
-			if ( $this->p->debug->enabled ) {
-				$this->p->debug->log( 'running init_options action' );
-			}
-
-			do_action( $this->p->lca . '_init_options' );
 		}
 
 		public function get_defaults( $opt_key = false, $force_filter = false ) {
@@ -717,12 +711,12 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 
 				case 'ignore':
 
-					return $opt_val;	// stop here
+					return $opt_val;	// Stop here.
 
 					break;
 
-				case 'html':		// leave html, css, and javascript code blocks as-is
-				case 'code':		// code values cannot be blank
+				case 'html':		// Leave html, css, and javascript code blocks as-is.
+				case 'code':		// Code values cannot be blank.
 				case 'preg':
 
 					$opt_val = preg_replace( '/[\r]+/', '', $opt_val );
@@ -731,8 +725,8 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 
 				default:
 
-					$opt_val = wp_filter_nohtml_kses( $opt_val );	// strips all the HTML in the content
-					$opt_val = stripslashes( $opt_val );	// strip slashes added by wp_filter_nohtml_kses()
+					$opt_val = wp_filter_nohtml_kses( $opt_val );	// Strips all the HTML in the content.
+					$opt_val = stripslashes( $opt_val );		// Strip slashes added by wp_filter_nohtml_kses().
 
 					break;
 			}
@@ -802,17 +796,17 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 				case 'blank_num':
 
 					if ( '' === $opt_val ) {
+
 						$ret_int = false;
-					} else {
-						if ( ! is_numeric( $opt_val ) ) {
 
-							$this->p->notice->err( sprintf( $error_messages[ 'blank_num' ], $opt_key ) );
+					} elseif ( ! is_numeric( $opt_val ) ) {
 
-							$opt_val = $def_val;
+						$this->p->notice->err( sprintf( $error_messages[ 'blank_num' ], $opt_key ) );
 
-							if ( '' === $opt_val ) {
-								$ret_int = false;
-							}
+						$opt_val = $def_val;
+
+						if ( '' === $opt_val ) {
+							$ret_int = false;
 						}
 					}
 
@@ -978,15 +972,22 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 					$opt_val = trim( $opt_val );
 
 					if ( 'color' === $option_type ) {
+
 						$fmt = '/^#[a-fA-f0-9]{6,6}$/';				// Color as #000000.
+
 					} elseif ( 'date' === $option_type ) {
+
 						$fmt = '/^[0-9]{4,4}-[0-9]{2,2}-[0-9]{2,2}$/';		// Date as yyyy-mm-dd.
+
 					} elseif ( 'time' === $option_type ) {
+
 						$fmt = '/^[0-9]{2,2}:[0-9]{2,2}(:[0-9]{2,2})?$/';	// Time as hh:mm or hh:mm:ss.
 					}
 
 					if ( '' !== $opt_val && 'none' !== $opt_val && $fmt && ! preg_match( $fmt, $opt_val ) ) {
+
 						$this->p->notice->err( sprintf( $error_messages[ $option_type ], $opt_key ) );
+
 						$opt_val = $def_val;
 					}
 
@@ -1037,7 +1038,9 @@ if ( ! class_exists( 'WpssoOptions' ) ) {
 						$opt_val = SucomUtil::decode_html( $opt_val );	// Just in case.
 
 						if ( filter_var( $opt_val, FILTER_VALIDATE_URL ) === false ) {
+
 							$this->p->notice->err( sprintf( $error_messages[ 'url' ], $opt_key ) );
+
 							$opt_val = $def_val;
 						}
 					}

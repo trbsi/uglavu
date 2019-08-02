@@ -75,7 +75,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 
 							break;
 
-						case 'ecom-jck_wssv':
+						case 'ecom-jck-wssv':
 
 							$chk[ 'class' ] = 'JCK_WSSV';
 
@@ -87,13 +87,25 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 
 							break;
 
+						case 'ecom-woocommerce-brands':
+
+							$chk[ 'class' ] = 'WC_Brands';
+
+							break;
+
+						case 'ecom-woo-add-gtin':
+
+							$chk[ 'class' ] = 'Woo_GTIN';
+
+							break;
+
 						case 'ecom-wpecommerce':
 
 							$chk[ 'class' ] = 'WP_eCommerce';
 
 							break;
 
-						case 'ecom-wpm_product_gtin_wc':
+						case 'ecom-wpm-product-gtin-wc':
 
 							$chk[ 'class' ] = 'WPM_Product_GTIN_WC';
 
@@ -295,7 +307,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 
 							break;
 
-						case 'util-custom_fields':
+						case 'util-custom-fields':
 
 							$get_avail[ $sub ][ 'any' ] = $get_avail[ $sub ][ $id ] = true;
 
@@ -321,7 +333,7 @@ if ( ! class_exists( 'WpssoCheck' ) ) {
 
 							break;
 
-						case 'util-wpseo_meta':
+						case 'util-wpseo-meta':
 
 							$chk[ 'opt_key' ] = 'plugin_wpseo_social_meta';
 

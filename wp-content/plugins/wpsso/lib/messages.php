@@ -133,29 +133,15 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 
 					switch ( $msg_key ) {
 
-						case 'tooltip-meta-sharing_url':
+						case 'tooltip-meta-og_type':	// Open Graph Type
 
-							$text = __( 'A customized sharing URL for Facebook / Open Graph and Pinterest Rich Pin meta tags, Schema markup, and social sharing add-ons.', 'wpsso' ) . ' ';
-							
-							$text .= __( 'Please make sure the custom URL you enter here is functional and redirects correctly.', 'wpsso' );
+							$text = __( 'A customized Facebook / Open Graph type for this content.', 'wpsso' ) . ' ';
 
-						 	break;
-
-						case 'tooltip-meta-canonical_url':
-
-							$text = sprintf( __( 'A customized URL used for the "%1$s" head tag.', 'wpsso' ), 'link rel canonical' ) . ' ';
-							
-							$text .= __( 'Please make sure the custom URL you enter here is functional and redirects correctly.', 'wpsso' );
+							$text .= __( 'Please note that for sharing purposes, the Open Graph Type must be "article", "place", "product", or "website".', 'wpsso' ) . ' ';
 
 						 	break;
 
-						case 'tooltip-meta-schema_desc':
-
-							$text = __( 'A customized description for the Schema "description" property.', 'wpsso' );
-
-						 	break;
-
-						case 'tooltip-meta-og_title':
+						case 'tooltip-meta-og_title':	// Default Title
 
 							$settings_page_link = $this->p->util->get_admin_url( 'advanced#sucom-tabset_plugin-tab_content',
 								_x( 'Use Filtered (SEO) Title', 'option label', 'wpsso' ) );
@@ -167,25 +153,54 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 
 						 	break;
 
-						case 'tooltip-meta-og_desc':
+						case 'tooltip-meta-og_desc':	// Default Description
 
 							$text = sprintf( __( 'A customized description for the Facebook / Open Graph %s meta tag, and the default value for all other description meta tags.', 'wpsso' ), '<code>og:description</code>' ) . ' ';
-							
-							$text .= __( 'The default description value is based on the category / tag description or biographical info for users.', 'wpsso' ) . ' ';
 							
 							$text .= __( 'Update and save the custom Facebook / Open Graph description to change the default value of all other description fields.', 'wpsso' );
 
 						 	break;
 
-						case 'tooltip-meta-seo_desc':
+						case 'tooltip-meta-seo_desc':	// Search Description
 
 							$text = __( 'A customized description for the Google Search "description" meta tag.', 'wpsso' );
 
 						 	break;
 
-						case 'tooltip-meta-tc_desc':
+						case 'tooltip-meta-tc_desc':	// Twitter Card Desc
 
 							$text = __( 'A customized description for the Twitter Card description meta tag (all Twitter Card formats).', 'wpsso' );
+
+						 	break;
+
+						case 'tooltip-meta-sharing_url':	// Sharing URL
+
+							$text = __( 'A customized sharing URL for Facebook / Open Graph and Pinterest Rich Pin meta tags, Schema markup, and social sharing add-ons.', 'wpsso' ) . ' ';
+							
+							$text .= __( 'Please make sure the custom URL you enter here is functional and redirects correctly.', 'wpsso' );
+
+						 	break;
+
+						case 'tooltip-meta-canonical_url':	// Canonical URL
+
+							$text = sprintf( __( 'A customized URL used for the "%1$s" head tag.', 'wpsso' ), 'link rel canonical' ) . ' ';
+							
+							$text .= __( 'Please make sure the custom URL you enter here is functional and redirects correctly.', 'wpsso' );
+
+						 	break;
+
+						case 'tooltip-meta-og_art_section':	// Article Topic
+
+							$text = __( 'A customized topic for this article, which may be different from the default Article Topic selected in the General settings page.', 'wpsso' ) . ' ';
+
+							$text .= sprintf( __( 'Select "[None]" if you prefer to exclude the %s meta tag.', 'wpsso' ),
+								'<code>article:section</code>' );
+
+						 	break;
+
+						case 'tooltip-meta-schema_desc':
+
+							$text = __( 'A customized description for the Schema "description" property.', 'wpsso' );
 
 						 	break;
 
@@ -315,47 +330,6 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							break;
 
 					}	// End of tooltip-user switch.
-
-				/**
-				 * Post Meta settings
-				 */
-				} elseif ( strpos( $msg_key, 'tooltip-post-' ) === 0 ) {
-
-					switch ( $msg_key ) {
-
-						case 'tooltip-post-og_type':
-
-							$text = __( 'A customized Facebook / Open Graph type for this content.', 'wpsso' ) . ' ';
-
-							$text .= __( 'Please note that for sharing purposes, the Open Graph Type must be "article", "place", "product", or "website".', 'wpsso' ) . ' ';
-
-						 	break;
-
-						case 'tooltip-post-og_art_section':
-
-							$text = __( 'A customized topic for this article, which may be different from the default Article Topic selected in the General settings page.', 'wpsso' ) . ' ';
-
-							$text .= sprintf( __( 'Select "[None]" if you prefer to exclude the %s meta tag.', 'wpsso' ), '<code>article:section</code>' );
-
-						 	break;
-
-						case 'tooltip-post-og_desc':
-
-							$text = sprintf( __( 'A customized description for the Facebook / Open Graph %s meta tag, and the default value for all other description meta tags.', 'wpsso' ), '<code>og:description</code>' ) . ' ';
-
-							$text .= __( 'The default description value is based on the excerpt (if one is available) or content.', 'wpsso' ) . ' ';
-
-							$text .= __( 'Update and save the custom Facebook / Open Graph description to change the default value of all other description fields.', 'wpsso' );
-
-						 	break;
-
-						default:
-
-							$text = apply_filters( $lca . '_messages_tooltip_post', $text, $msg_key, $info );
-
-							break;
-
-					}	// End of tooltip-post switch.
 
 				/**
 				 * Site settings
@@ -616,12 +590,6 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 
 							break;
 
-						case 'tooltip-og_vid_html_type':	// Include text/html Type Meta Tags.
-
-							$text = 'Include additional Open Graph meta tags for the embed video URL as a text/html video type (default is checked).';
-
-							break;
-
 						case 'tooltip-og_vid_autoplay':		// Force Autoplay when Possible.
 
 							$text = 'When possible, add or modify the "autoplay" argument of video URLs in webpage meta tags (default is checked).';
@@ -773,12 +741,6 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							$text .= sprintf( __( 'Alternatively, you can edit your your theme header templates and add an action to call the \'%1$s\' filter.', 'wpsso' ), $filter_name ) . ' ';
 
 							$text .= sprintf( __( 'Example code for header templates: %1$s', 'wpsso' ), $php_code );
-
-							break;
-
-						case 'tooltip-plugin_honor_force_ssl':	// Honor the FORCE_SSL Constant.
-
-							$text = sprintf( __( 'If the FORCE_SSL constant is defined as true, %s can redirect front-end URLs from HTTP to HTTPS when required (default is checked).', 'wpsso' ), $info[ 'short' ] );
 
 							break;
 
@@ -1809,6 +1771,20 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 
 					switch ( $msg_key ) {
 
+						case 'info-woocommerce-cf-attr':
+
+							$text = '<p class="status-msg top">';
+							
+							$text .= __( 'Note that product attribute values from WooCommerce have precedence over custom field values.', 'wpsso' );
+							
+							$text .= '<br/>';
+
+							$text .= sprintf( __( 'Refer to the <a href="%s">WooCommerce integration notes</a> for information on setting up product attributes and custom fields.', 'wpsso' ), 'https://wpsso.com/docs/plugins/wpsso/installation/integration/woocommerce-integration/' );
+
+							$text .= '</p>';
+
+							break;
+
 						case 'info-plugin-tid':	// Displayed in the Licenses settings page.
 
 							$um_info       = $this->p->cf[ 'plugin' ][ 'wpssoum' ];
@@ -1942,7 +1918,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 
 						if ( WpssoAdmin::$pkg[ $this->p->lca ][ 'pp' ] ) {
 
-							$text = __( 'An e-commerce plugin is active &ndash; some product details may be managed by the e-commerce plugin.',
+							$text .= __( 'An e-commerce plugin is active &ndash; some product details may be managed from the e-commerce plugin.',
 								'wpsso' );
 
 						} else {
@@ -2347,7 +2323,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					'product_depth_value' => array(
 						_x( 'Product Depth', 'option label', 'wpsso' ),
 						sprintf( _x( 'a product depth (in %s)', 'tooltip fragment', 'wpsso' ),
-							WpssoSchema::get_data_unitcode_text( 'depth' ) ),
+							WpssoSchema::get_data_unit_text( 'depth' ) ),
 					),
 					'product_gtin14' => array(
 						_x( 'Product GTIN-14', 'option label', 'wpsso' ),
@@ -2372,7 +2348,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					'product_height_value' => array(
 						_x( 'Product Height', 'option label', 'wpsso' ),
 						sprintf( _x( 'a product height (in %s)', 'tooltip fragment', 'wpsso' ),
-							WpssoSchema::get_data_unitcode_text( 'height' ) ),
+							WpssoSchema::get_data_unit_text( 'height' ) ),
 					),
 					'product_isbn' => array(
 						_x( 'Product ISBN', 'option label', 'wpsso' ),
@@ -2381,7 +2357,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					'product_length_value' => array(
 						_x( 'Product Length', 'option label', 'wpsso' ),
 						sprintf( _x( 'a product length (in %s)', 'tooltip fragment', 'wpsso' ),
-							WpssoSchema::get_data_unitcode_text( 'length' ) ),
+							WpssoSchema::get_data_unit_text( 'length' ) ),
 					),
 					'product_material' => array(
 						_x( 'Product Material', 'option label', 'wpsso' ),
@@ -2410,17 +2386,17 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 					'product_volume_value' => array(
 						_x( 'Product Volume', 'option label', 'wpsso' ),
 						sprintf( _x( 'a product volume (in %s)', 'tooltip fragment', 'wpsso' ),
-							WpssoSchema::get_data_unitcode_text( 'volume' ) ),
+							WpssoSchema::get_data_unit_text( 'volume' ) ),
 					),
 					'product_weight_value' => array(
 						_x( 'Product Weight', 'option label', 'wpsso' ),
 						sprintf( _x( 'a product weight (in %s)', 'tooltip fragment', 'wpsso' ),
-							WpssoSchema::get_data_unitcode_text( 'weight' ) ),
+							WpssoSchema::get_data_unit_text( 'weight' ) ),
 					),
 					'product_width_value' => array(
 						_x( 'Product Width', 'option label', 'wpsso' ),
 						sprintf( _x( 'a product width (in %s)', 'tooltip fragment', 'wpsso' ),
-							WpssoSchema::get_data_unitcode_text( 'width' ) ),
+							WpssoSchema::get_data_unit_text( 'width' ) ),
 					),
 					'recipe_ingredients' => array(
 						_x( 'Recipe Ingredients', 'option label', 'wpsso' ),

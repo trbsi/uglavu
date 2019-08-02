@@ -24,6 +24,12 @@ This plugin runs and adds its enhacements only if the Blocksy theme is installed
 
 == Changelog ==
 
+1.1.5: 2019-08-01
+* New: Option for changing cookies consent on forms
+* Fix: `blocksy_get_colors()` call with proper defaults
+* Fix: Do not focus on quantity field on quick view open
+* Fix: Initialize quick view on infinite scroll load
+
 1.1.4: 2019-07-15
 * Fix: Quick view UI when not in Shop
 * Fix: Cookie Notice readme for WP Fastest Cache

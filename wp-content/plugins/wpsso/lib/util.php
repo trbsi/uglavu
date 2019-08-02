@@ -907,6 +907,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 			}
 
 			$obj_filter = array( 'public' => 1, 'show_ui' => 1 );
+
 			$ret = array();
 
 			switch ( $output ) {
@@ -934,24 +935,32 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 			if ( $output === 'objects' ) {
 
 				$unsorted = $ret;
-				$names = array();
+
+				$by_name = array();
+
 				$ret = array();
 
-				foreach ( $unsorted as $num => $pt ) {
+				foreach ( $unsorted as $num => $obj ) {
 
-					$ptn = empty( $pt->label ) ? $pt->name : $pt->label;
+					if ( ! empty( $obj->labels->name ) ) {
+						$sort_key = $obj->labels->name . '-' . $num;
+					} elseif ( ! empty( $obj->label ) ) {
+						$sort_key = $obj->label . '-' . $num;
+					} else {
+						$sort_key = $obj->name . '-' . $num;
+					}
 
-					$names[ $ptn ] = $num;
+					$by_name[ $sort_key ] = $num;	// Make sure key is sortable and unique.
 				}
 
-				ksort( $names );
+				ksort( $by_name );
 
-				foreach ( $names as $ptn => $num ) {
+				foreach ( $by_name as $sort_key => $num ) {
 
 					$ret[] = $unsorted[ $num ];
 				}
 
-				unset( $unsorted, $names );
+				unset( $unsorted, $by_name );
 			}
 
 			return apply_filters( $this->p->lca . '_get_post_types', $ret, $output );
@@ -967,6 +976,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 			}
 
 			$obj_filter = array( 'public' => 1, 'show_ui' => 1 );
+
 			$ret = array();
 
 			switch ( $output ) {
@@ -994,24 +1004,32 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 			if ( $output === 'objects' ) {
 
 				$unsorted = $ret;
-				$names = array();
+
+				$by_name = array();
+
 				$ret = array();
 
-				foreach ( $unsorted as $num => $tax ) {
+				foreach ( $unsorted as $num => $obj ) {
 
-					$ttn = empty( $tax->label ) ? $tax->name : $tax->label;
+					if ( ! empty( $obj->labels->name ) ) {
+						$sort_key = $obj->labels->name . '-' . $num;
+					} elseif ( ! empty( $obj->label ) ) {
+						$sort_key = $obj->label . '-' . $num;
+					} else {
+						$sort_key = $obj->name . '-' . $num;
+					}
 
-					$names[ $ttn ] = $num;
+					$by_name[ $sort_key ] = $num;	// Make sure key is sortable and unique.
 				}
 
-				ksort( $names );
+				ksort( $by_name );
 
-				foreach ( $names as $ttn => $num ) {
+				foreach ( $by_name as $sort_key => $num ) {
 
 					$ret[] = $unsorted[ $num ];
 				}
 
-				unset( $unsorted, $names );
+				unset( $unsorted, $by_name );
 			}
 
 			return apply_filters( $this->p->lca . '_get_taxonomies', $ret, $output );
@@ -1593,7 +1611,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 			return $deleted_count;
 		}
 
-		public function delete_all_db_transients( $clear_short = false, $only_prefix = '' ) {
+		public function delete_all_db_transients( $clear_short = false, $transient_prefix = '' ) {
 
 			if ( $this->p->debug->enabled ) {
 				$this->p->debug->mark();
@@ -1624,8 +1642,8 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 				/**
 				 * Maybe only clear a specific transient ID prefix.
 				 */
-				if ( $only_prefix ) {							// We're only clearing a specific prefix.
-					if ( strpos( $cache_id, $only_prefix ) !== 0 ) {		// The cache ID does not match that prefix.
+				if ( $transient_prefix ) {						// We're only clearing a specific prefix.
+					if ( strpos( $cache_id, $transient_prefix ) !== 0 ) {		// The cache ID does not match that prefix.
 						continue;						// Get the next transient.
 					}
 				}
@@ -1638,7 +1656,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 			return $deleted_count;
 		}
 
-		public function get_db_transient_size_mb( $decimals = 2, $dec_point = '.', $thousands_sep = ',' ) {
+		public function get_db_transient_size_mb( $decimals = 2, $dec_point = '.', $thousands_sep = ',', $transient_prefix = '' ) {
 
 			if ( $this->p->debug->enabled ) {
 				$this->p->debug->mark();
@@ -1646,10 +1664,14 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 			global $wpdb;
 
+			if ( empty( $transient_prefix ) ) {
+				$transient_prefix = $this->p->lca . '_';
+			}
+
 			$db_query = 'SELECT CHAR_LENGTH( option_value ) / 1024 / 1024';
 			$db_query .= ', CHAR_LENGTH( option_value )';
 			$db_query .= ' FROM ' . $wpdb->options;
-			$db_query .= ' WHERE option_name LIKE \'_transient_' . $this->p->lca . '_%\'';
+			$db_query .= ' WHERE option_name LIKE \'_transient_' . $transient_prefix . '%\'';
 			$db_query .= ';';	// End of query.
 
 			$result  = $wpdb->get_col( $db_query );
@@ -2567,6 +2589,9 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 			return $this->get_page_url( 'canonical', $mod, $add_page, $src_id );
 		}
 
+		/**
+		 * $type value is "sharing" or "canonical".
+		 */
 		private function get_page_url( $type, $mod, $add_page, $src_id ) {
 
 			if ( $this->p->debug->enabled ) {
@@ -2609,15 +2634,22 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 					} elseif ( $mod[ 'post_status' ] !== 'publish' ) {
 
-						$post_obj = self::get_post_object( $mod[ 'id' ] );
+						$post_obj = self::get_post_object( $mod[ 'id' ], $output = 'object' );
 
-						$post_obj->post_status = 'publish';
-						$post_obj->post_name   = $post_obj->post_name ? 
-							$post_obj->post_name : sanitize_title( $post_obj->post_title );
+						if ( is_object( $post_obj ) ) {
 
-						$url = get_permalink( $post_obj );
+							if ( ! is_wp_error( $post_obj ) ) {
 
-						if ( empty( $url ) ) {	// Just in case.
+								$post_obj->post_status = 'publish';
+
+								$post_obj->post_name = $post_obj->post_name ? 
+									$post_obj->post_name : sanitize_title( $post_obj->post_title );
+
+								$url = get_permalink( $post_obj );
+							}
+						}
+
+						if ( empty( $url ) ) {
 							$url = get_permalink( $mod[ 'id' ] );
 						}
 
@@ -2785,16 +2817,13 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 			/**
 			 * Check and possibly enforce the FORCE_SSL constant.
 			 */
-			if ( ! empty( $this->p->options[ 'plugin_honor_force_ssl' ] ) ) {
+			if ( self::get_const( 'FORCE_SSL' ) && ! SucomUtil::is_https( $url ) ) {
 
-				if ( self::get_const( 'FORCE_SSL' ) && 0 === strpos( $url, 'http:' ) ) {
-
-					if ( $this->p->debug->enabled ) {
-						$this->p->debug->log( 'force ssl is enabled - replacing http by https' );
-					}
-
-					$url = preg_replace( '/^http:/', 'https:', $url );
+				if ( $this->p->debug->enabled ) {
+					$this->p->debug->log( 'force ssl is enabled - replacing http by https' );
 				}
+
+				$url = set_url_scheme( $url, 'https' );
 			}
 
 			return apply_filters( $this->p->lca . '_' . $type . '_url', $url, $mod, $add_page, $src_id );
@@ -3922,15 +3951,15 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 						$mt_units = $mt_match[ 1 ] . ':units';
 
 						if ( $this->p->debug->enabled ) {
-							$this->p->debug->log( 'checking for ' . $mt_units . ' unitcode text' );
+							$this->p->debug->log( 'checking for ' . $mt_units . ' unit text' );
 						}
 
 						if ( isset( $og_type_mt_md[ $mt_units ] ) ) {
 
-							if ( $unit_text = WpssoSchema::get_data_unitcode_text( $unit_match[ 1 ] ) ) {
+							if ( $unit_text = WpssoSchema::get_data_unit_text( $unit_match[ 1 ] ) ) {
 						
 								if ( $this->p->debug->enabled ) {
-									$this->p->debug->log( $mt_units . ' from unitcode text = ' . $unit_text );
+									$this->p->debug->log( $mt_units . ' from unit text = ' . $unit_text );
 								}
 
 								$mt_og[ $mt_units ] = $unit_text;

@@ -227,7 +227,7 @@ function blc_output_instagram_section($forced = false) {
 				);
 			?>
 		</ul>
-		<a href="https://instagram.com/<?php echo esc_attr($username) ?>" target="_blank" class="ct-instagram-follow">
+		<a href="https://instagram.com/<?php echo esc_attr($username) ?>" target="_blank" class="ct-instagram-follow ct-button">
 			@<?php echo esc_html($username) ?>
 		</a>
 	</div>

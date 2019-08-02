@@ -1,4 +1,4 @@
-=== WPSSO Core - Advanced Open Graph, Rich Pin, Twitter Card, Social Meta Tags, SEO Rich Results, Schema Markup ===
+=== WPSSO Core - Advanced Open Graph, Rich Pin, Twitter Card, Meta Tags, SEO Rich Results, and Schema Markup ===
 Plugin Name: WPSSO Core [Main Plugin]
 Plugin Slug: wpsso
 Text Domain: wpsso
@@ -11,7 +11,7 @@ Contributors: jsmoriss
 Requires At Least: 3.8
 Tested Up To: 5.2.2
 WC Tested Up To: 3.6
-Stable Tag: 5.3.1
+Stable Tag: 5.4.0
 
 WPSSO Core makes sure your content looks great on all social and search sites, no matter how URLs are crawled, shared, re-shared, posted or embedded!
 
@@ -31,7 +31,7 @@ WPSSO Core is also language / locale aware, which means you can customize your s
 
 **Creates *complete and accurate* meta tags and Schema markup:**
 
-WPSSO Core and its optional add-ons offer meta tags and Schema markup for Facebook / Open Graph, Google's Knowledge Graph, Google Rich Results SEO (see the [WPSSO JSON add-on](https://wordpress.org/plugins/wpsso-schema-json-ld/)), Google Merchant, Mobile Web Browsers, Pinterest Rich Pins, Twitter Cards, Weibo and many more &mdash; including complete markup for image SEO, video SEO, extensive e-Commerce product markup (for WooCommerce and others), mobile apps, author profile / authorship, co-authors, publisher information, local business markup, aggregate ratings, reviews, recipe information, event details, and much, much more &mdash; all from your existing WordPress content!
+WPSSO Core and its optional add-ons offer meta tags and Schema markup for Facebook / Open Graph, Google's Knowledge Graph, Google SEO Rich Results (see the [WPSSO JSON add-on](https://wordpress.org/plugins/wpsso-schema-json-ld/)), Google Merchant, Mobile Web Browsers, Pinterest Rich Pins, Twitter Cards, Weibo and many more &mdash; including complete markup for image SEO, video SEO, extensive e-Commerce product markup (for WooCommerce and others), mobile apps, author profile / authorship, co-authors, publisher information, local business markup, aggregate ratings, reviews, recipe information, event details, and much, much more &mdash; all from your existing WordPress content!
 
 **Includes advanced *quality assurance* features and options:**
 
@@ -62,7 +62,7 @@ WPSSO Core and its optional add-ons offer meta tags and Schema markup for Facebo
 
 * Uses images from numerous sources, including featured, attached, gallery shortcode, images from HTML tags, or a custom fallback image.
 
-* Image dimension settings for Facebook / Open Graph, Schema markup, Google Rich Results SEO, Pinterest Rich Pins, and Twitter Cards.
+* Image dimension settings for Facebook / Open Graph, Schema markup, Google SEO Rich Results, Pinterest Rich Pins, and Twitter Cards.
 
 * Contextual help for *every* plugin option and [comprehensive online documentation](https://wpsso.com/docs/plugins/wpsso/).
 
@@ -278,7 +278,9 @@ WPSSO Core and its optional add-ons offer meta tags and Schema markup for Facebo
 		* [Simple Job Board](https://wordpress.org/plugins/simple-job-board/)
 		* [The Events Calendar](https://wordpress.org/plugins/the-events-calendar/)
 		* [The SEO Framework](https://wordpress.org/plugins/autodescription/)
-		* [WooCommerce](https://wordpress.org/plugins/woocommerce/) (versions 1, 2, and 3)
+		* [WooCommerce](https://wordpress.org/plugins/woocommerce/)
+		* [WooCommerce Brands](https://woocommerce.com/products/brands/)
+		* [WooCommerce UPC, EAN, and ISBN](https://wordpress.org/plugins/woo-add-gtin/)
 		* WooCommerce Show Single Variations
 		* [WP eCommerce](https://wordpress.org/plugins/wp-e-commerce/)
 		* [WP Job Manager](https://wordpress.org/plugins/wp-job-manager/)
@@ -434,6 +436,33 @@ Version components: `{major}.{minor}.{bugfix}[-{stage}.{level}]`
 
 <h3>Changelog / Release Notes</h3>
 
+**Version 5.4.0 (2019/08/02)**
+
+* **New Features**
+	* Added a new WPSSO FAQ Manager (aka WPSSO FAQ) add-on.
+	* Added support for the [WooCommerce Brands](https://woocommerce.com/products/brands/) plugin (Premium version).
+	* Added support for the [WooCommerce UPC, EAN, and ISBN](https://wordpress.org/plugins/woo-add-gtin/) plugin (Premium version).
+* **Improvements**
+	* Added a webpage HTML maximum size check (2.5 MB) when checking for duplicate meta tags.
+	* Removed the SSO &gt; Advanced &gt; Integration &gt; Honor the FORCE_SSL Constant option.
+	* Changed the single "Part of URL" option in the Document SSO metabox to a multiple input option.
+* **Bugfixes**
+	* None.
+* **Developer Notes**
+	* Added extra sanity checks in SucomUtil::get_page_url() for edge cases when `get_post()` does not (or cannot) return a post object.
+	* Unified the post.php, term.php, and user.php library files under lib/*/admin/ in a single meta-edit.php library file.
+
+**Version 5.3.2 (2019/07/28)**
+
+* **New Features**
+	* None.
+* **Improvements**
+	* Added an "MB" size column in the SSO &gt; Dashboard &gt; Cache Status metabox.
+* **Bugfixes**
+	* Fixed the Document SSO &gt; Head &gt; og:video and og:image tags showing as empty.
+* **Developer Notes**
+	* Refactored a few lines in the WpssoProEcomWoocommerce class to replace method_exists() with is_callable().
+
 **Version 5.3.1 (2019/07/23)**
 
 * **New Features**
@@ -504,9 +533,9 @@ This version includes several jQuery improvements to optimize both the size of s
 	* Fixed missing "product:weight:units" meta tag when a Product Weight value is entered in the Document SSO metabox.
 * **Developer Notes**
 	* Moved the WpssoWpMeta::get_custom_fields() method to a 'wpsso_get_custom_fields' filter hook.
-	* Added a new WpssoConfig::$cf[ 'head' ][ 'schema_unitcodes' ] array.
-	* Refactored the WpssoSchema::add_data_unitcode_from_assoc() method.
-	* Added a new WpssoSchema::get_data_unitcode_text() static method.
+	* Added a new WpssoConfig::$cf[ 'head' ][ 'schema_units' ] array.
+	* Refactored the WpssoSchema::add_data_unit_from_assoc() method.
+	* Added a new WpssoSchema::get_data_unit_text() static method.
 	* Added a new WpssoAdmin::get_option_unit_comment() static method.
 	* Added minimum text length support to the SucomForm::get_input() method.
 
@@ -576,7 +605,7 @@ This version includes several jQuery improvements to optimize both the size of s
 
 == Upgrade Notice ==
 
-= 5.3.1 =
+= 5.4.0 =
 
-(2019/07/23) Fixed incorrect substr() in WpssoMessages::get_ext_p_ext().
+(2019/08/02) Added support for the WooCommerce Brands plugin (Premium version). Added a webpage HTML maximum size check (2.5 MB) when checking for duplicate meta tags.
 

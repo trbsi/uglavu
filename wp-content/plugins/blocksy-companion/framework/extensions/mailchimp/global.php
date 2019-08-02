@@ -1,23 +1,23 @@
 <?php
 
 // Mailchimp
-$mailchimpContent = blocksy_get_colors( get_theme_mod(
-	'mailchimpContent',
-	[ 'default' => [ 'color' => 'var(--paletteColor3)' ] ]
-));
+$mailchimpContent = blocksy_get_colors(
+	get_theme_mod('mailchimpContent'),
+	['default' => ['color' => 'var(--paletteColor3)']]
+);
 
 $css->put(
 	':root',
 	"--mailchimpContent: {$mailchimpContent['default']}"
 );
 
-$mailchimpButton = blocksy_get_colors( get_theme_mod(
-	'mailchimpButton',
+$mailchimpButton = blocksy_get_colors(
+	get_theme_mod('mailchimpButton'),
 	[
 		'default' => [ 'color' => 'var(--paletteColor1)' ],
 		'hover' => [ 'color' => 'var(--paletteColor2)' ],
 	]
-));
+);
 
 $css->put(
 	'.ct-mailchimp-block',
@@ -29,20 +29,20 @@ $css->put(
 	"--buttonHoverColor: {$mailchimpButton['hover']}"
 );
 
-$mailchimpBackground = blocksy_get_colors( get_theme_mod(
-	'mailchimpBackground',
-	[ 'default' => [ 'color' => '#ffffff' ] ]
-));
+$mailchimpBackground = blocksy_get_colors(
+	get_theme_mod('mailchimpBackground'),
+	['default' => ['color' => '#ffffff']]
+);
 
 $css->put(
 	':root',
 	"--mailchimpBackground: {$mailchimpBackground['default']}"
 );
 
-$mailchimpShadow = blocksy_get_colors( get_theme_mod(
-	'mailchimpShadow',
-	[ 'default' => [ 'color' => 'rgba(210, 213, 218, 0.4)' ] ]
-));
+$mailchimpShadow = blocksy_get_colors(
+	get_theme_mod('mailchimpShadow'),
+	['default' => ['color' => 'rgba(210, 213, 218, 0.4)']]
+);
 
 $css->put(
 	':root',

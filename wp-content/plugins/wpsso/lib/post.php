@@ -296,15 +296,9 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 					$mod = $this->get_mod( $post_id );
 
 					/**
-					 * The 'get_custom_fields' filter is executed before the
+					 * The 'get_custom_fields' filter is executed BEFORE the
 					 * 'wpsso_get_post_options' filter, so values retrieved from
 					 * custom fields may get* overwritten by later filters.
-					 *
-					 * For example, the WooCommerce integration module hooks the
-					 * 'wpsso_get_post_options' filter and provides information
-					 * about the main / simple product, including any product
-					 * attributes, and disables these options in the Document SSO
-					 * metabox.
 					 */
 					$this->opts[ $post_id ] = apply_filters( $this->p->lca . '_get_custom_fields',
 						$this->opts[ $post_id ], get_post_meta( $post_id ) );
@@ -937,8 +931,26 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 			$webpage_html = $this->p->cache->get( $check_url, 'raw', 'transient', $exp_secs, '', $curl_opts );
 			$url_mtime    = $this->p->cache->get_url_mtime( $check_url );
 
+			$html_size    = strlen( $webpage_html );
+			$error_size   = (int) SucomUtil::get_const( 'WPSSO_DUPE_CHECK_ERROR_SIZE', 2500000 );
 			$warning_time = (int) SucomUtil::get_const( 'WPSSO_DUPE_CHECK_WARNING_TIME', 2.5 );
 			$timeout_time = (int) SucomUtil::get_const( 'WPSSO_DUPE_CHECK_TIMEOUT_TIME', 3.0 );
+
+			if ( $html_size > $error_size ) {
+
+				if ( $this->p->debug->enabled ) {
+					$this->p->debug->log( 'size of ' . $check_url . ' is ' . $html_size . ' bytes' );
+				}
+
+				if ( $is_admin ) {
+					$this->p->notice->err(
+						sprintf( __( 'The webpage HTML retrieved from %1$s is %2$s bytes.', 'wpsso' ),
+							'<a href="' . $check_url . '">' . $check_url_htmlenc . '</a>', $html_size ) . ' ' . 
+						sprintf( __( 'This exceeds the maximum limit of %1$s bytes imposed by the Google crawler.', 'wpsso' ), $error_size ) . ' ' . 
+						__( 'If you do not reduce the webpage HTML size, Google will refuse to crawl this webpage.', 'wpsso' )
+					);
+				}
+			}
 
 			if ( true === $url_mtime ) {
 
@@ -958,9 +970,9 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 					$this->p->debug->log( 'fetched ' . $check_url . ' in ' . $url_mtime . ' secs' );
 				}
 
-				if ( is_admin() && $url_mtime > $warning_time ) {
+				if ( $is_admin && $url_mtime > $warning_time ) {
 					$this->p->notice->warn(
-						sprintf( __( 'Retrieving the HTML document for %1$s took %2$s seconds.', 'wpsso' ),
+						sprintf( __( 'Retrieving the webpage HTML for %1$s took %2$s seconds.', 'wpsso' ),
 							'<a href="' . $check_url . '">' . $check_url_htmlenc . '</a>', $url_mtime ) . ' ' . 
 						sprintf( __( 'This exceeds the recommended limit of %1$s seconds (crawlers often time-out after %2$s seconds).',
 							'wpsso' ), $warning_time, $timeout_time ) . ' ' . 
@@ -1360,10 +1372,9 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 
 		protected function get_table_rows( $metabox_id, $tab_key, $head, $mod ) {
 
-			$is_auto_draft  = empty( $mod[ 'post_status' ] ) || $mod[ 'post_status' ] === 'auto-draft' ? true : false;
+			$is_auto_draft = SucomUtil::is_auto_draft( $mod );
 
-			$auto_draft_msg = sprintf( __( 'Save a draft version or publish the %s to display these options.', 'wpsso' ),
-				SucomUtil::titleize( $mod[ 'post_type' ] ) );
+			$save_draft_msg = __( 'Save a draft version or publish to update this value.', 'wpsso' );
 
 			$table_rows = array();
 
@@ -1379,7 +1390,7 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 
 					if ( $is_auto_draft ) {
 						$table_rows[] = '<td><blockquote class="status-info"><p class="centered">' .
-							$auto_draft_msg . '</p></blockquote></td>';
+							$save_draft_msg . '</p></blockquote></td>';
 					} else {
 						$table_rows = $this->get_rows_head_tab( $this->form, $head, $mod );
 					}
@@ -1390,7 +1401,7 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 
 					if ( $is_auto_draft ) {
 						$table_rows[] = '<td><blockquote class="status-info"><p class="centered">' .
-							$auto_draft_msg . '</p></blockquote></td>';
+							$save_draft_msg . '</p></blockquote></td>';
 					} else {
 						$table_rows = $this->get_rows_validate_tab( $this->form, $head, $mod );
 					}
@@ -1653,6 +1664,10 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 
 		public function add_post_column_headings( $columns ) {
 
+			if ( $this->p->debug->enabled ) {
+				$this->p->debug->mark();
+			}
+
 			return $this->add_mod_column_headings( $columns, 'post' );
 		}
 
@@ -1694,8 +1709,8 @@ if ( ! class_exists( 'WpssoPost' ) ) {
 
 				if ( count( $ret ) > $reviews_max ) {
 
-					if ( $wpsso->debug->enabled ) {
-						$wpsso->debug->log( count( $ret ) . ' reviews found (adjusted to ' . $reviews_max . ')' );
+					if ( $this->p->debug->enabled ) {
+						$this->p->debug->log( count( $ret ) . ' reviews found (adjusted to ' . $reviews_max . ')' );
 					}
 
 					$ret = array_slice( $ret, 0, $reviews_max );

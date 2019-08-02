@@ -94,18 +94,18 @@ if ( ! class_exists( 'WpssoStyle' ) ) {
 
 					$this->add_settings_page_style( $hook_name, WPSSO_URLPATH, $css_file_ext, $plugin_version );
 
-					// no break
+					// No break.
 
 				/**
 				 * Editing page.
 				 */
-				case 'post.php':	// post edit
-				case 'post-new.php':	// post edit
-				case 'term.php':	// term edit
-				case 'edit-tags.php':	// term edit
-				case 'user-edit.php':	// user edit
-				case 'profile.php':	// user edit
-				case ( SucomUtil::is_toplevel_edit( $hook_name ) ):	// required for event espresso plugin
+				case 'post.php':	// Post edit.
+				case 'post-new.php':	// Post edit.
+				case 'term.php':	// Term edit.
+				case 'edit-tags.php':	// Term edit.
+				case 'user-edit.php':	// User edit.
+				case 'profile.php':	// User edit.
+				case ( SucomUtil::is_toplevel_edit( $hook_name ) ):	// Required for event espresso plugin.
 
 					if ( $this->p->debug->enabled ) {
 						$this->p->debug->log( 'enqueuing styles for editing page' );
@@ -117,7 +117,7 @@ if ( ! class_exists( 'WpssoStyle' ) ) {
 					wp_enqueue_style( 'sucom-metabox-tabs' );
 					wp_enqueue_style( 'wp-color-picker' );
 
-					break;	// stop here
+					break;	// Stop here.
 
 				case 'plugin-install.php':
 
@@ -264,7 +264,7 @@ if ( ! class_exists( 'WpssoStyle' ) ) {
 			}
 
 			if ( $this->p->debug->enabled ) {
-				$this->p->debug->mark( 'create and minify admin page style' );	// begin timer
+				$this->p->debug->mark( 'create and minify admin page style' );	// Begin timer.
 			}
 
 			$sort_cols  = WpssoWpMeta::get_sortable_columns();
@@ -477,12 +477,16 @@ if ( ! class_exists( 'WpssoStyle' ) ) {
 					width:15%;
 				}
 				table.wp-list-table > thead > tr > th.column-categories,
-				table.wp-list-table > tbody > tr > td.column-categories {
-					width:15%;
+				table.wp-list-table > tbody > tr > td.column-categories,
+				table.wp-list-table > thead > tr > th.column-product_cat,
+				table.wp-list-table > tbody > tr > td.column-product_cat {
+					width:15% !important;
 				}
 				table.wp-list-table > thead > tr > th.column-tags,
-				table.wp-list-table > tbody > tr > td.column-tags {
-					width:15%;
+				table.wp-list-table > tbody > tr > td.column-tags,
+				table.wp-list-table > thead > tr > th.column-product_tag,
+				table.wp-list-table > tbody > tr > td.column-product_tag {
+					width:15% !important;
 				}
 				table.wp-list-table > thead > tr > th.column-description,
 				table.wp-list-table > tbody > tr > td.column-description {
@@ -500,7 +504,17 @@ if ( ! class_exists( 'WpssoStyle' ) ) {
 				table.wp-list-table > tbody > tr > td.num,
 				table.wp-list-table > thead > tr > th.column-comments,
 				table.wp-list-table > tbody > tr > td.column-comments {
-					width:80px;	/* Leave room for sorting arrow. */
+					width:50px;
+				}
+				table.wp-list-table > thead > tr > th.column-featured,
+				table.wp-list-table > tbody > tr > td.column-featured {
+					width:20px;
+				}
+				table.wp-list-table > thead > tr > th.column-sku,
+				table.wp-list-table > tbody > tr > td.column-sku,
+				table.wp-list-table > thead > tr > th.column-wpm_pgw_code,
+				table.wp-list-table > tbody > tr > td.column-wpm_pgw_code {
+					width:80px;
 				}
 				table.wp-list-table > thead > tr > th.column-date,
 				table.wp-list-table > tbody > tr > td.column-date,
@@ -517,6 +531,10 @@ if ( ! class_exists( 'WpssoStyle' ) ) {
 				table.wp-list-table > thead > tr > th.column-term-id,
 				table.wp-list-table > tbody > tr > td.column-term-id {
 					width:40px;
+				}
+				table.wp-list-table > thead > tr > th.column-thumb,	/* WooCommerce Brands */
+				table.wp-list-table > tbody > tr > td.column-thumb {
+					width:60px;
 				}
 				table.wp-list-table > thead > tr > th.column-wpseo-links,	/* Yoast SEO. */
 				table.wp-list-table > tbody > tr > td.column-wpseo-links,
@@ -609,7 +627,7 @@ if ( ! class_exists( 'WpssoStyle' ) ) {
 			wp_add_inline_style( 'sucom-admin-page', $custom_style_css );
 
 			if ( $this->p->debug->enabled ) {
-				$this->p->debug->mark( 'create and minify admin page style' );	// end timer
+				$this->p->debug->mark( 'create and minify admin page style' );	// End timer.
 			}
 		}
 

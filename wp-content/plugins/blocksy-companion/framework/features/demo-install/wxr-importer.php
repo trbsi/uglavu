@@ -667,7 +667,7 @@ class Blocksy_WXR_Importer extends \WP_Importer {
 		 * Fires before the import process has begun. If you need to suspend
 		 * caching or heavy processing on hooks, do so here.
 		 */
-		do_action( 'import_start' );
+		do_action( 'import_start', $file );
 	}
 
 	/**
@@ -735,7 +735,7 @@ class Blocksy_WXR_Importer extends \WP_Importer {
 	 * @param DOMElement $node Parent node of post data (typically `item`).
 	 * @return array|WP_Error Post data array on success, error otherwise.
 	 */
-	protected function parse_post_node( $node ) {
+	public function parse_post_node( $node ) {
 		$data = array();
 		$meta = array();
 		$comments = array();

@@ -171,6 +171,24 @@ $options = [
 					],
 				],
 
+
+				blocksy_rand_md5() => [
+					'type' => 'ct-title',
+					'label' => __( 'Forms Section', 'blocksy' ),
+				],
+
+				'forms_cookie_consent_content' => [
+					'label' => __( 'Content', 'blc' ),
+					'type' => 'textarea',
+					'design' => 'block',
+					'value' => sprintf(
+						__('I accept the %sPrivacy Policy%s', 'blc'),
+						'<a href="/privacy-policy">',
+						'</a>'
+					),
+					'setting' => [ 'transport' => 'postMessage' ],
+				],
+
 			],
 		],
 	],

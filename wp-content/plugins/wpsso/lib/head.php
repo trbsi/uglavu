@@ -243,7 +243,9 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 							}
 
 							if ( ! empty( $mt[ 5 ] ) ) {
+
 								$head_info[ $mt_prefix ] = $mt[ 5 ];	// Save the media URL.
+
 								$is_first = true;
 							}
 
@@ -481,7 +483,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 								$this->p->debug->mark( 'build head array' );	// end timer
 							}
 
-							return $cache_array[ $cache_index ];	// stop here
+							return $cache_array[ $cache_index ];	// Stop here.
 
 						} else {
 
@@ -655,11 +657,15 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			}
 
 			if ( empty( $mt_array ) ) {
+
 				return array();
+
 			} elseif ( ! is_array( $mt_array ) ) {
+
 				if ( $this->p->debug->enabled ) {
 					$this->p->debug->log( 'exiting early: mt_array argument is not an array' );
 				}
+
 				return array();
 			}
 
@@ -695,21 +701,11 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 							if ( isset( $dd_val[ 'og:video:type' ] ) ) {
 
 								/**
-								 * og:video:has_image will be false if ithere is no preview 
+								 * og:video:has_image will be false if there is no preview 
 								 * image, or the preview image is a duplicate.
 								 */
 								if ( empty( $dd_val[ 'og:video:has_image' ] ) ) {
 									$use_video_image = false;
-								}
-
-								if ( $dd_val[ 'og:video:type' ] === 'text/html' ) {
-
-									/**
-									 * Skip if 'text/html' video markup is disabled.
-									 */
-									if ( empty( $this->p->options[ 'og_vid_html_type' ] ) ) {
-										continue;
-									}
 								}
 							}
 
@@ -848,66 +844,93 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 				$value = $this->p->util->replace_inline_vars( $value, $mod );
 			}
 
-			static $secure_url = null;
+			static $last_secure_url = null;
+			static $last_url        = null;
 
 			switch ( $name ) {
 
 				case 'og:image:secure_url':
 				case 'og:video:secure_url':
 
-					if ( ! empty( $value ) ) {
+					/**
+					 * The secure url meta tag should always come first, but just in case
+					 * it doesn't, make sure the url value has not already been added.
+					 */
+					if ( $last_url !== $value ) {	// Just in case.
 
-						if ( SucomUtil::is_https( $value ) ) {	// Only HTTPS.
-							$singles[] = array( '', $tag, $type, $name, $attr, $value, $cmt );
+						if ( $value ) {
+
+							$name_secure_url = $name;
+							$name_url        = str_replace( ':secure_url', ':url', $name );
+							$name_no_url     = str_replace( ':secure_url', '', $name );
+
+							if ( SucomUtil::is_https( $value ) ) {
+								$singles[] = array( '', $tag, $type, $name_secure_url, $attr, $value, $cmt );
+							}
+
+							$singles[] = array( '', $tag, $type, $name_url, $attr, $value, $cmt );
+							$singles[] = array( '', $tag, $type, $name_no_url, $attr, $value, $cmt );
+
+							$last_secure_url = $value;
+
+							if ( $this->p->debug->enabled ) {
+								$this->p->debug->log_arr( 'singles', $singles );
+							}
 						}
-
-						$name_url_suffix = str_replace( ':secure_url', ':url', $name );
-						$name_no_suffix  = str_replace( ':secure_url', '', $name );
-
-						$singles[] = array( '', $tag, $type, $name_url_suffix, $attr, $value, $cmt );
-						$singles[] = array( '', $tag, $type, $name_no_suffix, $attr, $value, $cmt );
 					}
 
-					$secure_url = $value;
-
-					if ( $this->p->debug->enabled ) {
-						$this->p->debug->log_arr( 'singles', $singles );
-					}
+					$last_url = null;
 
 					break;
 
 				case 'og:image:url':
 				case 'og:video:url':
 
-					if ( $secure_url !== $value ) {	// Just in case.
+					/**
+					 * The previous switch block would have set all three meta tags already, so
+					 * only proceed if the last secure url (empty or not) is not equal to the
+					 * current url value (empty or not).
+					 */
+					if ( $last_secure_url !== $value ) {	// Just in case.
 
-						/**
-						 * The 'add_meta_property_og:image:secure_url' and
-						 * 'add_meta_property_og:video:secure_url' options
-						 * are disabled by default.
-						 */
-						if ( ! empty( $this->p->options[ 'add_meta_property_og:image:secure_url' ] ) ) {
+						if ( $value ) {
+					
+							$name_secure_url = str_replace( ':url', ':secure_url', $name );
+							$name_url        = $name;
+							$name_no_url     = str_replace( ':url', '', $name );
 
-							$name_secure_suffix = str_replace( ':url', ':secure_url', $name );
-							$value_secure_url   = set_url_scheme( $value, 'https' );	// Force https.
-							$value              = set_url_scheme( $value, 'http' );		// Force HTTP.
+							if ( SucomUtil::is_https( $value ) ) {
+								$singles[] = array( '', $tag, $type, $name_secure_url, $attr, $value, $cmt );
+							}
 
-							$singles[] = array( '', $tag, $type, $name_secure_suffix, $attr, $value_secure_url, $cmt );
+							$singles[] = array( '', $tag, $type, $name_url, $attr, $value, $cmt );
+							$singles[] = array( '', $tag, $type, $name_no_url, $attr, $value, $cmt );
+					
+							$last_url = $value;
+					
+							if ( $this->p->debug->enabled ) {
+								$this->p->debug->log_arr( 'singles', $singles );
+							}
 						}
-
-						$name_no_suffix = str_replace( ':url', '', $name );
-	
-						$singles[] = array( '', $tag, $type, $name, $attr, $value, $cmt );
-						$singles[] = array( '', $tag, $type, $name_no_suffix, $attr, $value, $cmt );
 					}
 
-					$secure_url = null;
-
-					if ( $this->p->debug->enabled ) {
-						$this->p->debug->log_arr( 'singles', $singles );
-					}
+					$last_secure_url = null;
 
 					break;
+
+				case 'og:image':
+				case 'og:video':
+
+					/**
+					 * The previous two switch blocks would have set all three meta tags aready,
+					 * so only proceed if we have a value, and it does not match the last
+					 * secure url (empty or not) or the last insecure url (empty or not).
+					 */
+					if ( empty( $value ) || $value === $last_secure_url || $value === $last_url ) {
+						break;
+					}
+
+					// No break.
 
 				default:
 

@@ -1,9 +1,9 @@
-<h1>WPSSO Core</h1><h3>Advanced Open Graph, Rich Pin, Twitter Card, Social Meta Tags, SEO Rich Results, Schema Markup</h3>
+<h1>WPSSO Core</h1><h3>Advanced Open Graph, Rich Pin, Twitter Card, Meta Tags, SEO Rich Results, and Schema Markup</h3>
 
 <table>
 <tr><th align="right" valign="top" nowrap>Plugin Name</th><td>WPSSO Core [Main Plugin]</td></tr>
 <tr><th align="right" valign="top" nowrap>Summary</th><td>WPSSO Core makes sure your content looks great on all social and search sites, no matter how URLs are crawled, shared, re-shared, posted or embedded!</td></tr>
-<tr><th align="right" valign="top" nowrap>Stable Version</th><td>5.3.1</td></tr>
+<tr><th align="right" valign="top" nowrap>Stable Version</th><td>5.4.0</td></tr>
 <tr><th align="right" valign="top" nowrap>Requires At Least</th><td>WordPress 3.8</td></tr>
 <tr><th align="right" valign="top" nowrap>Tested Up To</th><td>WordPress 5.2.2</td></tr>
 <tr><th align="right" valign="top" nowrap>Contributors</th><td>jsmoriss</td></tr>
@@ -27,7 +27,7 @@
 
 <p><strong>Creates <em>complete and accurate</em> meta tags and Schema markup:</strong></p>
 
-<p>WPSSO Core and its optional add-ons offer meta tags and Schema markup for Facebook / Open Graph, Google's Knowledge Graph, Google Rich Results SEO (see the <a href="https://wordpress.org/plugins/wpsso-schema-json-ld/">WPSSO JSON add-on</a>), Google Merchant, Mobile Web Browsers, Pinterest Rich Pins, Twitter Cards, Weibo and many more &mdash; including complete markup for image SEO, video SEO, extensive e-Commerce product markup (for WooCommerce and others), mobile apps, author profile / authorship, co-authors, publisher information, local business markup, aggregate ratings, reviews, recipe information, event details, and much, much more &mdash; all from your existing WordPress content!</p>
+<p>WPSSO Core and its optional add-ons offer meta tags and Schema markup for Facebook / Open Graph, Google's Knowledge Graph, Google SEO Rich Results (see the <a href="https://wordpress.org/plugins/wpsso-schema-json-ld/">WPSSO JSON add-on</a>), Google Merchant, Mobile Web Browsers, Pinterest Rich Pins, Twitter Cards, Weibo and many more &mdash; including complete markup for image SEO, video SEO, extensive e-Commerce product markup (for WooCommerce and others), mobile apps, author profile / authorship, co-authors, publisher information, local business markup, aggregate ratings, reviews, recipe information, event details, and much, much more &mdash; all from your existing WordPress content!</p>
 
 <p><strong>Includes advanced <em>quality assurance</em> features and options:</strong></p>
 
@@ -57,7 +57,7 @@
 <li><p>Provides meta tags and markup for posts, pages, custom post types, tags, categories, custom taxonomy / terms, user profile pages, search pages, and attachment pages.</p></li>
 <li><p>Optinally customize the Open Graph type "article", "place", "product", or "website" for each individual posts, pages, custom post types, etc.</p></li>
 <li><p>Uses images from numerous sources, including featured, attached, gallery shortcode, images from HTML tags, or a custom fallback image.</p></li>
-<li><p>Image dimension settings for Facebook / Open Graph, Schema markup, Google Rich Results SEO, Pinterest Rich Pins, and Twitter Cards.</p></li>
+<li><p>Image dimension settings for Facebook / Open Graph, Schema markup, Google SEO Rich Results, Pinterest Rich Pins, and Twitter Cards.</p></li>
 <li><p>Contextual help for <em>every</em> plugin option and <a href="https://wpsso.com/docs/plugins/wpsso/">comprehensive online documentation</a>.</p></li>
 <li><p>Built-in support for <a href="https://wordpress.org/plugins/amp/">Accelerated Mobile Pages (AMP)</a> and <a href="https://wordpress.org/plugins/accelerated-mobile-pages/">AMP for WP - Accelerated Mobile Pages</a> plugins.</p></li>
 <li><p>Supports advanced WordPress configurations, including <a href="https://wpsso.com/docs/plugins/wpsso/notes/multisite-network-support/">WordPress Network / Multisite installations</a> and WordPress MU Domain Mapping.</p></li>
@@ -338,7 +338,9 @@
 <li><a href="https://wordpress.org/plugins/simple-job-board/">Simple Job Board</a></li>
 <li><a href="https://wordpress.org/plugins/the-events-calendar/">The Events Calendar</a></li>
 <li><a href="https://wordpress.org/plugins/autodescription/">The SEO Framework</a></li>
-<li><a href="https://wordpress.org/plugins/woocommerce/">WooCommerce</a> (versions 1, 2, and 3)</li>
+<li><a href="https://wordpress.org/plugins/woocommerce/">WooCommerce</a></li>
+<li><a href="https://woocommerce.com/products/brands/">WooCommerce Brands</a></li>
+<li><a href="https://wordpress.org/plugins/woo-add-gtin/">WooCommerce UPC, EAN, and ISBN</a></li>
 <li>WooCommerce Show Single Variations</li>
 <li><a href="https://wordpress.org/plugins/wp-e-commerce/">WP eCommerce</a></li>
 <li><a href="https://wordpress.org/plugins/wp-job-manager/">WP Job Manager</a></li>

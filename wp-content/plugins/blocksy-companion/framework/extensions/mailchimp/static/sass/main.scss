@@ -13,18 +13,6 @@
 	}
 
 	.button {
-		// width: 100%;
-		font-size: 15px;
-		font-weight: 600;
-
-		@include button((
-			// padding: 18px,
-		));
-	}
-
-	&:invalid {
-		.button {
-			// pointer-events: none;
-		}
+		--buttonFontWeight: 600;
 	}
 }

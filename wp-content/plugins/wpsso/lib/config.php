@@ -21,8 +21,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			),
 			'plugin' => array(
 				'wpsso' => array(			// Plugin acronym.
-					'version'     => '5.3.1',	// Plugin version.
-					'opt_version' => '651',		// Increment when changing default option values.
+					'version'     => '5.4.0',	// Plugin version.
+					'opt_version' => '653',		// Increment when changing default option values.
 					'short'       => 'WPSSO Core',	// Short plugin name.
 					'name'        => 'WPSSO Core [Main Plugin]',
 					'desc'        => 'WPSSO Core makes sure your content looks great on all social and search sites - no matter how URLs are crawled, shared, re-shared, posted, or embedded!',
@@ -70,17 +70,18 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						),
 						'pro' => array(
 							'admin' => array(
-								'general'  => 'Extend General Settings',
-								'advanced' => 'Extend Advanced Settings',
-								'post'     => 'Extend Post Settings',
-								'meta'     => 'Extend Term and User Settings',
+								'advanced'  => 'Extend Advanced Settings',
+								'general'   => 'Extend General Settings',
+								'meta-edit' => 'Extend Meta Edit Settings',
 							),
 							'ecom' => array(
 								'edd'                 => '(plugin) Easy Digital Downloads',
-								'jsk_wssv'            => '(plugin) WooCommerce Show Single Variations',
+								'jck-wssv'            => '(plugin) WooCommerce Show Single Variations',
 								'woocommerce'         => '(plugin) WooCommerce',
+								'woocommerce-brands'  => '(plugin) WooCommerce Brands',
+								'woo-add-gtin'        => '(plugin) WooCommerce UPC, EAN, and ISBN',
 								'wpecommerce'         => '(plugin) WP eCommerce',
-								'wpm_product_gtin_wc' => '(plugin) Product GTIN for WooCommerce',
+								'wpm-product-gtin-wc' => '(plugin) Product GTIN for WooCommerce',
 							),
 							'event' => array(
 								'tribe_events' => '(plugin) The Events Calendar',
@@ -132,10 +133,10 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 							),
 							'util' => array(
 								'checkimgdims'  => '(feature) Verify Image Dimensions',
-								'custom_fields' => '(feature) Read Custom Fields by Name',
+								'custom-fields' => '(feature) Read Custom Fields by Name',
 								'coauthors'     => '(plugin) Co-Authors Plus',
 								'shorten'       => '(api) URL Shortening APIs',
-								'wpseo_meta'    => '(feature) Yoast SEO Social Meta',
+								'wpseo-meta'    => '(feature) Yoast SEO Social Meta',
 							),
 						),
 						'profile' => array(
@@ -155,10 +156,9 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						),
 						'std' => array(
 							'admin' => array(
-								'general'  => 'Extend General Settings',
-								'advanced' => 'Extend Advanced Settings',
-								'post'     => 'Extend Post Settings',
-								'meta'     => 'Extend Term and User Settings',
+								'advanced'  => 'Extend Advanced Settings',
+								'general'   => 'Extend General Settings',
+								'meta-edit' => 'Extend Meta Edit Settings',
 							),
 							'social' => array(
 								'buddypress' => '(plugin) BuddyPress',
@@ -220,7 +220,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssobc' => array(			// Plugin acronym.
 					'short'       => 'WPSSO BC',		// Short plugin name.
 					'name'        => 'WPSSO Schema Breadcrumbs Markup',
-					'desc'        => 'WPSSO Core add-on offers Schema BreadcrumbList markup using Google\'s preferred JSON-LD format for Rich Results SEO.',
+					'desc'        => 'WPSSO Core add-on offers Schema BreadcrumbList markup using Google\'s JSON-LD standard for better SEO Rich Results.',
 					'slug'        => 'wpsso-breadcrumbs',
 					'base'        => 'wpsso-breadcrumbs/wpsso-breadcrumbs.php',
 					'update_auth' => '',
@@ -252,6 +252,44 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'purchase'  => '',	// Purchase page.
 						'info'      => '',	// License information.
 						'update'    => 'https://wpsso.com/extend/plugins/wpsso-breadcrumbs/update/',
+						'latest'    => '',
+					),
+				),
+				'wpssofaq' => array(			// Plugin acronym.
+					'short'       => 'WPSSO FAQ',		// Short plugin name.
+					'name'        => 'WPSSO FAQ Manager',
+					'desc'        => 'WPSSO Core add-on to manage FAQ categories with Question and Answer pages.',
+					'slug'        => 'wpsso-faq',
+					'base'        => 'wpsso-faq/wpsso-faq.php',
+					'update_auth' => '',
+					'assets'      => array(
+						'banners' => array(
+							'low'  => 'https://surniaulula.github.io/wpsso-faq/assets/banner-772x250.jpg',
+							'high' => 'https://surniaulula.github.io/wpsso-faq/assets/banner-1544x500.jpg',
+						),
+						'icons' => array(
+							'low'  => 'https://surniaulula.github.io/wpsso-faq/assets/icon-128x128.png',
+							'high' => 'https://surniaulula.github.io/wpsso-faq/assets/icon-256x256.png',
+						),
+					),
+					'url' => array(
+						// WordPress
+						'home'   => 'https://wordpress.org/plugins/wpsso-faq/',
+						'forum'  => 'https://wordpress.org/support/plugin/wpsso-faq',
+						'review' => 'https://wordpress.org/support/plugin/wpsso-faq/reviews/?rate=5#new-post',
+						// GitHub
+						'readme_txt' => 'https://raw.githubusercontent.com/SurniaUlula/wpsso-faq/master/readme.txt',
+						'setup_html' => '',
+						// WPSSO
+						'changelog' => 'https://wpsso.com/extend/plugins/wpsso-faq/changelog/',
+						'docs'      => 'https://wpsso.com/docs/plugins/wpsso-faq/',
+						'install'   => 'https://wpsso.com/docs/plugins/wpsso-faq/installation/',
+						'faqs'      => '',
+						'notes'     => '',
+						'support'   => '',	// Premium support ticket.
+						'purchase'  => '',	// Purchase page.
+						'info'      => '',	// License information.
+						'update'    => 'https://wpsso.com/extend/plugins/wpsso-faq/update/',
 						'latest'    => '',
 					),
 				),
@@ -296,7 +334,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssojson' => array(			// Plugin acronym.
 					'short'       => 'WPSSO JSON',	// Short plugin name.
 					'name'        => 'WPSSO Schema JSON-LD Markup',
-					'desc'        => 'WPSSO Core add-on offers Schema JSON-LD / Rich Results markup for Articles, Events, Local Business, Products, Recipes, Reviews and many more.',
+					'desc'        => 'WPSSO Core add-on offers Schema JSON-LD / Google SEO Rich Results for Articles, Events, Local Business, Products, Recipes, Reviews and many more.',
 					'slug'        => 'wpsso-schema-json-ld',
 					'base'        => 'wpsso-schema-json-ld/wpsso-schema-json-ld.php',
 					'update_auth' => 'tid',
@@ -411,7 +449,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssorar' => array(			// Plugin acronym.
 					'short'       => 'WPSSO RAR',	// Short plugin name.
 					'name'        => 'WPSSO Ratings and Reviews',
-					'desc'        => 'WPSSO Core add-on provides ratings and reviews for WordPress comments, with Aggregate Rating meta tags and optional Schema Review markup.',
+					'desc'        => 'WPSSO Core add-on provides ratings and reviews for WordPress comments with Aggregate Rating meta tags and Schema Review markup.',
 					'slug'        => 'wpsso-ratings-and-reviews',
 					'base'        => 'wpsso-ratings-and-reviews/wpsso-ratings-and-reviews.php',
 					'update_auth' => '',
@@ -563,7 +601,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssossm' => array(			// Plugin acronym.
 					'short'       => 'WPSSO SSM',		// Short plugin name.
 					'name'        => 'WPSSO Strip Schema Microdata',
-					'desc'        => 'WPSSO Core add-on to remove outdated / incomplete Schema Microdata to use Google\'s preferred Schema JSON-LD for Rich Results SEO.',
+					'desc'        => 'WPSSO Core add-on to remove outdated / incomplete Schema Microdata to use Google\'s preferred Schema JSON-LD for SEO Rich Results.',
 					'slug'        => 'wpsso-strip-schema-microdata',
 					'base'        => 'wpsso-strip-schema-microdata/wpsso-strip-schema-microdata.php',
 					'update_auth' => '',
@@ -639,7 +677,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssotie' => array(			// Plugin acronym.
 					'short'       => 'WPSSO TIE',	// Short plugin name.
 					'name'        => 'WPSSO Tune WP Image Editors',
-					'desc'        => 'WPSSO Core add-on offers tuning options for the WordPress image editors and PHP image extensions.',
+					'desc'        => 'WPSSO Core add-on to sharpen and improve WordPress thumbnails and resized images for social sharing and SEO.',
 					'slug'        => 'wpsso-tune-image-editors',
 					'base'        => 'wpsso-tune-image-editors/wpsso-tune-image-editors.php',
 					'update_auth' => 'tid',
@@ -799,40 +837,42 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					/**
 					 * Other term / post types.
 					 */
-					'schema_type_for_article'         => 'article',
-					'schema_type_for_book'            => 'book',
-					'schema_type_for_blog'            => 'blog',
-					'schema_type_for_business'        => 'local.business',
-					'schema_type_for_download'        => 'product',		// For Easy Digital Downloads.
-					'schema_type_for_event'           => 'event',
-					'schema_type_for_faq'             => 'webpage.faq',
-					'schema_type_for_howto'           => 'how.to',
-					'schema_type_for_job_listing'     => 'job.posting',	// For WP Job Manager.
-					'schema_type_for_jobpost'         => 'job.posting',	// For Simple Job Board.
-					'schema_type_for_organization'    => 'organization',
-					'schema_type_for_other'           => 'other',
-					'schema_type_for_person'          => 'person',
-					'schema_type_for_place'           => 'place',
-					'schema_type_for_product'         => 'product',		// For WooCommerce and most e-commerce plugins.
-					'schema_type_for_qa'              => 'webpage.qa',
-					'schema_type_for_question'        => 'question',
-					'schema_type_for_recipe'          => 'recipe',		// For WP Ultimate Recipe.
-					'schema_type_for_review'          => 'review',		// For WP Product Review.
-					'schema_type_for_tax_product_cat' => 'item.list',	// For WooCommerce.
-					'schema_type_for_tax_product_tag' => 'item.list',	// For WooCommerce.
-					'schema_type_for_tribe_events'    => 'event',
-					'schema_type_for_webpage'         => 'webpage',
-					'schema_type_for_website'         => 'website',
-					'fb_publisher_url'                => '',		// Facebook Business Page URL (localized).
-					'fb_app_id'                       => '',		// Facebook Application ID.
-					'fb_admins'                       => '',		// or Facebook Admin Username(s).
-					'fb_locale'                       => 'en_US',		// Custom Facebook Locale.
-					'instgram_publisher_url'          => '',		// Instagram Business Page URL (localized).
-					'linkedin_publisher_url'          => '',		// LinkedIn Company Page URL (localized).
-					'myspace_publisher_url'           => '',		// Myspace Business Page URL (localized).
-					'sc_publisher_url'                => '',		// Soundcloud Business Page URL (localized).
-					'tumblr_publisher_url'            => '',		// Tumblr Business Page URL (localized).
-					'yt_publisher_url'                => '',		// YouTube Business Channel URL (localized).
+					'schema_type_for_article'           => 'article',
+					'schema_type_for_book'              => 'book',
+					'schema_type_for_blog'              => 'blog',
+					'schema_type_for_business'          => 'local.business',
+					'schema_type_for_download'          => 'product',		// For Easy Digital Downloads.
+					'schema_type_for_event'             => 'event',
+					'schema_type_for_howto'             => 'how.to',
+					'schema_type_for_job_listing'       => 'job.posting',	// For WP Job Manager.
+					'schema_type_for_jobpost'           => 'job.posting',	// For Simple Job Board.
+					'schema_type_for_organization'      => 'organization',
+					'schema_type_for_other'             => 'other',
+					'schema_type_for_person'            => 'person',
+					'schema_type_for_place'             => 'place',
+					'schema_type_for_product'           => 'product',	// For WooCommerce and most e-commerce plugins.
+					'schema_type_for_qa'                => 'webpage.qa',
+					'schema_type_for_question'          => 'question',
+					'schema_type_for_recipe'            => 'recipe',	// For WP Ultimate Recipe.
+					'schema_type_for_review'            => 'review',	// For WP Product Review.
+					'schema_type_for_tax_faq_category'  => 'webpage.faq',	// For WPSSO FAQ Add-on.
+					'schema_type_for_tax_faq_tag'       => 'webpage.faq',	// For WPSSO FAQ Add-on.
+					'schema_type_for_tax_product_brand' => 'item.list',	// For WooCommerce Brands.
+					'schema_type_for_tax_product_cat'   => 'item.list',	// For WooCommerce.
+					'schema_type_for_tax_product_tag'   => 'item.list',	// For WooCommerce.
+					'schema_type_for_tribe_events'      => 'event',
+					'schema_type_for_webpage'           => 'webpage',
+					'schema_type_for_website'           => 'website',
+					'fb_publisher_url'                  => '',		// Facebook Business Page URL (localized).
+					'fb_app_id'                         => '',		// Facebook Application ID.
+					'fb_admins'                         => '',		// or Facebook Admin Username(s).
+					'fb_locale'                         => 'en_US',		// Custom Facebook Locale.
+					'instgram_publisher_url'            => '',		// Instagram Business Page URL (localized).
+					'linkedin_publisher_url'            => '',		// LinkedIn Company Page URL (localized).
+					'myspace_publisher_url'             => '',		// Myspace Business Page URL (localized).
+					'sc_publisher_url'                  => '',		// Soundcloud Business Page URL (localized).
+					'tumblr_publisher_url'              => '',		// Tumblr Business Page URL (localized).
+					'yt_publisher_url'                  => '',		// YouTube Business Channel URL (localized).
 					
 					/**
 					 * Standard WordPress types.
@@ -869,7 +909,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'og_vid_https'                 => 1,
 					'og_vid_autoplay'              => 1,
 					'og_vid_prev_img'              => 1,
-					'og_vid_html_type'             => 1,
 					'og_def_img_id'                => '',			// Default / Fallback Image ID
 					'og_def_img_id_pre'            => 'wp',
 					'og_def_img_url'               => '',			// or Default / Fallback Image URL
@@ -1153,7 +1192,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_html_attr_filter_prio'      => 1000,
 					'plugin_head_attr_filter_name'      => 'head_attributes',	// <head> Attributes Filter Hook.
 					'plugin_head_attr_filter_prio'      => 1000,
-					'plugin_honor_force_ssl'            => 1,			// Honor the FORCE_SSL Constant.
 					'plugin_new_user_is_person'         => 0,			// Add Person Role for New Users.
 					'plugin_page_excerpt'               => 0,			// Enable WP Excerpt for Pages.
 					'plugin_page_tags'                  => 0,			// Enable WP Tags for Pages.
@@ -1354,8 +1392,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_head_attr_filter_name:use' => 'default',
 					'plugin_head_attr_filter_prio'     => 1000,
 					'plugin_head_attr_filter_prio:use' => 'default',
-					'plugin_honor_force_ssl'           => 1,		// Honor the FORCE_SSL Constant.
-					'plugin_honor_force_ssl:use'       => 'default',
 					'plugin_new_user_is_person'        => 0,		// Add Person Role for New Users.
 					'plugin_new_user_is_person:use'    => 'default',
 					'plugin_page_excerpt'              => 0,		// Enable WP Excerpt for Pages.
@@ -1437,7 +1473,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_cf_howto_tools'           => 'schema_howto_tool',	// How-To Tools Custom Field.
 					'plugin_cf_img_url'               => 'og_img_url',
 					'plugin_cf_product_avail'         => 'product_avail',
-					'plugin_cf_product_brand'         => 'product_brand',
+					'plugin_cf_product_brand'         => 'product_brand',		// Product Brand Custom Field.
 					'plugin_cf_product_color'         => 'product_color',
 					'plugin_cf_product_condition'     => 'product_condition',
 					'plugin_cf_product_currency'      => 'product_currency',
@@ -1667,7 +1703,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'wpsso_p_' => array(	// Place details.
 					),
 					'wpsso_s_' => array(
-						'label'   => 'Shortened URLs',
+						'label'   => 'Short URLs',
 						'opt_key' => 'plugin_short_url_cache_exp',
 						'filter'  => 'wpsso_cache_expire_short_url',
 					),
@@ -2976,7 +3012,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'train.trip'           => 'trip.train',
 					'urologic'             => 'urologic.specialty',
 				),
-				'schema_unitcodes' => array(	// Element of 'head' array.
+				'schema_units' => array(	// Element of 'head' array.
 					'depth' => array(	// Unitcode index value.
 						'depth' => array(	// Schema property name.
 							'@context' => 'https://schema.org',
