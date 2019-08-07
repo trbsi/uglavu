@@ -34,6 +34,20 @@ class ThemeIntegration {
 			]);
 		});
 
+		add_filter(
+			'user_contactmethods',
+			function ( $field ) {
+				$fields['facebook'] = __( 'Facebook', 'blocksy' );
+				$fields['twitter'] = __( 'Twitter', 'blocksy' );
+				$fields['gplus'] = __( 'Google+', 'blocksy' );
+				$fields['linkedin'] = __( 'LinkedIn', 'blocksy' );
+				$fields['dribbble'] = __( 'Dribbble', 'blocksy' );
+				$fields['instagram'] = __( 'Instagram', 'blocksy' );
+
+				return $fields;
+			}
+		);
+
 		add_filter('upload_mimes', function ($mimes) {
 			$mimes['svg'] = 'image/svg+xml';
 			return $mimes;

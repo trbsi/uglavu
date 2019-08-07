@@ -33,12 +33,6 @@
 			flex-direction: column;
 			justify-content: center;
 			min-width: 0;
-
-			a {
-				word-wrap: break-word;
-				word-break: break-word;
-				// @include lhCrop(1.65);
-			}
 		}
 
 		.ct-entry-meta {

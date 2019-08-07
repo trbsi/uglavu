@@ -24,6 +24,10 @@ This plugin runs and adds its enhacements only if the Blocksy theme is installed
 
 == Changelog ==
 
+1.1.6: 2019-08-05
+* Improvement: Move user meta social networks from theme
+* Fix: Small fixes in styles
+
 1.1.5: 2019-08-01
 * New: Option for changing cookies consent on forms
 * Fix: `blocksy_get_colors()` call with proper defaults

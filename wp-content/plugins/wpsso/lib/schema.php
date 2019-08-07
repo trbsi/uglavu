@@ -48,13 +48,13 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 
 			$sizes[ 'schema_img' ] = array(		// Options prefix.
 				'name'  => 'schema',
-				'label' => _x( 'Google / Schema Image', 'image size label', 'wpsso' ),
+				'label' => _x( 'Schema Image', 'image size label', 'wpsso' ),
 			);
 
 			$sizes[ 'schema_article_img' ] = array(	// Options prefix.
 				'name'   => 'schema-article',
-				'label'  => _x( 'Google / Schema Image', 'image size label', 'wpsso' ),
-				'prefix' => 'schema_img',
+				'label'  => _x( 'Schema Article Image', 'image size label', 'wpsso' ),
+				'md_pre' => 'schema_img',
 			);
 
 			return $sizes;
@@ -508,39 +508,8 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 				$this->p->debug->mark();
 			}
 
-			$cache_index = false;
-			$cache_data  = false;
-
-			/**
-			 * $page_type_id is false when called by
-			 * WpssoSchemaCache::get_mod_json_data().
-			 *
-			 * Optimize and use $page_type_id (when not false) as a
-			 * signal to check if we have single mod data in the
-			 * transient cache.
-			 *
-			 * If we're called by
-			 * WpssoSchemaCache::get_mod_json_data() ($page_type_id
-			 * is false), then don't bother checking because we
-			 * wouldn't be called if the cached data existed. ;-)
-			 */
-			if ( false === $page_type_id ) {
-
+			if ( empty( $page_type_id ) ) {
 				$page_type_id = $this->get_mod_schema_type( $mod, $get_schema_id = true );
-
-			} elseif ( $is_main && $use_cache && $mod[ 'is_post' ] && $mod[ 'id' ] ) {
-
-				$cache_index = WpssoSchemaCache::get_mod_index( $mod, $page_type_id );
-				$cache_data  = WpssoSchemaCache::get_mod_data( $mod, $cache_index );
-
-				if ( isset( $cache_data[ $cache_index ] ) ) {
-
-					if ( $this->p->debug->enabled ) {
-						$this->p->debug->log( 'exiting early: returning single post cache data' );
-					}
-
-					return $cache_data[ $cache_index ];	// Stop here.
-				}
 			}
 
 			$json_data         = null;
@@ -598,30 +567,6 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 
 			} else {
 				self::update_data_id( $json_data, $page_type_id );
-			}
-
-			/**
-			 * If this is a single post, save the json data to the
-			 * transient cache to optimize the  creation of Schema
-			 * JSON-LD for archive type pages like Blog,
-			 * CollectionPage, ProfilePage, and SearchResultsPage.
-			 *
-			 * If $cache_index is not set, then we were called by
-			 * WpssoSchemaCache::get_mod_json_data() and the cache
-			 * data will be saved by that method instead.
-			 */
-			if ( ! empty( $cache_index ) ) {
-
-				if ( $is_main && $use_cache && $mod[ 'is_post' ] && $mod[ 'id' ] ) {
-
-					if ( empty( $cache_data ) ) {	// Just in case.
-						$cache_data = array();
-					}
-
-					$cache_data[ $cache_index ] = $json_data;
-
-					WpssoSchemaCache::save_mod_data( $mod, $cache_data );
-				}
 			}
 
 			return $json_data;
@@ -1649,7 +1594,7 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 		/**
 		 * Pass a single or two dimension image array in $mt_list.
 		 */
-		public static function add_images_data_mt( &$json_data, &$mt_list, $mt_prefix = 'og:image' ) {
+		public static function add_images_data_mt( &$json_data, &$mt_list, $mt_pre = 'og:image' ) {
 
 			$images_added = 0;
 
@@ -1658,13 +1603,13 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 				foreach ( $mt_list as $og_single_image ) {
 
 					$images_added += WpssoSchemaSingle::add_image_data_mt( $json_data,
-						$og_single_image, $mt_prefix, $list_element = true );
+						$og_single_image, $mt_pre, $list_element = true );
 				}
 
 			} elseif ( is_array( $mt_list ) ) {
 
 				$images_added += WpssoSchemaSingle::add_image_data_mt( $json_data,
-					$mt_list, $mt_prefix, $list_element = true );
+					$mt_list, $mt_pre, $list_element = true );
 			}
 
 			return $images_added;	// Return count of images added.
@@ -1673,15 +1618,15 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 		/**
 		 * Deprecated on 2019/06/29.
 		 */
-		public static function add_og_single_image_data( &$json_data, $mt_single, $mt_prefix = 'og:image', $list_element = true ) {
+		public static function add_og_single_image_data( &$json_data, $mt_single, $mt_pre = 'og:image', $list_element = true ) {
 
-			return WpssoSchemaSingle::add_image_data_mt( $json_data, $mt_single, $mt_prefix, $list_element );
+			return WpssoSchemaSingle::add_image_data_mt( $json_data, $mt_single, $mt_pre, $list_element );
 		}
 
 		/**
 		 * Provide a single or two-dimension video array in $mt_list.
 		 */
-		public static function add_videos_data_mt( &$json_data, $mt_list, $mt_prefix = 'og:video' ) {
+		public static function add_videos_data_mt( &$json_data, $mt_list, $mt_pre = 'og:video' ) {
 
 			$videos_added = 0;
 
@@ -1690,13 +1635,13 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 				foreach ( $mt_list as $og_single_video ) {
 
 					$videos_added += WpssoSchemaSingle::add_video_data_mt( $json_data,
-						$og_single_video, $mt_prefix, $list_element = true );
+						$og_single_video, $mt_pre, $list_element = true );
 				}
 
 			} elseif ( is_array( $mt_list ) ) {
 
 				$videos_added += WpssoSchemaSingle::add_video_data_mt( $json_data,
-					$mt_list, $mt_prefix, $list_element = true );
+					$mt_list, $mt_pre, $list_element = true );
 			}
 
 			return $videos_added;	// return count of videos added

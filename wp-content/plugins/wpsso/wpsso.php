@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WPSSO Core [Main Plugin]
+ * Plugin Name: WPSSO Core
  * Plugin Slug: wpsso
  * Text Domain: wpsso
  * Domain Path: /languages
@@ -10,11 +10,11 @@
  * Author URI: https://wpsso.com/
  * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl.txt
- * Description: WPSSO Core makes sure your content looks great on all social and search sites - no matter how URLs are crawled, shared, re-shared, posted, or embedded!
+ * Description: WPSSO Core makes sure your content looks great on all social and search sites, no matter how URLs are crawled, shared, re-shared, posted or embedded!
  * Requires At Least: 3.8
  * Tested Up To: 5.2.2
  * WC Tested Up To: 3.6
- * Version: 5.4.0
+ * Version: 5.5.0
  *
  * Version Numbering: {major}.{minor}.{bugfix}[-{stage}.{level}]
  *

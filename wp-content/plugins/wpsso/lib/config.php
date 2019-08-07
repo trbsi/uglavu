@@ -21,10 +21,10 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			),
 			'plugin' => array(
 				'wpsso' => array(			// Plugin acronym.
-					'version'     => '5.4.0',	// Plugin version.
-					'opt_version' => '653',		// Increment when changing default option values.
+					'version'     => '5.5.0',	// Plugin version.
+					'opt_version' => '655',		// Increment when changing default option values.
 					'short'       => 'WPSSO Core',	// Short plugin name.
-					'name'        => 'WPSSO Core [Main Plugin]',
+					'name'        => 'WPSSO Core',
 					'desc'        => 'WPSSO Core makes sure your content looks great on all social and search sites - no matter how URLs are crawled, shared, re-shared, posted, or embedded!',
 					'slug'        => 'wpsso',
 					'base'        => 'wpsso/wpsso.php',
@@ -182,7 +182,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssoam' => array(			// Plugin acronym.
 					'short'       => 'WPSSO AM',	// Short plugin name.
 					'name'        => 'WPSSO Mobile App Meta',
-					'desc'        => 'WPSSO Core add-on provides Apple Store / iTunes and Google Play App meta tags for Apple\'s mobile Safari banner and Twitter\'s App Card.',
+					'desc'        => 'Apple Store / iTunes and Google Play App meta tags for Apple\'s mobile Safari banner and Twitter\'s App Card.',
 					'slug'        => 'wpsso-am',
 					'base'        => 'wpsso-am/wpsso-am.php',
 					'update_auth' => 'tid',
@@ -220,7 +220,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssobc' => array(			// Plugin acronym.
 					'short'       => 'WPSSO BC',		// Short plugin name.
 					'name'        => 'WPSSO Schema Breadcrumbs Markup',
-					'desc'        => 'WPSSO Core add-on offers Schema BreadcrumbList markup using Google\'s JSON-LD standard for better SEO Rich Results.',
+					'desc'        => 'Schema BreadcrumbList markup in JSON-LD for better Google SEO Rich Results.',
 					'slug'        => 'wpsso-breadcrumbs',
 					'base'        => 'wpsso-breadcrumbs/wpsso-breadcrumbs.php',
 					'update_auth' => '',
@@ -258,7 +258,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssofaq' => array(			// Plugin acronym.
 					'short'       => 'WPSSO FAQ',		// Short plugin name.
 					'name'        => 'WPSSO FAQ Manager',
-					'desc'        => 'WPSSO Core add-on to manage FAQ categories with Question and Answer pages.',
+					'desc'        => 'Manage FAQ categories with Question and Answer pages.',
 					'slug'        => 'wpsso-faq',
 					'base'        => 'wpsso-faq/wpsso-faq.php',
 					'update_auth' => '',
@@ -296,7 +296,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssoipm' => array(			// Plugin acronym.
 					'short'       => 'WPSSO IPM',	// Short plugin name.
 					'name'        => 'WPSSO Inherit Parent Meta',
-					'desc'        => 'WPSSO Core add-on to inherit featured and custom images from parents for posts, pages, custom post types, categories, tags, and custom taxonomies.',
+					'desc'        => 'Inherit featured and custom images from parents for posts, pages, custom post types, categories, tags, and custom taxonomies.',
 					'slug'        => 'wpsso-inherit-parent-meta',
 					'base'        => 'wpsso-inherit-parent-meta/wpsso-inherit-parent-meta.php',
 					'update_auth' => '',
@@ -334,7 +334,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssojson' => array(			// Plugin acronym.
 					'short'       => 'WPSSO JSON',	// Short plugin name.
 					'name'        => 'WPSSO Schema JSON-LD Markup',
-					'desc'        => 'WPSSO Core add-on offers Schema JSON-LD / Google SEO Rich Results for Articles, Events, Local Business, Products, Recipes, Reviews and many more.',
+					'desc'        => 'Schema JSON-LD markup and Google SEO Rich Results for Articles, Events, Local Business, Products, Recipes, Reviews and many more.',
 					'slug'        => 'wpsso-schema-json-ld',
 					'base'        => 'wpsso-schema-json-ld/wpsso-schema-json-ld.php',
 					'update_auth' => 'tid',
@@ -373,7 +373,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssoorg' => array(			// Plugin acronym.
 					'short'       => 'WPSSO ORG',	// Short plugin name.
 					'name'        => 'WPSSO Organization Markup',
-					'desc'        => 'WPSSO Core add-on to customize the home page Schema Organization markup and manage additional Organizations (publisher, organizer, performer, etc.).',
+					'desc'        => 'Customize home page Schema Organization markup and manage additional Organizations (publisher, organizer, etc.).',
 					'slug'        => 'wpsso-organization',
 					'base'        => 'wpsso-organization/wpsso-organization.php',
 					'update_auth' => 'tid',
@@ -411,7 +411,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssoplm' => array(			// Plugin acronym.
 					'short'       => 'WPSSO PLM',		// Short plugin name.
 					'name'        => 'WPSSO Place / Location and Local Business Meta',
-					'desc'        => 'WPSSO Core add-on provides Pinterest Place, Facebook / Open Graph Location, Schema Local Business and Local SEO meta tags.',
+					'desc'        => 'Facebook / Open Graph Location, Pinterest Place, Schema Local Business and Local SEO meta tags.',
 					'slug'        => 'wpsso-plm',
 					'base'        => 'wpsso-plm/wpsso-plm.php',
 					'update_auth' => 'tid',
@@ -449,7 +449,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssorar' => array(			// Plugin acronym.
 					'short'       => 'WPSSO RAR',	// Short plugin name.
 					'name'        => 'WPSSO Ratings and Reviews',
-					'desc'        => 'WPSSO Core add-on provides ratings and reviews for WordPress comments with Aggregate Rating meta tags and Schema Review markup.',
+					'desc'        => 'Ratings and reviews for WordPress comments with Aggregate Rating meta tags and Schema Review markup.',
 					'slug'        => 'wpsso-ratings-and-reviews',
 					'base'        => 'wpsso-ratings-and-reviews/wpsso-ratings-and-reviews.php',
 					'update_auth' => '',
@@ -487,7 +487,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssorest' => array(			// Plugin acronym.
 					'short'       => 'WPSSO REST',	// Short plugin name.
 					'name'        => 'WPSSO REST API',
-					'desc'        => 'WPSSO Core add-on offers an array of meta tags and Schema markup in the WordPress REST API post, term, and user queries.',
+					'desc'        => 'Enhances the WordPress REST API post, term, and user queries with an array of meta tags and Schema markup.',
 					'slug'        => 'wpsso-rest-api',
 					'base'        => 'wpsso-rest-api/wpsso-rest-api.php',
 					'update_auth' => '',
@@ -525,7 +525,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssorrssb' => array(			// Plugin acronym.
 					'short'       => 'WPSSO RRSSB',	// Short plugin name.
 					'name'        => 'WPSSO Ridiculously Responsive Social Sharing Buttons',
-					'desc'        => 'WPSSO Core add-on offers Ridiculously Responsive (SVG) Social Sharing Buttons in your content, excerpts, CSS sidebar, widget, shortcode, editor pages, etc.',
+					'desc'        => 'Ridiculously Responsive (SVG) Social Sharing Buttons for your content, excerpts, CSS sidebar, widget, shortcode, editor pages, etc.',
 					'slug'        => 'wpsso-rrssb',
 					'base'        => 'wpsso-rrssb/wpsso-rrssb.php',
 					'update_auth' => 'tid',
@@ -563,7 +563,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssossb' => array(			// Plugin acronym.
 					'short'       => 'WPSSO SSB',	// Short plugin name.
 					'name'        => 'WPSSO Social Sharing Buttons',
-					'desc'        => 'WPSSO Core add-on offers social sharing buttons with support for hashtags, short URLs, bbPress, BuddyPress, WooCommerce, and much more.',
+					'desc'        => 'Traditional social sharing buttons with support for hashtags, short URLs, bbPress, BuddyPress, WooCommerce, and much more.',
 					'slug'        => 'wpsso-ssb',
 					'base'        => 'wpsso-ssb/wpsso-ssb.php',
 					'update_auth' => 'tid',
@@ -601,7 +601,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssossm' => array(			// Plugin acronym.
 					'short'       => 'WPSSO SSM',		// Short plugin name.
 					'name'        => 'WPSSO Strip Schema Microdata',
-					'desc'        => 'WPSSO Core add-on to remove outdated / incomplete Schema Microdata to use Google\'s preferred Schema JSON-LD for SEO Rich Results.',
+					'desc'        => 'Removes outdated Schema microdata from theme templates and leaves Schema JSON-LD untouched for better Google SEO Rich Results.',
 					'slug'        => 'wpsso-strip-schema-microdata',
 					'base'        => 'wpsso-strip-schema-microdata/wpsso-strip-schema-microdata.php',
 					'update_auth' => '',
@@ -639,7 +639,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssotaq' => array(			// Plugin acronym.
 					'short'       => 'WPSSO TAQ',	// Short plugin name.
 					'name'        => 'WPSSO Tweet a Quote',
-					'desc'        => 'WPSSO Core add-on offers Twitter-style quoted text for your content, with a convenient Tweet share link and customizable CSS.',
+					'desc'        => 'Twitter-style quoted text for your content with customizable CSS and convenient Tweet share link.',
 					'slug'        => 'wpsso-tweet-a-quote',
 					'base'        => 'wpsso-tweet-a-quote/wpsso-tweet-a-quote.php',
 					'update_auth' => '',
@@ -677,7 +677,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssotie' => array(			// Plugin acronym.
 					'short'       => 'WPSSO TIE',	// Short plugin name.
 					'name'        => 'WPSSO Tune WP Image Editors',
-					'desc'        => 'WPSSO Core add-on to sharpen and improve WordPress thumbnails and resized images for social sharing and SEO.',
+					'desc'        => 'Sharpen and improve WordPress thumbnails and resized images for social sharing and better SEO.',
 					'slug'        => 'wpsso-tune-image-editors',
 					'base'        => 'wpsso-tune-image-editors/wpsso-tune-image-editors.php',
 					'update_auth' => 'tid',
@@ -715,7 +715,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssoul' => array(			// Plugin acronym.
 					'short'       => 'WPSSO UL',	// Short plugin name.
 					'name'        => 'WPSSO User Locale Selector',
-					'desc'        => 'WPSSO Core add-on provides a convenient locale / language / region selector in the WordPress admin toolbar.',
+					'desc'        => 'Quick and easy locale / language / region selector for the WordPress admin toolbar.',
 					'slug'        => 'wpsso-user-locale',
 					'base'        => 'wpsso-user-locale/wpsso-user-locale.php',
 					'update_auth' => '',
@@ -753,7 +753,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 				'wpssoum' => array(			// Plugin acronym.
 					'short'       => 'WPSSO UM',	// Short plugin name.
 					'name'        => 'WPSSO Update Manager',
-					'desc'        => 'WPSSO Core add-on provides updates for the WPSSO Core Premium plugin and its complementary Premium add-ons.',
+					'desc'        => 'Update manager for the WPSSO Core Premium plugin and its complementary Premium add-ons.',
 					'slug'        => 'wpsso-um',
 					'base'        => 'wpsso-um/wpsso-um.php',
 					'update_auth' => '',
@@ -811,7 +811,12 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'schema_home_person_id'        => 'none',
 					'schema_logo_url'              => '',
 					'schema_banner_url'            => '',
-					'schema_img_width'             => 800,		// Must be at least 696px for Articles.
+					'schema_article_img_width'     => 800,		// Must be at least 696px for Articles.
+					'schema_article_img_height'    => 1600,
+					'schema_article_img_crop'      => 0,
+					'schema_article_img_crop_x'    => 'center',
+					'schema_article_img_crop_y'    => 'center',
+					'schema_img_width'             => 800,		// Must be at least 400px.
 					'schema_img_height'            => 1600,
 					'schema_img_crop'              => 0,
 					'schema_img_crop_x'            => 'center',
@@ -957,12 +962,12 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'add_link_rel_shortlink'                                   => 1,
 					'add_meta_property_fb:admins'                              => 1,
 					'add_meta_property_fb:app_id'                              => 1,
-					'add_meta_property_al:ios:app_name'                        => 1,
-					'add_meta_property_al:ios:app_store_id'                    => 1,
-					'add_meta_property_al:ios:url'                             => 1,
 					'add_meta_property_al:android:app_name'                    => 1,
 					'add_meta_property_al:android:package'                     => 1,
 					'add_meta_property_al:android:url'                         => 1,
+					'add_meta_property_al:ios:app_name'                        => 1,
+					'add_meta_property_al:ios:app_store_id'                    => 1,
+					'add_meta_property_al:ios:url'                             => 1,
 					'add_meta_property_al:web:url'                             => 1,
 					'add_meta_property_al:web:should_fallback'                 => 1,
 					'add_meta_property_og:altitude'                            => 1,
@@ -1290,7 +1295,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					 */
 					'plugin_head_cache_exp'      => WEEK_IN_SECONDS,	// Head Markup Array Cache Expiry (1 week).
 					'plugin_content_cache_exp'   => HOUR_IN_SECONDS,	// Filtered Content Text Cache Expiry (1 hour).
-					'plugin_json_data_cache_exp' => 1209600,		// Schema JSON Data Cache Expiry (2 weeks).
 					'plugin_imgsize_cache_exp'   => DAY_IN_SECONDS,		// Image URL Info Cache Expiry (1 day).
 					'plugin_short_url_cache_exp' => 7776000,		// Shortened URL Cache Expiry (90 days / 3 months).
 					'plugin_topics_cache_exp'    => MONTH_IN_SECONDS,	// Article Topics Array Cache Expiry (1 month).
@@ -1414,8 +1418,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'plugin_head_cache_exp:use'      => 'default',
 					'plugin_content_cache_exp'       => HOUR_IN_SECONDS,	// Filtered Content Text Cache Expiry (1 hour).
 					'plugin_content_cache_exp:use'   => 'default',
-					'plugin_json_data_cache_exp'     => 1209600,		// Schema JSON Data Cache Expiry (2 weeks).
-					'plugin_json_data_cache_exp:use' => 'default',
 					'plugin_imgsize_cache_exp'       => DAY_IN_SECONDS,	// Image URL Info Cache Expiry (1 day).
 					'plugin_imgsize_cache_exp:use'   => 'default',
 					'plugin_short_url_cache_exp'     => 7776000,		// Shortened URL Cache Expiry (90 days / 3 months).
@@ -1694,11 +1696,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 						'label'   => 'Image URL Info',
 						'opt_key' => 'plugin_imgsize_cache_exp',
 						'filter'  => 'wpsso_cache_expire_image_url_size',
-					),
-					'wpsso_j_' => array(
-						'label'   => 'Schema Data',
-						'opt_key' => 'plugin_json_data_cache_exp',
-						'filter'  => 'wpsso_cache_expire_schema_json_data',
 					),
 					'wpsso_p_' => array(	// Place details.
 					),

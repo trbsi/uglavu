@@ -1294,11 +1294,23 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 								$this->p->opt->get_defaults( 'schema_img_height' ) . ' ' .
 									( $this->p->opt->get_defaults( 'schema_img_crop' ) == 0 ? 'uncropped' : 'cropped' );
 
-							$text = sprintf( __( 'The image dimensions used for the Google / Schema meta tags and JSON-LD markup (the default dimensions are %s).', 'wpsso' ), $def_dimensions ) . ' ';
-							
-							$text .= __( 'The minimum width required by Google for the resulting image is 696px.', 'wpsso' ) . ' ';
+							$text = sprintf( __( 'The image dimensions used for the Google / Pinterest / Schema meta tags and JSON-LD markup (the default dimensions are %s).', 'wpsso' ), $def_dimensions );
 
-							$text .= __( 'If you choose not to crop this image size, make sure the height value is large enough for portrait / vertical images.', 'wpsso' );
+							break;
+
+						case 'tooltip-schema_article_img_dimensions':
+
+							$def_dimensions = $this->p->opt->get_defaults( 'schema_article_img_width' ) . 'x' .
+								$this->p->opt->get_defaults( 'schema_article_img_height' ) . ' ' .
+									( $this->p->opt->get_defaults( 'schema_article_img_crop' ) == 0 ? 'uncropped' : 'cropped' );
+
+							$text = sprintf( __( 'The image dimensions used for Schema Article meta tags and JSON-LD markup (the default dimensions are %s).', 'wpsso' ), $def_dimensions ) . ' ';
+
+							$text .= '<br/><br/><strong>';
+							$text .= __( 'The minimum width required by Google for the resulting image is 696px.', 'wpsso' ) . ' ';
+							$text .= '</strong><br/><br/>';
+
+							$text .= sprintf( __( 'If this image size is uncropped (default setting), the height value must be large enough to accommodate portrait / vertical images (default height is %s).', 'wpsso' ), $this->p->opt->get_defaults( 'schema_article_img_height' ) );
 
 							break;
 
@@ -1863,7 +1875,7 @@ if ( ! class_exists( 'WpssoMessages' ) ) {
 							
 							$text .= '<p>';
 
-							$text .= sprintf( __( '%s adds the following Facebook, Open Graph, Twitter, Schema, Pinterest, Google Rich Results / SEO meta tags to the <code>&lt;head&gt;</code> section of your webpages.', 'wpsso' ), $info[ 'short' ] ) . ' ';
+							$text .= sprintf( __( '%s adds the following Facebook, Open Graph, Twitter, Schema, Pinterest, and SEO meta tags to the <code>&lt;head&gt;</code> section of your webpages.', 'wpsso' ), $info[ 'short' ] ) . ' ';
 
 							$text .= __( 'If your theme or another plugin already creates one or more of these meta tags, you can uncheck them here to prevent duplicates from being added.', 'wpsso' ) . ' ';
 
