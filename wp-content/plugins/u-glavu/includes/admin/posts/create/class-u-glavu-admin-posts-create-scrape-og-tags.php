@@ -20,7 +20,7 @@ class U_Glavu_Admin_Posts_Create_Scrape_Og_Tags {
 		$this->check_if_this_is_url($externalUrl);
 
 		//check if site is supported
-		//is_site_supported($externalUrl);
+		$this->is_site_supported($externalUrl);
 
 		//check if someone already posted this story
 		$this->is_story_already_posted($externalUrl);
@@ -49,7 +49,7 @@ class U_Glavu_Admin_Posts_Create_Scrape_Og_Tags {
 		wp_die();
 	}
 
-	public function check_if_this_is_url($externalUrl)
+	private function check_if_this_is_url($externalUrl)
 	{
 		if (false === filter_var($externalUrl, FILTER_VALIDATE_URL)) {
 		    wp_send_json_error(['message' => 'Wrong URL bi-yatch']);
@@ -57,12 +57,12 @@ class U_Glavu_Admin_Posts_Create_Scrape_Og_Tags {
 		}
 	}
 
-	public function is_site_supported($externalUrl)
+	private function is_site_supported($externalUrl)
 	{
 		global $wpdb;
 		$ogTagsSitesTable = $wpdb->prefix . 'og_tags_sites';
 		$query = "SELECT * FROM $ogTagsSitesTable WHERE site_key = %s";
-		$siteData = $wpdb->get_row($wpdb->prepare($query, [get_host_from_url($externalUrl)]));
+		$siteData = $wpdb->get_row($wpdb->prepare($query, [$this->createOgTags->get_host_from_url($externalUrl)]));
 
 		if (null === $siteData) {
 			$query = "SELECT * FROM $ogTagsSitesTable";
@@ -77,7 +77,7 @@ class U_Glavu_Admin_Posts_Create_Scrape_Og_Tags {
 		}
 	}
 
-	public function is_story_already_posted($externalUrl)
+	private function is_story_already_posted($externalUrl)
 	{
 		global $wpdb;
 		$siteData = $this->createOgTags->get_site_and_site_post_id($externalUrl);
