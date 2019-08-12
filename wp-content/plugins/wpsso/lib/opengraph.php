@@ -430,21 +430,18 @@ if ( ! class_exists( 'WpssoOpenGraph' ) ) {
 			return $get_value;
 		}
 
-		public function get_array( array $mod, array $mt_og, $crawler_name = false ) {
+		public function get_array( array $mod, $crawler_name = false ) {
 
 			if ( $this->p->debug->enabled ) {
 				$this->p->debug->mark();
 			}
 
-			if ( false === $crawler_name ) {
-				$crawler_name = SucomUtil::get_crawler_name();
-			}
-
 			/**
-			 * The 'wpsso_og_seed' filter is hooked by the Pro / Premium e-commerce modules, for example, to provide
+			 * The 'wpsso_og_seed' filter is hooked by the Pro /
+			 * Premium e-commerce modules, for example, to provide
 			 * product meta tags.
 			 */
-			$mt_og       = apply_filters( $this->p->lca . '_og_seed', $mt_og, $mod );
+			$mt_og       = apply_filters( $this->p->lca . '_og_seed', array(), $mod );
 			$has_pp      = $this->p->check->pp();
 			$max_nums    = $this->p->util->get_max_nums( $mod );
 			$post_id     = $mod[ 'is_post' ] ? $mod[ 'id' ] : false;
@@ -1563,7 +1560,12 @@ if ( ! class_exists( 'WpssoOpenGraph' ) ) {
 			return $mt_og;
 		}
 
-		public static function check_gtin_mt_value( &$mt_og, $prefix = 'product' ) {
+		/**
+		 * If we have a GTIN number, try to improve the assigned property name.
+		 * Pass $mt_og by reference to modify the array directly.
+		 * A similar method exists as WpssoSchema::check_gtin_prop_value().
+		 */
+		public static function check_gtin_mt_value( &$mt_og, $prefix = 'product' ) {	// Pass by reference is OK.
 
 			if ( ! empty( $mt_og[ $prefix . ':gtin' ] ) ) {
 

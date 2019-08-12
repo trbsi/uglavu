@@ -11,7 +11,7 @@ Contributors: jsmoriss
 Requires At Least: 3.8
 Tested Up To: 5.2.2
 WC Tested Up To: 3.6
-Stable Tag: 5.5.0
+Stable Tag: 5.5.2.1
 
 WPSSO Core makes sure your content looks great on all social and search sites, no matter how URLs are crawled, shared, re-shared, posted or embedded!
 
@@ -437,6 +437,31 @@ Version components: `{major}.{minor}.{bugfix}[-{stage}.{level}]`
 
 <h3>Changelog / Release Notes</h3>
 
+**Version 5.5.2.1 (2019/08/10)**
+
+* **New Features**
+	* None.
+* **Improvements**
+	* Added a new "Delete All Database Transients" button in the SSO &gt; Tools settings page.
+* **Bugfixes**
+	* Fixed unrelated post data in Schema @graph markup when the "Auto-Refresh Cache After Clearing" option is enabled.
+* **Developer Notes**
+	* Refactored the WpssoSchemaGraph method and variable names.
+	* Changed most `$mod` and `$mt_og` pass-by-reference method argument variables to standard variables.
+	* Removed the unnecessary `$mt_og` variable from the WpssoOpenGraph::get_array() method arguments.
+	* Changed the "required" input field CSS class name to "value_req".
+
+**Version 5.5.1 (2019/08/07)**
+
+* **New Features**
+	* None.
+* **Improvements**
+	* Minor update for "fr_FR" translations.
+* **Bugfixes**
+	* None.
+* **Developer Notes**
+	* Simplified and optimized loading of admin library modules.
+
 **Version 5.5.0 (2019/08/04)**
 
 * **New Features**
@@ -575,52 +600,9 @@ This version includes several jQuery improvements to optimize both the size of s
 		* Renamed WpssoSchema::add_og_image_list_data() to WpssoSchema::add_images_data_mt().
 		* Renamed WpssoSchema::update_json_data_id() to WpssoSchema::update_data_id().
 
-**Version 5.0.1 (2019/06/29)**
-
-* **New Features**
-	* None.
-* **Improvements**
-	* Removed the Google Plus Profile option check in All In One SEO settings (now deprecated).
-	* Updated the WebSite (Front Page) Knowledge Graph option label and link.
-* **Bugfixes**
-	* Fixed block editor global variable definition by changing "const" to "var" ([issue from GitHub](https://github.com/siteorigin/siteorigin-panels/issues/677)).
-	* Fixed markup when selecting an Schema Organization, LocalBusiness, and Person type (or sub-type) in the Document SSO metabox, without specifying an Organization, LocalBusiness, or Person to get additional information about the Organization, LocalBusiness, and Person.
-* **Developer Notes**
-	* None.
-
-**Version 5.0.0 (2019/06/24)**
-
-* **New Features**
-	* None.
-* **Improvements**
-	* **Removed support for the Yotpo Social Reviews for WooCommerce plugin (too many bad reviews and too few active installations).**
-	* Added checks for missing WooCommerce "My account page", "Cart page", "Checkout page", and "Shop page" selections (Premium plugin).
-	* Added an action hook to remove duplicate JSON-LD markup in AMP pages from the Yoast SEO plugin.
-	* Added new Schema Article sub-types:
-		* https://schema.org/APIReference
-		* https://schema.org/AdvertiserContentArticle
-		* https://schema.org/AnalysisNewsArticle
-		* https://schema.org/AskPublicNewsArticle
-		* https://schema.org/BackgroundNewsArticle
-		* https://schema.org/LiveBlogPosting
-		* https://schema.org/MedicalScholarlyArticle
-		* https://schema.org/OpinionNewsArticle
-		* https://schema.org/ReportageNewsArticle
-		* https://schema.org/ReviewNewsArticle
-		* https://schema.org/SatiricalArticle
-	* Renamed "Pro" distribution to "Premium".
-	* Renamed "Free" distribution to "Standard".
-* **Bugfixes**
-	* None.
-* **Developer Notes**
-	* Renamed the 'gpl' library sub-folder to 'std'.
-	* Added a new 'wpsso_scheduled_task_started' action.
-	* Added a new `SucomUtilWP::doing_frontend()` method.
-	* Improved WP_Query for a post type archive (see https://codex.wordpress.org/Function_Reference/is_post_type_archive) when running as background task.
-
 == Upgrade Notice ==
 
-= 5.5.0 =
+= 5.5.2.1 =
 
-(2019/08/04) Fixed missing admin library loader definition for 'meta-edit'. Split the single Google / Pinterest / Schema image size into two different image sizes.
+(2019/08/10) Fixed unrelated post data in Schema @graph markup when the "Auto-Refresh Cache After Clearing" option is enabled.
 

@@ -24,6 +24,10 @@ This plugin runs and adds its enhacements only if the Blocksy theme is installed
 
 == Changelog ==
 
+1.1.7: 2019-08-12
+* New: Mailchimp extension customizable placeholders for fields
+* Improvement: Use only one translation domain
+
 1.1.6: 2019-08-05
 * Improvement: Move user meta social networks from theme
 * Fix: Small fixes in styles

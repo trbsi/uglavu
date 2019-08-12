@@ -1053,6 +1053,14 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 
 							break;
 
+						case 'delete_all_db_transients':
+
+							$deleted_count = $this->p->util->delete_all_db_transients( $clear_short = true, $transient_prefix = '' );
+
+							$this->p->notice->upd( sprintf( __( '%s database transients have been deleted.', 'wpsso' ), $deleted_count ) );
+
+							break;
+
 						case 'reset_user_metabox_layout':
 
 							$user_id   = get_current_user_id();
@@ -3881,17 +3889,19 @@ if ( ! class_exists( 'WpssoAdmin' ) ) {
 				$file_remote = SucomUtil::get_file_path_locale( $file_remote );
 			}
 
+			$cache_md5_pre = $this->p->lca . '_';
+			$cache_salt    = __METHOD__ . '(ext:' . $ext . ')';
+			$cache_id      = $cache_md5_pre . md5( $cache_salt );
+
+			/**
+			 * Set and filter the cache expiration value only once.
+			 */
 			static $cache_exp_secs = null;
 
-			$cache_md5_pre = $this->p->lca . '_';
-
-			if ( ! isset( $cache_exp_secs ) ) {
+			if ( null === $cache_exp_secs ) {
 				$cache_exp_filter = $this->p->lca . '_cache_expire_' . $file_key;	// Example: 'wpsso_cache_expire_readme_txt'.
 				$cache_exp_secs   = (int) apply_filters( $cache_exp_filter, DAY_IN_SECONDS );
 			}
-
-			$cache_salt = __METHOD__ . '(ext:' . $ext . ')';
-			$cache_id   = $cache_md5_pre . md5( $cache_salt );
 
 			$readme_info     = false;
 			$readme_content  = false;

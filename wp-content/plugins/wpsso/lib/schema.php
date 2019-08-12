@@ -9,6 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'These aren\'t the droids you\'re looking for...' );
 }
 
+/**
+ * Deprecated on 2019/08/04.
+ * Maintain for WPSSO JSON add-on pre-v2.6.0.
+ */
 if ( ! class_exists( 'WpssoSchemaCache' ) ) {
 	require_once WPSSO_PLUGINDIR . 'lib/schema-cache.php';
 }
@@ -25,11 +29,11 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 
 	class WpssoSchema {
 
-		protected $p;
+		private $p;
 
-		protected $types_cache = null;		// Schema types array cache.
+		private $types_cache = null;		// Schema types array cache.
 
-		protected static $units_cache = null;	// Schema unicodes array cache.
+		private static $units_cache = null;	// Schema unicodes array cache.
 
 		public function __construct( &$plugin ) {
 
@@ -298,14 +302,14 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 			return self::return_data_from_filter( $json_data, $ret, $is_main );
 		}
 
-		public function has_json_data_filter( array &$mod, $type_url = '' ) {
+		public function has_json_data_filter( array $mod, $type_url = '' ) {
 
 			$filter_name = $this->get_json_data_filter( $mod, $type_url );
 
 			return ! empty( $filter_name ) && has_filter( $filter_name ) ? true : false;
 		}
 
-		public function get_json_data_filter( array &$mod, $type_url = '' ) {
+		public function get_json_data_filter( array $mod, $type_url = '' ) {
 
 			if ( empty( $type_url ) ) {
 				$type_url = $this->get_mod_schema_type( $mod );
@@ -315,11 +319,10 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 		}
 
 		/**
-		 * Schema json scripts.
-		 *
-		 * $mt_og must be passed by reference to assign the schema:type internal meta tags.
+		 * Called by WpssoHead::get_head_array().
+		 * Pass $mt_og by reference to assign values to the schema:type internal meta tags.
 		 */
-		public function get_array( array &$mod, array &$mt_og, $crawler_name ) {
+		public function get_array( array $mod, array &$mt_og = array(), $crawler_name = false ) {	// Pass by reference is OK.
 
 			if ( $this->p->debug->enabled ) {
 				$this->p->debug->mark( 'build json array' );	// Begin timer for json array.
@@ -327,8 +330,6 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 
 			$page_type_id  = $mt_og[ 'schema:type:id' ]  = $this->get_mod_schema_type( $mod, $get_schema_id = true );	// Example: article.tech.
 			$page_type_url = $mt_og[ 'schema:type:url' ] = $this->get_schema_type_url( $page_type_id );	// Example: https://schema.org/TechArticle.
-			$graph_context = 'https://schema.org';
-			$graph_type    = 'graph';
 			$json_scripts  = array();
 
 			list(
@@ -389,6 +390,11 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 				$this->p->debug->log_arr( 'page_type_ids', $page_type_ids );
 			}
 
+			/**
+			 * Start a new @graph array.
+			 */
+			WpssoSchemaGraph::clean_data();
+
 			foreach ( $page_type_ids as $type_id => $is_enabled ) {
 
 				if ( ! $is_enabled ) {
@@ -429,7 +435,7 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 
 				/**
 				 * The $json_data array will almost always be a single associative array,
-				 * but the breadcrumblist filter may return an array of $json_data arrays.
+				 * but the breadcrumblist filter may return an array of associative arrays.
 				 */
 				if ( isset( $json_data[ 0 ] ) && ! SucomUtil::is_assoc( $json_data ) ) {	// Multiple json arrays returned.
 
@@ -437,40 +443,40 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 						$this->p->debug->log( 'multiple json data arrays returned' );
 					}
 
-					$scripts_data = $json_data;
-
 				} else {
 
 					if ( $this->p->debug->enabled ) {
 						$this->p->debug->log( 'single json data array returned' );
 					}
 
-					$scripts_data = array( $json_data );	// Single json script returned.
+					$json_data = array( $json_data );	// Single json script returned.
 				}
 
 				/**
 				 * Add the json data to the @graph array.
 				 */
-				foreach ( $scripts_data as $json_data ) {
+				foreach ( $json_data as $single_json ) {
 
-					if ( empty( $json_data ) || ! is_array( $json_data ) ) {	// Just in case.
+					if ( empty( $single_json ) || ! is_array( $single_json ) ) {	// Just in case.
 						continue;
 					}
 
-					if ( empty( $json_data[ '@type' ] ) ) {
+					if ( empty( $single_json[ '@type' ] ) ) {
 
-						$type_url  = $this->get_schema_type_url( $type_id );
-						$json_data = self::get_schema_type_context( $type_url, $json_data );
+						$type_url = $this->get_schema_type_url( $type_id );
+
+						$single_json = self::get_schema_type_context( $type_url, $single_json );
 
 						if ( $this->p->debug->enabled ) {
-							$this->p->debug->log( 'added @type property is ' . $json_data[ '@type' ] );
+							$this->p->debug->log( 'added @type property is ' . $single_json[ '@type' ] );
 						}
 
 					} elseif ( $this->p->debug->enabled ) {
-						$this->p->debug->log( 'existing @type property is ' . print_r( $json_data[ '@type' ], true ) );	// @type can be an array.
+						$this->p->debug->log( 'existing @type property is ' .
+							print_r( $single_json[ '@type' ], true ) );	// @type can be an array.
 					}
 
-					WpssoSchemaGraph::add( $json_data );
+					WpssoSchemaGraph::add_data( $single_json );
 				}
 
 				if ( $this->p->debug->enabled ) {
@@ -478,19 +484,26 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 				}
 			}
 
-			$filter_name = $this->p->lca . '_json_prop_' . SucomUtil::sanitize_hookname( $graph_context . '/' . $graph_type );
+			/**
+			 * Get the @graph json array and start a new @graph array.
+			 */
+			$graph_json     = WpssoSchemaGraph::get_json_clean();
+			$graph_type_url = WpssoSchemaGraph::get_type_url();
+			$filter_name    = $this->p->lca . '_json_prop_' . SucomUtil::sanitize_hookname( $graph_type_url );
 
-			$graph_data = WpssoSchemaGraph::get( $graph_context );
+			$graph_json = apply_filters( $filter_name, $graph_json, $mod, $mt_og, $page_type_id, $is_main );
 
-			$graph_data = apply_filters( $filter_name, $graph_data, $mod, $mt_og, $page_type_id, $is_main );
+			if ( ! empty( $graph_json[ '@graph' ] ) ) {	// Just in case.
 
-			if ( ! empty( $graph_data[ '@graph' ] ) ) {	// Just in case.
-
-				$graph_data = WpssoSchemaGraph::optimize( $graph_data );
+				if ( ! SucomUtil::get_const( 'WPSSO_JSON_OPTIMIZE_DISABLE' ) ) {
+					$graph_json = WpssoSchemaGraph::optimize( $graph_json );
+				}
 
 				$json_scripts[][] = '<script type="application/ld+json">' .
-					$this->p->util->json_format( $graph_data ) . '</script>' . "\n";
+					$this->p->util->json_format( $graph_json ) . '</script>' . "\n";
 			}
+
+			unset( $graph );
 
 			if ( $this->p->debug->enabled ) {
 				$this->p->debug->mark( 'build json array' );	// End timer for json array.
@@ -502,7 +515,7 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 		/**
 		 * Get the JSON-LD data array.
 		 */
-		public function get_json_data( array &$mod, array &$mt_og, $page_type_id = false, $is_main = false, $use_cache = true ) {
+		public function get_json_data( array $mod, array &$mt_og, $page_type_id = false, $is_main = false ) {
 
 			if ( $this->p->debug->enabled ) {
 				$this->p->debug->mark();
@@ -568,6 +581,22 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 			} else {
 				self::update_data_id( $json_data, $page_type_id );
 			}
+
+			return $json_data;
+		}
+
+		public function get_mod_json_data( array $mod ) {
+
+			if ( ! is_object( $mod[ 'obj' ] ) || ! $mod[ 'id' ] ) {
+				return false;
+			}
+
+			$page_type_id = $this->get_mod_schema_type( $mod, $get_schema_id = true );
+			$sharing_url  = $this->p->util->maybe_set_ref( null, $mod, __( 'adding schema', 'wpsso' ) );
+			$mt_og        = $this->p->og->get_array( $mod );
+			$json_data    = $this->get_json_data( $mod, $mt_og, $page_type_id, $is_main = true );
+
+			$this->p->util->maybe_unset_ref( $sharing_url );
 
 			return $json_data;
 		}
@@ -1149,9 +1178,11 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 					$children   = get_transient( $cache_id );	// Returns false when not found.
 
 					if ( ! empty( $children ) ) {
+
 						if ( $this->p->debug->enabled ) {
 							$this->p->debug->log( 'returning children from transient cache' );
 						}
+
 						return $children;
 					}
 				}
@@ -1332,10 +1363,12 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 
 		public function get_types_cache_exp() {
 
+			/**
+			 * Set and filter the cache expiration value only once.
+			 */
 			static $cache_exp_secs = null;
 
-			if ( ! isset( $cache_exp_secs ) ) {
-
+			if ( null === $cache_exp_secs ) {
 				$cache_md5_pre    = $this->p->lca . '_t_';
 				$cache_exp_filter = $this->p->cf[ 'wp' ][ 'transient' ][ $cache_md5_pre ][ 'filter' ];
 				$cache_opt_key    = $this->p->cf[ 'wp' ][ 'transient' ][ $cache_md5_pre ][ 'opt_key' ];
@@ -1765,6 +1798,7 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 		 * Deprecated on 2019/04/18. 
 		 */
 		public static function add_single_event_data( &$json_data, array $mod, $event_id = false, $list_element = false ) {
+
 			return WpssoSchemaSingle::add_event_data( $json_data, $mod, $event_id, $list_element );
 		}
 
@@ -1772,6 +1806,7 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 		 * Deprecated on 2019/04/18. 
 		 */
 		public static function add_single_job_data( &$json_data, array $mod, $job_id = false, $list_element = false ) {
+
 			return WpssoSchemaSingle::add_job_data( $json_data, $mod, $job_id, $list_element );
 		}
 
@@ -1779,6 +1814,7 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 		 * Deprecated on 2019/04/18. 
 		 */
 		public static function get_single_offer_data( array $mod, array $mt_offer ) {
+
 			return WpssoSchemaSingle::get_offer_data( $mod, $mt_offer );
 		}
 
@@ -1786,6 +1822,7 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 		 * Deprecated on 2019/04/18. 
 		 */
 		public static function add_single_organization_data( &$json_data, $mod, $org_id = 'site', $logo_key = 'org_logo_url', $list_element = false ) {
+
 			return WpssoSchemaSingle::add_organization_data( $json_data, $mod, $org_id, $logo_key, $list_element );
 		}
 
@@ -1793,6 +1830,7 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 		 * Deprecated on 2019/04/18. 
 		 */
 		public static function add_single_person_data( &$json_data, $mod, $user_id, $list_element = true ) {
+
 			return WpssoSchemaSingle::add_person_data( $json_data, $mod, $user_id, $list_element );
 		}
 
@@ -1800,6 +1838,7 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 		 * Deprecated on 2019/04/18. 
 		 */
 		public static function add_single_place_data( &$json_data, $mod, $place_id = false, $list_element = false ) {
+
 			return WpssoSchemaSingle::add_place_data( $json_data, $mod, $place_id, $list_element );
 		}
 
@@ -2323,6 +2362,8 @@ if ( ! class_exists( 'WpssoSchema' ) ) {
 
 		/**
 		 * If we have a GTIN number, try to improve the assigned property name.
+		 * Pass $json_data by reference to modify the array directly.
+		 * A similar method exists as WpssoOpenGraph::check_gtin_mt_value().
 		 */
 		public static function check_gtin_prop_value( &$json_data ) {
 

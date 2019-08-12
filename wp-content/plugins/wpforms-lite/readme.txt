@@ -3,7 +3,7 @@ Contributors: wpforms, jaredatch, smub, slaFFik
 Tags: contact form, contact form plugin, forms, form builder, custom form, contact button, contact me, custom contact form, form manager, form, forms builder, forms creator, captcha, recaptcha, Akismet, email form, web form, feedback form, payment form, survey form, donation form, email submit form, message form, mailchimp, mailchimp form, aweber, aweber form, paypal, paypal form, stripe, stripe form, getresponse, getresponse form, email subscription, contact form widget, user registration form, wordpress registration, wordpress login form, feedback
 Requires at least: 4.8
 Tested up to: 5.2
-Stable tag: 1.5.4.1
+Stable tag: 1.5.4.2
 Requires PHP: 5.3.3
 License: GNU General Public License v2.0 or later
 
@@ -407,12 +407,17 @@ Syed Balkhi
 
 == Changelog ==
 
+= 1.5.4.2 =
+- Changed: Renamed certain actions with typos in their names, backwards-compatible. Added a deprecation text using `do_action_deprecated()`.
+- Fixed: About Us page behaviour when WP Mail SMTP Pro is installed.
+- Fixed: reCAPTCHA settings could be saved without providing reCAPTCHA type.
+
 = 1.5.4.1 =
 - Fixed: Plugin Settings > Misc > 'View Email Summary Example' link errors.
 
 = 1.5.4 =
 - Added: Email Summaries.
-- Added: Form builder hotkey to save changes, CTRL/CMD + S.
+- Added: Form builder hotkey to save changes, CTRL + S.
 - Changed: Team photo under WPForms > About Us. :)
 - Fixed: Dynamic field population populates checkbox and radio fields values but not adding 'wpforms-selected' class to its containers.
 - Fixed: Dropdown field attributes are now accessible with `wpforms_field_properties` filter.

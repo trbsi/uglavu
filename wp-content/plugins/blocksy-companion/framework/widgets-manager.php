@@ -74,7 +74,7 @@ class BlocksyWidgetFactory extends WP_Widget {
 				$config,
 				__(
 					'Default widget name',
-					'blocksy'
+					'blc'
 				)
 			),
 			[
@@ -83,7 +83,7 @@ class BlocksyWidgetFactory extends WP_Widget {
 					$config,
 					__(
 						'Display online support infomation',
-						'blocksy'
+						'blc'
 					)
 				),
 				'classname' => $prefix . '-widget',
@@ -134,7 +134,7 @@ class BlocksyWidgetFactory extends WP_Widget {
 			$this->options = [
 				'title' => [
 					'type' => 'text',
-					'label' => __( 'Widget Title', 'blocksy' ),
+					'label' => __( 'Widget Title', 'blc' ),
 					'field_attr' => [ 'id' => 'widget-title' ],
 				],
 			];

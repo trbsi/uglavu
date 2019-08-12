@@ -13,7 +13,7 @@ if ( ! class_exists( 'WpssoSchemaSingle' ) ) {
 
 	class WpssoSchemaSingle {
 
-		public function __construct( &$plugin ) {
+		public function __construct() {
 		}
 
 		/**

@@ -17,8 +17,9 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 	class WpssoUtil extends SucomUtil {
 
-		protected $uniq_urls   = array();	// Array to detect duplicate images, etc.
-		protected $size_labels = array();	// Reference array for image size labels.
+		protected $event_buffer = 5;
+		protected $uniq_urls    = array();	// Array to detect duplicate images, etc.
+		protected $size_labels  = array();	// Reference array for image size labels.
 
 		protected $force_regen = array(
 			'cache'     => null,		// Cache for returned values.
@@ -101,7 +102,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 			if ( is_string( $publisher ) ) {	// Example: 'facebook', 'google, 'twitter', etc.
 
-				$pub_lang = SucomUtil::get_pub_lang( $publisher );
+				$pub_lang = self::get_pub_lang( $publisher );
 
 			} elseif ( is_array( $publisher ) ) {
 
@@ -114,7 +115,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 			/**
 			 * Returns the WP language as 'en' or 'en_US'.
 			 */
-			$locale = $fb_lang = SucomUtil::get_locale( $mixed );
+			$locale = $fb_lang = self::get_locale( $mixed );
 
 			if ( $this->p->debug->enabled ) {
 				$this->p->debug->log( 'get_locale returned: ' . $locale );
@@ -214,7 +215,6 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 			$default_filters = array(
 				'cache_expire_head_array'       => '__return_zero',
-				'cache_expire_schema_json_data' => '__return_zero',
 				'cache_expire_setup_html'       => '__return_zero',
 				'cache_expire_shortcode_html'   => '__return_zero',
 				'cache_expire_sharing_buttons'  => '__return_zero',
@@ -414,11 +414,14 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 				return $local_cache[ $image_url ] = $def_image_info;	// Stop here.
 			}
 
-			static $cache_exp_secs = null;		// Filter the cache expiration value only once.
-
 			$cache_md5_pre = $this->p->lca . '_i_';
 
-			if ( ! isset( $cache_exp_secs ) ) {	// Filter cache expiration if not already set.
+			/**
+			 * Set and filter the cache expiration value only once.
+			 */
+			static $cache_exp_secs = null;
+
+			if ( null === $cache_exp_secs ) {
 				$cache_exp_filter = $this->p->cf[ 'wp' ][ 'transient' ][ $cache_md5_pre ][ 'filter' ];
 				$cache_opt_key    = $this->p->cf[ 'wp' ][ 'transient' ][ $cache_md5_pre ][ 'opt_key' ];
 				$cache_exp_secs   = (int) apply_filters( $cache_exp_filter, $this->p->options[ $cache_opt_key ] );	// DAY_IN_SECONDS by default.
@@ -547,7 +550,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 		 * The $mod variable can be false, and if so, it will be set using get_page_mod().
 		 * This method does not return a value, so do not use as a filter. ;-)
 		 */
-		public function add_plugin_image_sizes( $wp_obj = false, $image_sizes = array(), &$mod = false, $filter_sizes = true ) {
+		public function add_plugin_image_sizes( $wp_obj = false, $image_sizes = array(), $mod = false, $filter_sizes = true ) {
 
 			/**
 			 * Allow various plugin add-ons to provide their image names, labels, etc.
@@ -713,7 +716,8 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 					 * Allow custom function hooks to make changes.
 					 */
 					if ( true === $filter_sizes ) {
-						$size_info = apply_filters( $this->p->lca . '_size_info_' . $size_info[ 'name' ], $size_info, $mod[ 'id' ], $mod[ 'name' ] );
+						$size_info = apply_filters( $this->p->lca . '_size_info_' . $size_info[ 'name' ],
+							$size_info, $mod[ 'id' ], $mod[ 'name' ] );
 					}
 
 					/**
@@ -721,7 +725,8 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 					 */
 					$this->size_labels[ $this->p->lca . '-' . $size_info[ 'name' ] ] = $size_info[ 'label' ];
 
-					add_image_size( $this->p->lca . '-' . $size_info[ 'name' ], $size_info[ 'width' ], $size_info[ 'height' ], $size_info[ 'crop' ] );
+					add_image_size( $this->p->lca . '-' . $size_info[ 'name' ],
+						$size_info[ 'width' ], $size_info[ 'height' ], $size_info[ 'crop' ] );
 
 					if ( $this->p->debug->enabled ) {
 						$this->p->debug->log( 'image size ' . $this->p->lca . '-' . $size_info[ 'name' ] . ' ' . 
@@ -1213,7 +1218,8 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 			$user_id = $this->maybe_change_user_id( $user_id );
 
-			wp_schedule_single_event( time(), $this->p->lca . '_add_user_roles', array( $user_id ) );
+			wp_schedule_single_event( time() + $this->event_buffer,
+				$this->p->lca . '_add_user_roles', array( $user_id ) );
 		}
 
 		public function add_user_roles( $user_id = null ) {
@@ -1284,7 +1290,8 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 			$user_id = $this->maybe_change_user_id( $user_id );
 
-			wp_schedule_single_event( time(), $this->p->lca . '_clear_all_cache', array( $user_id, $clear_other, $clear_short, $refresh_all ) );
+			wp_schedule_single_event( time() + $this->event_buffer,
+				$this->p->lca . '_clear_all_cache', array( $user_id, $clear_other, $clear_short, $refresh_all ) );
 		}
 
 		public function clear_all_cache( $user_id = null, $clear_other = false, $clear_short = null, $refresh_all = null ) {
@@ -1295,7 +1302,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 			static $have_cleared = null;
 
-			if ( $have_cleared !== null ) {	// Already run once.
+			if ( null !== $have_cleared ) {	// Already run once.
 				return;
 			}
 
@@ -1344,7 +1351,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 			$this->stop_refresh_all_cache();	// Just in case.
 
-			$this->delete_all_db_transients( $clear_short );
+			$this->delete_all_db_transients( $clear_short, $transient_prefix = $this->p->lca . '_' );
 
 			$this->delete_all_cache_files();
 
@@ -1448,7 +1455,8 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 			$user_id = $this->maybe_change_user_id( $user_id );
 
-			wp_schedule_single_event( time(), $this->p->lca . '_refresh_all_cache', array( $user_id ) );
+			wp_schedule_single_event( time() + $this->event_buffer,
+				$this->p->lca . '_refresh_all_cache', array( $user_id ) );
 		}
 
 		public function stop_refresh_all_cache() {
@@ -1515,25 +1523,30 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 				'user' => 0,
 			);
 
-			foreach ( $total_count as $name => &$count ) {
+			foreach ( $total_count as $obj_name => &$count ) {
 
 				/**
-				 * Note that PHP class names are not case sensitive, so we can 
-				 * use "wpssopost" here instead of "WpssoPost".
+				 * Note that PHP class names are not case
+				 * sensitive, so we can  use "wpssopost" here
+				 * instead of "WpssoPost".
 				 */
-				$object_ids = call_user_func( array( $this->p->lca . $name, 'get_public_ids' ) );	// Call static method.
-				
-				foreach ( $object_ids as $object_id ) {
+				$obj_ids = call_user_func( array( $this->p->lca . $obj_name, 'get_public_ids' ) );	// Call static method.
 
-					if ( get_transient( $cache_id ) !== $cache_status ) {	// Check that we are allowed to continue.
-						break 2;	// Stop here.
+				foreach ( $obj_ids as $obj_id ) {
+
+					/**
+					 * Check that we are allowed to continue.
+					 * Stop if cache status is not 'running'.
+					 */
+					if ( $cache_status !== get_transient( $cache_id ) ) {
+						break 2;
 					}
 
 					$count++;
 
-					$object_mod = $this->p->$name->get_mod( $object_id );
+					$mod = $this->p->$obj_name->get_mod( $obj_id );
 
-					$this->refresh_mod_head_meta( $object_mod );
+					$this->refresh_mod_head_meta( $mod, $do_sleep = true );
 				}
 			}
 
@@ -1555,7 +1568,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 			$this->add_plugin_image_sizes( $wp_obj = false, $image_sizes = array(), $mod, $filter_sizes = true );
 
-			$head_meta_tags = $this->p->head->get_head_array( false, $mod, true );
+			$head_meta_tags = $this->p->head->get_head_array( $use_post = false, $mod, $read_cache = true );
 			$head_meta_info = $this->p->head->extract_head_info( $mod, $head_meta_tags );
 
 			if ( $do_sleep ) {
@@ -1630,7 +1643,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 			$deleted_count = 0;
 
-			$transient_keys = $this->get_db_transient_keys( $only_expired = true );
+			$transient_keys = $this->get_db_transient_keys( $only_expired = true, $transient_prefix = $this->p->lca . '_' );
 
 			foreach( $transient_keys as $cache_id ) {
 				if ( delete_transient( $cache_id ) ) {
@@ -1647,34 +1660,36 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 				$this->p->debug->mark();
 			}
 
-			$deleted_count = 0;
-
-			$transient_keys = $this->get_db_transient_keys( $only_expired = false );
+			$deleted_count  = 0;
+			$transient_keys = $this->get_db_transient_keys( $only_expired = false, $transient_prefix );
 
 			foreach( $transient_keys as $cache_id ) {
 
-				/**
-				 * Preserve transients that begin with "wpsso_!_".
-				 */
-				if ( 0 === strpos( $cache_id, $this->p->lca . '_!_' ) ) {
-					continue;
-				}
+				if ( 0 === strpos( $transient_prefix, $this->p->lca ) ) {
 
-				/**
-				 * Maybe delete shortened urls.
-				 */
-				if ( ! $clear_short ) {							// If not clearing short URLs.
-					if ( 0 === strpos( $cache_id, $this->p->lca . '_s_' ) ) {	// This is a shortened URL.
-						continue;						// Get the next transient.
+					/**
+					 * Preserve transients that begin with "wpsso_!_".
+					 */
+					if ( 0 === strpos( $cache_id, $this->p->lca . '_!_' ) ) {
+						continue;
+					}
+
+					/**
+					 * Maybe delete shortened urls.
+					 */
+					if ( ! $clear_short ) {							// If not clearing short URLs.
+						if ( 0 === strpos( $cache_id, $this->p->lca . '_s_' ) ) {	// This is a shortened URL.
+							continue;						// Get the next transient.
+						}
 					}
 				}
 
 				/**
 				 * Maybe only clear a specific transient ID prefix.
 				 */
-				if ( $transient_prefix ) {						// We're only clearing a specific prefix.
-					if ( strpos( $cache_id, $transient_prefix ) !== 0 ) {		// The cache ID does not match that prefix.
-						continue;						// Get the next transient.
+				if ( $transient_prefix ) {					// We're only clearing a specific prefix.
+					if ( 0 !== strpos( $cache_id, $transient_prefix ) ) {	// The cache ID does not match that prefix.
+						continue;					// Get the next transient.
 					}
 				}
 
@@ -1694,22 +1709,18 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 			global $wpdb;
 
-			if ( empty( $transient_prefix ) ) {
-				$transient_prefix = $this->p->lca . '_';
-			}
-
 			$db_query = 'SELECT CHAR_LENGTH( option_value ) / 1024 / 1024';
 			$db_query .= ', CHAR_LENGTH( option_value )';
 			$db_query .= ' FROM ' . $wpdb->options;
 			$db_query .= ' WHERE option_name LIKE \'_transient_' . $transient_prefix . '%\'';
 			$db_query .= ';';	// End of query.
 
-			$result  = $wpdb->get_col( $db_query );
+			$result = $wpdb->get_col( $db_query );
 
 			return number_format( array_sum( $result ), $decimals, $dec_point, $thousands_sep );
 		}
 
-		public function get_db_transient_keys( $only_expired = false ) {
+		public function get_db_transient_keys( $only_expired = false, $transient_prefix = '' ) {
 
 			if ( $this->p->debug->enabled ) {
 				$this->p->debug->mark();
@@ -1718,12 +1729,12 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 			global $wpdb;
 
 			$transient_keys = array();
-			$transient_pre  = $only_expired ? '_transient_timeout_' : '_transient_';
-			$current_time   = isset ( $_SERVER[ 'REQUEST_TIME' ] ) ? (int) $_SERVER[ 'REQUEST_TIME' ] : time() ;
+			$opt_row_prefix = $only_expired ? '_transient_timeout_' : '_transient_';
+			$current_time   = isset( $_SERVER[ 'REQUEST_TIME' ] ) ? (int) $_SERVER[ 'REQUEST_TIME' ] : time() ;
 
 			$db_query = 'SELECT option_name';
 			$db_query .= ' FROM ' . $wpdb->options;
-			$db_query .= ' WHERE option_name LIKE \'' . $transient_pre . $this->p->lca . '_%\'';
+			$db_query .= ' WHERE option_name LIKE \'' . $opt_row_prefix . $transient_prefix . '%\'';
 
 			if ( $only_expired ) {
 				$db_query .= ' AND option_value < ' . $current_time;	// Expiration time older than current time.
@@ -1737,7 +1748,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 			 * Remove '_transient_' or '_transient_timeout_' prefix from option name.
 			 */
 			foreach( $result as $option_name ) {
-				$transient_keys[] = str_replace( $transient_pre, '', $option_name );
+				$transient_keys[] = str_replace( $opt_row_prefix, '', $option_name );
 			}
 
 			return $transient_keys;
@@ -1805,11 +1816,14 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 				$this->p->debug->mark();
 			}
 
-			static $cache_exp_secs = null;	// Filter the cache expiration value only once.
-
 			$cache_md5_pre = $this->p->lca . '_a_';
 
-			if ( ! isset( $cache_exp_secs ) ) {	// Filter cache expiration if not already set.
+			/**
+			 * Set and filter the cache expiration value only once.
+			 */
+			static $cache_exp_secs = null;
+
+			if ( null === $cache_exp_secs ) {
 				$cache_exp_filter = $this->p->cf[ 'wp' ][ 'transient' ][ $cache_md5_pre ][ 'filter' ];
 				$cache_opt_key    = $this->p->cf[ 'wp' ][ 'transient' ][ $cache_md5_pre ][ 'opt_key' ];
 				$cache_exp_secs   = (int) apply_filters( $cache_exp_filter, $this->p->options[ $cache_opt_key ] );
@@ -2848,7 +2862,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 			/**
 			 * Check and possibly enforce the FORCE_SSL constant.
 			 */
-			if ( self::get_const( 'FORCE_SSL' ) && ! SucomUtil::is_https( $url ) ) {
+			if ( self::get_const( 'FORCE_SSL' ) && ! self::is_https( $url ) ) {
 
 				if ( $this->p->debug->enabled ) {
 					$this->p->debug->log( 'force ssl is enabled - replacing http by https' );
@@ -3127,7 +3141,7 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 		/**
 		 * Get maximum media values from custom meta or plugin settings.
 		 */
-		public function get_max_nums( array &$mod, $opt_pre = 'og' ) {
+		public function get_max_nums( array $mod, $opt_pre = 'og' ) {
 
 			$max_nums = array();
 
@@ -3865,69 +3879,8 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 
 		/**
 		 * Add post/term/user meta data to the Open Graph meta tags.
-		 *
-		 * Example $og_type_mt_md array:
-		 *
-		 *	'product' => array(
-		 *		'product:age_group'               => '',
-		 *		'product:availability'            => 'product_avail',
-		 *		'product:brand'                   => 'product_brand',
-		 *		'product:category'                => '',
-		 *		'product:color'                   => 'product_color',
-		 *		'product:condition'               => 'product_condition',
-		 *		'product:depth:value'             => 'product_depth_value',
-		 *		'product:depth:units'             => '',
-		 *		'product:ean'                     => 'product_gtin13',
-		 *		'product:expiration_time'         => '',
-		 *		'product:gtin14'                  => 'product_gtin14',
-		 *		'product:gtin13'                  => 'product_gtin13',
-		 *		'product:gtin12'                  => 'product_gtin12',
-		 *		'product:gtin8'                   => 'product_gtin8',
-		 *		'product:gtin'                    => 'product_gtin',
-		 *		'product:height:value'            => 'product_height_value',
-		 *		'product:height:units'            => '',
-		 *		'product:is_product_shareable'    => '',
-		 *		'product:isbn'                    => 'product_isbn',
-		 *		'product:length:value'            => 'product_length_value',
-		 *		'product:length:units'            => '',
-		 *		'product:material'                => 'product_material',
-		 *		'product:mfr_part_no'             => 'product_mpn',
-		 *		'product:original_price:amount'   => '',
-		 *		'product:original_price:currency' => '',
-		 *		'product:pattern'                 => '',
-		 *		'product:plural_title'            => '',
-		 *		'product:pretax_price:amount'     => '',
-		 *		'product:pretax_price:currency'   => '',
-		 *		'product:price:amount'            => 'product_price',
-		 *		'product:price:currency'          => 'product_currency',
-		 *		'product:product_link'            => '',
-		 *		'product:purchase_limit'          => '',
-		 *		'product:retailer'                => '',
-		 *		'product:retailer_category'       => '',
-		 *		'product:retailer_item_id'        => 'product_sku',
-		 *		'product:retailer_part_no'        => '',
-		 *		'product:retailer_title'          => '',
-		 *		'product:sale_price:amount'       => '',
-		 *		'product:sale_price:currency'     => '',
-		 *		'product:sale_price_dates:start'  => '',
-		 *		'product:sale_price_dates:end'    => '',
-		 *		'product:shipping_cost:amount'    => '',
-		 *		'product:shipping_cost:currency'  => '',
-		 *		'product:shipping_weight:value'   => '',
-		 *		'product:shipping_weight:units'   => '',
-		 *		'product:size'                    => 'product_size',
-		 *		'product:sku'                     => 'product_sku',
-		 *		'product:target_gender'           => 'product_target_gender',
-		 *		'product:upc'                     => 'product_gtin12',
-		 *		'product:volume:value'            => 'product_volume_value',
-		 *		'product:volume:units'            => '',
-		 *		'product:weight:value'            => 'product_weight_value',
-		 *		'product:weight:units'            => '',
-		 *		'product:width:value'             => 'product_width_value',
-		 *		'product:width:units'             => '',
-		 *	),
 		 */
-		public function add_og_type_mt_md( $type_id, array &$mt_og, array $md_opts ) {
+		public function add_og_type_mt_md( $type_id, array &$mt_og, array $md_opts ) {	// Pass by reference is OK.
 
 			if ( $this->p->debug->enabled ) {
 				$this->p->debug->mark();
@@ -3941,6 +3894,68 @@ if ( ! class_exists( 'WpssoUtil' ) ) {
 				$this->p->debug->log( 'loading og_type_mt array for type id ' . $type_id );
 			}
 
+			/**
+			 * Example $og_type_mt_md array:
+			 *
+			 *	'product' => array(
+			 *		'product:age_group'               => '',
+			 *		'product:availability'            => 'product_avail',
+			 *		'product:brand'                   => 'product_brand',
+			 *		'product:category'                => '',
+			 *		'product:color'                   => 'product_color',
+			 *		'product:condition'               => 'product_condition',
+			 *		'product:depth:value'             => 'product_depth_value',
+			 *		'product:depth:units'             => '',
+			 *		'product:ean'                     => 'product_gtin13',
+			 *		'product:expiration_time'         => '',
+			 *		'product:gtin14'                  => 'product_gtin14',
+			 *		'product:gtin13'                  => 'product_gtin13',
+			 *		'product:gtin12'                  => 'product_gtin12',
+			 *		'product:gtin8'                   => 'product_gtin8',
+			 *		'product:gtin'                    => 'product_gtin',
+			 *		'product:height:value'            => 'product_height_value',
+			 *		'product:height:units'            => '',
+			 *		'product:is_product_shareable'    => '',
+			 *		'product:isbn'                    => 'product_isbn',
+			 *		'product:length:value'            => 'product_length_value',
+			 *		'product:length:units'            => '',
+			 *		'product:material'                => 'product_material',
+			 *		'product:mfr_part_no'             => 'product_mpn',
+			 *		'product:original_price:amount'   => '',
+			 *		'product:original_price:currency' => '',
+			 *		'product:pattern'                 => '',
+			 *		'product:plural_title'            => '',
+			 *		'product:pretax_price:amount'     => '',
+			 *		'product:pretax_price:currency'   => '',
+			 *		'product:price:amount'            => 'product_price',
+			 *		'product:price:currency'          => 'product_currency',
+			 *		'product:product_link'            => '',
+			 *		'product:purchase_limit'          => '',
+			 *		'product:retailer'                => '',
+			 *		'product:retailer_category'       => '',
+			 *		'product:retailer_item_id'        => 'product_sku',
+			 *		'product:retailer_part_no'        => '',
+			 *		'product:retailer_title'          => '',
+			 *		'product:sale_price:amount'       => '',
+			 *		'product:sale_price:currency'     => '',
+			 *		'product:sale_price_dates:start'  => '',
+			 *		'product:sale_price_dates:end'    => '',
+			 *		'product:shipping_cost:amount'    => '',
+			 *		'product:shipping_cost:currency'  => '',
+			 *		'product:shipping_weight:value'   => '',
+			 *		'product:shipping_weight:units'   => '',
+			 *		'product:size'                    => 'product_size',
+			 *		'product:sku'                     => 'product_sku',
+			 *		'product:target_gender'           => 'product_target_gender',
+			 *		'product:upc'                     => 'product_gtin12',
+			 *		'product:volume:value'            => 'product_volume_value',
+			 *		'product:volume:units'            => '',
+			 *		'product:weight:value'            => 'product_weight_value',
+			 *		'product:weight:units'            => '',
+			 *		'product:width:value'             => 'product_width_value',
+			 *		'product:width:units'             => '',
+			 *	)
+			 */
 			$og_type_mt_md = $this->p->cf[ 'head' ][ 'og_type_mt' ][ $type_id ];
 
 			foreach ( $og_type_mt_md as $mt_name => $md_key ) {

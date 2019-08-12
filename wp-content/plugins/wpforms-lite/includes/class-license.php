@@ -643,7 +643,7 @@ class WPForms_License {
 				deactivate_plugins( plugin_basename( WPFORMS_PLUGIN_FILE ) );
 				wp_send_json_success(
 					array(
-						'message' => esc_html__( 'The Pro version was already installed and has no been activated.', 'wpforms-lite' ),
+						'message' => esc_html__( 'WPForms Pro was already installed and has not been activated.', 'wpforms-lite' ),
 						'reload'  => true,
 					)
 				);
@@ -811,6 +811,7 @@ class WPForms_License {
 				// Activate the plugin silently.
 				$activated = activate_plugin( $plugin_basename, '', false, true );
 				if ( ! is_wp_error( $activated ) ) {
+					add_option( 'wpforms_install', 1 );
 					wp_send_json_success( esc_html__( 'Plugin installed & activated.', 'wpforms-lite' ) );
 				} else {
 					// Reactivate the lite plugin if pro activation failed.
@@ -826,5 +827,4 @@ class WPForms_License {
 
 		}
 	}
-
 }

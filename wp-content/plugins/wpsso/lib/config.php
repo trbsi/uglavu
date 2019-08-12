@@ -21,8 +21,8 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 			),
 			'plugin' => array(
 				'wpsso' => array(			// Plugin acronym.
-					'version'     => '5.5.0',	// Plugin version.
-					'opt_version' => '655',		// Increment when changing default option values.
+					'version'     => '5.5.2.1',	// Plugin version.
+					'opt_version' => '656',		// Increment when changing default option values.
 					'short'       => 'WPSSO Core',	// Short plugin name.
 					'name'        => 'WPSSO Core',
 					'desc'        => 'WPSSO Core makes sure your content looks great on all social and search sites - no matter how URLs are crawled, shared, re-shared, posted, or embedded!',
@@ -152,7 +152,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 							'site-addons'   => 'Complementary Add-ons',
 							'site-licenses' => 'Licenses',
 							'site-setup'    => 'Setup Guide',
-							'site-tools'    => 'Tools',
 						),
 						'std' => array(
 							'admin' => array(
@@ -865,6 +864,7 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'schema_type_for_tax_product_brand' => 'item.list',	// For WooCommerce Brands.
 					'schema_type_for_tax_product_cat'   => 'item.list',	// For WooCommerce.
 					'schema_type_for_tax_product_tag'   => 'item.list',	// For WooCommerce.
+					'schema_type_for_tc_events'         => 'event',		// For Tickera.
 					'schema_type_for_tribe_events'      => 'event',
 					'schema_type_for_webpage'           => 'webpage',
 					'schema_type_for_website'           => 'website',
@@ -1746,7 +1746,6 @@ if ( ! class_exists( 'WpssoConfig' ) ) {
 					'setup'          => 'sos',
 					'site-setup'     => 'sos',
 					'tools'          => 'admin-tools',
-					'site-tools'     => 'admin-tools',
 				),
 			),
 			'notice' => array(

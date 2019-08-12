@@ -37,12 +37,12 @@ class ThemeIntegration {
 		add_filter(
 			'user_contactmethods',
 			function ( $field ) {
-				$fields['facebook'] = __( 'Facebook', 'blocksy' );
-				$fields['twitter'] = __( 'Twitter', 'blocksy' );
-				$fields['gplus'] = __( 'Google+', 'blocksy' );
-				$fields['linkedin'] = __( 'LinkedIn', 'blocksy' );
-				$fields['dribbble'] = __( 'Dribbble', 'blocksy' );
-				$fields['instagram'] = __( 'Instagram', 'blocksy' );
+				$fields['facebook'] = __( 'Facebook', 'blc' );
+				$fields['twitter'] = __( 'Twitter', 'blc' );
+				$fields['gplus'] = __( 'Google+', 'blc' );
+				$fields['linkedin'] = __( 'LinkedIn', 'blc' );
+				$fields['dribbble'] = __( 'Dribbble', 'blc' );
+				$fields['instagram'] = __( 'Instagram', 'blc' );
 
 				return $fields;
 			}

@@ -39,6 +39,9 @@ if (! $form_url) {
 // Content alignment
 $alignment = blocksy_default_akg( 'mailchimp_alignment', $atts, 'center' );
 
+$name_label = blocksy_default_akg('mailchimp_name_label', $atts, __( 'Your name', 'blc' ));
+$email_label = blocksy_default_akg('mailchimp_mail_label', $atts, __( 'Your email', 'blc' ));
+
 $data_alignment = '';
 
 if ( $alignment !== 'left' ) {
@@ -66,10 +69,10 @@ echo $before_title . wp_kses_post( $title ) . $after_title;
 
 	<div class="ct-fields">
 		<?php if ( $has_name ) { ?>
-			<input type="text" name="FNAME" placeholder="<?php esc_attr_e('Your Name', 'blocksy'); ?>" />
+			<input type="text" name="FNAME" placeholder="<?php esc_attr_e($name_label); ?>" />
 		<?php } ?>
 
-		<input type="email" name="EMAIL" placeholder="<?php esc_attr_e('Your Email', 'blocksy'); ?> *" required />
+		<input type="email" name="EMAIL" placeholder="<?php esc_attr_e($email_label); ?> *" required />
 
 		<button class="button">
 			<?php echo esc_html($button_text) ?>

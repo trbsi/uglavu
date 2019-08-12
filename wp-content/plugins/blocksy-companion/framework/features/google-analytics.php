@@ -46,7 +46,7 @@ class GoogleAnalytics {
 
 	public function generate_google_analytics_opts($options) {
 		$options['google_analytics'] = [
-			'title' => __('Google Analytics', 'blocksy'),
+			'title' => __('Google Analytics', 'blc'),
 			'container' => [ 'priority' => 7 ],
 			'options' => [
 

@@ -64,9 +64,33 @@ $options = [
 		'disableRevertButton' => true,
 	],
 
+	blocksy_rand_md5() => [
+		'type' => 'ct-condition',
+		'condition' => [ 'has_mailchimp_name' => 'yes' ],
+		'options' => [
+
+			'mailchimp_name_label' => [
+				'type' => 'text',
+				'label' => __( 'Name Label', 'blc' ),
+				'design' => 'inline',
+				'value' => __( 'Your name', 'blc' ),
+				'disableRevertButton' => true,
+			],
+
+		],
+	],
+
+	'mailchimp_mail_label' => [
+		'type' => 'text',
+		'label' => __( 'Mail Label', 'blc' ),
+		'design' => 'inline',
+		'value' => __( 'Your email', 'blc' ),
+		'disableRevertButton' => true,
+	],
+
 	'mailchimp_button_text' => [
 		'type' => 'text',
-		'label' => __( 'Button Text', 'blc' ),
+		'label' => __( 'Button Label', 'blc' ),
 		'design' => 'inline',
 		'value' => __( 'Subscribe', 'blc' ),
 		'disableRevertButton' => true,

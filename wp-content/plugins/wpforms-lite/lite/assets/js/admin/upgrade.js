@@ -208,7 +208,7 @@ var WPFormsUpgrade = window.WPFormsUpgrade || ( function( document, window, $ ) 
 		proAlreadyInstalled: function( res ) {
 			var buttons = {
 				confirm: {
-					text: wpforms_upgrade.upgrd_to_pro_btn_ok,
+					text: wpforms_upgrade.upgrd_to_pro_btn_activate,
 					btnClass: 'btn-confirm',
 					keys: [ 'enter' ],
 					action: function() {

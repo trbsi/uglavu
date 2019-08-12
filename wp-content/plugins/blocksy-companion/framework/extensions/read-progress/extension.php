@@ -50,7 +50,7 @@ class BlocksyExtensionReadProgress {
 
 		add_filter('blocksy_extensions_metabox_post_bottom', function ($opts) {
 			$opts['read_progress_bar'] = [
-					'label' => __( 'Read progress bar', 'blocksy' ),
+					'label' => __( 'Read progress bar', 'blc' ),
 					'type' => 'ct-switch',
 					'value' => 'yes',
 			];

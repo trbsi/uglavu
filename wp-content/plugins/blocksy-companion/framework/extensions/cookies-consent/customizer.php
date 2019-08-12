@@ -11,7 +11,7 @@ $options = [
 			'inner-options' => [
 
 				blocksy_rand_md5() => [
-					'title' => __( 'General', 'blocksy' ),
+					'title' => __( 'General', 'blc' ),
 					'type' => 'tab',
 					'options' => [
 
@@ -25,12 +25,12 @@ $options = [
 
 								'type-1' => [
 									'src'   => BLOCKSY_URL . 'framework/extensions/cookies-consent/static/images/type-1.svg',
-									'title' => __( 'Type 1', 'blocksy' ),
+									'title' => __( 'Type 1', 'blc' ),
 								],
 
 								'type-2' => [
 									'src'   => BLOCKSY_URL . 'framework/extensions/cookies-consent/static/images/type-2.svg',
-									'title' => __( 'Type 2', 'blocksy' ),
+									'title' => __( 'Type 2', 'blc' ),
 								],
 
 							],
@@ -79,12 +79,12 @@ $options = [
 				],
 
 				blocksy_rand_md5() => [
-					'title' => __( 'Design', 'blocksy' ),
+					'title' => __( 'Design', 'blc' ),
 					'type' => 'tab',
 					'options' => [
 
 						'cookieContentColor' => [
-							'label' => __( 'Content Color', 'blocksy' ),
+							'label' => __( 'Content Color', 'blc' ),
 							'type'  => 'ct-color-picker',
 							'design' => 'inline',
 							'setting' => [ 'transport' => 'postMessage' ],
@@ -97,14 +97,14 @@ $options = [
 
 							'pickers' => [
 								[
-									'title' => __( 'Initial', 'blocksy' ),
+									'title' => __( 'Initial', 'blc' ),
 									'id' => 'default',
 								],
 							],
 						],
 
 						'cookieButtonBackground' => [
-							'label' => __( 'Button Color', 'blocksy' ),
+							'label' => __( 'Button Color', 'blc' ),
 							'type'  => 'ct-color-picker',
 							'design' => 'inline',
 							'setting' => [ 'transport' => 'postMessage' ],
@@ -120,19 +120,19 @@ $options = [
 
 							'pickers' => [
 								[
-									'title' => __( 'Initial', 'blocksy' ),
+									'title' => __( 'Initial', 'blc' ),
 									'id' => 'default',
 								],
 
 								[
-									'title' => __( 'Hover', 'blocksy' ),
+									'title' => __( 'Hover', 'blc' ),
 									'id' => 'hover',
 								],
 							],
 						],
 
 						'cookieBackground' => [
-							'label' => __( 'Background Color', 'blocksy' ),
+							'label' => __( 'Background Color', 'blc' ),
 							'type'  => 'ct-color-picker',
 							'design' => 'inline',
 							'setting' => [ 'transport' => 'postMessage' ],
@@ -145,7 +145,7 @@ $options = [
 
 							'pickers' => [
 								[
-									'title' => __( 'Initial', 'blocksy' ),
+									'title' => __( 'Initial', 'blc' ),
 									'id' => 'default',
 								],
 							],
@@ -157,7 +157,7 @@ $options = [
 							'options' => [
 
 								'cookieMaxWidth' => [
-									'label' => __( 'Maximum Width', 'blocksy' ),
+									'label' => __( 'Maximum Width', 'blc' ),
 									'type' => 'ct-slider',
 									'value' => 400,
 									'min' => 200,
@@ -174,7 +174,7 @@ $options = [
 
 				blocksy_rand_md5() => [
 					'type' => 'ct-title',
-					'label' => __( 'Forms Section', 'blocksy' ),
+					'label' => __( 'Forms Section', 'blc' ),
 				],
 
 				'forms_cookie_consent_content' => [

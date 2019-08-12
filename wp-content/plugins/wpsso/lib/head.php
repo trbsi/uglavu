@@ -128,7 +128,6 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 
 			$mod        = $this->p->util->get_page_mod( $use_post );	// Get post/user/term id, module name, and module object reference.
 			$read_cache = true;
-			$mt_og      = array();
 
 			if ( $this->p->debug->enabled ) {
 				$this->p->debug->log( 'home url = ' . get_option( 'home' ) );
@@ -147,13 +146,9 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			}
 
 			if ( $add_head_html ) {
-				echo $this->get_head_html( $use_post, $mod, $read_cache, $mt_og );
+				echo $this->get_head_html( $use_post, $mod, $read_cache );
 			} else {
 				echo "\n" . '<!-- ' . $this->p->lca . ' head html is disabled -->' . "\n";
-			}
-
-			if ( $this->p->debug->enabled ) {
-				$this->p->debug->log( 'end of get_head_html' );
 			}
 		}
 
@@ -341,7 +336,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			return $ret;
 		}
 
-		public function get_head_html( $use_post = false, &$mod = false, $read_cache = true, array &$mt_og ) {
+		public function get_head_html( $use_post = false, $mod = false, $read_cache = true ) {
 
 			if ( $this->p->debug->enabled ) {
 				$this->p->debug->mark();
@@ -368,7 +363,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 
 			$html = $this->get_mt_mark( 'begin' );
 
-			foreach ( $this->get_head_array( $use_post, $mod, $read_cache, $mt_og ) as $mt ) {
+			foreach ( $this->get_head_array( $use_post, $mod, $read_cache ) as $mt ) {
 
 				if ( ! empty( $mt[0] ) ) {
 
@@ -398,7 +393,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 		/**
 		 * $read_cache is false when called by the post/term/user load_meta_page() method.
 		 */
-		public function get_head_array( $use_post = false, &$mod = false, $read_cache = true, &$mt_og = array() ) {
+		public function get_head_array( $use_post = false, $mod = false, $read_cache = true ) {
 
 			if ( $this->p->debug->enabled ) {
 				$this->p->debug->mark( 'build head array' );	// Begin timer.
@@ -431,21 +426,22 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			$is_admin     = is_admin();	// Call the function only once.
 			$crawler_name = SucomUtil::get_crawler_name();
 
-			static $cache_exp_secs = null;	// Set the cache expiration value once.
-
 			$cache_md5_pre = $this->p->lca . '_h_';
 			$cache_salt    = __METHOD__ . '(' . SucomUtil::get_mod_salt( $mod, $sharing_url ) . ')';
 			$cache_id      = $cache_md5_pre . md5( $cache_salt );
-			$cache_index   = $this->get_head_cache_index( $mod, $sharing_url );	// Includes locale, url, $wp_query args, etc.
+			$cache_index   = $this->get_head_cache_index( $mod, $sharing_url );	// Includes locale, url, etc.
 			$cache_array   = array();
 
 			/**
-			 * Set and filter the static cache expiration value if not already set.
+			 * Set and filter the cache expiration value only once.
 			 */
-			if ( ! isset( $cache_exp_secs ) ) {
+			static $cache_exp_secs = null;
+
+			if ( null === $cache_exp_secs ) {
 
 				$cache_exp_filter = $this->p->cf[ 'wp' ][ 'transient' ][ $cache_md5_pre ][ 'filter' ];
 				$cache_opt_key    = $this->p->cf[ 'wp' ][ 'transient' ][ $cache_md5_pre ][ 'opt_key' ];
+				$cache_exp_secs   = $this->p->options[ $cache_opt_key ];
 
 				if ( is_404() || is_search() ) {
 
@@ -456,7 +452,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 					$cache_exp_secs = 0;
 				}
 
-				$cache_exp_secs = (int) apply_filters( $cache_exp_filter, $this->p->options[ $cache_opt_key ] );
+				$cache_exp_secs = (int) apply_filters( $cache_exp_filter, $cache_exp_secs );
 			}
 
 			if ( $this->p->debug->enabled ) {
@@ -479,8 +475,8 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 						if ( is_array( $cache_array[ $cache_index ] ) ) {	// Just in case.
 
 							if ( $this->p->debug->enabled ) {
-								$this->p->debug->log( 'exiting early: cache index found in transient cache' );
-								$this->p->debug->mark( 'build head array' );	// end timer
+								$this->p->debug->log( 'cache index found in transient cache' );
+								$this->p->debug->mark( 'build head array' );	// End timer.
 							}
 
 							return $cache_array[ $cache_index ];	// Stop here.
@@ -516,6 +512,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 				}
 
 				if ( SucomUtil::delete_transient_array( $cache_id ) ) {
+
 					if ( $this->p->debug->enabled ) {
 						$this->p->debug->log( 'deleted transient cache id ' . $cache_id );
 					}
@@ -541,7 +538,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			 */
 			$this->p->util->maybe_set_ref( $sharing_url, $mod, __( 'adding open graph meta tags', 'wpsso' ) );
 
-			$mt_og = $this->p->og->get_array( $mod, $mt_og, $crawler_name );
+			$mt_og = $this->p->og->get_array( $mod, $crawler_name );
 
 			$this->p->util->maybe_unset_ref( $sharing_url );
 
@@ -644,7 +641,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 		/**
 		 * Loops through the arrays and calls get_single_mt() for each.
 		 */
-		private function get_mt_array( $tag, $type, array &$mt_array, array &$mod ) {
+		private function get_mt_array( $tag, $type, array $mt_array, array $mod ) {
 
 			if ( $this->p->debug->enabled ) {
 				$this->p->debug->log( count( $mt_array ) . ' ' . $tag . ' ' . $type . ' to process' );
@@ -761,7 +758,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 			return $merged;
 		}
 
-		public function get_single_mt( $tag, $type, $name, $value, $cmt, array &$mod ) {
+		public function get_single_mt( $tag, $type, $name, $value, $cmt, array $mod ) {
 
 			/**
 			 * Check for known exceptions for the "property" $type.
@@ -1098,7 +1095,7 @@ if ( ! class_exists( 'WpssoHead' ) ) {
 		 *
 		 * $parts = array( $html, $tag, $type, $name, $attr, $value, $cmt );
 		 */
-		private function apply_filters_single_mt( array &$parts, array &$mod ) {
+		private function apply_filters_single_mt( array $parts, array $mod ) {
 
 			$log_prefix  = $parts[ 1 ] . ' ' . $parts[ 2 ] . ' ' . $parts[ 3 ];
 			$filter_name = $this->p->lca . '_' . $parts[ 1 ] . '_' . $parts[ 2 ] . '_' . $parts[ 3 ] . '_' . $parts[ 4 ];

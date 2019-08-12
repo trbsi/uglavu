@@ -38,6 +38,9 @@ function blc_ext_mailchimp_subscribe_form($forced = false) {
 
 	$has_name = get_theme_mod( 'has_mailchimp_name', 'no' ) === 'yes';
 
+    $name_label = get_theme_mod('mailchimp_name_label', __( 'Your name', 'blc' ));
+    $email_label = get_theme_mod('mailchimp_mail_label', __( 'Your email', 'blc' ));
+
 	if ($forced) {
 		$has_name = true;
 	}
@@ -82,16 +85,16 @@ function blc_ext_mailchimp_subscribe_form($forced = false) {
 		<form action="<?php echo esc_attr($form_url) ?>" method="post" class="ct-mailchimp-form">
 			<div class="block-inner">
 				<?php if ( $has_name ) { ?>
-					<input type="text" name="FNAME" placeholder="<?php esc_attr_e('Your Name', 'blocksy'); ?>" />
+					<input type="text" name="FNAME" placeholder="<?php esc_attr_e($name_label); ?>" />
 				<?php } ?>
 
-				<input type="email" name="EMAIL" placeholder="<?php esc_attr_e('Your Email', 'blocksy'); ?> *" required />
+				<input type="email" name="EMAIL" placeholder="<?php esc_attr_e($email_label); ?> *" required />
 
 				<button class="button">
 					<?php echo esc_html($button_text) ?>
 				</button>
 			</div>
-			
+
 			<?php
 				if (function_exists('blocksy_ext_cookies_checkbox')) {
 					echo blocksy_ext_cookies_checkbox();
