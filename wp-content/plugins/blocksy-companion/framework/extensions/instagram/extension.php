@@ -64,7 +64,7 @@ class BlocksyExtensionInstagram {
 			wp_enqueue_script(
 				'blocksy-ext-instagram-scripts',
 				BLOCKSY_URL . 'framework/extensions/instagram/static/bundle/main.js',
-				['ct-scripts'],
+				['ct-scripts', 'ct-events'],
 				$data['Version'],
 				true
 			);

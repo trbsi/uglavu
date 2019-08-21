@@ -98,7 +98,7 @@ class BlocksyExtensionMailchimp {
 				wp_enqueue_script(
 					'blocksy-mailchimp-customizer-sync',
 					BLOCKSY_URL . 'framework/extensions/mailchimp/admin-static/bundle/sync.js',
-					[ 'customize-preview' ],
+					[ 'customize-preview', 'ct-events' ],
 					$data['Version'],
 					true
 				);

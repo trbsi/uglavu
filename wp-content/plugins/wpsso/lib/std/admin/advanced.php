@@ -128,11 +128,11 @@ if ( ! class_exists( 'WpssoStdAdminAdvanced' ) ) {
 			$form->get_td_no_checkbox( 'plugin_check_head' );
 
 			$table_rows[ 'plugin_check_img_dims' ] = '' . 
-			$form->get_th_html( _x( 'Enforce Image Dimensions Check', 'option label', 'wpsso' ), '', 'plugin_check_img_dims' ) . 
+			$form->get_th_html( _x( 'Enforce Image Size Checks', 'option label', 'wpsso' ), '', 'plugin_check_img_dims' ) . 
 			$form->get_td_no_checkbox( 'plugin_check_img_dims', '<em>' . _x( 'recommended', 'option comment', 'wpsso' ) . '</em>' );
 
 			$table_rows[ 'plugin_upscale_images' ] = '' . 
-			$form->get_th_html( _x( 'Media Library Image Upscaling', 'option label', 'wpsso' ), '', 'plugin_upscale_images' ) . 
+			$form->get_th_html( _x( 'Upscale Media Library Images', 'option label', 'wpsso' ), '', 'plugin_upscale_images' ) . 
 			$form->get_td_no_checkbox( 'plugin_upscale_images' );
 
 			$table_rows[ 'plugin_upscale_img_max' ] = '' .
@@ -219,7 +219,7 @@ if ( ! class_exists( 'WpssoStdAdminAdvanced' ) ) {
 
 				foreach ( WpssoWpMeta::get_column_headers() as $col_key => $col_header ) {
 					if ( $form->in_defaults( 'plugin_' . $col_key . '_col_' . $mod_name ) ) {	// Just in case.
-						$cols .= $form->get_td_no_checkbox( 'plugin_' . $col_key . '_col_' . $mod_name, '', $narrow = true );
+						$cols .= $form->get_td_no_checkbox( 'plugin_' . $col_key . '_col_' . $mod_name, '', $is_narrow = true );
 					} else {
 						$cols .= '<td class="checkbox"></td>';
 					}

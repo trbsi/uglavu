@@ -36,11 +36,6 @@ echo blocksy_social_icons(
 			],
 
 			[
-				'id' => 'gplus',
-				'enabled' => true,
-			],
-
-			[
 				'id' => 'instagram',
 				'enabled' => true,
 			],

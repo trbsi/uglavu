@@ -53,12 +53,8 @@ if ( ! class_exists( 'WpssoStdAdminGeneral' ) ) {
 
 			$table_rows[] = '<td colspan="2">' . $this->p->msgs->get( 'pro-feature-msg' ) . '</td>';
 
-			$table_rows[ 'plugin_check_img_dims' ] = '' . 
-			$form->get_th_html( _x( 'Enforce Image Dimensions Check', 'option label', 'wpsso' ), '', 'plugin_check_img_dims' ) . 
-			$form->get_td_no_checkbox( 'plugin_check_img_dims', '<em>' . _x( 'recommended', 'option comment', 'wpsso' ) . '</em>' );
-
 			$table_rows[ 'plugin_upscale_images' ] = '' . 
-			$form->get_th_html( _x( 'Allow Upscale of Media Library Images', 'option label', 'wpsso' ), '', 'plugin_upscale_images' ) . 
+			$form->get_th_html( _x( 'Upscale Media Library Images', 'option label', 'wpsso' ), '', 'plugin_upscale_images' ) . 
 			$form->get_td_no_checkbox( 'plugin_upscale_images' );
 
 			$table_rows[ 'plugin_upscale_img_max' ] = $form->get_tr_hide( 'basic', 'plugin_upscale_img_max' ) . 
@@ -82,11 +78,6 @@ if ( ! class_exists( 'WpssoStdAdminGeneral' ) ) {
 			$table_rows[ 'og_vid_max' ] = $form->get_tr_hide( 'basic', 'og_vid_max' ) . 
 			$form->get_th_html( _x( 'Maximum Videos to Include', 'option label', 'wpsso' ), null, 'og_vid_max' ) . 
 			'<td class="blank">' . $form->options[ 'og_vid_max' ] . '</td>';
-
-			$table_rows[ 'og_vid_https' ] = $form->get_tr_hide( 'basic', 'og_vid_https' ) . 
-			$form->get_th_html( _x( 'Use HTTPS for Video API Requests', 'option label', 'wpsso' ), null, 'og_vid_https' ) . 
-			'<td class="blank"><input type="checkbox" disabled="disabled" /> <em>' . sprintf( _x( 'uses %s', 'option comment', 'wpsso' ),
-				str_replace( WPSSO_PLUGINDIR, WPSSO_PLUGINSLUG . '/', WPSSO_PHP_CURL_CAINFO ) ) . '</em></td>';
 
 			$table_rows[ 'og_vid_prev_img' ] = '' . 
 			$form->get_th_html( _x( 'Include Video Preview Images', 'option label', 'wpsso' ), null, 'og_vid_prev_img' ) . 

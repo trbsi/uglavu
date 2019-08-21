@@ -122,11 +122,6 @@ $options = [
 			],
 
 			[
-				'id' => 'gplus',
-				'enabled' => true,
-			],
-
-			[
 				'id' => 'instagram',
 				'enabled' => true,
 			],
@@ -139,10 +134,6 @@ $options = [
 
 			'twitter' => [
 				'label' => __( 'Twitter', 'blc' ),
-			],
-
-			'gplus' => [
-				'label' => __( 'Google Plus', 'blc' ),
 			],
 
 			'instagram' => [

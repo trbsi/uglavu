@@ -39,7 +39,7 @@ $options = [
 						'cookie_consent_period' => [
 							'label' => __('Cookie period', 'blc'),
 							'type' => 'ct-select',
-							'value' => 'onemonth',
+							'value' => 'forever',
 							'design' => 'inline',
 							'setting' => [ 'transport' => 'postMessage' ],
 							'choices' => blocksy_ordered_keys(

@@ -3,8 +3,8 @@
 <table>
 <tr><th align="right" valign="top" nowrap>Plugin Name</th><td>WPSSO Core</td></tr>
 <tr><th align="right" valign="top" nowrap>Summary</th><td>WPSSO Core makes sure your content looks great on all social and search sites, no matter how URLs are crawled, shared, re-shared, posted or embedded!</td></tr>
-<tr><th align="right" valign="top" nowrap>Stable Version</th><td>5.5.2.1</td></tr>
-<tr><th align="right" valign="top" nowrap>Requires At Least</th><td>WordPress 3.8</td></tr>
+<tr><th align="right" valign="top" nowrap>Stable Version</th><td>6.0.0</td></tr>
+<tr><th align="right" valign="top" nowrap>Requires At Least</th><td>WordPress 3.9</td></tr>
 <tr><th align="right" valign="top" nowrap>Tested Up To</th><td>WordPress 5.2.2</td></tr>
 <tr><th align="right" valign="top" nowrap>Contributors</th><td>jsmoriss</td></tr>
 <tr><th align="right" valign="top" nowrap>License</th><td><a href="https://www.gnu.org/licenses/gpl.txt">GPLv3</a></td></tr>
@@ -125,14 +125,14 @@
 <li>Priority Media
 
 <ul>
-<li>All Social WebSites / Open Graph
+<li>Facebook / Open Graph / Default Media
 
 <ul>
 <li>Priority Image Information
 
 <ul>
 <li>Maximum Images</li>
-<li>Image Dimensions</li>
+<li>Image Subject Area</li>
 <li>Image ID</li>
 <li>or Image URL</li>
 </ul></li>
@@ -140,7 +140,7 @@
 
 <ul>
 <li>Maximum Videos</li>
-<li>Video Dimensions</li>
+<li>Video Size</li>
 <li>or Video URL</li>
 <li>Video Name / Title</li>
 <li>Video Description</li>
@@ -149,12 +149,12 @@
 <li>Twitter Card
 
 <ul>
-<li>Image Dimensions</li>
+<li>Image Subject Area</li>
 <li>Image ID</li>
 <li>or Image URL</li>
 <li>Structured Data / Schema Markup / Pinterest</li>
 <li>Maximum Images</li>
-<li>Image Dimensions</li>
+<li>Image Subject Area</li>
 <li>Image ID</li>
 <li>or Image URL</li>
 </ul></li>

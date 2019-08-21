@@ -29,7 +29,7 @@ function blocksy_ext_cookies_consent_output($forced = false) {
 	);
 
 	$button_text = get_theme_mod('cookie_consent_button_text', __('Accept', 'blc'));
-	$period = get_theme_mod('cookie_consent_period', 'onemonth');
+	$period = get_theme_mod('cookie_consent_period', 'forever');
 	$type = get_theme_mod('cookie_consent_type', 'type-1');
 
 	$class = 'container';
@@ -78,10 +78,10 @@ function blocksy_ext_cookies_checkbox() {
 
 	?>
 
-	<div class="gdpr-confirm-policy">
+	<p class="gdpr-confirm-policy">
 		<input id="gdprconfirm" name="gdprconfirm" type="checkbox" required />
 		<label for="gdprconfirm"><?php echo $message ?></label>
-	</div>
+	</p>
 
 	<?php
 

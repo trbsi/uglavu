@@ -32,7 +32,7 @@ class BlocksyExtensionReadProgress {
 			wp_enqueue_script(
 				'blocksy-ext-read-progress-bar-scripts',
 				BLOCKSY_URL . 'framework/extensions/read-progress/static/bundle/main.js',
-				[],
+				['ct-events'],
 				$data['Version'],
 				true
 			);

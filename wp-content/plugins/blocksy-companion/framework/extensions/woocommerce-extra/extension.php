@@ -48,6 +48,7 @@ class BlocksyExtensionWoocommerceExtra {
 					'wc-single-product',
 					'wc-add-to-cart-variation',
 					'flexslider',
+					'ct-events',
 					// 'photoswipe-ui-default',
 					// 'photoswipe-default-skin',
 					// 'wc-single-product',
@@ -70,7 +71,7 @@ class BlocksyExtensionWoocommerceExtra {
 				wp_enqueue_script(
 					'blocksy-woocommerce-extra-customizer-sync',
 					BLOCKSY_URL . 'framework/extensions/woocommerce-extra/static/bundle/sync.js',
-					[ 'customize-preview', 'ct-scripts' ],
+					[ 'customize-preview', 'ct-scripts', 'ct-events' ],
 					$data['Version'],
 					true
 				);

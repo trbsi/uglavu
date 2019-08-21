@@ -19,6 +19,7 @@ class Dashboard {
 
 		$deps = apply_filters('blocksy-dashboard-scripts-dependencies', [
 			'wp-i18n',
+			'ct-events',
 			'ct-options-scripts'
 		]);
 

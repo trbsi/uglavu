@@ -7,7 +7,7 @@ $mailchimpContent = blocksy_get_colors(
 );
 
 $css->put(
-	':root',
+	'.ct-mailchimp-block',
 	"--mailchimpContent: {$mailchimpContent['default']}"
 );
 
@@ -35,8 +35,8 @@ $mailchimpBackground = blocksy_get_colors(
 );
 
 $css->put(
-	':root',
-	"--mailchimpBackground: {$mailchimpBackground['default']}"
+	'.ct-mailchimp-block',
+	"--backgroundColor: {$mailchimpBackground['default']}"
 );
 
 $mailchimpShadow = blocksy_get_colors(
@@ -45,7 +45,7 @@ $mailchimpShadow = blocksy_get_colors(
 );
 
 $css->put(
-	':root',
+	'.ct-mailchimp-block',
 	"--mailchimpShadow: {$mailchimpShadow['default']}"
 );
 
@@ -53,8 +53,8 @@ blocksy_output_responsive([
 	'css' => $css,
 	'tablet_css' => $tablet_css,
 	'mobile_css' => $mobile_css,
-	'selector' => ':root',
-	'variableName' => 'mailchimpSpacing',
+	'selector' => '.ct-mailchimp-block',
+	'variableName' => 'padding',
 	'value' => get_theme_mod('mailchimpSpacing', [
 		'mobile' => '40px',
 		'tablet' => '40px',
@@ -62,4 +62,3 @@ blocksy_output_responsive([
 	]),
 	'unit' => ''
 ]);
-

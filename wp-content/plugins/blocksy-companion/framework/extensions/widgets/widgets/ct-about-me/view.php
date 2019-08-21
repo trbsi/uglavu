@@ -81,11 +81,6 @@ echo $before_title . wp_kses_post( $title ) . $after_title;
 					],
 
 					[
-						'id' => 'gplus',
-						'enabled' => true,
-					],
-
-					[
 						'id' => 'instagram',
 						'enabled' => true,
 					],

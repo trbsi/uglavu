@@ -24,6 +24,10 @@ This plugin runs and adds its enhacements only if the Blocksy theme is installed
 
 == Changelog ==
 
+1.1.8: 2019-08-20
+* Fix: Remove Google+ social network
+* Fix: Scripts loading order, makes sure `ct-events` are always present
+
 1.1.7: 2019-08-12
 * New: Mailchimp extension customizable placeholders for fields
 * Improvement: Use only one translation domain

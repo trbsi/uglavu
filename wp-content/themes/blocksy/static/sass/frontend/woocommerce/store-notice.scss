@@ -1,0 +1,55 @@
+.demo_store {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: 0;
+	padding: 13px 60px 13px 30px;
+	font-size: 15px;
+	color: #fff;
+	z-index: 9998;
+	background-color: var(--paletteColor1);
+
+	&:before {
+		display: inline-block;
+		font-family: 'woo';
+		font-size: 17px;
+		font-weight: 700;
+		content: "\e900";
+		margin-right: 15px;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+
+		@include media-breakpoint-down (sm) {
+			display: none !important;
+		}
+	}
+
+	.woocommerce-store-notice__dismiss-link {
+		position: absolute;
+		top: calc(50% - 15px);
+		right: 30px;
+		width: 30px;
+		height: 30px;
+		display: inline-block;
+		text-indent: -99999px;
+
+		&:before {
+			position: absolute;
+			content: '';
+			top: 0;
+			left: 0;
+			content: '×';
+			width: 30px;
+			height: 30px;
+			font-size: 17px;
+			font-weight: normal;
+			line-height: 29px;
+			text-align: center;
+			color: #fff;
+			text-indent: 0px;
+			border-radius: 100%;
+			background: rgba(0, 0, 0, 0.1);
+		}
+	}
+}

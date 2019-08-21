@@ -35,7 +35,7 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 			$this->maybe_show_language_notice();
 
 			$metabox_id      = 'opengraph';
-			$metabox_title   = _x( 'All Social WebSites / Open Graph', 'metabox title', 'wpsso' );
+			$metabox_title   = _x( 'General Settings', 'metabox title', 'wpsso' );
 			$metabox_screen  = $this->pagehook;
 			$metabox_context = 'normal';
 			$metabox_prio    = 'default';
@@ -47,7 +47,7 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					$metabox_context, $metabox_prio, $callback_args );
 
 			$metabox_id      = 'publishers';
-			$metabox_title   = _x( 'Specific WebSites and Publishers', 'metabox title', 'wpsso' );
+			$metabox_title   = _x( 'Specific Sites and Publishers', 'metabox title', 'wpsso' );
 			$metabox_screen  = $this->pagehook;
 			$metabox_context = 'normal';
 			$metabox_prio    = 'default';
@@ -194,8 +194,8 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 						_x( 'video preview images are enabled (and included first)', 'option comment', 'wpsso' ) . '</em>' ) . '</td>';
 
 					$table_rows[ 'og_img' ] = '' . 
-					$this->form->get_th_html( _x( 'Open Graph Image Dimensions', 'option label', 'wpsso' ), '', 'og_img_dimensions' ) . 
-					'<td>' . $this->form->get_input_image_dimensions( 'og_img' ) . '</td>';	// $use_opts = false
+					$this->form->get_th_html( _x( 'Open Graph Image Size', 'option label', 'wpsso' ), '', 'og_img_size' ) . 
+					'<td>' . $this->form->get_input_image_dimensions( 'og_img' ) . '</td>';
 
 					$table_rows[ 'og_def_img_id' ] = '' . 
 					$this->form->get_th_html( _x( 'Default / Fallback Image ID', 'option label', 'wpsso' ), '', 'og_def_img_id' ) . 
@@ -204,6 +204,10 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					$table_rows[ 'og_def_img_url' ] = '' . 
 					$this->form->get_th_html( _x( 'or Default / Fallback Image URL', 'option label', 'wpsso' ), '', 'og_def_img_url' ) . 
 					'<td>' . $this->form->get_input_image_url( 'og_def_img' ) . '</td>';
+
+					$table_rows[ 'plugin_check_img_dims' ] = '' .
+					$this->form->get_th_html( _x( 'Enforce Image Size Checks', 'option label', 'wpsso' ), '', 'plugin_check_img_dims' ) .
+					'<td>' . $this->form->get_checkbox( 'plugin_check_img_dims' ) . ' <em>' . _x( 'recommended', 'option comment', 'wpsso' ) . '</em></td>';
 
 					break;
 
@@ -316,12 +320,12 @@ if ( ! class_exists( 'WpssoSubmenuGeneral' ) && class_exists( 'WpssoAdmin' ) ) {
 					'<td>' . $this->form->get_select( 'tc_type_default', $tc_types ) . '</td>';
 
 					$table_rows[ 'tc_sum_img' ] = '' . 
-					$this->form->get_th_html( _x( 'Summary Card Image Dimensions', 'option label', 'wpsso' ), '', 'tc_sum_img_dimensions' ) . 
-					'<td>' . $this->form->get_input_image_dimensions( 'tc_sum_img' ) . '</td>';	// $use_opts = false
+					$this->form->get_th_html( _x( 'Summary Card Image Size', 'option label', 'wpsso' ), '', 'tc_sum_img_size' ) . 
+					'<td>' . $this->form->get_input_image_dimensions( 'tc_sum_img' ) . '</td>';
 
 					$table_rows[ 'tc_lrg_img' ] = '' . 
-					$this->form->get_th_html( _x( 'Large Image Card Img Dimensions', 'option label', 'wpsso' ), '', 'tc_lrg_img_dimensions' ) . 
-					'<td>' . $this->form->get_input_image_dimensions( 'tc_lrg_img' ) . '</td>';	// $use_opts = false
+					$this->form->get_th_html( _x( 'Large Image Summary Card Img Size', 'option label', 'wpsso' ), '', 'tc_lrg_img_size' ) . 
+					'<td>' . $this->form->get_input_image_dimensions( 'tc_lrg_img' ) . '</td>';
 
 					break;
 

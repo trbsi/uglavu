@@ -1,16 +1,18 @@
 <?php
 
-// Cookie
+// Content color
 $cookieContentColor = blocksy_get_colors(
 	get_theme_mod('cookieContentColor'),
 	['default' => ['color' => 'var(--paletteColor3)']]
 );
 
 $css->put(
-	':root',
+	'.cookie-notification',
 	"--cookieContentColor: {$cookieContentColor['default']}"
 );
 
+
+// Button color
 $cookieButtonBackground = blocksy_get_colors(
 	get_theme_mod('cookieButtonBackground'),
 	[
@@ -29,14 +31,15 @@ $css->put(
 	"--buttonHoverColor: {$cookieButtonBackground['hover']}"
 );
 
+// Background color
 $cookieBackground = blocksy_get_colors(
 	get_theme_mod('cookieBackground'),
 	[ 'default' => [ 'color' => '#ffffff' ] ]
 );
 
 $css->put(
-	':root',
-	"--cookieBackground: {$cookieBackground['default']}"
+	'.cookie-notification',
+	"--backgroundColor: {$cookieBackground['default']}"
 );
 
 $cookieMaxWidth = get_theme_mod( 'cookieMaxWidth', 400 );
