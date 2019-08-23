@@ -13,8 +13,13 @@ $options = [
 		'setting' => [ 'transport' => 'postMessage' ],
 		'inner-options' => [
 
+			blocksy_rand_md5() => [
+				'type' => 'ct-title',
+				'label' => __( 'Color Palettes', 'blocksy' ),
+			],
+
 			'colorPalette' => [
-				'label' => __( 'Global Colors', 'blocksy' ),
+				'label' => false,
 				'type'  => 'ct-color-palettes-picker',
 				'design' => 'block',
 				'setting' => [ 'transport' => 'postMessage' ],
@@ -121,13 +126,14 @@ $options = [
 			],
 
 			blocksy_rand_md5() => [
-				'type' => 'ct-divider',
-				'attr' => [ 'data-type' => 'small' ],
+				'type' => 'ct-title',
+				'label' => __( 'Global Colors', 'blocksy' ),
 			],
 
 			'fontColor' => [
 				'label' => __( 'Base Font Color', 'blocksy' ),
 				'type'  => 'ct-color-picker',
+				'skipEditPalette' => true,
 				'design' => 'inline',
 				'setting' => [ 'transport' => 'postMessage' ],
 
@@ -148,6 +154,7 @@ $options = [
 			'h1Color' => [
 				'label' => __( 'Heading 1 (H1)', 'blocksy' ),
 				'type'  => 'ct-color-picker',
+				'skipEditPalette' => true,
 				'design' => 'inline',
 				'setting' => [ 'transport' => 'postMessage' ],
 
@@ -169,6 +176,7 @@ $options = [
 				'label' => __( 'Heading 2 (H2)', 'blocksy' ),
 				'type'  => 'ct-color-picker',
 				'design' => 'inline',
+				'skipEditPalette' => true,
 				'setting' => [ 'transport' => 'postMessage' ],
 
 				'value' => [
@@ -189,6 +197,7 @@ $options = [
 				'label' => __( 'Heading 3 (H3)', 'blocksy' ),
 				'type'  => 'ct-color-picker',
 				'design' => 'inline',
+				'skipEditPalette' => true,
 				'setting' => [ 'transport' => 'postMessage' ],
 
 				'value' => [
@@ -209,6 +218,7 @@ $options = [
 				'label' => __( 'Heading 4 (H4)', 'blocksy' ),
 				'type'  => 'ct-color-picker',
 				'design' => 'inline',
+				'skipEditPalette' => true,
 				'setting' => [ 'transport' => 'postMessage' ],
 
 				'value' => [
@@ -229,6 +239,7 @@ $options = [
 				'label' => __( 'Heading 5 (H5)', 'blocksy' ),
 				'type'  => 'ct-color-picker',
 				'design' => 'inline',
+				'skipEditPalette' => true,
 				'setting' => [ 'transport' => 'postMessage' ],
 
 				'value' => [
@@ -249,6 +260,7 @@ $options = [
 				'label' => __( 'Heading 6 (H6)', 'blocksy' ),
 				'type'  => 'ct-color-picker',
 				'design' => 'inline',
+				'skipEditPalette' => true,
 				'setting' => [ 'transport' => 'postMessage' ],
 
 				'value' => [
@@ -275,6 +287,7 @@ $options = [
 				'label' => __( 'Link Color', 'blocksy' ),
 				'type'  => 'ct-color-picker',
 				'design' => 'inline',
+				'skipEditPalette' => true,
 				'setting' => [ 'transport' => 'postMessage' ],
 
 				'value' => [
@@ -304,6 +317,7 @@ $options = [
 				'label' => __( 'Button Color', 'blocksy' ),
 				'type'  => 'ct-color-picker',
 				'design' => 'inline',
+				'skipEditPalette' => true,
 				'setting' => [ 'transport' => 'postMessage' ],
 
 				'value' => [

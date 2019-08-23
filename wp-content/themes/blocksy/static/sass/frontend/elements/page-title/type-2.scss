@@ -42,12 +42,11 @@
 	}
 
 	.entry-header {
-		--heroContentSpacing: 25px;
 		width: 100%;
 
 		> * {
 			&:not(:first-child) {
-				margin-top: var(--heroContentSpacing);
+				margin-top: var(--heroContentSpacing, 25px);
 			}
 		}
 	}

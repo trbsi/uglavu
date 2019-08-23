@@ -378,7 +378,7 @@ $options = [
 												'setting' => [ 'transport' => 'postMessage' ],
 												// translators: The interpolations addes a html link around the word.
 												'desc' => sprintf(
-													__('Formating strings %sexamples%s.', 'blocksy'),
+													__('Documentation on date %sformatting%s.', 'blocksy'),
 													'<a href="https://wordpress.org/support/article/formatting-date-and-time/#format-string-examples" target="_blank">',
 													'</a>'
 												),

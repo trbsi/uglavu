@@ -11,6 +11,6 @@
 	padding: 0 10px;
 	height: 25px;
 	border-radius: 4px;
-	color: var(--saleBadgeTextColor);
-	background-color: var(--saleBadgeBackgroundColor);
+	color: var(--saleBadgeTextColor, #fff);
+	background-color: var(--paletteColor1);
 }

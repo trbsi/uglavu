@@ -3,8 +3,6 @@
 
 	.entry-title {
 		margin: initial;
-		word-wrap: break-word;
-		word-break: break-word;
 
 		a {
 			color: var(--linkInitialColor);
@@ -16,7 +14,6 @@
 	}
 
 	.entry-excerpt {
-		// font-size: 1.05rem;
 		font-size: var(--cardExcerptSize);
 		color: var(--cardExcerptColor);
 	}

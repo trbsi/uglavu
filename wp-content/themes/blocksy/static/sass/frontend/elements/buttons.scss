@@ -6,13 +6,13 @@ li[data-type="pill"] a,
 .wp-block-file .wp-block-file__button,
 .hero-section[data-type="type-2"] .ct-meta-categories a,
 .button, .added_to_cart {
-	display: var(--display, flex);
+	display: var(--display, inline-flex);
 	align-items: center;
 	justify-content: center;
 	position: relative;
 
 	height: var(--height, 45px);
-	padding: var(--padding, 0 25px);
+	padding: var(--padding, 0 25px) !important;
 	
 	font-size: var(--buttonFontSize, 15px);
 	font-weight: var(--buttonFontWeight, 500);

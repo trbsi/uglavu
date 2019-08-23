@@ -152,8 +152,8 @@ class Blocksy_Fonts_Manager {
 		$system = [
 			'System Default',
 			'Arial', 'Verdana', 'Trebuchet', 'Georgia', 'Times New Roman',
-			'Tahoma', 'Palatino', 'Helvetica', 'Calibri', 'Myriad Pro',
-			'Lucida', 'Arial Black', 'Gill Sans', 'Geneva', 'Impact', 'Serif', 'monospace'
+			'Palatino', 'Helvetica', 'Calibri', 'Myriad Pro',
+			'Lucida', 'Gill Sans', 'Impact', 'Serif', 'monospace'
 		];
 
 		$result = [];
@@ -186,9 +186,15 @@ class Blocksy_Fonts_Manager {
 			false === $saved_data
 			||
 			($saved_data['last_update'] + $ttl < time())
+			||
+			!is_array($saved_data)
+			||
+			!isset($saved_data['fonts'])
+			||
+			empty($saved_data['fonts'])
 		) {
 			$response = wp_remote_get(
-				'https://google-webfonts-cache.unyson.io/v1/webfonts'
+				'https://demo.creativethemes.com/?route=google_fonts'
 			);
 
 			$body = wp_remote_retrieve_body( $response );

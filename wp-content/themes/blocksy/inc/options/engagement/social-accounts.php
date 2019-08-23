@@ -35,14 +35,6 @@ $options = [
 				'setting' => [ 'transport' => 'postMessage' ],
 			],
 
-			'gplus' => [
-				'label' => __( 'Google+', 'blocksy' ),
-				'type' => 'text',
-				'design' => 'inline',
-				'value' => '',
-				'setting' => [ 'transport' => 'postMessage' ],
-			],
-
 			'instagram' => [
 				'label' => __( 'Instagram', 'blocksy' ),
 				'type' => 'text',

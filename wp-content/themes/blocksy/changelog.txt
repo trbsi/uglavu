@@ -1,3 +1,36 @@
+1.3.9: 2019-08-20
+- New: Add WhatsApp, Viber, Reddit, Hacker News share buttons
+- Improvement: Add Rellax.js license
+- Improvement: Scripts loading order, makes sure `ct-events` are always present
+- Improvement: Comments rating, for Tasty Reciepes
+- Improvement: Add a button in color picker modal, that redirects to Colors Section
+- Fix: Remove Google+ social network
+- Fix: Instagram block
+- Fix:  `.alignfull` blocks
+- Fix: Comments form labels
+
+1.3.8: 2019-08-13
+- Improvement: Update to latest WooCommerce templates
+- Improvement: Hero visibility label
+- Fix: Layers option type properly receive missing layers
+
+1.3.7: 2019-08-12
+- Improvement: Post pagination CSS improvements
+- Improvement: Make Author Box disabled by default
+- Fix: Drop-down animation type-2 child reveal
+- Fix: Remove `Arial Black`, `Tahoma`, `Geneva` fonts from list
+- Fix: Customizer links from dashboard
+
+1.3.6: 2019-08-05
+- New: Add option for single post meta format in page titles
+- Improvement: Add `wp_body_open()` call
+- Fix: Styles for Woo store notice
+- Fix: Small text overflow issue
+- Fix: Remove user social networks filter
+- Fix: Remove System Status from Dashboard
+- Fix: Re-add skip link
+- Fix: Duplicated text domains
+
 1.3.5: 2019-08-01
 - Improvement: Remove `.ct-classic-forms` from `body`
 - Improvement: Add more styling options for pagination (button color, text color)<Paste>

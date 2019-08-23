@@ -7,7 +7,7 @@
 	font-size: 0.8em;
 	line-height: 1;
 	letter-spacing: 0.1em;
-	color: var(--starRatingColor);
+	color: var(--starRatingColor, #fda256);
 
 	&:before {
 		position: absolute;
@@ -61,7 +61,7 @@
 	}
 
 	.stars {
-		color: var(--starRatingColor);
+		color: var(--starRatingColor, #fda256);
 		font-size: 0.8em;
 		margin: 0 0 0 10px !important;
 

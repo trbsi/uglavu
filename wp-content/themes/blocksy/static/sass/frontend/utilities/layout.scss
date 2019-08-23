@@ -63,9 +63,10 @@ body:not(.main-content-area-boundless) {
 	}
 }
 
-body:not(.ct-has-sidebar) {
+body:not(.sidebar) {
 	&.fl-builder,
-	&.elementor-page {
+	&.elementor-page,
+	&.single, &.page {
 		.content-area {
 			overflow-x: hidden;
 		}

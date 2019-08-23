@@ -221,7 +221,7 @@
 		min-width: 150px;
 		padding-left: 10px;
 		padding-right: 10px;
-		margin-bottom: 30px;
+		margin-bottom: 1.5em;
 	}
 }
 
@@ -249,15 +249,21 @@
 }
 
 .ct-respond-form-textarea {
-	margin-bottom: 30px;
+	// display: flex;
 
 	label {
 		top: 2px;
 		left: 0;
 	}
+
+	textarea {
+		display: block;
+		min-height: 150px;
+		resize: vertical;
+	}
 }
 
-.ct-respond-form {
+.comment-form {
 	.required {
 		color: #CC0000;
 		margin-left: 3px;
@@ -281,6 +287,10 @@
 		}
 	}
 
+	> p {
+		margin-bottom: 1.5em;
+	}
+
 	.form-submit {
 		margin: 0;
 	}
@@ -299,7 +309,6 @@
 .comment-form-cookies-consent {
 	display: flex;
 	align-items: center;
-	margin-bottom: 30px;
 
 	label {
 		margin-left: 10px;

@@ -26,11 +26,7 @@ add_filter( 'body_class', function ( $classes ) {
 	}
 
 	if (blocksy_sidebar_position() !== 'none') {
-		$classes[] = 'ct-has-sidebar';
-	}
-
-	if (blocksy_sidebar_position() !== 'none') {
-		$classes[] = 'ct-has-sidebar';
+		$classes[] = 'sidebar';
 	}
 
 	$forms_type = get_theme_mod('forms_type', 'classic-forms');
@@ -128,7 +124,6 @@ function blocksy_author_social_channels( $tooltip = 'yes' ) {
 	$dribbble = get_the_author_meta( 'dribbble' );
 	$website = get_the_author_meta( 'user_url' );
 	$twitter = get_the_author_meta( 'twitter' );
-	$gplus = get_the_author_meta( 'gplus' );
 	$instagram = get_the_author_meta( 'instagram' );
 
 	if (
@@ -138,8 +133,6 @@ function blocksy_author_social_channels( $tooltip = 'yes' ) {
 			$facebook
 			||
 			$twitter
-			||
-			$gplus
 			||
 			$linkedin
 			||
@@ -198,24 +191,6 @@ function blocksy_author_social_channels( $tooltip = 'yes' ) {
 					<?php if ( 'yes' === $tooltip ) { ?>
 						<span class="ct-tooltip-top">
 							<?php echo esc_html( __( 'Facebook', 'blocksy' ) ); ?>
-						</span>
-					<?php } ?>
-				</a>
-			</li>
-		<?php } ?>
-
-		<?php if ( $gplus ) { ?>
-			<li>
-				<a href="<?php echo esc_url( $gplus ); ?>" target="_blank">
-					<svg width="20px" height="20px" viewBox="0 0 24 24">
-						<path d="M12.2,10.3c0,1.4,0,2.7,0,4.1c2.3,0.1,4.6,0,6.9,0.1c-1,5.1-7.9,6.7-11.6,3.4C3.8,14.9,4,8.6,7.9,5.9
-							c2.7-2.2,6.6-1.6,9.3,0.2c1.1-1,2.1-2.1,3-3.2c-2.3-1.8-5.1-3.1-8-3C6.1-0.2,0.4,5.2,0.3,11.4c-0.4,5.1,2.9,10,7.6,11.8
-							c4.7,1.8,10.7,0.6,13.7-3.6c2-2.7,2.4-6.1,2.2-9.3C19.9,10.3,16.1,10.3,12.2,10.3z"/>
-					</svg>
-
-					<?php if ( 'yes' === $tooltip ) { ?>
-						<span class="ct-tooltip-top">
-							<?php echo esc_html( __( 'Google Plus', 'blocksy' ) ); ?>
 						</span>
 					<?php } ?>
 				</a>
@@ -284,7 +259,7 @@ function blocksy_author_box( $check_for_preview = false ) {
 
 	$has_author_box_social = get_theme_mod(
 		'single_author_box_social',
-		'yes'
+		'no'
 	) === 'yes' || $check_for_preview;
 
 	$class = 'author-box';

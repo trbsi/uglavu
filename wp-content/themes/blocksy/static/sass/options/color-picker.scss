@@ -28,6 +28,7 @@
 // color top
 .ct-color-picker-top {
 	display: flex;
+	align-items: center;
 	padding: 17px;
 	border-bottom: 1px solid #eee;
 }
@@ -43,14 +44,11 @@
 		position: relative;
 		width: 24px;
 		height: 24px;
-		border-radius: 100%;
+		margin-right: 14px;
 		margin-bottom: 0;
 		cursor: pointer;
+		border-radius: 100%;
 		box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.09);
-
-		&:not(:last-child) {
-			margin-right: 15px;
-		}
 
 		&.active {
 			box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.09), 0px 0px 0px 3px #fff;
@@ -323,7 +321,6 @@
 	font-size: 0;
 	width: 24px;
 	height: 24px;
-	margin-left: 15px;
 	border-radius: 100%;
 	cursor: pointer;
 	box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.09);
@@ -362,5 +359,40 @@
 
 	&:after {
 		box-shadow: none;
+	}
+}
+
+// edit palette button
+.ct-edit-palette {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	width: 21px;
+	height: 24px;
+	margin-left: auto;
+	border: none;
+	border-radius: 100%;
+	padding: 0;
+	cursor: pointer;
+	appearance: none;
+
+	svg {
+		width: 21px;
+		height: 21px;
+		fill: currentColor;
+	}
+
+	&:focus {
+		outline: none;
+		box-shadow: none;
+	}
+
+	&:hover {
+		.ct-tooltip-top {
+			opacity: 1;
+			visibility: visible;
+			transform: translate3d(0px, -38px, 0px);
+		}
 	}
 }

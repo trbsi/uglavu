@@ -2,6 +2,7 @@ import { markImagesAsLoaded } from '../../frontend/lazy-load-helpers'
 import { getCache } from './helpers'
 import { typographyOption } from './variables/typography'
 import { responsiveClassesFor } from './footer'
+import date from '@wordpress/date'
 
 const enabledKeysForPrefix = {
   blog: 'blog_page_title_enabled',
@@ -239,10 +240,67 @@ export const renderHeroSection = prefix => {
     }
   }
 
-  if (getOptionFor('has_meta', prefix) === 'no') {
-    ;[...document.querySelectorAll('.hero-section .entry-meta')].map(el =>
-      el.remove()
+  if (prefix === 'single_blog_post' || prefix === 'single_page') {
+    const metaElements = getOptionFor('single_meta_elements', prefix)
+
+    if (!metaElements.author) {
+      ;[
+        ...document.querySelectorAll(
+          '.hero-section .entry-meta .avatar-container'
+        )
+      ].map(el => {
+        el.parentNode.classList.remove('has-avatar')
+        el.remove()
+      })
+      ;[
+        ...document.querySelectorAll(
+          '.hero-section .entry-meta .ct-meta-author'
+        )
+      ].map(el => el.remove())
+    }
+
+    if (!metaElements.comments) {
+      ;[
+        ...document.querySelectorAll(
+          '.hero-section .entry-meta .ct-meta-comments'
+        )
+      ].map(el => el.remove())
+    }
+
+    if (!metaElements.date) {
+      ;[
+        ...document.querySelectorAll('.hero-section .entry-meta .ct-meta-date')
+      ].map(el => el.remove())
+    }
+
+    if (!metaElements.categories) {
+      ;[
+        ...document.querySelectorAll(
+          '.hero-section .entry-meta .ct-meta-categories'
+        )
+      ].map(el => el.remove())
+    }
+
+    ;[...document.querySelectorAll('.hero-section .entry-meta')].map(
+      el => el.querySelector('ul').children.length === 0 && el.remove()
     )
+
+    if (getOptionFor('has_meta_label', prefix) === 'no') {
+      ;[
+        ...document.querySelectorAll('.hero-section .entry-meta .ct-meta-label')
+      ].map(label => label.remove())
+    }
+
+    ;[
+      ...document.querySelectorAll(
+        '.hero-section .entry-meta .ct-meta-date .ct-meta-element'
+      )
+    ].map(dateEl => {
+      dateEl.innerHTML = window.wp.date.format(
+        getOptionFor('single_meta_date_format', prefix) || 'M j, Y',
+        moment(dateEl.dataset.date)
+      )
+    })
   }
 
   renderHeroSectionTexts(prefix)
@@ -365,7 +423,9 @@ const watchOptionsFor = prefix => {
     `${prefix}_hero_alignment1`,
     `${prefix}_hero_alignment2`,
     `${prefix}_hero_section`,
-    `${prefix}_has_meta`,
+    `${prefix}_has_meta_label`,
+    `${prefix}_single_meta_date_format`,
+    `${prefix}_single_meta_elements`,
     // `${prefix}_custom_title`,
     // `${prefix}_custom_description`,
 

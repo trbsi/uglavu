@@ -1,11 +1,6 @@
 // * {  background-color: rgba(88, 86, 214, .1) }
 // * { outline: solid 2px rgba(88, 86, 214, .1) }
 
-:root {
-	-moz-tab-size: 4;
-	tab-size: 4;
-}
-
 html {
 	box-sizing: border-box;
 	-webkit-text-size-adjust: 100%;
@@ -20,6 +15,7 @@ html {
 
 body {
 	margin: 0;
+	overflow-wrap: break-word;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	color: var(--fontColor);

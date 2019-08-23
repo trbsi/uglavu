@@ -1,8 +1,3 @@
-:root {
-	--loaderSize: 40px;
-	--loaderColor: #c5cbd0;
-}
-
 [data-loader] {
 	position: absolute;
 	z-index: 0;
@@ -11,13 +6,13 @@
 	right: 0;
 	bottom: 0;
 	margin: auto;
-	color: var(--loaderColor);
+	color: var(--loaderColor, #c5cbd0);
 }
 
 // Circles loader
 [data-loader='circles'] {
-	width: var(--loaderSize);
-	height: var(--loaderSize);
+	width: var(--loaderSize, 40px);
+	height: var(--loaderSize, 40px);
 	animation-play-state: paused;
 
 	> span {

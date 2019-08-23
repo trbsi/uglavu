@@ -67,7 +67,6 @@
 		}
 
 		.button {
-			--display: inline-flex;
 			text-transform: capitalize;
 
 			@include media-breakpoint-down (sm) {

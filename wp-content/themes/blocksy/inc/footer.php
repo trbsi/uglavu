@@ -159,11 +159,6 @@ function blocksy_footer_main_area_section( $number = '1' ) {
 					'id' => 'twitter',
 					'enabled' => true,
 				],
-
-				[
-					'id' => 'gplus',
-					'enabled' => true,
-				],
 			])
 		);
 	}

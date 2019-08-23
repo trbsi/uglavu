@@ -19,7 +19,7 @@ function blocksy_single_content( $check_for_preview = false ) {
 
 	$has_author_box = get_theme_mod(
 		'has_author_box',
-		'yes'
+		'no'
 	) === 'yes' || $check_for_preview;
 
 	$has_post_nav = get_theme_mod(
@@ -160,7 +160,7 @@ function blocksy_single_content( $check_for_preview = false ) {
 
 			wp_link_pages(
 				[
-					'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'blocksy' ),
+					'before' => '<div class="page-links"><span class="post-pages-label">' . esc_html__( 'Pages', 'blocksy' ) . '</span>',
 					'after'  => '</div>',
 				]
 			);

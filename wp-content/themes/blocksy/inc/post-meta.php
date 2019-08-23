@@ -123,7 +123,7 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 
 					<span
 						class="ct-meta-element"
-						<?php echo ($args['force_icons'] ? 'data-date="' . get_the_date('c') . '"' : '') ?>>
+						<?php echo ('data-date="' . get_the_date('c') . '"') ?>>
 						<?php echo esc_html(get_the_date( $args['date_format'] )); ?>
 					</span>
 				</li>

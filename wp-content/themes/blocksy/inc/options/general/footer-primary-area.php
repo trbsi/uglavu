@@ -74,11 +74,6 @@ $options = [
 						'id' => 'twitter',
 						'enabled' => true,
 					],
-
-					[
-						'id' => 'gplus',
-						'enabled' => true,
-					],
 				],
 
 				'settings' => [
@@ -88,10 +83,6 @@ $options = [
 
 					'twitter' => [
 						'label' => __( 'Twitter', 'blocksy' ),
-					],
-
-					'gplus' => [
-						'label' => __( 'Google Plus', 'blocksy' ),
 					],
 
 					'instagram' => [

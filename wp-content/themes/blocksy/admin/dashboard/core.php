@@ -87,6 +87,7 @@ class Blocksy_Dashboard_Page {
 		$dependencies = [
 			'underscore',
 			'wp-util',
+			'ct-events',
 			'ct-options-scripts'
 		];
 
@@ -114,9 +115,7 @@ class Blocksy_Dashboard_Page {
 			'ctDashboardLocalizations',
 			[
 				'ajax_url'      => admin_url( 'admin-ajax.php' ),
-				'customizer_url' => admin_url(
-					'/customize.php?autofocus'
-				),
+				'customizer_url' => admin_url('/customize.php?autofocus'),
 				'theme_version' => $theme->get( 'Version' ),
 				'theme_name'    => $theme->get( 'Name' ),
 				'is_child_theme' => is_child_theme(),

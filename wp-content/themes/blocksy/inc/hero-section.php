@@ -381,10 +381,42 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 		$title = '<h1 class="page-title">' . $title . '</h1>';
 	}
 
-	$has_meta = is_singular() && blocksy_akg_or_customizer(
-		'has_meta',
+	$is_page = blocksy_is_page();
+
+	$single_meta_elements = null;
+
+	if (is_singular()) {
+		$single_meta_elements = [
+			'author' => true,
+			'date' => true,
+			'categories' => true,
+			'comments' => true,
+		];
+
+		if (! $is_cache_phase) {
+			$single_meta_elements = blocksy_akg_or_customizer(
+				'single_meta_elements',
+				blocksy_get_page_title_source(),
+				[
+					'author' => !$is_page,
+					'date' => !$is_page,
+					'categories' => !$is_page,
+					'comments' => !$is_page,
+				]
+			);
+		}
+	}
+
+	$date_format = blocksy_akg_or_customizer(
+		'single_meta_date_format',
 		blocksy_get_page_title_source(),
-		blocksy_is_page() ? 'no' : 'yes'
+		'M j, Y'
+	);
+
+	$has_meta_label = $is_cache_phase || blocksy_akg_or_customizer(
+		'has_meta_label',
+		blocksy_get_page_title_source(),
+		'yes'
 	) === 'yes';
 
 	$alignment_output = 'data-alignment="' . esc_attr(blocksy_akg_or_customizer(
@@ -403,7 +435,7 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 				<?php
 					echo wp_kses_post($title);
 
-					if ($has_meta) {
+					if ($single_meta_elements) {
 						/**
 						 * Note to code reviewers: This line doesn't need to be escaped.
 						 * Function blocksy_post_meta() used here escapes the value properly.
@@ -411,14 +443,16 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 						 */
 						echo blocksy_post_meta(
 							[
-								'author' => true,
+								'author' => $single_meta_elements['author'],
 								'author_avatar' => true,
-								'post_date' => true,
-								'comments' => true,
-								'categories' => true,
+								'post_date' => $single_meta_elements['date'],
+								'comments' => $single_meta_elements['comments'],
+								'categories' => $single_meta_elements['categories'],
 							],
 							[
 								'avatar_size' => '50',
+								'date_format' => $date_format,
+								'labels' => $has_meta_label
 							]
 						);
 					}
@@ -511,22 +545,24 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 			<div class="ct-container">
 				<header class="entry-header">
 					<?php
-						if ($has_meta) {
+						if ($single_meta_elements) {
 							/**
 							 * Note to code reviewers: This line doesn't need to be escaped.
 							 * Function blocksy_post_meta() used here escapes the value properly.
 							 * Mainly because the function outputs SVG.
 							 */
 							echo blocksy_post_meta(
-								[ 'categories' => true ],
-								[ 'labels' => false ]
+								[ 'categories' => $single_meta_elements['categories'] ],
+								[
+									'labels' => false,
+								]
 							);
 						}
 
 						echo wp_kses_post($title);
 						echo wp_kses_post($description);
 
-						if ($has_meta) {
+						if ($single_meta_elements) {
 							/**
 							 * Note to code reviewers: This line doesn't need to be escaped.
 							 * Function blocksy_post_meta() used here escapes the value properly.
@@ -534,13 +570,15 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 							 */
 							echo blocksy_post_meta(
 								[
-									'author' => true,
+									'author' => $single_meta_elements['author'],
 									'author_avatar' => true,
-									'post_date' => true,
-									'comments' => true,
+									'post_date' => $single_meta_elements['date'],
+									'comments' => $single_meta_elements['comments'],
 								],
 								[
 									'avatar_size' => '50',
+									'date_format' => $date_format,
+									'labels' => $has_meta_label
 								]
 							);
 						}

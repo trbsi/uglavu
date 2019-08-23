@@ -1,7 +1,3 @@
-:root {
-	--heroContentSpacing: 20px;
-}
-
 @import 'type-1';
 @import 'type-2';
 
@@ -10,10 +6,6 @@
 		width: 25px;
 		height: 25px;
 		flex: 0 0 25px;
-	}
-
-	.entry-title, .page-title {
-		word-wrap: break-word;
 	}
 }
 

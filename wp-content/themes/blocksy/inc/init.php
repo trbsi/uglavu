@@ -164,6 +164,14 @@ add_action('wp_enqueue_scripts', function () {
 	$m = new Blocksy_Fonts_Manager();
 	$m->load_fonts();
 
+	wp_register_script(
+		'ct-events',
+		get_template_directory_uri() . '/static/bundle/events.js',
+		[],
+		$theme->get( 'Version' ),
+		true
+	);
+
 	wp_enqueue_style(
 		'ct-style',
 		get_stylesheet_uri(),
@@ -181,7 +189,7 @@ add_action('wp_enqueue_scripts', function () {
 	wp_enqueue_script(
 		'ct-scripts',
 		get_template_directory_uri() . '/static/bundle/main.js',
-		[],
+		['ct-events'],
 		$theme->get( 'Version' ),
 		true
 	);
@@ -246,7 +254,6 @@ require get_template_directory() . '/inc/sidebar.php';
 require get_template_directory() . '/inc/post-meta.php';
 require get_template_directory() . '/inc/images.php';
 require get_template_directory() . '/inc/single-helpers.php';
-require get_template_directory() . '/inc/user-meta.php';
 require get_template_directory() . '/inc/options-logic.php';
 require get_template_directory() . '/inc/comments.php';
 require get_template_directory() . '/inc/share-box.php';

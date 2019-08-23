@@ -40,7 +40,7 @@
 		[data-transparent-logo] {
 			--logoMaxHeight: var(--transparentLogoMaxHeight);
 			
-			.ct-default-logo, .site-title {
+			.ct-default-logo {
 				display: none;
 			}
 		}

@@ -1,6 +1,6 @@
 {
 	"name": "small-ct",
-	"version": "1.3.5",
+	"version": "1.3.9",
 	"title": "Blocksy",
 	"devDependencies": {
 		"@babel/plugin-proposal-class-properties": "^7.4.4",
@@ -34,7 +34,7 @@
 		"flexy": "git+ssh://git@github.com:sergiu-radu/flexy.git",
 		"infinite-scroll": "^3.0.5",
 		"intersection-observer": "^0.5.1",
-		"match-conditions": "^1.0.2",
+		"match-conditions": "^1.0.3",
 		"mobius1-selectr": "https://github.com/Creative-Themes/Selectr",
 		"nanoid": "^2.0.0",
 		"objectFitPolyfill": "^2.1.1",

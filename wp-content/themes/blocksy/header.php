@@ -149,6 +149,16 @@ if (is_customize_preview()) {
 </head>
 
 <body <?php body_class(); ?> <?php echo wp_kses_post($transparent_output) ?>>
+
+<?php
+	if (function_exists('wp_body_open')) {
+		wp_body_open();
+	}
+?>
+
+<a class="skip-link screen-reader-text" href="#primary">
+<?php _e( 'Skip to content', 'blocksy' ); ?></a>
+
 <div id="main-container">
 
 	<header

@@ -123,7 +123,6 @@
 	.item-title {
 		margin: 10px 0 0 0;
 		font-size: 14px;
-		word-wrap: break-word;
 
 		@include media-breakpoint-down (sm) {
 			display: none;

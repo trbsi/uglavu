@@ -23,7 +23,7 @@ $aria_req = ( $req ? " aria-required='true'" : '' );
 
 $form_options = [
 	'format' => 'xhtml',
-	'class_form'        => 'ct-respond-form ',
+	'class_form'        => 'comment-form',
 	'title_reply'       => __( 'Leave a Reply', 'blocksy' ),
 	'cancel_reply_link' => __( 'Cancel Reply', 'blocksy' ),
 
@@ -69,10 +69,10 @@ $form_options = [
 
 	// Textarea
 	'comment_field' =>
-		'<div class="ct-respond-form-textarea">
+		'<p class="ct-respond-form-textarea">
 		<textarea id="comment" name="comment" cols="45" rows="8" aria-required="true">' . '</textarea>
 		<label for="comment">' . __( 'Add Comment', 'blocksy' ) . '</label>
-		</div>',
+		</p>',
 
 	// submit button
 	'submit_button' => '<button type="submit" name="%1$s" id="%2$s" class="%3$s" value="%4$s">%4$s</button>',

@@ -84,9 +84,9 @@ const handleForVal = (val, args = {}) => {
 			}
 
 			sidebarEl.removeAttribute('data-sidebar')
-			document.body.classList.remove('ct-has-sidebar')
+			document.body.classList.remove('sidebar')
 		} else {
-			document.body.classList.add('ct-has-sidebar')
+			document.body.classList.add('sidebar')
 			if (sidebarEl.querySelector('aside')) {
 				sidebarEl.removeChild(sidebarEl.querySelector('aside'))
 			}
@@ -264,7 +264,7 @@ export const replaceArticleAndRemoveParts = () => {
 		})
 	}
 
-	if ((wp.customize('has_author_box')() || 'yes') === 'no') {
+	if ((wp.customize('has_author_box')() || 'no') === 'yes') {
 		const authorBox = document.querySelector(
 			'.site-main .content-area article .author-box'
 		)

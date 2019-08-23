@@ -371,6 +371,20 @@ $options = [
 									'setting' => [ 'transport' => 'postMessage' ],
 								],
 
+								'share_reddit' => [
+									'label' => __( 'Reddit', 'blocksy' ),
+									'type' => 'ct-switch',
+									'value' => 'no',
+									'setting' => [ 'transport' => 'postMessage' ],
+								],
+
+								'share_hacker_news' => [
+									'label' => __( 'Hacker News', 'blocksy' ),
+									'type' => 'ct-switch',
+									'value' => 'no',
+									'setting' => [ 'transport' => 'postMessage' ],
+								],
+
 								'share_vk' => [
 									'label' => __( 'VKontakte', 'blocksy' ),
 									'type' => 'ct-switch',
@@ -387,6 +401,20 @@ $options = [
 
 								'share_telegram' => [
 									'label' => __( 'Telegram', 'blocksy' ),
+									'type' => 'ct-switch',
+									'value' => 'no',
+									'setting' => [ 'transport' => 'postMessage' ],
+								],
+
+								'share_viber' => [
+									'label' => __( 'Viber', 'blocksy' ),
+									'type' => 'ct-switch',
+									'value' => 'no',
+									'setting' => [ 'transport' => 'postMessage' ],
+								],
+
+								'share_whatsapp' => [
+									'label' => __( 'WhatsApp', 'blocksy' ),
 									'type' => 'ct-switch',
 									'value' => 'no',
 									'setting' => [ 'transport' => 'postMessage' ],
@@ -612,7 +640,7 @@ $options = [
 					'label' => __( 'Author Box', 'blocksy' ),
 					'type' => 'ct-panel',
 					'switch' => true,
-					'value' => 'yes',
+					'value' => 'no',
 					'setting' => [ 'transport' => 'postMessage' ],
 					'inner-options' => [
 

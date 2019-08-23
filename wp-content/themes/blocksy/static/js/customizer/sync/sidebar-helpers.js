@@ -19,7 +19,7 @@ export const renderSidebar = (enabled, position) => {
       .querySelector('main #primary > .ct-container')
       .removeAttribute('data-sidebar')
 
-    document.body.classList.remove('ct-has-sidebar')
+    document.body.classList.remove('sidebar')
 
     return
   }
@@ -43,7 +43,7 @@ export const renderSidebar = (enabled, position) => {
     'main #primary > .ct-container'
   ).dataset.sidebar = position
 
-  document.body.classList.add('ct-has-sidebar')
+  document.body.classList.add('sidebar')
 
   ctEvents.trigger('ct:sidebar:update')
   markImagesAsLoaded(

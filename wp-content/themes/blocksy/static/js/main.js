@@ -1,6 +1,5 @@
 import './public-path.js'
 import './frontend/polyfills'
-import './frontend/ct-events.js'
 import './frontend/lazy-load.js'
 import './frontend/comments'
 import './frontend/social-buttons'
@@ -11,6 +10,7 @@ import { watchLayoutContainerForReveal } from './frontend/animated-element'
 import './frontend/parallax/register-listener'
 import './frontend/woocommerce/single-product-gallery'
 import { onDocumentLoaded } from './helpers'
+import ctEvents from 'ct-events'
 
 document.body.classList.remove('ct-no-js')
 

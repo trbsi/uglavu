@@ -156,7 +156,7 @@ add_action(
 		wp_enqueue_script(
 			'ct-customizer',
 			get_template_directory_uri() . '/static/bundle/sync.js',
-			[ 'customize-preview', 'wp-date' ],
+			['customize-preview', 'wp-date', 'ct-events'],
 			'20151215',
 			true
 		);
@@ -215,6 +215,14 @@ add_action(
 			$theme->get( 'Version' )
 		);
 
+		wp_register_script(
+			'ct-events',
+			get_template_directory_uri() . '/static/bundle/events.js',
+			[],
+			$theme->get( 'Version' ),
+			true
+		);
+
 		$deps = apply_filters('blocksy-options-scripts-dependencies', [
 			'underscore',
 			'wp-color-picker',
@@ -225,6 +233,7 @@ add_action(
 			'wp-date',
 			'wp-i18n',
 			'customize-controls',
+			'ct-events'
 		]);
 
 		wp_enqueue_script(

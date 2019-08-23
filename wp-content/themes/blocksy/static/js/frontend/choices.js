@@ -1,6 +1,7 @@
 import Selectr from 'mobius1-selectr'
 import $ from 'jquery'
 import { onDocumentLoaded } from '../helpers'
+import ctEvents from 'ct-events'
 
 const initCustomSelect = () =>
   [...document.querySelectorAll('select')].map(el => initSingleCustomSelect(el))

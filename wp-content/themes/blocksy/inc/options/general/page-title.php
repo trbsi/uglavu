@@ -115,16 +115,6 @@ $when_enabled_general_settings = [
 
 	],
 
-	[
-		$is_single ? [
-			$prefix . 'has_meta' => [
-				'label' => __( 'Meta', 'blocksy' ),
-				'type' => 'ct-switch',
-				'value' => $is_page ? 'no' : 'yes',
-				'setting' => [ 'transport' => 'postMessage' ],
-			],
-		] : []
-	],
 
 	[
 		$is_home ? [
@@ -132,7 +122,7 @@ $when_enabled_general_settings = [
 			$prefix . 'custom_title' => [
 				'label' => __('Title', 'blocksy'),
 				'type' => 'text',
-				'value' => $is_woo ? __('Products', 'woocommerce') : __('Home', 'blocksy'),
+				'value' => $is_woo ? __('Products', 'blocksy') : __('Home', 'blocksy'),
 				'disableRevertButton' => true,
 				'design' => $has_default ? 'inline' : 'block',
 				'setting' => [ 'transport' => 'postMessage' ],
@@ -141,130 +131,193 @@ $when_enabled_general_settings = [
 			$prefix . 'custom_description' => [
 				'label' => __('Description', 'blocksy'),
 				'type' => 'textarea',
-				'value' => $is_woo ? __('This is where you can add new products to your store.', 'woocommerce') : '',
+				'value' => $is_woo ? __('This is where you can add new products to your store.', 'blocksy') : '',
 				'disableRevertButton' => true,
 				'design' => $has_default ? 'inline' : 'block',
 				'setting' => [ 'transport' => 'postMessage' ],
 			],
 
-		] : []
-	],
+		] : [],
 
-	blocksy_rand_md5() => [
-		'type' => 'ct-condition',
-		'condition' => [
-			$prefix . 'hero_section' => 'type-2'
-		],
-		'options' => [
-
-			blocksy_rand_md5() => [
-				'type' => 'ct-divider',
-				'attr' => [ 'data-type' => 'small' ],
+		blocksy_rand_md5() => [
+			'type' => 'ct-condition',
+			'condition' => [
+				$prefix . 'hero_section' => 'type-2'
 			],
+			'options' => [
 
-			$prefix . 'hero_height' => [
-				'label' => __( 'Container Min Height', 'blocksy' ),
-				'type' => 'ct-slider',
-				'value' => '230px',
-				'design' => $has_default ? 'inline' : 'block',
-				'units' => blocksy_units_config([
-					[
-						'unit' => 'px',
-						'min' => 0,
-						'max' => 1000,
-					],
-				]),
-				'responsive' => true,
-				'setting' => [ 'transport' => 'postMessage' ],
+				blocksy_rand_md5() => [
+					'type' => 'ct-divider',
+					'attr' => [ 'data-type' => 'small' ],
+				],
+
+				$prefix . 'hero_height' => [
+					'label' => __( 'Container Min Height', 'blocksy' ),
+					'type' => 'ct-slider',
+					'value' => '230px',
+					'design' => $has_default ? 'inline' : 'block',
+					'units' => blocksy_units_config([
+						[
+							'unit' => 'px',
+							'min' => 0,
+							'max' => 1000,
+						],
+					]),
+					'responsive' => true,
+					'setting' => [ 'transport' => 'postMessage' ],
+				],
+
 			],
-
 		],
-	],
 
-	blocksy_rand_md5() => [
-		'type' => 'ct-condition',
-		'condition' => [ $prefix . 'hero_section' => 'type-2' ],
-		'options' => [
+		blocksy_rand_md5() => [
+			'type' => 'ct-condition',
+			'condition' => [ $prefix . 'hero_section' => 'type-2' ],
+			'options' => [
 
-			blocksy_rand_md5() => [
-				'type' => 'ct-group',
-				'attr' => [ 'data-type' => 'small-space' ],
-				'options' => [
+				blocksy_rand_md5() => [
+					'type' => 'ct-group',
+					'attr' => [ 'data-type' => 'small-space' ],
+					'options' => [
 
-					blocksy_rand_md5() => [
-						'type' => 'ct-divider',
-						'attr' => [ 'data-type' => 'small' ],
-					],
-
-					$prefix . 'page_title_bg_type' => [
-						'label' => __( 'Background type', 'blocksy' ),
-						'type' => 'ct-radio',
-						'value' => 'color',
-						'setting' => [ 'transport' => 'postMessage' ],
-						'view' => 'text',
-						'inline' => true,
-						'design' => $has_default ? 'inline' : 'block',
-						'attr' => [ 'data-radio-text' => 'small' ],
-						'choices' => array_merge([
-							'color' => __( 'Color', 'blocksy' ),
-						], $is_woo ? [] : [
-							'featured_image' => __( 'Featured Image', 'blocksy' ),
-						], [
-							'custom_image' => __( 'Custom Image', 'blocksy' ),
-						])
-					],
-
-					blocksy_rand_md5() => [
-						'type' => 'ct-condition',
-						'condition' => [
-							$prefix . 'page_title_bg_type' => 'featured_image' . (!$is_single ? '' : '...')
+						blocksy_rand_md5() => [
+							'type' => 'ct-divider',
+							'attr' => [ 'data-type' => 'small' ],
 						],
-						'options' => [
 
-							blocksy_rand_md5() => [
-								'type' => 'ct-notification',
-								'text' => __( 'By default is used the featured image from the last published post.', 'blocksy' ),
+						$prefix . 'page_title_bg_type' => [
+							'label' => __( 'Background type', 'blocksy' ),
+							'type' => 'ct-radio',
+							'value' => 'color',
+							'setting' => [ 'transport' => 'postMessage' ],
+							'view' => 'text',
+							'inline' => true,
+							'design' => $has_default ? 'inline' : 'block',
+							'attr' => [ 'data-radio-text' => 'small' ],
+							'choices' => array_merge([
+								'color' => __( 'Color', 'blocksy' ),
+							], $is_woo ? [] : [
+								'featured_image' => __( 'Featured Image', 'blocksy' ),
+							], [
+								'custom_image' => __( 'Custom Image', 'blocksy' ),
+							])
+						],
+
+						blocksy_rand_md5() => [
+							'type' => 'ct-condition',
+							'condition' => [
+								$prefix . 'page_title_bg_type' => 'featured_image' . (!$is_single ? '' : '...')
 							],
+							'options' => [
 
-						],
-					],
+								blocksy_rand_md5() => [
+									'type' => 'ct-notification',
+									'text' => __( 'By default is used the featured image from the last published post.', 'blocksy' ),
+								],
 
-					blocksy_rand_md5() => [
-						'type' => 'ct-condition',
-						'condition' => [ $prefix . 'page_title_bg_type' => 'custom_image' ],
-						'options' => [
-
-							$prefix . 'custom_hero_background' => [
-								'label' => $has_default ? __('Upload Image', 'blocksy') : false,
-								'type' => 'ct-image-uploader',
-								'design' => $has_default ? 'inline' : false,
-								'value' => [ 'attachment_id' => null ],
-								'setting' => [ 'transport' => 'postMessage' ],
-								'emptyLabel' => __('Select Image', 'blocksy'),
-								'filledLabel' => __('Change Image', 'blocksy'),
 							],
 						],
-					],
 
-					blocksy_rand_md5() => [
-						'type' => 'ct-condition',
-						'condition' => [
-							$prefix . 'page_title_bg_type' => 'custom_image | featured_image',
-						],
-						'options' => [
+						blocksy_rand_md5() => [
+							'type' => 'ct-condition',
+							'condition' => [ $prefix . 'page_title_bg_type' => 'custom_image' ],
+							'options' => [
 
-							$prefix . 'enable_parallax' => [
-								'label' => __( 'Parallax Effect', 'blocksy' ),
-								'type' => 'ct-switch',
-								'value' => 'no',
-								'setting' => [ 'transport' => 'postMessage' ],
+								$prefix . 'custom_hero_background' => [
+									'label' => $has_default ? __('Upload Image', 'blocksy') : false,
+									'type' => 'ct-image-uploader',
+									'design' => $has_default ? 'inline' : false,
+									'value' => [ 'attachment_id' => null ],
+									'setting' => [ 'transport' => 'postMessage' ],
+									'emptyLabel' => __('Select Image', 'blocksy'),
+									'filledLabel' => __('Change Image', 'blocksy'),
+								],
 							],
+						],
 
+						blocksy_rand_md5() => [
+							'type' => 'ct-condition',
+							'condition' => [
+								$prefix . 'page_title_bg_type' => 'custom_image | featured_image',
+							],
+							'options' => [
+
+								$prefix . 'enable_parallax' => [
+									'label' => __( 'Parallax Effect', 'blocksy' ),
+									'type' => 'ct-switch',
+									'value' => 'no',
+									'setting' => [ 'transport' => 'postMessage' ],
+								],
+
+							],
 						],
 					],
 				],
 			],
 		],
+	],
+
+	[
+		$is_single ? [
+			blocksy_rand_md5() => [
+				'type' => 'ct-divider',
+				'attr' => [ 'data-type' => 'small' ],
+			],
+
+			$prefix . 'single_meta_elements' => [
+				'label' => __( 'Meta Elements', 'blocksy' ),
+				'type' => 'ct-checkboxes',
+				'attr' => [ 'data-columns' => '2' ],
+				'setting' => [ 'transport' => 'postMessage' ],
+				'allow_empty' => true,
+				'choices' => blocksy_ordered_keys(
+					[
+						'author' => __( 'Author', 'blocksy' ),
+						'date' => __( 'Date', 'blocksy' ),
+						'categories' => __( 'Categories', 'blocksy' ),
+						'comments' => __( 'Comments', 'blocksy' ),
+					]
+				),
+
+				'value' => [
+					'author' => !$is_page,
+					'date' => !$is_page,
+					'categories' => !$is_page,
+					'comments' => !$is_page,
+				],
+			],
+
+			$prefix . 'has_meta_label' => [
+				'label' => __( 'Meta Label', 'blocksy' ),
+				'type' => 'ct-switch',
+				'value' => 'yes',
+				'setting' => [ 'transport' => 'postMessage' ],
+			],
+
+			blocksy_rand_md5() => [
+				'type' => 'ct-condition',
+				'condition' => [ $prefix . 'single_meta_elements/date' => true ],
+				'options' => [
+
+					$prefix . 'single_meta_date_format' => [
+						'label' => __( 'Date Format', 'blocksy' ),
+						'type' => 'text',
+						'design' => 'inline',
+						'value' => 'M j, Y',
+						'setting' => [ 'transport' => 'postMessage' ],
+						// translators: The interpolations addes a html link around the word.
+						'desc' => sprintf(
+							__('Documentation on date %sformatting%s.', 'blocksy'),
+							'<a href="https://wordpress.org/support/article/formatting-date-and-time/#format-string-examples" target="_blank">',
+							'</a>'
+						),
+					],
+
+				],
+			],
+
+
+		] : []
 	],
 
 	blocksy_rand_md5() => [
@@ -273,7 +326,9 @@ $when_enabled_general_settings = [
 	],
 
 	$prefix . 'page_excerpt_visibility' => [
-		'label' => __( 'Page Info Visibility', 'blocksy' ),
+		'label' => $is_single ? __( 'Page Info Visibility', 'blocksy' ) : __(
+			'Page Info Description', 'blocksy'
+		),
 		'type' => 'ct-visibility',
 		'design' => $has_default ? 'inline' : false,
 		'allow_empty' => true,

@@ -36,7 +36,7 @@
 			&:before {
 				position: absolute;
 				z-index: -1;
-				content: '”';
+				content: '\201D';
 				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 				font-weight: bold;
 				font-size: 150px;
@@ -136,7 +136,7 @@
 			}
 
 			&:before {
-				content: '”';
+				content: '\201D';
 				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 				font-weight: bold;
 				font-size: 200px;

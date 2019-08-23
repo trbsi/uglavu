@@ -57,7 +57,7 @@ function blocksy_custom_comment_template( $comment, $args, $depth ) {
 
 				<section>
 					<div class="ct-comment-author">
-						<?php printf( get_comment_author_link() ); ?>
+						<?php echo get_comment_author_link(); ?>
 					</div>
 
 					<div class="ct-comment-meta">

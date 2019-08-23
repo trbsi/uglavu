@@ -30,9 +30,11 @@
 
 // pages
 @import 'frontend/pages/main';
+@import 'frontend/accessibility';
 
 .ct-customizer-preview-cache {
 	height: 0 !important;
 	display: none !important;
 	visibility: hidden !important;
 }
+

@@ -1,5 +1,4 @@
-import './public-path.js'
-import './frontend/ct-events.js'
+import './public-path'
 import $ from 'jquery'
 import { initAllPanels } from './options/initPanels'
 

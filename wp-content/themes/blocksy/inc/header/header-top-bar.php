@@ -144,12 +144,7 @@ function blocksy_header_top_bar_area( $number = '1' ) {
 				[
 					'id' => 'twitter',
 					'enabled' => true,
-				],
-
-				[
-					'id' => 'gplus',
-					'enabled' => true,
-				],
+				]
 			])
 		);
 	}

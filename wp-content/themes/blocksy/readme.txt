@@ -186,3 +186,7 @@ Source: https://github.com/developit/snarkdown
 mobius1-selectr, Copyright 2016 Karl Saunders
 Licenses: MIT License
 Source: https://github.com/Mobius1/Selectr
+
+rellax.js, Copyright 2016 Moe Amaya
+Licenses: MIT License
+Source: https://github.com/dixonandmoe/rellax/

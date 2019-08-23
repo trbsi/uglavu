@@ -9,7 +9,6 @@
 require_once get_template_directory() . '/admin/dashboard/plugins/ct-plugin-manager.php';
 
 if (is_admin() && defined('DOING_AJAX') && DOING_AJAX) {
-	require_once get_template_directory() . '/admin/dashboard/system-status/init.php';
 	require_once get_template_directory() . '/admin/dashboard/api.php';
 	require_once get_template_directory() . '/admin/dashboard/plugins/ct-plugin-manager.php';
 	require_once get_template_directory() . '/admin/dashboard/plugins/plugins-api.php';
@@ -45,6 +44,14 @@ add_action(
 
 		wp_enqueue_media();
 
+		wp_register_script(
+			'ct-events',
+			get_template_directory_uri() . '/static/bundle/events.js',
+			[],
+			$theme->get( 'Version' ),
+			true
+		);
+
 		$deps = apply_filters('blocksy-options-scripts-dependencies', [
 			'underscore',
 			'wp-color-picker',
@@ -54,6 +61,7 @@ add_action(
 			'wp-components',
 			'wp-date',
 			'wp-i18n',
+			'ct-events'
 			// 'wp-polyfill'
 		]);
 
@@ -88,11 +96,12 @@ add_action(
 			'ct_localizations',
 			[
 				'is_dev_mode' => !!(defined('BLOCKSY_DEVELOPMENT_MODE') && BLOCKSY_DEVELOPMENT_MODE),
-				'ajax_url' => admin_url( 'admin-ajax.php' ),
+				'ajax_url' => admin_url('admin-ajax.php'),
 				'nonce' => wp_create_nonce( 'ct-ajax-nonce' ),
 				'public_url' => get_template_directory_uri() . '/static/bundle/',
 				'static_public_url' => get_template_directory_uri() . '/static/',
 				'rest_url' => get_rest_url(),
+				'customizer_url' => admin_url('/customize.php?autofocus'),
 			]
 		);
 	}
@@ -130,7 +139,6 @@ function blocksy_output_companion_notice() {
 		<b><?php esc_html_e( 'Blocksy Companion', 'blocksy' ); ?></b> Plugin.
 		<?php esc_html_e( 'This way you will have access to custom extensions, demo templates and many other awesome features', 'blocksy' ); ?>.
 	</p>
-
 	<?php
 
 	echo '</div>';
@@ -145,20 +153,21 @@ function blocksy_output_header_builder_notice() {
 
 	?>
 
-	<h1><?php esc_html_e( 'Heads up, Blocksy 2.0 is arriving soon!', 'blocksy' ); ?></h1>
+	<h2><?php esc_html_e( 'Heads up, Blocksy 1.5 is arriving soon!', 'blocksy' ); ?></h2>
 	<p class="about-description">
 		We are in the process of rebuilding our <b>Header</b> option experience.
 	<p>
-		In the next update we will release the <b>Header Builder</b> module, it will give you the power and freedoom to build any kind of header in just a few minutes.
-	</p>
-	<p>
+		In the next update we will release the <b>Header Builder</b> module, it will give you the power and freedoom to build any kind of header in just a few minutes.<br>
 		This means that you will have to rebuild your header from scratch (this won't touch the already configured logo and menu elements).
 	</p>
 
 	<div class="notice-actions">
 		<a href="https://creativethemes.com/blocksy/support/?subject_prefix=Header Builder Question" class="button button-primary" target="_blank">I have a question or idea</a>
-		<a href="#" class="button" data-dismiss="header-builder">Awesome, hide notification</a>
+		<a href="#" class="button" data-dismiss="header-builder">Dismiss notification</a>
 	</div>
+
+	<span class="notice-dismiss" title="Dismiss this notice">
+	</span>
 
 	<?php
 

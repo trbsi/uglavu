@@ -6,71 +6,22 @@
 
 .notice-header-builder {
 	position: relative;
-	padding: 40px 50px;
-	overflow: hidden;
-	box-sizing: border-box;
-	background: #07033B;
-	border-left: none;
-	background-image: url('../images/taieri.svg');
-	background-position: 101% top;
-	background-repeat: no-repeat;
+	padding: 20px 15px;
+	border-left-color: #00a0d2;
 
-	@media only screen and (max-width: 960px) {
-		background-size: 60%;
-		background-position: 150% top;
-	}
-
-	@media only screen and (min-width: 961px) and (max-width: 1170px) {
-		background-size: 60%;
-		background-position: 140% top;
-	}
-
-	@media only screen and (min-width: 1171px) and (max-width: 1500px) {
-		background-size: 55%;
-		background-position: 120% top;
-	}
-
-	@media only screen and (min-width: 1501px) {
-		background-size: 50%;
-	}
-
-
-	h1 {
-		font-size: 30px;
-		font-weight: 500;
-		padding: 0;
+	h2 {
 		margin-top: 0;
-		color: #fff;
-		max-width: 60%;
 		margin-bottom: 10px !important;
 	}
 
 	p {
-		max-width: 55%;
-		color: rgba(224, 223, 230, 0.8);
-		line-height: 1.6;
-
-		&.about-description {
-			font-size: 16px;
-			color: #E0DFE6;
-			margin-bottom: 20px;
-		}
-
-		b {
-			color: #E0DFE6;
-		}
+		padding: 0;
 	}
 
 	.notice-actions {
-		display: flex;
 		margin-top: 25px;
 
 		a {
-			display: flex;
-			align-items: center;
-			height: 35px;
-			padding: 0 15px;
-
 			&:not(:last-child) {
 				margin-right: 10px;
 			}
