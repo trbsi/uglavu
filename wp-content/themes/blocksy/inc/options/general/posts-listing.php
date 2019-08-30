@@ -118,7 +118,7 @@ $options = [
 								'has_meta_label' => 'no',
 								'category_style' => 'simple',
 								'has_author_avatar' => 'no',
-								'avatar_size' => '30',
+								'avatar_size' => '25',
 								'date_format' => 'M j, Y',
 							],
 
@@ -160,7 +160,7 @@ $options = [
 								'has_meta_label' => 'no',
 								'category_style' => 'simple',
 								'has_author_avatar' => 'no',
-								'avatar_size' => '30',
+								'avatar_size' => '25',
 								'date_format' => 'M j, Y',
 							],
 						],
@@ -299,17 +299,21 @@ $options = [
 										'choices' => blocksy_ordered_keys(
 											[
 												'author' => __( 'Author', 'blocksy' ),
-												'date' => __( 'Date', 'blocksy' ),
-												'categories' => __( 'Categories', 'blocksy' ),
 												'comments' => __( 'Comments', 'blocksy' ),
+												'date' => __( 'Published', 'blocksy' ),
+												'updated' => __( 'Updated', 'blocksy' ),
+												'categories' => __( 'Categories', 'blocksy' ),
+												'tags' => __( 'Tags', 'blocksy' ),
 											]
 										),
 
 										'value' => [
 											'author' => true,
 											'date' => true,
+											'updated' => false,
 											'categories' => true,
 											'comments' => true,
+											'tags' => false,
 										],
 									],
 
@@ -414,7 +418,7 @@ $options = [
 												'label' => __( 'Avatar Size', 'blocksy' ),
 												'type' => 'ct-number',
 												'design' => 'inline',
-												'value' => 30,
+												'value' => 25,
 												'min' => 15,
 												'max' => 50,
 											],
@@ -428,24 +432,6 @@ $options = [
 						'setting' => [ 'transport' => 'postMessage' ],
 					],
 
-					blocksy_rand_md5() => [
-						'type' => 'ct-divider',
-						'attr' => [ 'data-type' => 'small' ],
-					],
-
-					$prefix . 'cardsGap' => [
-						'label' => __( 'Cards Gap', 'blocksy' ),
-						'type' => 'ct-slider',
-						'min' => 0,
-						'max' => 100,
-						'responsive' => true,
-						'value' => [
-							'mobile' => 30,
-							'tablet' => 30,
-							'desktop' => 30,
-						],
-						'setting' => [ 'transport' => 'postMessage' ],
-					],
 				],
 			],
 
@@ -747,6 +733,11 @@ $options = [
 	],
 
 	blocksy_rand_md5() => [
+		'type' => 'ct-divider',
+		'attr' => [ 'data-type' => 'small' ],
+	],
+
+	blocksy_rand_md5() => [
 		'type' => 'ct-condition',
 		'condition' => [ $prefix . 'structure' => 'grid' ],
 		'options' => [
@@ -772,6 +763,25 @@ $options = [
 		'max' => 30,
 		'design' => 'inline',
 		// 'setting' => [ 'transport' => 'postMessage' ],
+	],
+
+	blocksy_rand_md5() => [
+		'type' => 'ct-divider',
+		'attr' => [ 'data-type' => 'small' ],
+	],
+
+	$prefix . 'cardsGap' => [
+		'label' => __( 'Cards Gap', 'blocksy' ),
+		'type' => 'ct-slider',
+		'min' => 0,
+		'max' => 100,
+		'responsive' => true,
+		'value' => [
+			'mobile' => 30,
+			'tablet' => 30,
+			'desktop' => 30,
+		],
+		'setting' => [ 'transport' => 'postMessage' ],
 	],
 
 ];

@@ -273,9 +273,11 @@ $when_enabled_general_settings = [
 				'choices' => blocksy_ordered_keys(
 					[
 						'author' => __( 'Author', 'blocksy' ),
-						'date' => __( 'Date', 'blocksy' ),
-						'categories' => __( 'Categories', 'blocksy' ),
 						'comments' => __( 'Comments', 'blocksy' ),
+						'date' => __( 'Published Date', 'blocksy' ),
+						'updated' => __( 'Updated Date', 'blocksy' ),
+						'categories' => __( 'Categories', 'blocksy' ),
+						'tags' => __( 'Tags', 'blocksy' ),
 					]
 				),
 
@@ -284,6 +286,8 @@ $when_enabled_general_settings = [
 					'date' => !$is_page,
 					'categories' => !$is_page,
 					'comments' => !$is_page,
+					'updated' => false,
+					'tags' => false,
 				],
 			],
 

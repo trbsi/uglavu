@@ -20,7 +20,7 @@ const Notification = ({ initialStatus, url, pluginUrl, pluginLink }) => {
   }, [])
 
   return (
-    <div ref={containerEl}>
+    <div className="ct-blocksy-plugin-inner" ref={containerEl}>
       <button
         onClick={() => {
           containerEl.current
@@ -43,71 +43,81 @@ const Notification = ({ initialStatus, url, pluginUrl, pluginLink }) => {
         </span>
       </button>
 
-      <h1>{__('Congratulations!', 'blocksy')}</h1>
+      <span className="ct-notification-icon">
+        <svg width="70" viewBox="0 0 20 17">
+          <rect x="3" width="5" height="5.15" rx="1.5" fill="#1D8FCA" opacity="0.6"/>
+          <rect x="12" width="5" height="5.15" rx="1.5" fill="#1D8FCA" opacity="0.6"/>
+          <rect y="2.58" width="20" height="14.42" rx="2.5" fill="#1D8FCA"/>
+        </svg>
+      </span>
 
-      <p className="about-description">
-        {__('Blocksy theme is now active and ready to use.', 'blocksy')}
-      </p>
+      <div className="ct-notification-content">
+        <h2>{__('Thanks for installing Blocksy, you rock!', 'blocksy')}</h2>
 
-      <p
-        dangerouslySetInnerHTML={{
-          __html: __(
-            'To get full advantage of it, we strongly recommend to activate the <b>Blocksy Companion</b> Plugin. This way you will have access to custom extensions, demo templates and many other awesome features.',
-            'blocksy'
-          )
-        }}
-      />
+        <p
+          dangerouslySetInnerHTML={{
+            __html: __(
+              'We strongly recommend you to activate the <b>Blocksy Companion</b> plugin.<br>This way you will have access to custom extensions, demo templates and many other awesome features.',
+              'blocksy'
+            )
+          }}
+        />
 
-      <div className="notice-actions">
-        {pluginStatus === 'uninstalled' && (
-          <a
-            className="button button-primary"
-            href={pluginLink}
-            target="_blank">
-            {__('Download Blocksy Companion', 'blocksy')}
-          </a>
-        )}
+        <div className="notice-actions">
+          {pluginStatus === 'uninstalled' && (
+            <a
+              className="button button-primary"
+              href={pluginLink}
+              target="_blank">
+              {__('Download Blocksy Companion', 'blocksy')}
+            </a>
+          )}
 
-        {pluginStatus !== 'uninstalled' && (
-          <button
-            disabled={isLoading || pluginStatus === 'active'}
-            onClick={() => {
-              setIsLoading(true)
+          {pluginStatus !== 'uninstalled' && (
+            <button
+              className="button button-primary"
+              disabled={isLoading || pluginStatus === 'active'}
+              onClick={() => {
+                setIsLoading(true)
 
-              setTimeout(() => {})
-              $.ajax(ajaxurl, {
-                type: 'POST',
-                data: {
-                  action: 'blocksy_notice_button_click'
-                }
-              }).then(({ success, data }) => {
-                if (success) {
-                  setPluginStatus(data.status)
-
-                  if (data.status === 'active') {
-                    location.assign(pluginUrl)
+                setTimeout(() => {})
+                $.ajax(ajaxurl, {
+                  type: 'POST',
+                  data: {
+                    action: 'blocksy_notice_button_click'
                   }
-                }
+                }).then(({ success, data }) => {
+                  if (success) {
+                    setPluginStatus(data.status)
 
-                setIsLoading(false)
-              })
-            }}
-            className="button button-primary">
-            {isLoading && <i className="dashicons dashicons-update" />}
-            {isLoading
-              ? __('Activating...', 'blocksy')
-              : pluginStatus === 'uninstalled'
-              ? __('Install Blocksy Companion', 'blocksy')
-              : pluginStatus === 'installed'
-              ? __('Activate Blocksy Companion', 'blocksy')
-              : __('Blocksy Companion active!', 'blocksy')}
-          </button>
-        )}
+                    if (data.status === 'active') {
+                      location.assign(pluginUrl)
+                    }
+                  }
 
-        <a href={url} className="button">
-          {__('Theme Dashboard', 'blocksy')}
-        </a>
+                  setIsLoading(false)
+                })
+              }}>
+
+              
+              {isLoading
+                ? __('Activating...', 'blocksy')
+                : pluginStatus === 'uninstalled'
+                ? __('Install Blocksy Companion', 'blocksy')
+                : pluginStatus === 'installed'
+                ? __('Activate Blocksy Companion', 'blocksy')
+                : __('Blocksy Companion active!', 'blocksy')
+              }
+              {isLoading && <i className="dashicons dashicons-update" />}
+            </button>
+          )}
+
+          <a className="button" href={url}>
+            {__('Theme Dashboard', 'blocksy')}
+          </a>
+        </div>
       </div>
+
     </div>
   )
 }

@@ -20,6 +20,7 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 				'author' => false,
 				'comments' => false,
 				'post_date' => false,
+				'updated_date' => false,
 				'categories' => false,
 				'author_avatar' => false,
 				'tags' => false,
@@ -37,7 +38,11 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 				'plain' => false,
 				'meta_type' => 'simple',
 				'force_icons' => false,
-				'date_format' => 'M j, Y'
+				'date_format' => 'M j, Y',
+
+				// simple | standard
+				'tags_format' => 'standard'
+
 			]
 		);
 
@@ -55,10 +60,22 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 
 		global $post;
 
-		if ( get_post_type( $post ) === 'page' ) {
+		if (get_post_type($post) === 'page') {
 			$post_meta_descriptor['comments'] = false;
-			$post_meta_descriptor['categories'] = false;
-			$post_meta_descriptor['tags'] = false;
+
+			if ($post_meta_descriptor['categories']) {
+				$post_meta_descriptor['categories'] = in_array(
+					'category',
+					get_object_taxonomies('page')
+				);
+			}
+
+			if ($post_meta_descriptor['tags']) {
+				$post_meta_descriptor['tags'] = in_array(
+					'post_tag',
+					get_object_taxonomies('page')
+				);
+			}
 		}
 
 		if ( ! in_array( true, array_values( $post_meta_descriptor ), true ) ) {
@@ -75,12 +92,53 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 			$avatar = ' has-avatar';
 		}
 
+		$label_output = [];
+
+		if ($args['labels'] && !$args['plain']) {
+			$label_output = ['data-label' => ''];
+		}
+
+		$container_attr = array_merge([
+			'class' => $args['plain'] ? 'product-categories' : 'entry-meta' . (
+				$avatar
+			) . $args['class'],
+		], $label_output, (
+			$args['plain'] ? [] : [
+				'data-type' => $args['meta_type']
+			]
+		));
+
 		ob_start();
 
 		?>
 
 			<?php if ( $post_meta_descriptor['author'] && get_the_author() ) { ?>
-				<li class="ct-meta-author" <?php blocksy_schema_org_definitions_e('author_name') ?>>
+				<li class="ct-meta-author<?php echo esc_attr($avatar); ?>" <?php blocksy_schema_org_definitions_e('author_name') ?>>
+
+				<?php if ( $post_meta_descriptor['author'] && get_the_author() ) { ?>
+					<?php if ( $post_meta_descriptor['author_avatar'] ) {
+						echo blocksy_simple_image(
+							get_avatar_url(
+								get_the_author_meta('ID'),
+								[
+									'size' => intval($args['avatar_size']) * 2
+								]
+							),
+							[
+								'tag_name' => 'a',
+
+								'html_atts' => [
+									'class' => 'avatar-container',
+									'href' => get_author_posts_url(get_the_author_meta('ID')),
+								],
+								'img_atts' => [
+									'width' => intval($args['avatar_size']),
+									'height' => intval($args['avatar_size'])
+								],
+							]
+						);
+					} ?>
+				<?php } ?>
 
 					<?php if ($args['meta_type'] === 'icons' || $args['force_icons']) { ?>
 						<span class="ct-meta-icon">
@@ -92,7 +150,7 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 
 					<?php if ($args['labels']) { ?>
 						<span class="ct-meta-label">
-							<?php echo esc_html(__( 'By', 'blocksy' )); ?>
+							<?php echo esc_html(__( 'By', 'blocksy' )); ?>&nbsp;
 						</span>
 					<?php } ?>
 
@@ -117,7 +175,7 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 
 					<?php if ($args['labels']) { ?>
 						<span class="ct-meta-label">
-							<?php echo esc_html(__( 'On', 'blocksy' )); ?>
+							<?php echo esc_html(__( 'On', 'blocksy' )); ?>&nbsp;
 						</span>
 					<?php } ?>
 
@@ -125,6 +183,33 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 						class="ct-meta-element"
 						<?php echo ('data-date="' . get_the_date('c') . '"') ?>>
 						<?php echo esc_html(get_the_date( $args['date_format'] )); ?>
+					</span>
+				</li>
+			<?php } ?>
+
+			<?php if ( $post_meta_descriptor['updated_date'] ) { ?>
+				<li
+					class="ct-meta-updated-date"
+					<?php blocksy_schema_org_definitions_e('publish_date') ?>>
+
+					<?php if ($args['meta_type'] === 'icons' || $args['force_icons']) { ?>
+						<span class="ct-meta-icon">
+							<svg width="13" height="13" viewBox="0 0 15 15">
+								<path d="M7.5,15C3.4,15,0,11.6,0,7.5S3.4,0,7.5,0S15,3.4,15,7.5S11.6,15,7.5,15z M7.5,1.4c-3.4,0-6.1,2.8-6.1,6.1c0,3.4,2.8,6.1,6.1,6.1c3.4,0,6.1-2.8,6.1-6.1C13.6,4.1,10.9,1.4,7.5,1.4z M10.8,9.2c0.2-0.3,0-0.7-0.3-0.9L8.2,7.1V3.4c0-0.4-0.3-0.7-0.7-0.7C7.1,2.7,6.8,3,6.8,3.4v4.1C6.8,7.8,7,8,7.2,8.1l2.7,1.4c0.1,0,0.2,0.1,0.3,0.1C10.5,9.5,10.7,9.4,10.8,9.2z"/>
+							</svg>
+						</span>
+					<?php } ?>
+
+					<?php if ($args['labels']) { ?>
+						<span class="ct-meta-label">
+							<?php echo esc_html(__( 'On', 'blocksy' )); ?>&nbsp;
+						</span>
+					<?php } ?>
+
+					<span
+						class="ct-meta-element"
+						<?php echo ('data-date="' . get_the_date('c') . '"') ?>>
+						<?php echo esc_html(get_the_modified_date( $args['date_format'] )); ?>
 					</span>
 				</li>
 			<?php } ?>
@@ -181,7 +266,7 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 					if ($args['labels']) {
 						echo '<span class="ct-meta-label">';
 						echo esc_html(__( 'In ', 'blocksy' ));
-						echo '</span>';
+						echo '&nbsp;</span>';
 					}
 
 					echo '<span class="ct-meta-element">';
@@ -193,87 +278,62 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 					echo wp_kses_post(blocksy_get_categories_list( '</li><li>' ));
 					echo '</li>';
 				}
-
 			}
 
-			if ( $post_meta_descriptor['tags'] && blocksy_get_categories_list( '', false ) ) {
-				echo '<li>';
-				echo wp_kses_post(blocksy_get_categories_list( '</li><li>', false ));
-				echo '</li>';
+			if ( $post_meta_descriptor['tags'] && blocksy_get_categories_list('', false) ) {
+				if (!$args['plain'] && $args['tags_format'] === 'standard') {
+					echo '<li class="ct-meta-tags" data-type="simple">';
+
+					if ($args['meta_type'] === 'icons' || $args['force_icons']) {
+						echo '<span class="ct-meta-icon">';
+						echo '<svg width="13" height="13" viewBox="0 0 15 15"><path d="M7.2,15c-0.6,0-1.2-0.2-1.6-0.7l-5-5c0,0,0,0,0,0c-0.9-0.9-0.9-2.3,0-3.2l5.9-5.9C6.8,0.1,7,0,7.2,0l6.9,0C14.6,0,15,0.4,15,0.9v6.9c0,0.2-0.1,0.5-0.3,0.6l-5.9,5.9C8.4,14.8,7.8,15,7.2,15C7.2,15,7.2,15,7.2,15z M13.2,1.8H7.6L1.9,7.4c-0.2,0.2-0.2,0.5,0,0.7l5,4.9c0.2,0.2,0.5,0.2,0.7,0l5.7-5.7V1.8zM1.3,8.8L1.3,8.8L1.3,8.8z M10.7,5.2c0.1,0,0.2,0,0.3-0.1c0.1,0,0.2-0.1,0.3-0.2c0.2-0.2,0.3-0.4,0.3-0.6c0-0.2-0.1-0.5-0.3-0.6c-0.1-0.1-0.2-0.2-0.3-0.2c-0.2-0.1-0.5-0.1-0.7,0c-0.1,0-0.2,0.1-0.3,0.2C9.9,3.9,9.8,4.1,9.8,4.3C9.8,4.6,9.9,4.8,10,5c0.1,0.1,0.2,0.1,0.3,0.2C10.4,5.2,10.5,5.2,10.7,5.2z"/></svg>';
+						echo '</span>';
+					}
+
+					if ($args['labels']) {
+						echo '<span class="ct-meta-label">';
+						echo esc_html(__('In ', 'blocksy'));
+						echo '&nbsp;</span>';
+					}
+
+					echo '<span class="ct-meta-element">';
+					echo wp_kses_post(blocksy_get_categories_list(' </span><span class="ct-meta-element">', false));
+					echo '</span>';
+					echo '</li>';
+				} else {
+					echo '<li>';
+					echo wp_kses_post(blocksy_get_categories_list( '</li><li>', false));
+					echo '</li>';
+				}
 			}
 
 			?>
 		<?php
 
 		$to_return = ob_get_contents();
+
 		ob_end_clean();
 
-		if ( empty( trim( $to_return ) ) ) {
+		if (empty(trim($to_return))) {
 			return '';
-		}
-
-		$label_output = '';
-
-		if ($args['labels'] && !$args['plain']) {
-			$label_output = 'data-label';
-		}
-
-		$class_output = '';
-
-		if ($args['plain']) {
-			$class_output = 'class="product-categories"';
 		}
 
 		ob_start();
 
 		?>
 
-		<?php if (!$args['plain']) { ?>
-		<div class="entry-meta<?php echo esc_attr($avatar); ?><?php echo esc_attr($args['class']); ?>" <?php echo wp_kses_post($label_output) ?> data-type="<?php echo esc_attr($args['meta_type']) ?>">
-		<?php } ?>
-
-			<?php if ( $post_meta_descriptor['author'] && get_the_author() ) { ?>
-				<?php if ( $post_meta_descriptor['author_avatar'] ) {
-					echo blocksy_simple_image(
-						get_avatar_url(
-							get_the_author_meta('ID'),
-							[
-								'size' => intval($args['avatar_size']) * 2
-							]
-						),
-						[
-							'tag_name' => 'a',
-
-							'html_atts' => [
-								'class' => 'avatar-container',
-								'href' => get_author_posts_url(get_the_author_meta('ID')),
-							],
-							'img_atts' => [
-								'width' => intval($args['avatar_size']),
-								'height' => intval($args['avatar_size'])
-							],
-						]
-					);
-				} ?>
-			<?php } ?>
-
-			<ul <?php echo wp_kses_post($class_output) ?>>
-				<?php
-					/**
-					 * Note to code reviewers: This line doesn't need to be escaped.
-					 * Var $to_return used here has the value escaped properly.
-					 */
-					echo $to_return;
-				?>
-			</ul>
-		<?php if (!$args['plain']) { ?>
-		</div>
+		<ul <?php echo blocksy_attr_to_html($container_attr) ?>>
+			<?php
+				/**
+				 * Note to code reviewers: This line doesn't need to be escaped.
+				 * Var $to_return used here has the value escaped properly.
+				 */
+				echo $to_return;
+			?>
+		</ul>
 		<?php //CUSTOM START ?>
-		<div class="fb-comments" data-href="<?= (isset($post->og_url)) ? $post->og_url : esc_url( get_permalink() ) ?>"  data-width="100%" data-numposts="3"></div>
+			<div class="fb-comments" data-href="<?= (isset($post->og_url)) ? $post->og_url : esc_url( get_permalink() ) ?>"  data-width="100%" data-numposts="3"></div>
 		<?php //CUSTOM END ?>
-
-		<?php } ?>
-
 		<?php
 
 		return ob_get_clean();

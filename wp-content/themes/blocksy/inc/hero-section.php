@@ -389,8 +389,10 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 		$single_meta_elements = [
 			'author' => true,
 			'date' => true,
+			'updated' => true,
 			'categories' => true,
 			'comments' => true,
+			'tags' => true
 		];
 
 		if (! $is_cache_phase) {
@@ -402,6 +404,8 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 					'date' => !$is_page,
 					'categories' => !$is_page,
 					'comments' => !$is_page,
+					'updated' => false,
+					'tags' => false,
 				]
 			);
 		}
@@ -446,8 +450,10 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 								'author' => $single_meta_elements['author'],
 								'author_avatar' => true,
 								'post_date' => $single_meta_elements['date'],
+								'updated_date' => $single_meta_elements['updated'],
 								'comments' => $single_meta_elements['comments'],
 								'categories' => $single_meta_elements['categories'],
+								'tags' => $single_meta_elements['tags'],
 							],
 							[
 								'avatar_size' => '50',
@@ -573,7 +579,9 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 									'author' => $single_meta_elements['author'],
 									'author_avatar' => true,
 									'post_date' => $single_meta_elements['date'],
+									'updated_date' => $single_meta_elements['updated'],
 									'comments' => $single_meta_elements['comments'],
+									'tags' => $single_meta_elements['tags'],
 								],
 								[
 									'avatar_size' => '50',

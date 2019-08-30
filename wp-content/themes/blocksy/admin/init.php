@@ -130,15 +130,25 @@ function blocksy_output_companion_notice() {
 
 	?>
 
-	<h1><?php esc_html_e( 'Congratulations!', 'blocksy' ); ?></h1>
-	<p class="about-description">
-		<?php esc_html_e( 'Blocksy theme is now active and ready to use.', 'blocksy' ); ?>
-	</p>
-	<p>
-		<?php esc_html_e( 'To get full advantage of it, we strongly recommend to activate the', 'blocksy' ); ?>
-		<b><?php esc_html_e( 'Blocksy Companion', 'blocksy' ); ?></b> Plugin.
-		<?php esc_html_e( 'This way you will have access to custom extensions, demo templates and many other awesome features', 'blocksy' ); ?>.
-	</p>
+	<div class="ct-blocksy-plugin-inner">
+		<span class="ct-notification-icon">
+			<svg width="70" viewBox="0 0 20 17">
+				<rect x="3" width="5" height="5.15" rx="1.5" fill="#0085ba" opacity="0.6"/>
+				<rect x="12" width="5" height="5.15" rx="1.5" fill="#0085ba" opacity="0.6"/>
+				<rect y="2.58" width="20" height="14.42" rx="2.5" fill="#0085ba"/>
+			</svg>
+		</span>
+
+		<div class="ct-notification-content">
+			<h2><?php esc_html_e( 'Thanks for installing Blocksy, you rock!', 'blocksy' ); ?></h2>
+			<p>
+				<?php esc_html_e( 'We strongly recommend you to activate the', 'blocksy' ); ?>
+				<b><?php esc_html_e( 'Blocksy Companion', 'blocksy' ); ?></b> plugin.
+				<br>
+				<?php esc_html_e( 'This way you will have access to custom extensions, demo templates and many other awesome features', 'blocksy' ); ?>.
+			</p>
+		</div>
+	</div>
 	<?php
 
 	echo '</div>';

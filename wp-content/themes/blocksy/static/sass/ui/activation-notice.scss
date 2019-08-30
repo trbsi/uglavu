@@ -1,97 +1,79 @@
-div.notice-blocksy-plugin {
-	min-height: 200px;
-	padding: 2rem;
-	box-sizing: border-box;
-	background-image: url('../images/init.svg');
-	background-repeat: no-repeat;
+.notice-blocksy-plugin {
 	position: relative;
+	padding: 25px 20px;
+	border-left-color: #00a0d2;
+}
 
-	@media only screen and (max-width: 960px) {
-		background-size: 70%;
-		background-position: 100% 10px;
+.ct-blocksy-plugin-inner {
+	display: flex;
+	// align-items: center;
+
+	.ct-notification-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 60px;
+		height: 60px;
+		margin-top: 2px;
+		margin-right: 20px;
+		border-radius: 100%;
+		background: rgba(0, 160, 210, 0.1);
+		box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.03);
+
+		svg {
+			width: 28px;
+			animation: shake 5.4s ease-in-out infinite;
+			transform-origin: 50% 50%;
+			// animation-play-state: paused;
+		}
 	}
 
-	@media only screen and (min-width: 961px) {
-		// background-size: 45%;
-	}
-
-	@media only screen and (min-width: 961px) and (max-width: 1170px) {
-		background-size: 60%;
-		background-position: 97% 15px;
-	}
-
-	@media only screen and (min-width: 1171px) and (max-width: 1500px) {
-		background-size: 44%;
-		background-position: 97% 15px;
-	}
-
-	@media only screen and (min-width: 1501px) {
-		// background-size: 30%;
-		background-position: 97% 15px;
-	}
-
-	h1 {
-		max-width: 50%;
-		font-size: 30px;
-		font-weight: 500;
-		padding: 0;
-		margin-top: 0;
-		margin-bottom: 10px !important;
+	h2 {
+		font-weight: 700;
+		margin: 0 0 10px 0;
 	}
 
 	p {
-		max-width: 50%;
-		color: #72777c;
-		line-height: 1.6;
-
-		&.about-description {
-			font-size: 16px;
-			color: #575b5f;
-			// margin-bottom: 20px;
-		}
-
-		b {
-			color: #63676b;
-		}
+		margin: 0;
 	}
 
 	.notice-actions {
-		margin-top: 25px;
+		display: flex;
+		align-items: center;
+		margin-top: 10px;
 
-		.button {
-			display: inline-flex;
+		> * {
+			display: flex;
 			align-items: center;
-			height: 40px;
-			padding-left: 20px;
-			padding-right: 20px;
 
-			&:not(:last-child) {
-				margin-right: 10px;
+			&:first-child {
+				margin-right: 15px;
 			}
 		}
 
-		.button-primary {
-			font-size: 14px;
-			font-weight: 500;
-		}
-
 		i {
-			margin-right: 5px;
+			width: 18px;
+			height: 18px;
+			font-size: 18px;
+			margin-left: 7px;
 			animation: spin 1.5s infinite linear;
 		}
 	}
+}
 
-	.notice-dismiss {
-		position: absolute;
-		top: 0;
-		right: 1px;
-		border: none;
-		margin: 0;
-		padding: 9px;
-		background: 0 0;
-		color: #72777c;
-		cursor: pointer;
-	}
+@keyframes shake {
+	0% { transform: translate3d(0, 0, 0) }
+	2.59259% { transform: translate3d(-1px, 0, 0) }
+	5.18519% { transform: translate3d(1.5px, 0, 0) }
+	7.77778% { transform: translate3d(-2px, 0, 0) }
+	10.37037% { transform: translate3d(2px, 0, 0) }
+	12.96296% { transform: translate3d(-2px, 0, 0) }
+	15.55556% { transform: translate3d(2px, 0, 0) }
+	18.14815% { transform: translate3d(-2px, 0, 0) }
+	20.74074% { transform: translate3d(1.5px, 0, 0) }
+	23.33333% { transform: translate3d(-1px, 0, 0) }
+	25.92593% { transform: translate3d(0, 0, 0) }
+	100% { transform: translate3d(0, 0, 0) }
 }
 
 @keyframes spin {

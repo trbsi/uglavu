@@ -222,6 +222,10 @@
 		padding-left: 10px;
 		padding-right: 10px;
 		margin-bottom: 1.5em;
+
+		label {
+			height: var(--formInputHeight);
+		}
 	}
 }
 
@@ -235,7 +239,6 @@
 		position: absolute;
 		top: 0;
 		left: 10px;
-		height: 45px;
 		cursor: text;
 		padding: var(--formPadding, 0 15px);
 		font-size: 15px;
@@ -254,6 +257,7 @@
 	label {
 		top: 2px;
 		left: 0;
+		height: 45px;
 	}
 
 	textarea {

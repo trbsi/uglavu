@@ -23,8 +23,11 @@
 	}
 
 	.avatar-container {
-		flex: 0 0 var(--avatarSize);
-		max-width: var(--avatarSize);
+		// flex: 0 0 var(--avatarSize);
+		// max-width: var(--avatarSize);
+		// height: var(--avatarSize);
+
+		width: var(--avatarSize);
 		height: var(--avatarSize);
 	}
 
@@ -100,11 +103,3 @@
 		border-bottom: 1px dashed rgba(224, 229, 235, 0.8);
 	}
 }
-
-
-
-
-
-
-
-

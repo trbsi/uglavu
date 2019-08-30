@@ -168,13 +168,20 @@ function blocksy_single_content( $check_for_preview = false ) {
 			?>
 		</div>
 
-		<?php if ( $has_post_tags ) { ?>
+		<?php if (
+			$has_post_tags
+			||
+			blocksy_is_page()
+		) { ?>
 			<?php
 				/**
 				 * Note to code reviewers: This line doesn't need to be escaped.
 				 * Function blocksy_post_meta() used here escapes the value properly.
 				 */
-				echo blocksy_post_meta( [ 'tags' => true ], [ 'class' => 'entry-tags' ] );
+				echo blocksy_post_meta( [ 'tags' => true ], [
+					'class' => 'entry-tags',
+					'tags_format' => 'simple'
+				] );
 			?>
 		<?php } ?>
 

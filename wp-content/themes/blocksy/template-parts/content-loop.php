@@ -209,9 +209,11 @@ if (get_theme_mod('has_posts_reveal', 'no') === 'yes') {
 			$output = 'post_meta' === $single_component['id'] ? blocksy_post_meta(
 				[
 					'categories' => blocksy_akg( 'meta/categories', $single_component, false ),
+					'tags' => blocksy_akg( 'meta/tags', $single_component, false ),
 					'author' => blocksy_akg( 'meta/author', $single_component, false ),
 					'author_avatar' => blocksy_akg( 'has_author_avatar', $single_component, 'no' ) === 'yes',
 					'post_date' => blocksy_akg( 'meta/date', $single_component, false ),
+					'updated_date' => blocksy_akg( 'meta/updated', $single_component, false ),
 					'comments' => blocksy_akg( 'meta/comments', $single_component, false ),
 				],
 				[
@@ -287,7 +289,9 @@ if (get_theme_mod('has_posts_reveal', 'no') === 'yes') {
 										'author' => true,
 										'author_avatar' => true,
 										'post_date' => true,
+										'updated_date' => true,
 										'comments' => true,
+										'tags' => true
 									],
 									[
 										'labels' => true,
