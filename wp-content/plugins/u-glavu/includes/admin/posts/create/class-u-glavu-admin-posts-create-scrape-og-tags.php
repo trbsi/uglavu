@@ -83,10 +83,15 @@ class U_Glavu_Admin_Posts_Create_Scrape_Og_Tags {
 		$siteData = $this->createOgTags->get_site_and_site_post_id($externalUrl);
 
 		$ogTagsTable = $wpdb->prefix . 'og_tags';
-		$query = "SELECT * FROM $ogTagsTable WHERE site_id = %s AND site_post_id = %s";
+		$query = "SELECT * FROM $ogTagsTable 
+		WHERE site_id = %s AND site_post_id = %s 
+		AND (created_at BETWEEN CAST('%s' AS DATETIME) AND CAST('%s' AS DATETIME))
+		";
 		$siteData = $wpdb->get_row($wpdb->prepare($query, [
 			$siteData['siteId'],
 			$siteData['sitePostId'],
+			date('Y-m-d 00:00:00'),
+			date('Y-m-d 23:59:59')
 		]));
 
 		if (null !== $siteData) {
