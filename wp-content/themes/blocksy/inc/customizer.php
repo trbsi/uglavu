@@ -12,7 +12,7 @@ function blocksy_get_options( $path, $pass_inside = [], $relative = true ) {
 		$path = get_template_directory() . '/inc/options/' . $path . '.php';
 	}
 
-	if ( ! file_exists( $path ) ) {
+	if (! file_exists($path)) {
 		return null;
 	}
 
@@ -31,11 +31,17 @@ add_action('customize_register', function ($wp_customize) {
 
 	$builder = new Blocksy_Customizer_Builder();
 
-	foreach ($builder->get_registered_items_by('header', 'secondary') as $item) {
+	foreach ($builder->get_registered_items_by('header') as $item) {
+		/*
 		blocksy_customizer_register_options(
 			$wp_customize,
-			$builder->get_options_for('header', $item)
+			$builder->get_options_for('header', $item),
+			[
+				'include_container_types' => false,
+				'limit_level' => 5
+			]
 		);
+		 */
 	}
 
 	$wp_customize->get_setting('blogname')->transport = 'postMessage';
@@ -43,8 +49,8 @@ add_action('customize_register', function ($wp_customize) {
 
 	$wp_customize->remove_control('custom_logo');
 
-	$wp_customize->remove_control('blogname');
-	$wp_customize->remove_control('blogdescription');
+	// $wp_customize->remove_control('blogname');
+	// $wp_customize->remove_control('blogdescription');
 
 	if (function_exists('is_shop')) {
 		$wp_customize->remove_section('header_image');
@@ -153,12 +159,23 @@ add_action(
 add_action(
 	'customize_preview_init',
 	function () {
+		$b = new Blocksy_Customizer_Builder();
+
 		wp_enqueue_script(
 			'ct-customizer',
 			get_template_directory_uri() . '/static/bundle/sync.js',
 			['customize-preview', 'wp-date', 'ct-events'],
 			'20151215',
 			true
+		);
+
+		wp_localize_script(
+			'ct-customizer',
+			'ct_customizer_localizations',
+			[
+				'static_public_url' => get_template_directory_uri() . '/static/',
+				'header_builder_data' => $b->get_data_for_customizer(),
+			]
 		);
 
 		wp_enqueue_media();
@@ -290,19 +307,21 @@ add_action(
 	}
 );
 
-/**
- * Register customizer options recursively
- *
- * @param WP_Customize_Manager $wp_customize Theme Customizer object.
- * @param array                $options All the theme options.
- * @param array                $parent_data recursive data.
- */
 function blocksy_customizer_register_options(
 	$wp_customize,
 	$options,
-	$parent_data = [],
-	$has_controls = true
+	$settings = []
 ) {
+	$settings = wp_parse_args(
+		$settings,
+		[
+			'has_controls' => true,
+			'parent_data' => [],
+			'include_container_types' => true,
+			'limit_level' => 1
+		]
+	);
+
 	$collected = [];
 
 	blocksy_collect_options(
@@ -310,13 +329,14 @@ function blocksy_customizer_register_options(
 		$options,
 		[
 			'limit_option_types' => false,
-			'limit_level' => 1,
+			'limit_level' => $settings['limit_level'],
+			'include_container_types' => $settings['include_container_types'],
 			'info_wrapper' => true,
 		]
 	);
 
 
-	if ( empty( $collected ) ) {
+	if (empty($collected)) {
 		return;
 	}
 
@@ -369,10 +389,10 @@ function blocksy_customizer_register_options(
 			}
 
 			if ( $has_containers ) {
-				if ( $parent_data ) {
+				if ( $settings['parent_data'] ) {
 					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
 					trigger_error(
-						esc_html( $opt['id'] ) . ' panel can\'t have a parent (' . esc_html( $parent_data['id'] ) . ')',
+						esc_html( $opt['id'] ) . ' panel can\'t have a parent (' . esc_html( $settings['parent_data']['id'] ) . ')',
 						E_USER_WARNING
 					);
 					break;
@@ -384,13 +404,13 @@ function blocksy_customizer_register_options(
 
 				$children_data['customizer_type'] = 'panel';
 			} else {
-				if ( $parent_data ) {
-					if ( 'panel' === $parent_data['customizer_type'] ) {
-						$args['panel'] = $parent_data['id'];
+				if ( $settings['parent_data'] ) {
+					if ( 'panel' === $settings['parent_data']['customizer_type'] ) {
+						$args['panel'] = $settings['parent_data']['id'];
 					} else {
 						// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
 						trigger_error(
-							esc_html( $opt['id'] ) . ' section can have only panel parent (' . esc_html( $parent_data['id'] ) . ')',
+							esc_html( $opt['id'] ) . ' section can have only panel parent (' . esc_html( $settings['parent_data']['id'] ) . ')',
 							E_USER_WARNING
 						);
 
@@ -405,7 +425,9 @@ function blocksy_customizer_register_options(
 			blocksy_customizer_register_options(
 				$wp_customize,
 				$opt['option']['options'],
-				$children_data
+				[
+					'parent_data' => $children_data
+				]
 			);
 
 			unset( $children_data );
@@ -433,8 +455,7 @@ function blocksy_customizer_register_options(
 				blocksy_customizer_register_options(
 					$wp_customize,
 					$options_to_send,
-					[],
-					false
+					['has_controls' => false]
 				);
 			}
 
@@ -455,13 +476,13 @@ function blocksy_customizer_register_options(
 
 			$args_control = array_merge( $opt['option'], $args_control );
 
-			if ( $parent_data ) {
-				if ('section' === $parent_data['customizer_type']) {
-					$args_control['section'] = $parent_data['id'];
+			if ( $settings['parent_data'] ) {
+				if ('section' === $settings['parent_data']['customizer_type']) {
+					$args_control['section'] = $settings['parent_data']['id'];
 				} else {
 					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
 					trigger_error(
-						'Invalid control parent: ' . esc_html( $parent_data['customizer_type'] ),
+						'Invalid control parent: ' . esc_html( $settings['parent_data']['customizer_type'] ),
 						E_USER_WARNING
 					);
 
@@ -514,18 +535,22 @@ function blocksy_customizer_register_options(
 
 			unset( $args_setting );
 
-			if (
-				isset( $opt['option']['selective_refresh'] )
-				&&
-				isset( $opt['option']['selective_refresh']['selector'] )
-			) {
-				$wp_customize->selective_refresh->add_partial(
-					$opt['id'],
-					$opt['option']['selective_refresh']
-				);
+			if (isset($opt['option']['selective_refresh'])) {
+				foreach ($opt['option']['selective_refresh'] as $single_partial) {
+					if (! isset($single_partial['selector'])) {
+						continue;
+					}
+
+					$single_partial['settings'] = [$opt['id']];
+
+					$wp_customize->selective_refresh->add_partial(
+						$single_partial['id'],
+						$single_partial
+					);
+				}
 			}
 
-			if ( $has_controls ) {
+			if ( $settings['has_controls'] ) {
 				$our_control = new WP_Customize_Control(
 					$wp_customize,
 					$opt['id'],

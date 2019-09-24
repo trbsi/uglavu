@@ -1,15 +1,3 @@
-.ct-filler {
-	flex: 1;
-	height: 100%;
-	order: -1;
-}
-
-#ct-option-header-builder-items {
-	margin-top: 25px;
-	padding: 0 14px;
-}
-
-
 // available items
 .ct-available-items {
 	.ct-builder-items {
@@ -28,13 +16,12 @@
 
 			&:after {
 				font-family: dashicons;
-				content: '\f345';
+				content: "\f545";
 				width: 12px;
 				height: 12px;
 				font-size: 12px;
 				line-height: 13px;
 				color: inherit;
-				opacity: 0;
 				-webkit-font-smoothing: antialiased;
 				-moz-osx-font-smoothing: grayscale;
 				transition: opacity 0.1s ease;
@@ -42,12 +29,18 @@
 		}
 
 		.ct-builder-item {
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+
 			button {
 				display: none;
 			}
 
 			&.sortable-ghost {
 				box-shadow: none;
+
+				&:after {
+					content: '\f345';
+				}
 			}
 		}
 	}
@@ -72,7 +65,7 @@
 
 	.ct-item-in-builder {
 		&:after {
-			opacity: 1;
+			content: '\f345';
 		}
 
 		&:hover {

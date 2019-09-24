@@ -409,6 +409,14 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 				]
 			);
 		}
+
+		if (! isset($single_meta_elements['updated'])) {
+			$single_meta_elements['updated'] = false;
+		}
+
+		if (! isset($single_meta_elements['tags'])) {
+			$single_meta_elements['tags'] = false;
+		}
 	}
 
 	$date_format = blocksy_akg_or_customizer(
@@ -520,14 +528,34 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 			||
 			$page_title_bg_type === 'featured_image'
 		) {
-			if (
-				blocksy_akg_or_customizer(
-					'enable_parallax',
-					blocksy_get_page_title_source(),
-					'no'
-				) === 'yes'
-			) {
-				$parallax_output = 'data-parallax';
+			$parallax_result = [];
+
+			$parallax_value = blocksy_akg_or_customizer(
+				'parallax',
+				blocksy_get_page_title_source(),
+				[
+					'desktop' => false,
+					'tablet' => false,
+					'mobile' => false,
+				]
+			);
+
+			if ($parallax_value['desktop']) {
+				$parallax_result[] = 'desktop';
+			}
+
+			if ($parallax_value['tablet']) {
+				$parallax_result[] = 'tablet';
+			}
+
+			if ($parallax_value['mobile']) {
+				$parallax_result[] = 'mobile';
+			}
+
+			if (count($parallax_result) > 0) {
+				$parallax_output = 'data-parallax="' . (
+					implode(':', $parallax_result)
+				) . '"';
 			}
 		}
 

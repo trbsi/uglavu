@@ -18,17 +18,19 @@ import ImagePicker from './ImagePicker'
 const BackgroundModal = ({
 	option,
 	value,
+	isOpen,
 	innerRef,
 	placement,
 	onChange,
 	setOutsideClickFreezed
 }) => {
 	return (
-		<div
-			ref={innerRef}
-			data-placement={placement}
-			className="ct-background-modal">
-			<ul className="ct-background-type">
+		<Fragment>
+			<ul
+				className="ct-background-type"
+				onMouseUp={e => {
+					e.preventDefault()
+				}}>
 				{['color', 'pattern', 'image'].map(type => (
 					<li
 						data-type={type}
@@ -95,7 +97,8 @@ const BackgroundModal = ({
 								id: 'default'
 							}
 						],
-						inline_modal: value.background_type === 'color'
+						inline_modal: value.background_type === 'color',
+						skipArrow: true
 					}}
 					hasRevertButton={false}
 					onChange={newValue =>
@@ -106,7 +109,7 @@ const BackgroundModal = ({
 					}
 				/>
 			</div>
-		</div>
+		</Fragment>
 	)
 }
 

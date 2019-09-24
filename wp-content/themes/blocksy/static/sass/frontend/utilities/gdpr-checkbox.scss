@@ -1,17 +1,13 @@
 .gdpr-confirm-policy {
+	--fontSize: 13px;
+	
 	display: flex;
 	align-items: center;
 
-	input {
-		margin-top: 2px;
-	}
-
 	label {
-		margin-left: 10px;
 		cursor: pointer;
-		opacity: 0.8;
-		font-size: 13px;
-		line-height: 1.4;
+		font-size: var(--fontSize);
+		line-height: normal;
 		text-align: left;
 
 		&:after {
@@ -23,20 +19,12 @@
 	}
 }
 
-#commentform {
-	.gdpr-confirm-policy {
-		margin-top: -10px;
-	}
-}
-
 .ct-mailchimp-form {
 	.gdpr-confirm-policy {
 		margin-top: 20px;
-	}
-}
 
-.ct-mailchimp-widget {
-	.gdpr-confirm-policy {
-		margin-top: 20px;
+		label {
+			opacity: 0.8;
+		}
 	}
 }

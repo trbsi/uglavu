@@ -31,6 +31,31 @@ document.addEventListener('DOMContentLoaded', () => {
   Object.values(wp.customize.control._value)
     .filter(({ params: { type } }) => type === 'ct-options')
     .map(control => {
+      if (wp.customize.section(control.section)) {
+        console.log('geasda', wp.customize.section(control.section).container)
+
+        wp.customize
+          .section(control.section)
+          .container.on('keydown', function(event) {
+            console.log('here')
+            return
+
+            // Pressing the escape key fires a theme:collapse event
+            if (27 === event.keyCode) {
+              if (section.$body.hasClass('modal-open')) {
+                // Escape from the details modal.
+                section.closeDetails()
+              } else {
+                // Escape from the inifinite scroll list.
+                section.headerContainer
+                  .find('.customize-themes-section-title')
+                  .focus()
+              }
+              event.stopPropagation() // Prevent section from being collapsed.
+            }
+          })
+      }
+
       ;(wp.customize.panel(control.section())
         ? wp.customize.panel
         : wp.customize.section)(control.section(), section => {

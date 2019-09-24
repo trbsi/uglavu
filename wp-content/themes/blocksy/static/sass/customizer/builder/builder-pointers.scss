@@ -1,3 +1,6 @@
+$pointer-color: rgba(130, 131, 134, 0.7);
+// $pointer-color: #0073AA;
+
 .ct-builder-column-start > * {
 	&:first-child {
 		.ct-pointer {
@@ -16,6 +19,14 @@
 	}
 }
 
+.ct-builder-column-end {
+	.ct-secondary-column {
+		.ct-pointer {
+			order: 10;
+		}
+	}
+}
+
 
 .ct-builder-items {
 	&.ct-is-over {
@@ -24,7 +35,6 @@
 		}
 	}
 }
-
 
 
 .ct-pointer {
@@ -45,7 +55,7 @@
 	&:before {
 		width: 8px;
 		height: 8px;
-		box-shadow: inset 0px 0px 0px 0.7px rgba(130, 131, 134, 0.7);
+		box-shadow: inset 0px 0px 0px 0.7px $pointer-color;
 		animation: pulse 1.3s ease-out infinite;
 	}
 
@@ -58,7 +68,7 @@
 		right: 0;
 		bottom: 0;
 		margin: auto;
-		background: rgba(130, 131, 134, 0.7);
+		background: $pointer-color;
 	}
 }
 

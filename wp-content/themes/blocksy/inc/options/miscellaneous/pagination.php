@@ -35,15 +35,18 @@ $options = [
 						),
 
 						'selective_refresh' => [
-							'container_inclusive' => true,
-							'selector' => '.ct-pagination',
-							'render_callback' => function () {
-								/**
-								 * Note to code reviewers: This line doesn't need to be escaped.
-								 * Function blocksy_display_posts_pagination() used here escapes the value properly.
-								 */
-								echo blocksy_display_posts_pagination();
-							}
+							[
+								'id' => 'pagination_global_type',
+								'container_inclusive' => true,
+								'selector' => '.ct-pagination',
+								'render_callback' => function () {
+									/**
+									 * Note to code reviewers: This line doesn't need to be escaped.
+									 * Function blocksy_display_posts_pagination() used here escapes the value properly.
+									 */
+									echo blocksy_display_posts_pagination();
+								}
+]
 						],
 					],
 

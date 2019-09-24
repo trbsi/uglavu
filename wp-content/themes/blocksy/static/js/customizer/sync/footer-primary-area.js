@@ -33,15 +33,13 @@ const renderColumn = number => {
 
 		e.querySelector('.ct-social-box').innerHTML = ''
 
-		wp
-			.customize(`footer_socials_${number}`)()
-			.map(({ id, enabled }) => {
-				if (!enabled) return
+		wp.customize(`footer_socials_${number}`)().map(({ id, enabled }) => {
+			if (!enabled) return
 
-				e
-					.querySelector('.ct-social-box')
-					.appendChild(cache.querySelector(`[data-network=${id}]`))
-			})
+			e.querySelector('.ct-social-box').appendChild(
+				cache.querySelector(`[data-network=${id}]`)
+			)
+		})
 	}
 
 	while (e.firstElementChild) {

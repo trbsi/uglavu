@@ -1,3 +1,29 @@
+1.5.1: 2019-09-20
+- Fix: Remove Header Builder admin notification
+
+1.5.0: 2019-09-20
+- New: Header Builder
+- Improvement: Add a filter for manual Google Fonts list, without any JSON parsing going on `blocksy-typography-google-fonts-source`
+- Improvement: Enhance images `figcaption`
+- Improvement: Comments CSS enhancements
+- Fix: Footer Social Icons
+- Fix: Footer menu links color
+
+1.4.2: 2019-09-10
+- New: Option to enable/disable parallax on different devices for page title
+- Improvement: Comments behavior for author pages
+- Fix: Products image ratio
+- Fix: Parallax on screen resize for page title
+
+1.4.1: 2019-09-04
+- Improvement: Add border option for blog cards
+- Improvement: Add meta typography option
+- Fix: Updated date in customizer blog cards
+- Fix: Entry tags css
+- Fix: Meta categories (long names)
+- Fix: Scroll to top sync
+- Fix: Frontend JS no longer fails when wp global variable is not present
+
 1.4.0: 2019-08-28
 - New: Add tags and last update date in post meta
 - Improvement: Update admin notification

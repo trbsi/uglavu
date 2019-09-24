@@ -1,5 +1,13 @@
 <?php
 
+$b = new Blocksy_Customizer_Builder();
+
+$b->dynamic_css('header', [
+	'css' => $css,
+	'mobile_css' => $mobile_css,
+	'tablet_css' => $tablet_css
+]);
+
 blocksy_theme_get_dynamic_styles('typography', [
 	'css' => $css,
 	'mobile_css' => $mobile_css,
@@ -32,12 +40,6 @@ if (class_exists('WooCommerce')) {
 	]);
 }
 
-blocksy_theme_get_dynamic_styles('header', [
-	'css' => $css,
-	'mobile_css' => $mobile_css,
-	'tablet_css' => $tablet_css
-]);
-
 blocksy_theme_get_dynamic_styles('forms', [
 	'css' => $css,
 	'mobile_css' => $mobile_css,
@@ -45,153 +47,147 @@ blocksy_theme_get_dynamic_styles('forms', [
 ]);
 
 // Color palette
-$colorPalette = blocksy_get_colors(
-	get_theme_mod('colorPalette'),
-	[
+blocksy_output_colors([
+	'value' => get_theme_mod('colorPalette'),
+	'default' => [
 		'color1' => [ 'color' => '#3eaf7c' ],
 		'color2' => [ 'color' => '#33a370' ],
 		'color3' => [ 'color' => 'rgba(44, 62, 80, 0.9)' ],
 		'color4' => [ 'color' => 'rgba(44, 62, 80, 1)' ],
 		'color5' => [ 'color' => '#ffffff' ],
-	]
-);
-
-$css->put(
-	':root',
-	"--paletteColor1: {$colorPalette['color1']}"
-);
-
-$css->put(
-	':root',
-	"--paletteColor2: {$colorPalette['color2']}"
-);
-
-$css->put(
-	':root',
-	"--paletteColor3: {$colorPalette['color3']}"
-);
-
-$css->put(
-	':root',
-	"--paletteColor4: {$colorPalette['color4']}"
-);
-
-$css->put(
-	':root',
-	"--paletteColor5: {$colorPalette['color5']}"
-);
+	],
+	'css' => $css,
+	'variables' => [
+		'color1' => ['variable' => 'paletteColor1'],
+		'color2' => ['variable' => 'paletteColor2'],
+		'color3' => ['variable' => 'paletteColor3'],
+		'color4' => ['variable' => 'paletteColor4'],
+		'color5' => ['variable' => 'paletteColor5'],
+	],
+]);
 
 // Colors
-$font_color = blocksy_get_colors(
-	get_theme_mod('fontColor'),
-	['default' => [ 'color' => 'var(--paletteColor3)' ] ]
-);
-
-$css->put(
-	':root',
-	"--fontColor: {$font_color['default']}"
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('fontColor'),
+	'default' => [
+		'default' => [ 'color' => 'var(--paletteColor3)' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => ['variable' => 'fontColor'],
+	],
+]);
 
 // Headings
-$h1Color = blocksy_get_colors(
-	get_theme_mod('h1Color'),
-	['default' => ['color' => 'var(--paletteColor4)']]
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('h1Color'),
+	'default' => [
+		'default' => [ 'color' => 'var(--paletteColor4)' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => 'h1',
+			'variable' => 'fontColor'
+		],
+	],
+]);
 
-$css->put(
-	'h1',
-	"--fontColor: {$h1Color['default']}"
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('h2Color'),
+	'default' => [
+		'default' => [ 'color' => 'var(--paletteColor4)' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => 'h2',
+			'variable' => 'fontColor'
+		],
+	],
+]);
 
-$h2Color = blocksy_get_colors(
-	get_theme_mod('h2Color'),
-	['default' => ['color' => 'var(--paletteColor4)']]
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('h3Color'),
+	'default' => [
+		'default' => [ 'color' => 'var(--paletteColor4)' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => 'h3',
+			'variable' => 'fontColor'
+		],
+	],
+]);
 
-$css->put(
-	'h2',
-	"--fontColor: {$h2Color['default']}"
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('h4Color'),
+	'default' => [
+		'default' => [ 'color' => 'var(--paletteColor4)' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => 'h4',
+			'variable' => 'fontColor'
+		],
+	],
+]);
 
-$h3Color = blocksy_get_colors(
-	get_theme_mod('h3Color'),
-	['default' =>[ 'color' => 'var(--paletteColor4)']]
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('h5Color'),
+	'default' => [
+		'default' => [ 'color' => 'var(--paletteColor4)' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => 'h5',
+			'variable' => 'fontColor'
+		],
+	],
+]);
 
-$css->put(
-	'h3',
-	"--fontColor: {$h3Color['default']}"
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('h6Color'),
+	'default' => [
+		'default' => [ 'color' => 'var(--paletteColor4)' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => 'h6',
+			'variable' => 'fontColor'
+		],
+	],
+]);
 
-$h4Color = blocksy_get_colors(
-	get_theme_mod('h4Color'),
-	['default' => ['color' => 'var(--paletteColor4)']]
-);
-
-$css->put(
-	'h4',
-	"--fontColor: {$h4Color['default']}"
-);
-
-$h5Color = blocksy_get_colors(
-	get_theme_mod('h5Color'),
-	['default' => ['color' => 'var(--paletteColor4)']]
-);
-
-$css->put(
-	'h5',
-	"--fontColor: {$h5Color['default']}"
-);
-
-$h6Color = blocksy_get_colors(
-	get_theme_mod('h6Color'),
-	[ 'default' => [ 'color' => 'var(--paletteColor4)' ] ]
-);
-
-$css->put(
-	'h6',
-	"--fontColor: {$h6Color['default']}"
-);
-
-
-
-$link_color = blocksy_get_colors(
-	get_theme_mod('linkColor'),
-	[
+blocksy_output_colors([
+	'value' => get_theme_mod('linkColor'),
+	'default' => [
 		'default' => [ 'color' => 'var(--paletteColor3)' ],
 		'hover' => [ 'color' => 'var(--paletteColor1)' ],
-	]
-);
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => ['variable' => 'linkInitialColor'],
+		'hover' => ['variable' => 'linkHoverColor'],
+	],
+]);
 
-$css->put(
-	':root',
-	"--linkInitialColor: {$link_color['default']}"
-);
-
-$css->put(
-	':root',
-	"--linkHoverColor: {$link_color['hover']}"
-);
-
-
-$button_color = blocksy_get_colors(
-	get_theme_mod('buttonColor'),
-	[
+blocksy_output_colors([
+	'value' => get_theme_mod('buttonColor'),
+	'default' => [
 		'default' => [ 'color' => 'var(--paletteColor1)' ],
 		'hover' => [ 'color' => 'var(--paletteColor2)' ],
-	]
-);
-
-$css->put(
-	':root',
-	"--buttonInitialColor: {$button_color['default']}"
-);
-
-$css->put(
-	':root',
-	"--buttonHoverColor: {$button_color['hover']}"
-);
-
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => ['variable' => 'buttonInitialColor'],
+		'hover' => ['variable' => 'buttonHoverColor'],
+	],
+]);
 
 // Layout
 $max_site_width = get_theme_mod( 'maxSiteWidth', 1290 );
@@ -214,6 +210,8 @@ blocksy_output_responsive([
 $narrowContainerWidth = get_theme_mod( 'narrowContainerWidth', 60 );
 $css->put( ':root', '--narrowContainerWidth: ' . $narrowContainerWidth . '%' );
 
+$css->put( ':root', '--narrowContainerWidthNoUnit: ' . intval($narrowContainerWidth) );
+
 $wideOffset = get_theme_mod( 'wideOffset', 130 );
 $css->put( ':root', '--wideOffset: ' . $wideOffset . 'px' );
 
@@ -231,78 +229,89 @@ $css->put( ':root', '--sidebarGap: ' . $sidebarGap );
 $sidebarOffset = get_theme_mod( 'sidebarOffset', '50' );
 $css->put( ':root', '--sidebarOffset: ' . $sidebarOffset . 'px' );
 
+blocksy_output_colors([
+	'value' => get_theme_mod('sidebarWidgetsTitleColor'),
+	'default' => [
+		'default' => [ 'color' => 'var(--paletteColor4)' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.ct-sidebar',
+			'variable' => 'widgetsTitleColor'
+		],
+	],
+]);
 
-$sidebar_widgets_title_color = blocksy_get_colors(
-	get_theme_mod('sidebarWidgetsTitleColor'),
-	['default' => ['color' => 'var(--paletteColor4)']]
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('sidebarWidgetsFontColor'),
+	'default' => [
+		'default' => [ 'color' => 'var(--paletteColor3)' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.ct-sidebar',
+			'variable' => 'widgetsFontColor'
+		],
+	],
+]);
 
-$css->put(
-	'.ct-sidebar',
-	"--widgetsTitleColor: {$sidebar_widgets_title_color['default']}"
-);
-
-$sidebar_widgets_font_color = blocksy_get_colors(
-   	get_theme_mod('sidebarWidgetsFontColor'),
-	['default' => ['color' => 'var(--paletteColor3)']]
-);
-
-$css->put(
-	'.ct-sidebar',
-	"--widgetsFontColor: {$sidebar_widgets_font_color['default']}"
-);
-
-$sidebar_widgets_link = blocksy_get_colors(
-	get_theme_mod('sidebarWidgetsLink'),
-	[
+blocksy_output_colors([
+	'value' => get_theme_mod('sidebarWidgetsLink'),
+	'default' => [
 		'default' => [ 'color' => 'var(--paletteColor3)' ],
 		'hover' => [ 'color' => 'var(--paletteColor1)' ],
-	]
-);
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.ct-sidebar',
+			'variable' => 'linkInitialColor'
+		],
 
-$css->put(
-	'.ct-sidebar',
-	"--linkInitialColor: {$sidebar_widgets_link['default']}"
-);
+		'hover' => [
+			'selector' => '.ct-sidebar',
+			'variable' => 'linkHoverColor'
+		],
+	],
+]);
 
-$css->put(
-	'.ct-sidebar',
-	"--linkHoverColor: {$sidebar_widgets_link['hover']}"
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('sidebarBackgroundColor'),
+	'default' => [
+		'default' => [ 'color' => 'var(--paletteColor5)' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => ['variable' => 'sidebarBackgroundColor'],
+	],
+]);
 
-
-$sidebar_background_color = blocksy_get_colors(
-	get_theme_mod('sidebarBackgroundColor'),
-	['default' => ['color' => 'var(--paletteColor5)']]
-);
-
-$css->put(
-	':root',
-	"--sidebarBackgroundColor: {$sidebar_background_color['default']}"
-);
-
-$sidebarBorderColor = blocksy_get_colors(
-	get_theme_mod('sidebarBorderColor'),
-	['default' => ['color' => 'rgba(224, 229, 235, 0.8)']]
-);
-
-$css->put(
-	':root',
-	"--sidebarBorderColor: {$sidebarBorderColor['default']}"
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('sidebarBorderColor'),
+	'default' => [
+		'default' => [ 'color' => 'rgba(224, 229, 235, 0.8)' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => ['variable' => 'sidebarBorderColor'],
+	],
+]);
 
 $sidebarBorderSize = get_theme_mod( 'sidebarBorderSize', 0 );
 $css->put( ':root', '--sidebarBorderSize: ' . $sidebarBorderSize . 'px' );
 
-$sidebarDividerColor = blocksy_get_colors(
-	get_theme_mod('sidebarDividerColor'),
-	[ 'default' => [ 'color' => 'rgba(224, 229, 235, 0.8)' ] ]
-);
-
-$css->put(
-	':root',
-	"--sidebarDividerColor: {$sidebarDividerColor['default']}"
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('sidebarDividerColor'),
+	'default' => [
+		'default' => [ 'color' => 'rgba(224, 229, 235, 0.8)' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => ['variable' => 'sidebarDividerColor'],
+	],
+]);
 
 $sidebarDividerSize = get_theme_mod( 'sidebarDividerSize', 1 );
 $css->put( ':root', '--sidebarDividerSize: ' . $sidebarDividerSize . 'px' );
@@ -349,45 +358,31 @@ blocksy_output_responsive([
 	])
 ]);
 
-$paginationFontColor = blocksy_get_colors(
-	get_theme_mod('paginationFontColor'),
-	[
+blocksy_output_colors([
+	'value' => get_theme_mod('paginationFontColor'),
+	'default' => [
 		'default' => [ 'color' => 'var(--paletteColor3)' ],
 		'hover' => [ 'color' => '#ffffff' ],
-	]
-);
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => ['variable' => 'paginationFontInitialColor'],
+		'hover' => ['variable' => 'paginationFontHoverColor']
+	],
+]);
 
-$css->put(
-	':root',
-	"--paginationFontInitialColor: {$paginationFontColor['default']}"
-);
-
-$css->put(
-	':root',
-	"--paginationFontHoverColor: {$paginationFontColor['hover']}"
-);
-
-
-
-
-$paginationAccentColor = blocksy_get_colors(
-	get_theme_mod('paginationAccentColor'),
-	[
+blocksy_output_colors([
+	'value' => get_theme_mod('paginationAccentColor'),
+	'default' => [
 		'default' => [ 'color' => 'var(--paletteColor1)' ],
 		'hover' => [ 'color' => 'var(--paletteColor2)' ],
-	]
-);
-
-$css->put(
-	':root',
-	"--paginationAccentInitialColor: {$paginationAccentColor['default']}"
-);
-
-$css->put(
-	':root',
-	"--paginationAccentHoverColor: {$paginationAccentColor['hover']}"
-);
-
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => ['variable' => 'paginationAccentInitialColor'],
+		'hover' => ['variable' => 'paginationAccentHoverColor']
+	],
+]);
 
 blocksy_output_border([
 	'css' => $css,
@@ -417,46 +412,47 @@ blocksy_output_responsive([
 	'unit' => ''
 ]);
 
-$related_posts_label_color = blocksy_get_colors(
-	get_theme_mod('relatedPostsLabelColor'),
-	[ 'default' => [ 'color' => 'var(--paletteColor4)' ] ]
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('relatedPostsLabelColor'),
+	'default' => [
+		'default' => ['color' => 'var(--paletteColor4)'],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => ['variable' => 'relatedPostsLabelColor'],
+	],
+]);
 
-$css->put(
-	':root',
-	"--relatedPostsLabelColor: {$related_posts_label_color['default']}"
-);
-
-
-$related_posts_link_color = blocksy_get_colors(
-	get_theme_mod('relatedPostsLinkColor'),
-	[
+blocksy_output_colors([
+	'value' => get_theme_mod('relatedPostsLinkColor'),
+	'default' => [
 		'default' => [ 'color' => 'var(--paletteColor3)' ],
 		'hover' => [ 'color' => 'var(--paletteColor1)' ],
-	]
-);
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.ct-related-posts',
+			'variable' => 'linkInitialColor'
+		],
 
-$css->put(
-	'.ct-related-posts',
-	"--linkInitialColor: {$related_posts_link_color['default']}"
-);
+		'hover' => [
+			'selector' => '.ct-related-posts',
+			'variable' => 'linkHoverColor'
+		],
+	],
+]);
 
-$css->put(
-	'.ct-related-posts',
-	"--linkHoverColor: {$related_posts_link_color['hover']}"
-);
-
-
-$related_posts_meta_color = blocksy_get_colors(
-	get_theme_mod('relatedPostsMetaColor'),
-	[ 'default' => [ 'color' => '#667380' ] ]
-);
-
-$css->put(
-	':root',
-	"--relatedPostsMetaColor: {$related_posts_meta_color['default']}"
-);
-
+blocksy_output_colors([
+	'value' => get_theme_mod('relatedPostsMetaColor'),
+	'default' => [
+		'default' => [ 'color' => '#667380' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => ['variable' => 'relatedPostsMetaColor'],
+	],
+]);
 
 // Posts Navigation
 blocksy_output_responsive([
@@ -502,66 +498,67 @@ blocksy_output_responsive([
 	'unit' => ''
 ]);
 
-
-$shareItemsIconColor = blocksy_get_colors(
-	get_theme_mod('shareItemsIconColor'),
-	[
+blocksy_output_colors([
+	'value' => get_theme_mod('shareItemsIconColor'),
+	'default' => [
 		'default' => [ 'color' => 'var(--paletteColor3)' ],
 		'hover' => [ 'color' => 'var(--paletteColor1)' ],
-	]
-);
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.share-box[data-type="type-1"]',
+			'variable' => 'shareItemsIconInitial'
+		],
 
-$css->put(
-	'.share-box[data-type="type-1"]',
-	"--shareItemsIconInitial: {$shareItemsIconColor['default']}"
-);
+		'hover' => [
+			'selector' => '.share-box[data-type="type-1"]',
+			'variable' => 'shareItemsIconHover'
+		],
+	],
+]);
 
-$css->put(
-	'.share-box[data-type="type-1"]',
-	"--shareItemsIconHover: {$shareItemsIconColor['hover']}"
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('shareItemsBorder'),
+	'default' => [
+		'default' => [ 'color' => '#e0e5eb' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => ['variable' => 'shareItemsBorder'],
+	],
+]);
 
-$shareItemsBorder = blocksy_get_colors(
-	get_theme_mod('shareItemsBorder'),
-	[ 'default' => [ 'color' => '#e0e5eb' ] ]
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('shareItemsIcon'),
+	'default' => [
+		'default' => [ 'color' => '#ffffff' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => ['variable' => 'shareItemsIcon'],
+	],
+]);
 
-$css->put(
-	':root',
-	"--shareItemsBorder: {$shareItemsBorder['default']}"
-);
-
-
-
-$shareItemsIcon = blocksy_get_colors(
-	get_theme_mod('shareItemsIcon'),
-	['default' => ['color' => '#ffffff']]
-);
-
-$css->put(
-	':root',
-	"--shareItemsIcon: {$shareItemsIcon['default']}"
-);
-
-
-$shareItemsBackground = blocksy_get_colors(
-	get_theme_mod('shareItemsBackground'),
-	[
+blocksy_output_colors([
+	'value' => get_theme_mod('shareItemsBackground'),
+	'default' => [
 		'default' => [ 'color' => 'var(--paletteColor1)' ],
 		'hover' => [ 'color' => 'var(--paletteColor2)' ],
-	]
-);
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.share-box[data-type="type-2"]',
+			'variable' => 'shareBoxBackgroundInitial'
+		],
 
-$css->put(
-	'.share-box[data-type="type-2"]',
-	"--shareBoxBackgroundInitial: {$shareItemsBackground['default']}"
-);
-
-$css->put(
-	'.share-box[data-type="type-2"]',
-	"--shareBoxBackgroundHover: {$shareItemsBackground['hover']}"
-);
-
+		'hover' => [
+			'selector' => '.share-box[data-type="type-2"]',
+			'variable' => 'shareBoxBackgroundHover'
+		]
+	],
+]);
 
 // Post
 blocksy_output_responsive([
@@ -608,76 +605,94 @@ blocksy_output_responsive([
 	'unit' => ''
 ]);
 
-$singleAuthorBoxBackground = blocksy_get_colors(
-	get_theme_mod('singleAuthorBoxBackground'),
-	[ 'default' => [ 'color' => '#ffffff' ] ]
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('singleAuthorBoxBackground'),
+	'default' => [
+		'default' => [ 'color' => '#ffffff' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'variable' => 'singleAuthorBoxBackground'
+		],
+	],
+]);
 
-$css->put(
-	':root',
-	"--singleAuthorBoxBackground: {$singleAuthorBoxBackground['default']}"
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('singleAuthorBoxBorder'),
+	'default' => [
+		'default' => [ 'color' => '#e8ebf0' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'variable' => 'singleAuthorBoxBorder'
+		],
+	],
+]);
 
-$singleAuthorBoxBorder = blocksy_get_colors(
-	get_theme_mod('singleAuthorBoxBorder'),
-	[ 'default' => [ 'color' => '#e8ebf0' ] ]
-);
-
-$css->put(
-	':root',
-	"--singleAuthorBoxBorder: {$singleAuthorBoxBorder['default']}"
-);
-
-$singleAuthorBoxShadow = blocksy_get_colors(
-   	get_theme_mod('singleAuthorBoxShadow'),
-	[ 'default' => [ 'color' => 'rgba(210, 213, 218, 0.4)' ] ]
-);
-
-$css->put(
-	':root',
-	"--singleAuthorBoxShadow: {$singleAuthorBoxShadow['default']}"
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('singleAuthorBoxShadow'),
+	'default' => [
+		'default' => [ 'color' => 'rgba(210, 213, 218, 0.4)' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'variable' => 'singleAuthorBoxShadow'
+		],
+	],
+]);
 
 
 // Footer
-$footer_widgets_title_color = blocksy_get_colors(
-	get_theme_mod('footerWidgetsTitleColor'),
-	[ 'default' => [ 'color' => 'var(--paletteColor4)' ] ]
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('footerWidgetsTitleColor'),
+	'default' => [
+		'default' => [ 'color' => 'var(--paletteColor4)' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.footer-widgets',
+			'variable' => 'widgetsTitleColor'
+		],
+	],
+]);
 
-$css->put(
-	'.footer-widgets',
-	"--widgetsTitleColor: {$footer_widgets_title_color['default']}"
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('footerWidgetsFontColor'),
+	'default' => [
+		'default' => [ 'color' => 'var(--paletteColor3)' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.footer-widgets',
+			'variable' => 'widgetsFontColor'
+		],
+	],
+]);
 
-$footer_widgets_font_color = blocksy_get_colors(
-	get_theme_mod('footerWidgetsFontColor'),
-	[ 'default' => [ 'color' => 'var(--paletteColor3)' ] ]
-);
-
-$css->put(
-	'.footer-widgets',
-	"--widgetsFontColor: {$footer_widgets_font_color['default']}"
-);
-
-
-$footer_widgets_link = blocksy_get_colors(
-	get_theme_mod('footerWidgetsLink'),
-	[
+blocksy_output_colors([
+	'value' => get_theme_mod('footerWidgetsLink'),
+	'default' => [
 		'default' => [ 'color' => 'var(--paletteColor3)' ],
 		'hover' => [ 'color' => 'var(--paletteColor1)' ],
-	]
-);
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.footer-widgets',
+			'variable' => 'linkInitialColor'
+		],
 
-$css->put(
-	'.footer-widgets',
-	"--linkInitialColor: {$footer_widgets_link['default']}"
-);
-
-$css->put(
-	'.footer-widgets',
-	"--linkHoverColor: {$footer_widgets_link['hover']}"
-);
+		'hover' => [
+			'selector' => '.footer-widgets',
+			'variable' => 'linkHoverColor'
+		],
+	],
+]);
 
 blocksy_output_border([
 	'css' => $css,
@@ -723,34 +738,36 @@ blocksy_output_responsive([
 ]);
 
 
-$footerPrimaryColor = blocksy_get_colors(
-	get_theme_mod('footerPrimaryColor'),
-	[
+blocksy_output_colors([
+	'value' => get_theme_mod('footerPrimaryColor'),
+	'default' => [
 		'default' => [ 'color' => 'var(--paletteColor3)' ],
 		'hover' => [ 'color' => 'var(--paletteColor1)' ],
-	]
-);
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.footer-primary-area',
+			'variable' => 'linkInitialColor'
+		],
 
-$css->put(
-	'.footer-primary-area',
-	"--linkInitialColor: {$footerPrimaryColor['default']}"
-);
+		'hover' => [
+			'selector' => '.footer-primary-area',
+			'variable' => 'linkHoverColor'
+		],
+	],
+]);
 
-$css->put(
-	'.footer-primary-area',
-	"--linkHoverColor: {$footerPrimaryColor['hover']}"
-);
-
-
-$footer_primary_background = blocksy_get_colors(
-	get_theme_mod('footerPrimaryBackground'),
-	[ 'default' => [ 'color' => '#eef0f4' ] ]
-);
-
-$css->put(
-	':root',
-	"--footerPrimaryBackground: {$footer_primary_background['default']}"
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('footerPrimaryBackground'),
+	'default' => [
+		'default' => [ 'color' => '#eef0f4' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => ['variable' => 'footerPrimaryBackground'],
+	],
+]);
 
 blocksy_output_responsive([
 	'css' => $css,
@@ -768,26 +785,27 @@ blocksy_output_responsive([
 
 
 // Copyright
-$copyright_text = blocksy_get_colors(
-	get_theme_mod('copyrightText'),
-	[ 'default' => [ 'color' => 'var(--paletteColor3)' ] ]
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('copyrightText'),
+	'default' => [
+		'default' => [ 'color' => 'var(--paletteColor3)' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => ['variable' => 'copyrightText'],
+	],
+]);
 
-$css->put(
-	':root',
-	"--copyrightText: {$copyright_text['default']}"
-);
-
-
-$copyright_backgroundn = blocksy_get_colors(
-	get_theme_mod('copyrightBackground'),
-	[ 'default' => [ 'color' => '#eef0f4' ] ]
-);
-
-$css->put(
-	':root',
-	"--copyrightBackground: {$copyright_backgroundn['default']}"
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('copyrightBackground'),
+	'default' => [
+		'default' => [ 'color' => '#eef0f4' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => ['variable' => 'copyrightBackground'],
+	],
+]);
 
 blocksy_output_responsive([
 	'css' => $css,
@@ -805,42 +823,45 @@ blocksy_output_responsive([
 
 
 // To top button
-$topButtonIconColor = blocksy_get_colors(
-	get_theme_mod('topButtonIconColor'),
-	[
+blocksy_output_colors([
+	'value' => get_theme_mod('topButtonIconColor'),
+	'default' => [
 		'default' => [ 'color' => '#ffffff' ],
 		'hover' => [ 'color' => '#ffffff' ],
-	]
-);
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.ct-back-to-top',
+			'variable' => 'linkInitialColor'
+		],
 
-$css->put(
-	'.ct-back-to-top',
-	"--linkInitialColor: {$topButtonIconColor['default']}"
-);
+		'hover' => [
+			'selector' => '.ct-back-to-top',
+			'variable' => 'linkHoverColor'
+		]
+	],
+]);
 
-$css->put(
-	'.ct-back-to-top',
-	"--linkHoverColor: {$topButtonIconColor['hover']}"
-);
-
-
-$topButtonShapeBackground = blocksy_get_colors(
-	get_theme_mod('topButtonShapeBackground'),
-	[
+blocksy_output_colors([
+	'value' => get_theme_mod('topButtonShapeBackground'),
+	'default' => [
 		'default' => [ 'color' => 'var(--paletteColor3)' ],
 		'hover' => [ 'color' => 'var(--paletteColor4)' ],
-	]
-);
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.ct-back-to-top',
+			'variable' => 'buttonInitialColor'
+		],
 
-$css->put(
-	'.ct-back-to-top',
-	"--buttonInitialColor: {$topButtonShapeBackground['default']}"
-);
-
-$css->put(
-	'.ct-back-to-top',
-	"--buttonHoverColor: {$topButtonShapeBackground['hover']}"
-);
+		'hover' => [
+			'selector' => '.ct-back-to-top',
+			'variable' => 'buttonHoverColor'
+		]
+	],
+]);
 
 
 // Passepartout
@@ -857,13 +878,14 @@ blocksy_output_responsive([
 	])
 ]);
 
-$passepartoutColor = blocksy_get_colors(
-	get_theme_mod('passepartoutColor'),
-	[ 'default' => [ 'color' => 'var(--paletteColor1)' ] ]
-);
-
-$css->put(
-	':root',
-	"--passepartoutColor: {$passepartoutColor['default']}"
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('passepartoutColor'),
+	'default' => [
+		'default' => [ 'color' => 'var(--paletteColor1)' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => ['variable' => 'passepartoutColor'],
+	],
+]);
 

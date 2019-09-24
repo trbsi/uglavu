@@ -7,6 +7,18 @@
  * @package Blocksy
  */
 
+function blocksy_assert_args($args, $fields = []) {
+	foreach ($fields as $single_field) {
+		if (
+			! isset($args[$single_field])
+			||
+			!$args[$single_field]
+		) {
+			throw new Error($single_field . ' missing in args!');
+		}
+	}
+}
+
 add_filter('widget_nav_menu_args', function ($nav_menu_args, $nav_menu, $args, $instance) {
 	$nav_menu_args['menu_class'] = 'widget-menu';
 	return $nav_menu_args;
@@ -60,6 +72,7 @@ function blocksy_main_menu_fallback($args) {
 		'title_li' => ''
 	]);
 
+
 	if (empty(trim($menu))) {
 		$args['echo'] = false;
 		$menu = blocksy_link_to_menu_editor($args);
@@ -99,10 +112,10 @@ function blocksy_link_to_menu_editor( $args ) {
 	// phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 	extract( $args );
 
-	$output = '<a href="' . admin_url( 'nav-menus.php' ) . '">' . $before . __( 'Please create a menu.', 'blocksy' ) . $after . '</a>';
+	$output = '<a class="ct-create-menu" href="' . admin_url( 'nav-menus.php' ) . '" target="_blank">' . $before . __( 'You don\'t have a menu yet, please create one here &rarr;', 'blocksy' ) . $after . '</a>';
 
-	if ( ! empty( $container ) ) {
-		$output = "<$container class=\"ct-empty-menu\">$output</$container>";
+	if (! empty($container)) {
+		$output = "<$container>$output</$container>";
 	}
 
 	if ( $echo ) {
@@ -120,9 +133,7 @@ add_filter(
 			isset( $request['post_type'] )
 			&&
 			(
-				'ct_forced_post' === $request['post_type']
-				||
-				'ct_forced_product' === $request['post_type']
+				strpos($request['post_type'], 'ct_forced') !== false
 			)
 		) {
 			$any = [];
@@ -136,9 +147,17 @@ add_filter(
 				$any[] = $single_post_type;
 			}
 
+			$post_type = $any;
+
+			if ($request['post_type'] === 'ct_forced_product') {
+				$post_type = 'product';
+			} else if ($request['post_type'] !== 'ct_forced_post') {
+				$post_type = str_replace('ct_forced_', '', $request['post_type']);
+			}
+
 			$args = [
 				'posts_per_page' => $args['posts_per_page'],
-				'post_type' => ( 'ct_forced_product' === $request['post_type'] ) ? 'product' : $any,
+				'post_type' => $post_type,
 				'paged' => 1,
 				's' => $args['s'],
 			];
@@ -755,17 +774,22 @@ function blocksy_dirname_to_classname( $dirname ) {
  *
  * @return string HTML.
  */
-function blocksy_render_view( $file_path, $view_variables = array() ) {
-	if ( ! is_file( $file_path ) ) {
-		return '';
+function blocksy_render_view(
+	$file_path,
+	$view_variables = [],
+	$default_value = ''
+) {
+	if (! is_file($file_path)) {
+		return $default_value;
 	}
 
 	// phpcs:ignore WordPress.PHP.DontExtract.extract_extract
-	extract( $view_variables, EXTR_REFS );
-	unset( $view_variables );
+	extract($view_variables, EXTR_REFS);
+	unset($view_variables);
 
 	ob_start();
 	require $file_path;
 
 	return ob_get_clean();
 }
+

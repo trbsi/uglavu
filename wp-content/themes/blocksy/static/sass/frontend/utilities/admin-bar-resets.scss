@@ -1,15 +1,14 @@
-body.admin-bar {
-
+.admin-bar {
 	@media screen and (max-width: 782px) {
-		.ct-offcanvas-menu {
-			top: 46px;
-		}
+		--adminBar: 46px;
 	}
 
 	@media screen and (min-width: 783px) {
-		.ct-offcanvas-menu {
-			top: 32px;
-		}
+		--adminBar: 32px;
 	}
 
+	#offcanvas,
+	#search-modal {
+		top: var(--adminBar) !important;
+	}
 }

@@ -15,14 +15,6 @@
 function blocksy_get_colors( $color_descriptor, $defaults ) {
 	$result = [];
 
-	/*
-	if ( is_array( $color_descriptor ) ) {
-		foreach ( $color_descriptor as $id => $data ) {
-			$result[ $id ] = blocksy_get_color( $data );
-		}
-	}
-	 */
-
 	foreach ($defaults as $id => $default_data) {
 		$data = $default_data;
 
@@ -54,12 +46,74 @@ function blocksy_get_colors( $color_descriptor, $defaults ) {
  *
  * @param array $color_descriptor Single color descriptor.
  */
-function blocksy_get_color( $color_descriptor ) {
+function blocksy_get_color($color_descriptor) {
 	if ( ! isset( $color_descriptor['color'] ) ) {
 		return null;
 	}
 
 	return $color_descriptor['color'];
+}
+
+function blocksy_output_colors($args = []) {
+	$args = wp_parse_args(
+		$args,
+		[
+			'css' => null,
+			'tablet_css' => null,
+			'mobile_css' => null,
+			'value' => null,
+			'default' => null,
+			'variables' => [],
+			'responsive' => false
+		]
+	);
+
+	blocksy_assert_args($args, ['css', 'default']);
+
+	if ($args['responsive']) {
+		blocksy_assert_args($args, ['tablet_css', 'mobile_css']);
+	}
+
+	$responsive_value = blocksy_expand_responsive_value($args['value']);
+	$responsive_default_value = blocksy_expand_responsive_value($args['default']);
+
+	$desktop_colors = blocksy_get_colors(
+		$responsive_value['desktop'],
+		$responsive_default_value['desktop']
+	);
+
+	$tablet_colors = blocksy_get_colors(
+		$responsive_value['tablet'],
+		$responsive_default_value['tablet']
+	);
+
+	$mobile_colors = blocksy_get_colors(
+		$responsive_value['mobile'],
+		$responsive_default_value['mobile']
+	);
+
+	foreach ($args['variables'] as $key => $descriptor) {
+		if (! isset($descriptor['selector'])) {
+			$descriptor['selector'] = ':root';
+		}
+
+		$args['css']->put(
+			$descriptor['selector'],
+			"--" . $descriptor['variable'] . ": {$desktop_colors[$key]}"
+		);
+
+		if ($args['responsive']) {
+			$args['tablet_css']->put(
+				$descriptor['selector'],
+				"--" . $descriptor['variable'] . ": {$tablet_colors[$key]}"
+			);
+
+			$args['mobile_css']->put(
+				$descriptor['selector'],
+				"--" . $descriptor['variable'] . ": {$mobile_colors[$key]}"
+			);
+		}
+	}
 }
 
 function blocksy_expand_responsive_value( $value ) {
@@ -93,9 +147,6 @@ function blocksy_output_responsive($args = []) {
 			'variableName' => null,
 			'unit' => 'px',
 			'value' => null,
-			'respect_visibility' => null,
-			'respect_stacking' => null,
-			'enabled' => null
 		]
 	);
 
@@ -105,51 +156,8 @@ function blocksy_output_responsive($args = []) {
 
 	$value = blocksy_expand_responsive_value( $args['value'] );
 
-	if ($args['respect_visibility']) {
-		if (! $args['respect_visibility']['mobile']) {
-			$value['mobile'] = 0 . (
-				empty($args['unit']) ? 'px' : ''
-			);
-		}
-
-		if (! $args['respect_visibility']['tablet']) {
-			$value['tablet'] = 0 . (
-				empty($args['unit']) ? 'px' : ''
-			);
-		}
-
-		if (! $args['respect_visibility']['desktop']) {
-			$value['desktop'] = 0 . (
-				empty($args['unit']) ? 'px' : ''
-			);
-		}
-	}
-
-	if ($args['respect_stacking']) {
-		if ($args['respect_stacking']['mobile']) {
-			$value['mobile'] = (intval($value['mobile']) * 2) . (
-				empty($args['unit']) ? 'px' : ''
-			);
-		}
-
-		if ($args['respect_stacking']['tablet']) {
-			$value['tablet'] = (intval($value['tablet']) * 2) . (
-				empty($args['unit']) ? 'px' : ''
-			);
-		}
-	}
-
-	if ($args['enabled']) {
-		if ($args['enabled'] === 'no') {
-			$value['mobile'] = 0 . (empty($args['unit']) ? 'px' : '');
-			$value['tablet'] = 0 . (empty($args['unit']) ? 'px' : '');
-			$value['desktop'] = 0 . (empty($args['unit']) ? 'px' : '');
-		}
-	}
-
 	$args['mobile_css']->put( $args['selector'], '--' . $args['variableName'] . ': ' . $value['mobile'] . $args['unit'] );
 	$args['tablet_css']->put( $args['selector'], '--' . $args['variableName'] . ': ' . $value['tablet'] . $args['unit'] );
-
 	$args['css']->put( $args['selector'], '--' . $args['variableName'] . ': ' . $value['desktop'] . $args['unit'] );
 }
 
@@ -208,29 +216,225 @@ function blocksy_output_border($args = []) {
 		$args,
 		[
 			'css' => null,
+			'tablet_css' => null,
+			'mobile_css' => null,
+
 			'selector' => null,
 
 			'variableName' => null,
 			'value' => null,
+
+			'responsive' => false
 		]
 	);
 
-	if ($args['value']['style'] === 'none') {
-		$args['css']->put($args['selector'], '--' . $args['variableName'] . ': none');
+	if (! $args['responsive']) {
+		if ($args['value']['style'] === 'none') {
+			$args['css']->put($args['selector'], '--' . $args['variableName'] . ': none');
+			return;
+		}
+
+		$color = blocksy_get_colors([
+			'default' => $args['value']['color']
+		], [
+			'default' => $args['value']['color']
+		]);
+
+		$args['css']->put(
+			$args['selector'],
+			'--' . $args['variableName'] .
+			': ' . $args['value']['width'] . 'px ' .
+			$args['value']['style'] . ' ' . $color['default']
+		);
+
 		return;
 	}
 
-	$color = blocksy_get_colors([
-		'default' => $args['value']['color']
-	], [
-		'default' => $args['value']['color']
-	]);
+	$value = blocksy_expand_responsive_value($args['value']);
+
+	if ($value['desktop']['style'] === 'none') {
+		$args['css']->put($args['selector'], '--' . $args['variableName'] . ': none');
+	} else {
+		$color = blocksy_get_colors([
+			'default' => $value['desktop']['color']
+		], [
+			'default' => $value['desktop']['color']
+		]);
+
+		$args['css']->put(
+			$args['selector'],
+			'--' . $args['variableName'] .
+			': ' . $value['desktop']['width'] . 'px ' .
+			$value['desktop']['style'] . ' ' . $color['default']
+		);
+	}
+
+	if ($value['tablet']['style'] === 'none') {
+		$args['tablet_css']->put($args['selector'], '--' . $args['variableName'] . ': none');
+	} else {
+		$color = blocksy_get_colors([
+			'default' => $value['tablet']['color']
+		], [
+			'default' => $value['tablet']['color']
+		]);
+
+		$args['tablet_css']->put(
+			$args['selector'],
+			'--' . $args['variableName'] .
+			': ' . $value['tablet']['width'] . 'px ' .
+			$value['tablet']['style'] . ' ' . $color['default']
+		);
+	}
+
+	if ($value['mobile']['style'] === 'none') {
+		$args['mobile_css']->put($args['selector'], '--' . $args['variableName'] . ': none');
+	} else {
+		$color = blocksy_get_colors([
+			'default' => $value['mobile']['color']
+		], [
+			'default' => $value['mobile']['color']
+		]);
+
+		$args['mobile_css']->put(
+			$args['selector'],
+			'--' . $args['variableName'] .
+			': ' . $value['mobile']['width'] . 'px ' .
+			$value['mobile']['style'] . ' ' . $color['default']
+		);
+	}
+}
+
+function blocksy_output_spacing($args = []) {
+	$args = wp_parse_args(
+		$args,
+		[
+			'css' => null,
+			'tablet_css' => null,
+			'mobile_css' => null,
+
+			'selector' => null,
+			'property' => 'margin',
+
+			'value' => null,
+		]
+	);
+
+	$value = blocksy_expand_responsive_value($args['value']);
 
 	$args['css']->put(
 		$args['selector'],
-		'--' . $args['variableName'] .
-		': ' . $args['value']['width'] . 'px ' .
-		$args['value']['style'] . ' ' . $color['default']
+		'--' . $args['property'] . ': ' . blocksy_spacing_prepare_for_device(
+			$value['desktop']
+		)
+	);
+
+	$args['tablet_css']->put(
+		$args['selector'],
+		'--' . $args['property'] . ': ' . blocksy_spacing_prepare_for_device(
+			$value['tablet']
+		)
+	);
+
+	$args['mobile_css']->put(
+		$args['selector'],
+		'--' . $args['property'] . ': ' . blocksy_spacing_prepare_for_device(
+			$value['mobile']
+		)
+	);
+}
+
+function blocksy_spacing_prepare_for_device($value) {
+	$result = [];
+
+	$is_value_compact = true;
+
+	foreach ([
+		$value['top'],
+		$value['right'],
+		$value['bottom'],
+		$value['left']
+	] as $val) {
+		if ($val !== 'auto' && preg_match('/\\d/', $val) > 0) {
+			$is_value_compact = false;
+			break;
+		}
+	}
+
+	if ($is_value_compact) {
+		return 'CT_CSS_SKIP_RULE';
+	}
+
+	if (
+		$value['top'] === 'auto'
+		||
+		preg_match('/\\d/', $value['top']) === 0
+	) {
+		$result[] = 0;
+	} else {
+		$result[] = $value['top'];
+	}
+
+	if (
+		$value['right'] === 'auto'
+		||
+		preg_match('/\\d/', $value['right']) === 0
+	) {
+		$result[] = 0;
+	} else {
+		$result[] = $value['right'];
+	}
+
+	if (
+		$value['bottom'] === 'auto'
+		||
+		preg_match('/\\d/', $value['bottom']) === 0
+	) {
+		$result[] = 0;
+	} else {
+		$result[] = $value['bottom'];
+	}
+
+	if (
+		$value['left'] === 'auto'
+		||
+		preg_match('/\\d/', $value['left']) === 0
+	) {
+		$result[] = 0;
+	} else {
+		$result[] = $value['left'];
+	}
+
+	if (
+		$result[0] === $result[1]
+		&&
+		$result[0] === $result[2]
+		&&
+		$result[0] === $result[3]
+	) {
+		return $result[0];
+	}
+
+	if (
+		$result[0] === $result[2]
+		&&
+		$result[1] === $result[3]
+	) {
+		return $result[0] . ' ' . $result[3];
+	}
+
+	return implode(' ', $result);
+}
+
+function blocksy_spacing_value($args = []) {
+	return wp_parse_args(
+		$args,
+		[
+			'top' => '',
+			'bottom' => '',
+			'left' => '',
+			'right' => '',
+			'linked' => true
+		]
 	);
 }
 

@@ -1,0 +1,69 @@
+body[class*="panel-"] #main-container {
+	transition: transform 0.25s ease-in-out;
+}
+
+body[class*="panel-active"] {
+	overflow: hidden;
+
+	.side-panel {
+		opacity: 1;
+		visibility: visible;
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@include media-breakpoint-down (md) {
+	.right-panel-active {
+		#main-container {
+			transform: translate3d(-70px, 0, 0);
+		}
+	}
+
+	.left-panel-active {
+		#main-container {
+			transform: translate3d(70px, 0, 0);
+		}
+	}
+}
+
+
+
+.side-panel {
+	@include media-breakpoint-down (sm) {
+		--panelWidth: 90vw;
+	}
+
+	@include media-breakpoint-only (md) {
+		--panelWidth: 70vw;
+	}
+
+	@include media-breakpoint-up (lg) {
+		--panelWidth: 40vw;
+	}
+
+	position: fixed;
+	z-index: 2;
+	width: var(--panelWidth);
+	top: 0;
+	bottom: 0;
+	overflow-y: hidden;
+	-webkit-overflow-scrolling: touch;
+	
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.25s ease-in-out,
+				transform 0.25s ease-in-out,
+				visibility 0.25s ease-in-out;
+
+	&[data-position="right"] {
+		right: 0;
+		transform: translate3d(20%, 0, 0);
+		box-shadow: -5px 0px 70px 0px rgba(0,0,0,0.35);
+	}
+
+	&[data-position="left"] {
+		left: 0;
+		transform: translate3d(-20%, 0, 0);
+		box-shadow: 5px 0px 70px 0px rgba(0,0,0,0.35);
+	}
+}

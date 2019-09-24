@@ -135,69 +135,6 @@ blocksy_output_font_css([
 
 blocksy_output_font_css([
 	'font_value' => get_theme_mod(
-		'siteTitle',
-		blocksy_typography_default_values([
-			'size' => '25px',
-			'variation' => 'n7',
-		])
-	),
-	'css' => $css,
-	'tablet_css' => $tablet_css,
-	'mobile_css' => $mobile_css,
-	'selector' => '.site-title'
-]);
-
-blocksy_output_font_css([
-	'font_value' => get_theme_mod(
-		'primaryMenuFont',
-		blocksy_typography_default_values([
-			'size' => '12px',
-			'variation' => 'n7',
-			'line-height' => '1.3',
-			'text-transform' => 'uppercase',
-		])
-	),
-	'css' => $css,
-	'tablet_css' => $tablet_css,
-	'mobile_css' => $mobile_css,
-	'selector' => '.primary-menu > li'
-]);
-
-blocksy_output_font_css([
-	'font_value' => get_theme_mod(
-		'primaryMenuDropdownFont',
-		blocksy_typography_default_values([
-			'size' => '12px',
-			'variation' => 'n5',
-			'line-height' => '1.6',
-		])
-	),
-	'css' => $css,
-	'tablet_css' => $tablet_css,
-	'mobile_css' => $mobile_css,
-	'selector' => '.primary-menu .sub-menu li'
-]);
-
-blocksy_output_font_css([
-	'font_value' => get_theme_mod(
-		'mobileMenuFont',
-		blocksy_typography_default_values([
-			'size' => [
-				'desktop' => '30px',
-				'tablet'  => '30px',
-				'mobile'  => '23px'
-			],
-			'variation' => 'n7',
-		])
-	),
-	'css' => $css,
-	'tablet_css' => $tablet_css,
-	'mobile_css' => $mobile_css,
-	'selector' => '#mobile-menu .mobile-menu'
-]);
-
-blocksy_output_font_css([
-	'font_value' => get_theme_mod(
 		'sidebarWidgetsTitleFont',
 		blocksy_typography_default_values([
 			'size' => '18px',
@@ -254,17 +191,3 @@ if (class_exists('WooCommerce')) {
 		'selector' => '.woocommerce-loop-product__title'
 	]);
 }
-
-blocksy_output_font_css([
-	'font_value' => get_theme_mod(
-		'siteTaglineFont',
-		blocksy_typography_default_values([
-			'size' => '13px',
-			'variation' => 'n5',
-		])
-	),
-	'css' => $css,
-	'tablet_css' => $tablet_css,
-	'mobile_css' => $mobile_css,
-	'selector' => '.site-description'
-]);

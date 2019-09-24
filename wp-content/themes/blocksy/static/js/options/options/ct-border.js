@@ -27,6 +27,8 @@ const Border = ({ value, option, onChange }) => {
 					}
 				/>
 
+				<span className="ct-value-divider"></span>
+
 				<span
 					className="ct-current-value"
 					data-style={value.style}

@@ -1,6 +1,7 @@
 .ct-border-option {
 	display: flex;
 	align-items: center;
+	justify-content: flex-end;
 
 	> * {
 		&:first-child {
@@ -9,24 +10,15 @@
 		}
 	}
 
-	.ct-value-changer {
-		input {
-			max-width: 35px
-		}
-	}
-
-	.ct-current-value {
-		width: 45px;
-	}
-
 	.ct-disabled {
-		input {
-			color: rgba(85, 93, 102, 0.7);
-			pointer-events: none;
+		justify-content: center;
+
+		input, .ct-value-divider {
+			display: none;
 		}
 
 		+ div {
-			opacity: 0.5;
+			opacity: 0.7;
 			pointer-events: none;
 		}
 	}
@@ -50,7 +42,11 @@
 		border-bottom-style: dashed;
 	}
 
-	[data-style="none"]:before {
-		display: none;
+	[data-style="none"] {
+		font-size: 8px;
+		
+		&:before {
+			display: none;
+		}
 	}
 }

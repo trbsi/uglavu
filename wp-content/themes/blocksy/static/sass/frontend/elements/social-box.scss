@@ -1,27 +1,13 @@
 .ct-social-box {
 	display: flex;
-	flex-wrap: wrap;
+	flex-wrap: var(--wrap, wrap);
+	align-items: center;
 	list-style: none;
 	padding: 0;
-	margin: -20px -10px 0 -10px !important;
+	margin: calc(var(--spacing) * -1) calc(var(--spacing) / -2) 0 calc(var(--spacing) / -2) !important;
 
 	li {
-		margin: 20px 10px 0 10px !important;
+		margin: var(--spacing) calc(var(--spacing) / 2) 0 calc(var(--spacing) / 2) !important;
 		line-height: normal;
-
-		a {
-			display: block;
-			transition: color 0.12s cubic-bezier(0.455, 0.03, 0.515, 0.955),
-						background 0.12s cubic-bezier(0.455, 0.03, 0.515, 0.955);
-		}
-	}
-
-	&[data-icons*="solid"] li > * {
-		background: rgba(218, 222, 228, 0.3);
-
-		&:hover {
-			color: #fff;
-			background: var(--paletteColor1);
-		}
 	}
 }

@@ -1,4 +1,4 @@
-[data-icons] i {
+[data-icons] .item-icon {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -10,61 +10,150 @@
 }
 
 // icon size
-[data-icons*="small"] svg {
+[data-icons*='small'] svg {
 	height: 12px;
 	width: auto;
 }
 
-[data-icons*="medium"] svg {
+[data-icons*='medium'] svg {
 	height: 18px;
 	width: auto;
 }
 
-[data-icons*="large"] svg {
+[data-icons*='large'] svg {
 	height: 23px;
 	width: auto;
 }
 
-[data-icons*="small-rounded"],
-[data-icons*="small-square"] {
-	i {
+[data-icons*='small-rounded'],
+[data-icons*='small-square'] {
+	.item-icon {
 		width: 36px;
 		height: 36px;
 	}
 }
 
-[data-icons*="medium-rounded"],
-[data-icons*="medium-square"] {
-	i {
+[data-icons*='medium-rounded'],
+[data-icons*='medium-square'] {
+	.item-icon {
 		width: 48px;
 		height: 48px;
 	}
 }
 
-[data-icons*="large-rounded"],
-[data-icons*="large-square"] {
-	i {
+[data-icons*='large-rounded'],
+[data-icons*='large-square'] {
+	.item-icon {
 		width: 70px;
 		height: 70px;
 	}
 }
 
-
 // icon shape
-[data-icons*="rounded"] li > * {
+[data-icons*='rounded'] .item-icon {
 	border-radius: 100%;
 }
 
-[data-icons*="square"] li > * {
+[data-icons*='square'] .item-icon {
 	border-radius: 2px;
 }
 
+// icons color type
+[data-icons-color='custom'] {
+	&[data-icons*='simple'] {
+		a {
+			// --linkInitialColor: rgba(100, 110, 119, 1);
+			// --linkHoverColor: var(--paletteColor1);
+		}
+	}
 
-// fill type
-[data-icons*="outline"] i {
-	border: 1px solid rgba(218, 222, 228, 1);
+	&[data-icons*='solid'] {
+		a {
+			background: var(--backgroundColorInitial);
+
+			&:hover {
+				background: var(--backgroundColorHover);
+			}
+		}
+	}
+
+	&[data-icons*='outline'] {
+		a {
+			border: 1px solid var(--backgroundColorInitial);
+
+			&:hover {
+				border-color: var(--backgroundColorHover);
+			}
+		}
+	}
 }
 
-[data-icons*="solid"] i {
-	// background: rgba(218, 222, 228, 0.3);
+[data-icons-color='official'] {
+	&[data-icons*='simple'] .item-icon {
+		color: var(--officialColor);
+	}
+
+	&[data-icons*='solid'] .item-icon {
+		color: #fff;
+		background: var(--officialColor);
+	}
+
+	&[data-icons*='outline'] .item-icon {
+		color: var(--officialColor);
+		border: 1px solid var(--officialColor);
+	}
+
+	.item-icon {
+		&:hover {
+			opacity: 0.8;
+		}
+	}
+
+	[data-network='facebook'] {
+		--officialColor: #557dbc;
+	}
+
+	[data-network='twitter'] {
+		--officialColor: #7acdee;
+	}
+
+	[data-network='instagram'] {
+		--officialColor: #292929;
+	}
+
+	[data-network='pinterest'] {
+		--officialColor: #ea575a;
+	}
+
+	[data-network='dribbble'] {
+		--officialColor: #d77ea6;
+	}
+
+	[data-network='linkedin'] {
+		--officialColor: #1c86c6;
+	}
+
+	[data-network='medium'] {
+		--officialColor: #292929;
+	}
+
+	[data-network='patreon'] {
+		--officialColor: #e65c4b;
+	}
+
+	[data-network='vk'] {
+		--officialColor: #5382b6;
+	}
+
+	[data-network='youtube'] {
+		--officialColor: #e96651;
+	}
+
+	[data-network='vimeo'] {
+		--officialColor: #8ecfde;
+	}
+
+	[data-network='rss'] {
+		--officialColor: #f09124;
+	}
 }

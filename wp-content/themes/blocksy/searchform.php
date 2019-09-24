@@ -18,9 +18,20 @@ foreach (get_theme_mod('search_through', [
 	$any[] = $single_post_type;
 }
 
+$search_live_results_output = '';
+
+if (get_theme_mod('search_enable_live_results', 'yes') === 'yes') {
+	$search_live_results_output = 'data-live-results';
+}
+
 ?>
 
-<form role="search" method="get" class="search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+
+<form
+	role="search" method="get"
+	class="search-form"
+	action="<?php echo esc_url( home_url( '/' ) ); ?>"
+    <?php echo wp_kses_post($search_live_results_output) ?>>
 	<div class="ct-search-input">
 		<input type="search" class="search-field" placeholder="<?php echo esc_attr_x( 'Search', 'placeholder', 'blocksy' ); ?>" value="<?php echo get_search_query(); ?>" name="s" autocomplete="off" />
 
@@ -43,6 +54,12 @@ foreach (get_theme_mod('search_through', [
 		<?php if (count($any) === 1 && $any[0] === 'product') { ?>
 			<input type="hidden" name="post_type" value="product">
 		<?php } ?>
+
+		<?php if (isset($args['forced_post_type']) && $args['forced_post_type']) { ?>
+			<input type="hidden" name="post_type" value="<?php echo esc_attr($args['forced_post_type']) ?>">
+		<?php } ?>
+
+
 	</div>
 </form>
 

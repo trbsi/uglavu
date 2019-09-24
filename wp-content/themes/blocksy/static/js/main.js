@@ -1,215 +1,222 @@
 import './public-path.js'
 import './frontend/polyfills'
-import './frontend/lazy-load.js'
+import './frontend/lazy-load'
 import './frontend/comments'
 import './frontend/social-buttons'
 import { maybeMountPerfLogger } from './frontend/perf-log'
 import './frontend/choices'
-import './frontend/woocommerce/add-to-cart-single'
 import { watchLayoutContainerForReveal } from './frontend/animated-element'
 import './frontend/parallax/register-listener'
 import './frontend/woocommerce/single-product-gallery'
-import { onDocumentLoaded } from './helpers'
+import { onDocumentLoaded, handleEntryPoints } from './helpers'
+import { mountRenderHeaderLoop } from './frontend/header/render-loop'
 import ctEvents from 'ct-events'
 
 document.body.classList.remove('ct-no-js')
 
 maybeMountPerfLogger()
 
-const importAndInitLazyLoad = (layoutEl, msnry = null) =>
-  import('./frontend/layouts/infinite-scroll').then(
-    ({ maybeInitInfiniteScroll }) => maybeInitInfiniteScroll(layoutEl, msnry)
-  )
-
 onDocumentLoaded(() => {
-  if (document.querySelector('.ct-quantity')) {
-    import('./frontend/woocommerce/quantity-input').then(({ mount }) => mount())
-  }
+	handleEntryPoints([
+		{
+			els: '[data-footer-reveal]',
+			load: () => import('./frontend/footer-reveal'),
+			events: ['ct:footer-reveal:update']
+		},
 
-  if (document.querySelector('body.ct-ajax-add-to-cart')) {
-    import('./frontend/woocommerce/add-to-cart-single').then(({ mount }) =>
-      mount()
-    )
-  }
+		{
+			els: '.ct-quantity',
+			load: () => import('./frontend/woocommerce/quantity-input'),
+			events: ['ct:add-to-cart:update']
+		},
 
-  ctEvents.on('ct:add-to-cart:update', () => {
-    import('./frontend/woocommerce/add-to-cart-single').then(({ mount }) =>
-      mount()
-    )
+		{
+			els: 'body.ct-ajax-add-to-cart',
+			load: () => import('./frontend/woocommerce/add-to-cart-single'),
+			events: ['ct:add-to-cart:update']
+		},
 
-    import('./frontend/woocommerce/quantity-input').then(({ mount }) => mount())
-  })
-  ;[
-    ...document.querySelectorAll('.entries[data-layout]'),
-    ...document.querySelectorAll('.shop-entries[data-layout]')
-  ].map(layoutEl => {
-    importAndInitLazyLoad(layoutEl)
-    watchLayoutContainerForReveal(layoutEl)
-  })
+		{
+			els: '.ct-back-to-top',
+			load: () => import('./frontend/back-to-top-link')
+		},
 
-  ctEvents.on('ct:footer-reveal:update', () => {
-    import('./frontend/footer-reveal').then(({ mount }) => mount())
-  })
+		{
+			els: '.share-box[data-type="type-2"]',
+			load: () => import('./frontend/share-box')
+		},
 
-  if (document.querySelector('[data-footer-reveal]')) {
-    import('./frontend/footer-reveal').then(({ mount }) => mount())
-  }
+		{
+			els: ['.entries[data-layout]', '.shop-entries[data-layout]'],
+			load: () => import('./frontend/layouts/infinite-scroll'),
+			beforeLoad: el => watchLayoutContainerForReveal(el)
+		},
 
-  if (document.querySelector('.ct-header-cart')) {
-    import('./frontend/woocommerce/mini-cart').then(({ mount }) => mount())
-  }
+		{
+			els: [
+				[
+					...document.querySelectorAll(
+						'.search-form[data-live-results]'
+					)
+				].filter(
+					el =>
+						!el.matches(
+							'[id="search-modal"] .search-form[data-live-results]'
+						) &&
+						!el.matches(
+							'.ct-sidebar .ct-widget .woocommerce-product-search'
+						)
+				)
+			],
+			load: () => import('./frontend/search-implementation'),
+			mount: ({ mount, el }) =>
+				mount(el, {
+					postType: el.querySelector('[name="post_type"]')
+						? `ct_forced_${
+								el.querySelector('[name="post_type"]').value
+						  }`
+						: 'ct_forced_post'
+				})
+		},
 
-  if (document.querySelector('.ct-back-to-top')) {
-    import('./frontend/back-to-top-link').then(({ mount }) => mount())
-  }
+		{
+			els:
+				'.ct-sidebar .ct-widget .search-form:not(.woocommerce-product-search)',
+			load: () => import('./frontend/search-implementation')
+		},
 
-  if (document.querySelector('.share-box[data-type="type-2"]')) {
-    import('./frontend/share-box').then(({ mount }) => mount())
-  }
+		{
+			els: '.ct-sidebar .ct-widget .woocommerce-product-search',
+			load: () => import('./frontend/search-implementation'),
+			mount: ({ mount, el }) =>
+				mount(el, {
+					postType: 'ct_forced_product'
+				})
+		},
 
-  var pickclick =
-    navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPhone/)
-      ? 'touchend'
-      : 'click'
+		{
+			els: '[id="search-modal"] .search-form[data-live-results]',
+			load: () => import('./frontend/search-implementation'),
+			mount: ({ mount, el }) =>
+				mount(el, {
+					mode: 'modal',
+					perPage: 6
+				})
+		},
 
-  document.querySelector('#mobile-menu').addEventListener(pickclick, event => {
-    event.stopPropagation()
-  })
+		{
+			els: 'header[data-device="desktop"] [data-id*="menu"] > .menu',
+			load: () => import('./frontend/header/menu'),
+			mount: ({ handleFirstLevelForMenu, el }) =>
+				handleFirstLevelForMenu(el),
+			events: ['ct:header:update', 'ct:header:render-frame']
+		},
 
-  document
-    .querySelector('.mobile-menu-toggle')
-    .addEventListener(pickclick, event => {
-      event.preventDefault()
-      event.stopPropagation()
+		{
+			els: [
+				'header[data-device="desktop"] [data-id*="menu"] > .menu .menu-item-has-children > .sub-menu',
+				'header[data-device="desktop"] [data-id*="menu"] > .menu .page_item_has_children > .sub-menu'
+			],
+			load: () => import('./frontend/header/menu'),
+			mount: ({ handleUpdate, el }) => handleUpdate(el),
+			events: ['ct:header:update']
+		},
 
-      document
-        .querySelector('.mobile-menu-toggle')
-        .firstElementChild.classList.toggle('close')
+		{
+			els: 'header[data-device="desktop"] [data-id^="menu"]',
+			load: () => import('./frontend/header/responsive-desktop-menu'),
+			events: ['ct:header:render-frame']
+		},
 
-      if (document.querySelector('.ct-offcanvas-menu')) {
-        import('./frontend/offcanvas').then(({ handleClick }) =>
-          handleClick(event)
-        )
-        return
-      }
+		// TODO: mount this listener on offcanvas open/close
+		{
+			els: '#offcanvas .child-indicator',
+			load: () => import('./frontend/mobile-menu')
+		},
 
-      import('./frontend/search-overlay').then(({ handleClick }) =>
-        handleClick(event, document.querySelector('.mobile-menu-toggle'), {
-          modalTarget: document.querySelector('.mobile-menu-toggle').hash
-        })
-      )
-    })
+		{
+			els: [
+				'.ct-modal-action',
+				'#main-container > header .ct-header-search > a[href]'
+			],
+
+			load: () => import('./frontend/search-overlay'),
+			events: ['ct:header:update']
+		},
+
+		{
+			els: '.ct-header-cart',
+			load: () => import('./frontend/woocommerce/mini-cart'),
+			events: ['ct:header:update']
+		}
+	])
+
+	setTimeout(() => document.body.classList.remove('ct-loading'), 1500)
+	mountRenderHeaderLoop()
 })
 
 ctEvents.on('ct:overlay:handle-click', ({ e, el, options = {} }) => {
-  import('./frontend/search-overlay').then(({ handleClick }) =>
-    handleClick(e, el, {
-      modalTarget: el.hash,
-      ...options
-    })
-  )
+	import('./frontend/search-overlay').then(({ handleClick }) =>
+		handleClick(e, el, {
+			modalTarget: el.hash,
+			...options
+		})
+	)
 })
 
-onDocumentLoaded(() => {
-  setTimeout(() => {
-    document.body.classList.remove('ct-loading')
-  }, 1500)
-  ;[
-    ...document.querySelectorAll([
-      '.ct-sidebar .ct-widget .search-form:not(.woocommerce-product-search)'
-    ])
-  ].map(formEl =>
-    import('./frontend/search-implementation.js').then(
-      ({ handleSingleSearchForm }) => handleSingleSearchForm(formEl)
-    )
-  )
-  ;[
-    ...document.querySelectorAll(
-      '.ct-sidebar .ct-widget .woocommerce-product-search'
-    )
-  ].map(formEl =>
-    import('./frontend/search-implementation').then(
-      ({ handleSingleSearchForm }) =>
-        handleSingleSearchForm(formEl, {
-          postType: 'ct_forced_product'
-        })
-    )
-  )
-  ;[
-    ...document.querySelectorAll([
-      '[id="search-modal"][data-live-results] .search-form'
-    ])
-  ].map(formEl =>
-    import('./frontend/search-implementation').then(
-      ({ handleSingleSearchForm }) =>
-        handleSingleSearchForm(formEl, {
-          mode: 'modal',
-          perPage: 6
-        })
-    )
-  )
-})
+const initOverlayTrigger = () => {
+	if (document.querySelector('#offcanvas')) {
+		if (!document.querySelector('#offcanvas').hasListener) {
+			document.querySelector('#offcanvas').hasListener = true
 
-const initMenu = () => {
-  ;[
-    ...document.querySelectorAll(
-      'header.site-header [id="site-navigation"] > .primary-menu'
-    )
-  ].map(
-    menu =>
-      getComputedStyle(
-        document.querySelector('.mobile-menu-toggle'),
-        ':before'
-      ).content.indexOf('mobile') === -1 &&
-      import('./frontend/menu').then(({ handleFirstLevelForMenu }) =>
-        handleFirstLevelForMenu(menu)
-      )
-  )
-  ;[
-    ...document.querySelectorAll(
-      'header.site-header [id="site-navigation"] > .primary-menu .menu-item-has-children > .sub-menu'
-    ),
+			document
+				.querySelector('#offcanvas')
+				.addEventListener('click', event => {
+					event.stopPropagation()
+				})
+		}
+	}
 
-    ...document.querySelectorAll(
-      'header.site-header [id="site-navigation"] > .primary-menu .page_item_has_children > .sub-menu'
-    )
-  ].map(
-    menu =>
-      getComputedStyle(
-        document.querySelector('.mobile-menu-toggle'),
-        ':before'
-      ).content.indexOf('mobile') === -1 &&
-      import('./frontend/menu').then(({ handleUpdate }) => handleUpdate(menu))
-  )
+	document.querySelector('.mobile-menu-toggle') &&
+		document
+			.querySelector('.mobile-menu-toggle')
+			.addEventListener('click', event => {
+				event.preventDefault()
+				event.stopPropagation()
+
+				document
+					.querySelector('.mobile-menu-toggle')
+					.firstElementChild.classList.toggle('close')
+
+				if (document.querySelector('.side-panel')) {
+					import('./frontend/offcanvas').then(({ handleClick }) =>
+						handleClick(event)
+					)
+					return
+				}
+
+				import('./frontend/search-overlay').then(({ handleClick }) =>
+					handleClick(
+						event,
+						document.querySelector('.mobile-menu-toggle'),
+						{
+							modalTarget: document.querySelector(
+								'.mobile-menu-toggle'
+							).hash,
+							onClose: () => {
+								document.querySelector('.mobile-menu-toggle') &&
+									document
+										.querySelector('.mobile-menu-toggle')
+										.firstElementChild.classList.remove(
+											'close'
+										)
+							}
+						}
+					)
+				)
+			})
 }
 
-const initMobileMenu = () =>
-  [...document.querySelectorAll('#mobile-menu .menu-arrow')].map(arrow =>
-    import('./frontend/mobile-menu').then(({ handleArrow }) =>
-      handleArrow(arrow)
-    )
-  )
+onDocumentLoaded(() => initOverlayTrigger())
 
-const initSearch = () =>
-  [
-    ...document.querySelectorAll([
-      '.ct-modal-action',
-      'header.site-header .search-button'
-    ])
-  ].map(singleAction =>
-    import('./frontend/search-overlay').then(({ initSingleModal }) =>
-      initSingleModal(singleAction)
-    )
-  )
-
-onDocumentLoaded(() => {
-  initMenu()
-  initMobileMenu()
-  initSearch()
-})
-
-ctEvents.on('ct:header:update', () => {
-  initMenu()
-  initMobileMenu()
-  initSearch()
-})
+ctEvents.on('ct:header:update', () => initOverlayTrigger())

@@ -1,0 +1,27 @@
+[data-border] > div {
+	position: relative;
+
+	&:before, &:after {
+		position: absolute;
+		content: '';
+		left: var(--left, 0);
+		width: var(--width, 100%);
+	}
+
+	&:before {
+		top: 0;
+		border-top: var(--border);
+	}
+
+	&:after {
+		bottom: 0;
+		border-bottom: var(--border);
+	}
+}
+
+
+[data-border*="top-full"] > div:before,
+[data-border*="bottom-full"] > div:after {
+	--left: calc( -50vw + 50%);
+	--width: 100vw;
+}

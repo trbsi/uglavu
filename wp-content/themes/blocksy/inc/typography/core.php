@@ -15,7 +15,9 @@ class Blocksy_Fonts_Manager {
 	}
 
 	public function load_fonts() {
-		$fonts_ids = [
+		$b = new Blocksy_Customizer_Builder();
+
+		$fonts_ids = array_merge([
 			'rootTypography',
 			'h1Typography',
 			'h2Typography',
@@ -25,17 +27,14 @@ class Blocksy_Fonts_Manager {
 			'h6Typography',
 			'blockquote',
 			'pre',
-			'siteTitle',
-			'primaryMenuFont',
-			'primaryMenuDropdownFont',
-			'mobileMenuFont',
 			'sidebarWidgetsTitleFont',
 			'sidebarWidgetsHeadingsFont',
 			'singleProductTitleFont',
 			'cardProductTitleFont',
-			'siteTaglineFont',
 			blocksy_get_posts_listing_source()['prefix'] . '_cardTitleFont',
-		];
+			blocksy_get_posts_listing_source()['prefix'] . '_cardMetaFont',
+			blocksy_get_posts_listing_source()['prefix'] . '_pageMetaFont',
+		], $b->typography_keys());
 
 		$page_title_source = blocksy_get_page_title_source();
 
@@ -230,6 +229,15 @@ class Blocksy_Fonts_Manager {
 	}
 
 	public function get_googgle_fonts() {
+		$maybe_custom_source = apply_filters(
+			'blocksy-typography-google-fonts-source',
+			null
+		);
+
+		if ($maybe_custom_source) {
+			return $maybe_custom_source;
+		}
+
 		$response = $this->all_google_fonts();
 		$response = json_decode( $response, true );
 

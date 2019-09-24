@@ -1,0 +1,46 @@
+#offcanvas {
+	@include media-breakpoint-up (lg) {
+		display: none;
+	}
+	
+	.ct-bag-content {
+		--margin: 20px 0;
+		
+		> * {
+			margin: var(--margin);
+
+			&:first-child {
+				margin-top: 0;
+			}
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+}
+
+
+// Type modal
+#offcanvas.ct-modal .ct-bag-content {
+	--maxWidth: 500px;
+
+	justify-content: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+// Type side panel
+.side-panel .ct-bag-content {
+	&[data-align="center"] {
+	}
+	@include media-breakpoint-down (sm) {
+		--padding: 0 40px 40px 40px;
+	}
+
+	@include media-breakpoint-only (md) {
+		--padding: 0 20% 40px 20%;
+	}
+	justify-content: center;
+}

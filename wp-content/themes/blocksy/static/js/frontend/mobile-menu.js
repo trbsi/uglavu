@@ -56,7 +56,7 @@ const handleContainer = container => {
 	}
 }
 
-export const handleArrow = arrow => {
+export const mount = arrow => {
 	arrow.addEventListener('click', e => {
 		e.preventDefault()
 		e.stopPropagation()

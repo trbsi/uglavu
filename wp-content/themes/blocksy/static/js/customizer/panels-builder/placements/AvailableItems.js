@@ -1,86 +1,56 @@
 import {
-  createElement,
-  Component,
-  useState,
-  Fragment
+	createElement,
+	Component,
+	useState,
+	Fragment
 } from '@wordpress/element'
 import DraggableItems from './DraggableItems'
-import { DragDropContext } from './BuilderRoot'
 import cls from 'classnames'
 import Panel, { PanelMetaWrapper } from '../../../options/options/ct-panel'
-import CustomizerOptions from '../../controls/options'
+import { getValueFromInput } from '../../../options/helpers/get-value-from-input'
+import { __ } from 'ct-i18n'
 
-const PanelsBuilderItems = ({ builderValue, inlinedItemsFromBuilder }) => {
-  const secondaryItems =
-    ct_customizer_localizations.header_builder_data.secondary_items['header']
+import BuilderTemplates from './builder-sidebar/Templates'
+import SecondaryItems from './builder-sidebar/SecondaryItems'
+import InvisiblePanels from './builder-sidebar/InvisiblePanels'
 
-  return (
-    <CustomizerOptions
-      option={{
-        'inner-options': secondaryItems.reduce(
-          (currentOptions, { options }) => ({
-            ...currentOptions,
-            ...options
-          }),
-          {}
-        )
-      }}
-      renderOptions={({ onChange, value }) => (
-        <div className="ct-available-items">
-          <DraggableItems
-            options={{ sort: false, filter: '.ct-item-in-builder' }}
-            group={{
-              name: 'header_sortables',
-              put: false,
-              pull: 'clone'
-            }}
-            draggableId={'available-items'}
-            items={secondaryItems.map(({ id }) => id)}
-            hasPointers={false}
-            propsForItem={item => ({
-              renderItem: ({ item, itemData }) => {
-                const option = {
-                  label: itemData.config.name,
-                  'inner-options': secondaryItems.find(({ id }) => id === item)
-                    .options
-                }
+const AvailableItems = ({
+	allBuilderSections,
+	builderValue,
+	builderValueDispatch,
+	inlinedItemsFromBuilder
+}) => {
+	const secondaryItems =
+		ct_customizer_localizations.header_builder_data.secondary_items.header
+	const allItems = ct_customizer_localizations.header_builder_data.header
 
-                const itemInBuilder = inlinedItemsFromBuilder.indexOf(item) > -1
+	return (
+		<div className="ct-available-items">
+			<h3 className="ct-title">{__('Global Header', 'blocksy')}</h3>
+			<BuilderTemplates
+				allBuilderSections={allBuilderSections}
+				builderValue={builderValue}
+				builderValueDispatch={builderValueDispatch}
+			/>
+			<div className="ct-option-description">
+				{__(
+					'Set one of these headers as a global one. You can edit them idependently.',
+					'blocksy'
+				)}
+			</div>
+			<h3 className="ct-title">{__('Header Elements', 'blocksy')}</h3>
+			<SecondaryItems
+				builderValue={builderValue}
+				builderValueDispatch={builderValueDispatch}
+				inlinedItemsFromBuilder={inlinedItemsFromBuilder}
+			/>
 
-                return (
-                  <PanelMetaWrapper
-                    option={option}
-                    getActualOption={({ open, container }) => (
-                      <Fragment>
-                        <Panel
-                          id="test"
-                          values={value}
-                          option={option}
-                          onChangeFor={onChange}
-                          view="simple"
-                        />
-
-                        <div
-                          ref={container}
-                          data-id={item}
-                          className={cls({
-                            'ct-item-in-builder': itemInBuilder,
-                            'ct-builder-item': !itemInBuilder
-                          })}
-                          onClick={() => itemInBuilder && open()}>
-                          {itemData.config.name}
-                        </div>
-                      </Fragment>
-                    )}></PanelMetaWrapper>
-                )
-              }
-            })}
-            direction="vertical"
-          />
-        </div>
-      )}
-    />
-  )
+			<InvisiblePanels
+				builderValue={builderValue}
+				builderValueDispatch={builderValueDispatch}
+			/>
+		</div>
+	)
 }
 
-export default PanelsBuilderItems
+export default AvailableItems

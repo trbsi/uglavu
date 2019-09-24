@@ -1,4 +1,6 @@
 .ct-devices li {
+	margin-bottom: 0;
+
 	&:before, &:after {
 		content: '';
 		border-radius: 2px;
@@ -13,7 +15,6 @@
 			width: 17px;
 			height: 11px;
 			border: 2px solid currentColor;
-			// border-bottom-width: 3px;
 		}
 
 		&:after {
@@ -30,6 +31,10 @@
 			border: 2px solid currentColor;
 			border-bottom-width: 3px;
 		}
+
+		&:after {
+			display: none;
+		}
 	}
 
 	&.ct-mobile {
@@ -38,6 +43,10 @@
 			height: 14px;
 			border: 2px solid currentColor;
 			border-bottom-width: 3px;
+		}
+
+		&:after {
+			display: none;
 		}
 	}
 }

@@ -125,7 +125,7 @@ function blocksy_footer_main_area_section( $number = '1' ) {
 	if ( $kind === 'footer_menu' ) {
 		ob_start();
 
-		echo wp_kses_post('<nav data-menu-type="type-1"' . blocksy_schema_org_definitions('navigation') . '>');
+		echo '<nav data-type="type-1"' . blocksy_schema_org_definitions('navigation') . '>';
 
 		wp_nav_menu(
 			[
@@ -159,7 +159,11 @@ function blocksy_footer_main_area_section( $number = '1' ) {
 					'id' => 'twitter',
 					'enabled' => true,
 				],
-			])
+			]),
+
+			[
+				'type' => 'simple-small'
+			]
 		);
 	}
 
@@ -211,7 +215,9 @@ function blocksy_footer_main_area_sections_cache() {
 			return blocksy_html_tag(
 				'div',
 				[ 'data-id' => 'footer-main-area-socials' ],
-				'<section>' . blocksy_social_icons(null) . '</section>'
+				'<section>' . blocksy_social_icons(null, [
+					'type' => 'simple-small'
+				]) . '</section>'
 			);
 		}
 	);

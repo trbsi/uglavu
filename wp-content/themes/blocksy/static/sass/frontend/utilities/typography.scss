@@ -1,12 +1,19 @@
-body, h1, h2, h3, h4, h5, h6,
-code, kbd, samp, pre,
-.primary-menu > li, 
-.primary-menu .sub-menu li, 
-#mobile-menu .mobile-menu,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+code,
+kbd,
+samp,
+pre,
+.menu, .sub-menu, .mobile-menu,
+.entry-meta,
 .ct-sidebar .ct-post-title,
 .ct-quote-widget blockquote p,
 .hentry .entry-content blockquote p {
-
 	font-family: var(--fontFamily);
 	font-size: var(--fontSize);
 	font-weight: var(--fontWeight);
@@ -15,5 +22,4 @@ code, kbd, samp, pre,
 	letter-spacing: var(--letterSpacing);
 	text-transform: var(--textTransform);
 	text-decoration: var(--textDecoration);
-	
 }

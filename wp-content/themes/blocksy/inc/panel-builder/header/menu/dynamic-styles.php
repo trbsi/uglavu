@@ -1,0 +1,197 @@
+<?php
+
+if (empty($selector)) {
+	$selector = '.header-menu-1';
+}
+
+// Items spacing
+$headerMenuItemsSpacing = blocksy_akg( 'headerMenuItemsSpacing', $atts, 25 );
+$css->put(
+	$selector,
+	'--menuItemsSpacing: ' . $headerMenuItemsSpacing . 'px'
+);
+
+
+// Items height
+$headerMenuItemsHeight = blocksy_akg( 'headerMenuItemsHeight', $atts, '100' );
+$css->put(
+	$selector . ' > ul',
+	'--height: ' . $headerMenuItemsHeight . '%'
+);
+
+
+// Top level font
+blocksy_output_font_css([
+	'font_value' => blocksy_akg( 'headerMenuFont', $atts,
+		blocksy_typography_default_values([
+			'size' => '12px',
+			'variation' => 'n7',
+			'line-height' => '1.3',
+			'text-transform' => 'uppercase',
+		])
+	),
+	'css' => $css,
+	'tablet_css' => $tablet_css,
+	'mobile_css' => $mobile_css,
+	'selector' => $selector . ' ul'
+]);
+
+
+// Font color
+blocksy_output_colors([
+	'value' => blocksy_akg('menuFontColor', $atts),
+	'default' => [
+		'default' => [ 'color' => 'var(--paletteColor3)' ],
+		'hover' => [ 'color' => 'var(--paletteColor1)' ],
+		'active' => [ 'color' => 'var(--paletteColor1)' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => $selector,
+			'variable' => 'menuInitialColor'
+		],
+
+		'hover' => [
+			'selector' => $selector,
+			'variable' => 'menuHoverColor'
+		],
+
+		'active' => [
+			'selector' => $selector,
+			'variable' => 'menuActiveColor'
+		],
+	],
+]);
+
+// Active indicator color
+blocksy_output_colors([
+	'value' => blocksy_akg('menuIndicatorColor', $atts),
+	'default' => [
+		'active' => [ 'color' => 'var(--paletteColor1)' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'active' => [
+			'selector' => $selector,
+			'variable' => 'menuIndicatorActiveColor'
+		],
+	],
+]);
+
+
+// Top level margin
+blocksy_output_spacing([
+	'css' => $css,
+	'tablet_css' => $tablet_css,
+	'mobile_css' => $mobile_css,
+	'selector' => $selector,
+	'value' => blocksy_default_akg(
+		'headerMenuMargin', $atts,
+		blocksy_spacing_value([
+			'top' => 'auto',
+			'bottom' => 'auto',
+			'linked' => true,
+		])
+	)
+]);
+
+
+// Dropdown top offset
+$dropdownTopOffset = blocksy_akg( 'dropdownTopOffset', $atts, 15 );
+$css->put(
+	$selector . ' .sub-menu',
+	'--marginTop: ' . $dropdownTopOffset . 'px'
+);
+
+$dropdownMenuWidth = blocksy_akg( 'dropdownMenuWidth', $atts, 200 );
+$css->put(
+	$selector . ' .sub-menu',
+	'--width: ' . $dropdownMenuWidth . 'px'
+);
+
+
+// Dropdown font
+blocksy_output_font_css([
+	'font_value' => blocksy_akg( 'headerDropdownFont', $atts,
+		blocksy_typography_default_values([
+			'size' => '12px',
+			'variation' => 'n5',
+			'line-height' => '1.6',
+		])
+	),
+	'css' => $css,
+	'tablet_css' => $tablet_css,
+	'mobile_css' => $mobile_css,
+	'selector' => $selector . ' .sub-menu'
+]);
+
+
+// Dropdown font color
+blocksy_output_colors([
+	'value' => blocksy_akg('headerDropdownFontColor', $atts),
+	'default' => [
+		'default' => [ 'color' => '#ffffff' ],
+		'hover' => [ 'color' => 'var(--paletteColor1)' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => $selector . ' .sub-menu',
+			'variable' => 'menuInitialColor'
+		],
+
+		'hover' => [
+			'selector' => $selector . ' .sub-menu',
+			'variable' => 'menuHoverColor'
+		],
+	],
+]);
+
+// Dropdown divider
+blocksy_output_border([
+	'css' => $css,
+	'selector' => $selector . ' .sub-menu',
+	'variableName' => 'dropDownDivider',
+	'value' => blocksy_akg('headerDropdownDivider', $atts, [
+		'width' => 1,
+		'style' => 'dashed',
+		'color' => [
+			'color' => 'rgba(255, 255, 255, 0.1)',
+		],
+	])
+]);
+
+// Dropdown background
+blocksy_output_colors([
+	'value' => blocksy_akg('headerDropdownBackground', $atts),
+	'default' => [
+		'default' => [ 'color' => '#29333C' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => $selector . ' .sub-menu',
+			'variable' => 'backgroundColor'
+		],
+	],
+]);
+
+// Border radius
+blocksy_output_spacing([
+	'css' => $css,
+	'tablet_css' => $tablet_css,
+	'mobile_css' => $mobile_css,
+	'selector' => $selector . ' .sub-menu',
+	'property' => 'borderRadius',
+	'value' => blocksy_default_akg(
+		'headerDropdownRadius', $atts,
+		blocksy_spacing_value([
+			'linked' => true,
+			'top' => '2px',
+			'left' => '2px',
+			'right' => '2px',
+			'bottom' => '2px',
+		])
+	)
+]);

@@ -5,7 +5,6 @@ import {
 	createRef
 } from '@wordpress/element'
 import PickerModal, { getNoColorPropFor } from './picker-modal.js'
-import OutsideClickHandler from 'react-outside-click-handler'
 import { Transition } from 'react-spring'
 import bezierEasing from 'bezier-easing'
 import classnames from 'classnames'
@@ -30,10 +29,18 @@ export default class SinglePicker extends Component {
 								onChange={this.props.onChange}
 								value={this.props.value}
 							/>,
-							this.el.current.closest('.ct-color-modal-wrapper')
+							this.el.current.closest('.ct-single-palette')
+								? this.el.current
+										.closest('.ct-single-palette')
+										.querySelector(
+											'.ct-color-modal-wrapper'
+										)
+								: this.el.current.closest(
+										'.ct-color-modal-wrapper'
+								  )
 								? this.el.current.closest(
 										'.ct-color-modal-wrapper'
-									)
+								  )
 								: this.el.current
 										.closest('.ct-control')
 										.querySelector(
@@ -65,7 +72,7 @@ export default class SinglePicker extends Component {
 								? {
 										background: (this.props.value || {})
 											.color
-									}
+								  }
 								: {}
 						}>
 						<i className="ct-tooltip-top">
@@ -89,7 +96,7 @@ export default class SinglePicker extends Component {
 									? {
 											transform: 'scale3d(0.95, 0.95, 1)',
 											opacity: 0
-										}
+									  }
 									: { opacity: 1 }
 							}
 							enter={
@@ -97,20 +104,20 @@ export default class SinglePicker extends Component {
 									? {
 											transform: 'scale3d(1, 1, 1)',
 											opacity: 1
-										}
+									  }
 									: {
 											opacity: 1
-										}
+									  }
 							}
 							leave={
 								this.props.shouldAnimate
 									? {
 											transform: 'scale3d(0.95, 0.95, 1)',
 											opacity: 0
-										}
+									  }
 									: {
 											opacity: 1
-										}
+									  }
 							}>
 							{is_picking =>
 								is_picking === this.props.picker.id &&
@@ -125,7 +132,11 @@ export default class SinglePicker extends Component {
 								))
 							}
 						</Transition>,
-						this.el.current.closest('.ct-color-modal-wrapper')
+						this.el.current.closest('.ct-single-palette')
+							? this.el.current
+									.closest('.ct-single-palette')
+									.querySelector('.ct-color-modal-wrapper')
+							: this.el.current.closest('.ct-color-modal-wrapper')
 							? this.el.current.closest('.ct-color-modal-wrapper')
 							: this.el.current
 									.closest('.ct-control')

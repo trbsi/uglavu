@@ -12,7 +12,6 @@ $accent_color: #0e8ecc;
 @import 'options/checkbox';
 @import 'options/number';
 @import 'options/image-picker';
-@import 'options/color-picker';
 @import 'options/spacing';
 @import 'options/border';
 @import 'options/tabs';
@@ -30,8 +29,8 @@ $accent_color: #0e8ecc;
 @import 'options/typography';
 @import 'options/image-position';
 @import 'options/ratio-picker';
-@import 'options/color-palette';
 @import 'options/background/main';
+@import 'options/color/main';
 
 
 // ui styles

@@ -171,7 +171,8 @@ const PatternPicker = ({ option, value, onChange }) => {
 							id: 'default'
 						}
 					],
-					skipNoColorPill: true
+					skipNoColorPill: true,
+					skipArrow: true
 				}}
 				hasRevertButton={false}
 				onChange={newValue =>

@@ -1,62 +1,65 @@
-export const initSingleModal = el => {
-  initAnimatedModal(el, {
-    modalTarget: el.hash
-  })
+export const mount = el => {
+	initAnimatedModal(el, {
+		modalTarget: el.hash
+	})
 }
+
 import { enable, disable } from './no-bounce'
 
 function initAnimatedModal(el, options) {
-  var settings = {
-    modalTarget: 'animatedModal',
-    animatedIn: 'ct-fade-in',
-    animatedOut: 'ct-fade-out',
+	var settings = {
+		modalTarget: 'animatedModal',
+		animatedIn: 'ct-fade-in',
+		animatedOut: 'ct-fade-out',
+		onClose: () => {},
 
-    ...options
-  }
+		...options
+	}
 
-  var modalContainer = document
-    .querySelector(settings.modalTarget)
-    .querySelector('.ct-bag-container')
+	var modalContainer = document
+		.querySelector(settings.modalTarget)
+		.querySelector('.ct-bag-container')
 
-  modalContainer.addEventListener('click', function(e) {
-    e.stopPropagation()
-  })
+	modalContainer.addEventListener('click', function(e) {
+		e.stopPropagation()
+	})
 
-  el.addEventListener('click', event => handleClick(event, el, settings))
+	el.addEventListener('click', event => handleClick(event, el, settings))
 }
 
 export const handleClick = (event, el, options) => {
-  var settings = {
-    modalTarget: 'animatedModal',
-    animatedIn: 'ct-fade-in',
-    animatedOut: 'ct-fade-out',
-    clickOutside: false,
-    focus: true,
+	var settings = {
+		modalTarget: 'animatedModal',
+		animatedIn: 'ct-fade-in',
+		animatedOut: 'ct-fade-out',
+		clickOutside: false,
+		focus: true,
+		onClose: () => {},
 
-    ...options
-  }
+		...options
+	}
 
-  event.preventDefault()
+	event.preventDefault()
 
-  let id = document.querySelector(el.hash)
-  let modalContainer = id.querySelector('.ct-bag-container')
+	let id = document.querySelector(el.hash)
+	let modalContainer = id.querySelector('.ct-bag-container')
 
-  id.classList.add('opened')
+	id.classList.add('opened')
 
-  document.body.classList.add('ct-modal-open')
+	document.body.classList.add('modal-active')
 
-  id.classList.add('active')
+	id.classList.add('active')
 
-  enable()
+	enable()
 
-  modalContainer.classList.add(...[`${settings.animatedIn}`, `ct-animated`])
+	modalContainer.classList.add(...[`${settings.animatedIn}`, `ct-animated`])
 
-  if (settings.focus) {
-    modalContainer.querySelector('input') &&
-      modalContainer.querySelector('input').focus()
-  }
+	if (settings.focus) {
+		modalContainer.querySelector('input') &&
+			modalContainer.querySelector('input').focus()
+	}
 
-  /*
+	/*
 		modalContainer.parentNode.addEventListener(
 			'touchmove',
 			e => {
@@ -67,76 +70,92 @@ export const handleClick = (event, el, options) => {
 		)
 */
 
-  modalContainer.addEventListener(
-    'animationend',
-    () => {
-      modalContainer.classList.remove(
-        ...[`${settings.animatedIn}`, `ct-animated`]
-      )
-    },
-    { once: true }
-  )
+	modalContainer.addEventListener(
+		'animationend',
+		() => {
+			modalContainer.classList.remove(
+				...[`${settings.animatedIn}`, `ct-animated`]
+			)
+		},
+		{ once: true }
+	)
 
-  const onEnd = event => {
-    const { keyCode, target } = event
-    if (keyCode !== 27) return
-    event.preventDefault()
-    document.removeEventListener('keyup', onEnd)
-    closeModal(id, settings)
-  }
+	const onEnd = event => {
+		const { keyCode, target } = event
+		if (keyCode !== 27) return
+		event.preventDefault()
+		document.removeEventListener('keyup', onEnd)
+		closeModal(id, settings)
+	}
 
-  document.addEventListener('keyup', onEnd)
+	document.addEventListener('keyup', onEnd)
 
-  id.querySelector('.ct-bag-close').addEventListener(
-    'click',
-    event => {
-      event.preventDefault()
-      event.stopPropagation()
+	id.querySelector('.ct-bag-close').addEventListener(
+		'click',
+		event => {
+			event.preventDefault()
+			event.stopPropagation()
 
-      closeModal(id, settings)
-    },
-    { once: true }
-  )
+			closeModal(id, settings)
+		},
+		{ once: true }
+	)
 
-  if (settings.clickOutside) {
-    id.querySelector('.ct-bag-content').firstElementChild.addEventListener(
-      'click',
-      event => event.stopPropagation()
-    )
+	if (settings.clickOutside) {
+		id.querySelector('.ct-bag-content').firstElementChild.addEventListener(
+			'click',
+			event => event.stopPropagation()
+		)
 
-    id.querySelector('.ct-bag-content').addEventListener(
-      'click',
-      event => closeModal(id, settings),
-      {
-        once: true
-      }
-    )
-  }
+		id.querySelector('.ct-bag-content').addEventListener(
+			'click',
+			event => closeModal(id, settings),
+			{
+				once: true
+			}
+		)
+	}
 }
 
 function closeModal($el, settings) {
-  var modalContainer = $el.querySelector('.ct-bag-container')
+	var modalContainer = $el.querySelector('.ct-bag-container')
 
-  document
-    .querySelector('.mobile-menu-toggle')
-    .firstElementChild.classList.remove('close')
+	if (!document.body.classList.contains('modal-active')) {
+		return
+	}
 
-  modalContainer.classList.add(settings.animatedOut, `ct-animated`)
-  $el.classList.remove('active')
+	settings = {
+		modalTarget: 'animatedModal',
+		animatedIn: 'ct-fade-in',
+		animatedOut: 'ct-fade-out',
+		clickOutside: false,
+		focus: true,
+		onClose: () => {},
 
-  modalContainer.addEventListener(
-    'animationend',
-    () => {
-      document.body.classList.remove('ct-modal-open')
+		...settings
+	}
 
-      modalContainer.classList.remove(settings.animatedOut, `ct-animated`)
+	modalContainer.classList.add(settings.animatedOut, `ct-animated`)
+	$el.classList.remove('active')
 
-      $el.classList.remove('opened')
+	modalContainer.addEventListener(
+		'animationend',
+		() => {
+			document.body.classList.remove('modal-active')
 
-      disable()
+			modalContainer.classList.remove(settings.animatedOut, `ct-animated`)
 
-      ctEvents.trigger('ct:modal:closed', modalContainer)
-    },
-    { once: true }
-  )
+			$el.classList.remove('opened')
+
+			disable()
+
+			settings.onClose()
+			ctEvents.trigger('ct:modal:closed', modalContainer)
+		},
+		{ once: true }
+	)
 }
+
+ctEvents.on('ct:offcanvas:force-close', ({ $el, settings }) => {
+	closeModal($el, settings)
+})

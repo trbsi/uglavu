@@ -142,17 +142,21 @@ $accent-color: #0e8ecc;
 
 // input
 #customize-controls {
+	textarea,
 	input[type='text'],
 	input[type='number'] {
-		font-size: 12px;
+		font-size: var(--fontSize, 12px);
 		border-radius: 3px;
-		padding: 3px 8px;
 		box-shadow: inset 0 1px 2px rgba(0,0,0,.07), 0 0 0 0 transparent;
 		transition: box-shadow 0.1s linear,
+					background 0.1s linear,
+					border-radius 0.1s linear,
 					border-color 0.1s linear;
 
-		&:hover {
-			border-color: #0e8ecc;
+		&:not([disabled]) {
+			&:hover {
+				border-color: #0e8ecc;
+			}
 		}
 
 		&:focus {
@@ -161,8 +165,13 @@ $accent-color: #0e8ecc;
 		}
 	}
 
+	input[type='text'],
 	input[type='number'] {
-		height: 26px;
+		padding: var(--padding, 3px 8px);
+	}
+
+	input[type='number'] {
+		height: var(--height, 26px);
 	}
 }
 
@@ -183,27 +192,6 @@ $accent-color: #0e8ecc;
 	.ct-select-input {
 		max-width: 130px;
 	}
-}
-
-
-// colors
-.ct-color-picker-container > * {
-	&:not(:last-child) {
-		margin-right: 12px;
-	}
-}
-
-.ct-color-picker-modal {
-	width: 280px;
-	top: 37px;
-	right: 0;
-	margin-left: 8px;
-	margin-right: 8px;
-
-	// .wp-picker-holder > .iris-picker .iris-square {
-	// 	width: 190px !important;
-	// 	height: 190px !important;
-	// }
 }
 
 
@@ -243,6 +231,31 @@ $accent-color: #0e8ecc;
 			width: calc(100% - 24px);
 			margin: 0 12px;
 		}
+	}
+}
+
+
+// control with divider
+[data-divider] {
+	&:before, &:after {
+		display: block;
+		width: 100%;
+		height: 1px;
+		background: #ddd;
+	}
+}
+
+[data-divider*="top"] {
+	&:before {
+		content: '';
+		margin-bottom: 25px;
+	}
+}
+
+[data-divider*="bottom"] {
+	&:after {
+		content: '';
+		margin-top: 25px;
 	}
 }
 

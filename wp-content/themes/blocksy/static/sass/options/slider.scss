@@ -1,3 +1,5 @@
+$handle-size: 12px;
+
 .ct-slider {
 	position: relative;
 	user-select: none;
@@ -5,13 +7,14 @@
 	height: 18px;
 	cursor: pointer;
 	border-radius: 2px;
+	margin-right: $handle-size;
 
 	&:before {
 		position: absolute;
 		content: '';
 		top: calc(50% - 1px);
 		left: 0;
-		width: 100%;
+		width: calc(100% + #{$handle-size});
 		height: 2px;
 		border-radius: inherit;
 		background: rgba(195, 199, 202, 1);
@@ -22,16 +25,21 @@
 		top: 0;
 		bottom: 0;
 		margin: auto 0;
-		width: 12px;
-		height: 12px;
+		width: $handle-size;
+		height: $handle-size;
 		border-radius: 100%;
 		background: $accent_color;
-		transition: box-shadow 0.2s ease;
+		transition: box-shadow 0.2s ease,
+					background 0.1s ease;
 
 		&:hover,
 		&:focus,
 		&:active {
-			box-shadow: 0px 0px 0px 2px $accent_color;
+			box-shadow: 0px 0px 0px 2px $accent_color, 0px 8px 15px 0px rgba(0, 0, 0, 0.25);
+		}
+
+		&:active {
+			background: #fff;
 		}
 	}
 
@@ -40,6 +48,7 @@
 		top: calc(50% - 1px);
 		left: 0;
 		height: 2px;
+		padding-right: #{$handle-size / 2};
 		background: $accent_color;
 		border-radius: inherit;
 	}

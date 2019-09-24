@@ -1,8 +1,9 @@
 
-$builder-item-width: 95px;
+$builder-item-width: 100px;
 $builder-item-height: 37px;
 $builder-items-spacing: 8px;
 
+@import 'builder-sidebar';
 @import 'panels';
 @import 'view-switch';
 @import 'builder-rows';

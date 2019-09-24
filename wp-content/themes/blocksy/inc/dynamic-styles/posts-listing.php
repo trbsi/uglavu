@@ -22,23 +22,24 @@ blocksy_output_font_css([
 	'selector' => '.entry-card .entry-title'
 ]);
 
-$cardTitleColor = blocksy_get_colors(
-	blocksy_akg_or_customizer('cardTitleColor', $listing_source),
-	[
+blocksy_output_colors([
+	'value' => blocksy_akg_or_customizer('cardTitleColor', $listing_source),
+	'default' => [
 		'default' => [ 'color' => 'var(--paletteColor4)' ],
 		'hover' => [ 'color' => 'var(--paletteColor1)' ],
-	]
-);
-
-$css->put(
-	'.entry-title',
-	"--linkInitialColor: {$cardTitleColor['default']}"
-);
-
-$css->put(
-	'.entry-title',
-	"--linkHoverColor: {$cardTitleColor['hover']}"
-);
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.entry-title',
+			'variable' => 'linkInitialColor'
+		],
+		'hover' => [
+			'selector' => '.entry-title',
+			'variable' => 'linkHoverColor'
+		],
+	],
+]);
 
 blocksy_output_responsive([
 	'css' => $css,
@@ -53,108 +54,126 @@ blocksy_output_responsive([
 	])
 ]);
 
-$cardExcerptColor = blocksy_get_colors(
-	blocksy_akg_or_customizer(
-		'cardExcerptColor',
-		$listing_source
+blocksy_output_colors([
+	'value' => blocksy_akg_or_customizer('cardExcerptColor', $listing_source),
+	'default' => [
+		'default' => ['color' => 'var(--fontColor)']
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.entry-excerpt',
+			'variable' => 'cardExcerptColor'
+		]
+	],
+]);
+
+blocksy_output_font_css([
+	'font_value' => blocksy_akg_or_customizer(
+		'cardMetaFont',
+		$listing_source,
+		blocksy_typography_default_values([
+			'size' => [
+				'desktop' => '12px',
+				'tablet'  => '12px',
+				'mobile'  => '12px'
+			],
+			'variation' => 'n6',
+			'line-height' => '1.3',
+			'text-transform' => 'uppercase',
+		])
 	),
-	[ 'default' => [ 'color' => 'var(--fontColor)' ] ]
-);
-
-$css->put(
-	'.entry-excerpt',
-	"--cardExcerptColor: {$cardExcerptColor['default']}"
-);
-
-blocksy_output_responsive([
 	'css' => $css,
 	'tablet_css' => $tablet_css,
 	'mobile_css' => $mobile_css,
-	'selector' => '.entry-card',
-	'variableName' => 'metaFontSize',
-	'value' => blocksy_akg_or_customizer('cardMetaSize', $listing_source, [
-		'mobile' => 12,
-		'tablet' => 12,
-		'desktop' => 12,
-	])
+	'selector' => '.entry-card .entry-meta'
 ]);
 
-$cardMetaColor = blocksy_get_colors(
-	blocksy_akg_or_customizer('cardMetaColor', $listing_source),
-	[
+blocksy_output_colors([
+	'value' => blocksy_akg_or_customizer('cardMetaColor', $listing_source),
+	'default' => [
 		'default' => [ 'color' => 'var(--fontColor)' ],
 		'hover' => [ 'color' => 'var(--paletteColor1)' ],
-	]
-);
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.entry-meta',
+			'variable' => 'linkInitialColor'
+		],
 
-$css->put(
-	'.entry-meta',
-	"--linkInitialColor: {$cardMetaColor['default']}"
-);
+		'hover' => [
+			'selector' => '.entry-meta',
+			'variable' => 'linkHoverColor'
+		],
+	],
+]);
 
-$css->put(
-	'.entry-meta',
-	"--linkHoverColor: {$cardMetaColor['hover']}"
-);
-
-
-$cardButtonTextColor = blocksy_get_colors(
-	blocksy_akg_or_customizer(
-		'cardButtonTextColor',
-		$listing_source
-	),
-	[
+blocksy_output_colors([
+	'value' => blocksy_akg_or_customizer('cardButtonTextColor', $listing_source),
+	'default' => [
 		'default' => [ 'color' => '#ffffff' ],
 		'hover' => [ 'color' => '#ffffff' ],
-	]
-);
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.entry-button',
+			'variable' => 'buttonTextInitialColor'
+		],
 
-$css->put(
-	'.entry-button',
-	"--buttonTextInitialColor: {$cardButtonTextColor['default']}"
-);
+		'hover' => [
+			'selector' => '.entry-button',
+			'variable' => 'buttonTextHoverColor'
+		],
+	],
+]);
 
-$css->put(
-	'.entry-button',
-	"--buttonTextHoverColor: {$cardButtonTextColor['hover']}"
-);
-
-
-$cardButtonColor = blocksy_get_colors(
-	blocksy_akg_or_customizer(
-		'cardButtonColor',
-		$listing_source
-	),
-	[
+blocksy_output_colors([
+	'value' => blocksy_akg_or_customizer('cardButtonColor', $listing_source),
+	'default' => [
 		'default' => [ 'color' => 'var(--buttonInitialColor)' ],
 		'hover' => [ 'color' => 'var(--buttonHoverColor)' ],
-	]
-);
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.entry-button',
+			'variable' => 'buttonInitialColor'
+		],
 
-$css->put(
-	'.entry-button',
-	"--buttonInitialColor: {$cardButtonColor['default']}"
-);
+		'hover' => [
+			'selector' => '.entry-button',
+			'variable' => 'buttonHoverColor'
+		],
+	],
+]);
 
-$css->put(
-	'.entry-button',
-	"--buttonHoverColor: {$cardButtonColor['hover']}"
-);
+blocksy_output_colors([
+	'value' => blocksy_akg_or_customizer('cardBackground', $listing_source),
+	'default' => [
+		'default' => [ 'color' => '#ffffff' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'variable' => 'cardBackground'
+		],
+	],
+]);
 
-
-
-$card_background = blocksy_get_colors(
-	blocksy_akg_or_customizer(
-		'cardBackground',
-		$listing_source
-	),
-	[ 'default' => [ 'color' => '#ffffff' ] ]
-);
-
-$css->put(
-	':root',
-	"--cardBackground: {$card_background['default']}"
-);
+blocksy_output_border([
+	'css' => $css,
+	'selector' => '[data-cards="boxed"] .entry-card',
+	'variableName' => 'border',
+	'value' => blocksy_akg_or_customizer('cardBorder', $listing_source, [
+		'width' => 1,
+		'style' => 'none',
+		'color' => [
+			'color' => 'rgba(44,62,80,0.2)',
+		],
+	])
+]);
 
 blocksy_output_responsive([
 	'css' => $css,

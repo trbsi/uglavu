@@ -28,15 +28,17 @@ export const stackingClassesFor = (
 	}
 }
 
-export const responsiveClassesFor = (id, el) => {
+export const responsiveClassesFor = (data, el) => {
 	el.classList.remove('ct-hidden-sm', 'ct-hidden-md', 'ct-hidden-lg')
 
-	if (!wp.customize(id)) return
+	if (typeof data !== 'object') {
+		if (!wp.customize(data)) return
 
-	const data = wp.customize(id)() || {
-		mobile: false,
-		tablet: true,
-		desktop: true
+		data = wp.customize(data)() || {
+			mobile: false,
+			tablet: true,
+			desktop: true
+		}
 	}
 
 	if (!data.mobile) {
@@ -116,8 +118,7 @@ wp.customize('widgetsAreaDivider', val =>
 		if (to.style !== 'none') {
 			document.querySelector(
 				'.site-footer .footer-widgets'
-			).dataset.divider =
-				''
+			).dataset.divider = ''
 		} else {
 			document
 				.querySelector('.site-footer .footer-widgets')

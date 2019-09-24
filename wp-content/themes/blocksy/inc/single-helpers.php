@@ -35,12 +35,6 @@ add_filter( 'body_class', function ( $classes ) {
 		$classes[] = 'ct-' . $forms_type;
 	}
 
-	$behavior = get_theme_mod('mobile_menu_modal_behavior', 'modal');
-
-	if ($behavior === 'offcanvas') {
-		$classes[] = 'ct-offcanvas';
-	}
-
 	$classes[] = 'header-' . get_theme_mod('header_type', 'type-1');
 
 	if ( is_single() || is_page() ) {

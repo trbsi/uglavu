@@ -548,18 +548,19 @@ $options = [
 						],
 					],
 
-
-					$prefix . 'cardMetaSize' => [
-						'label' => __( 'Meta Font Size', 'blocksy' ),
-						'type' => 'ct-slider',
-						'min' => 0,
-						'max' => 100,
-						'responsive' => true,
-						'value' => [
-							'mobile' => 12,
-							'tablet' => 12,
-							'desktop' => 12,
-						],
+					$prefix . 'cardMetaFont' => [
+						'type' => 'ct-typography',
+						'label' => __( 'Meta Font', 'blocksy' ),
+						'value' => blocksy_typography_default_values([
+							'size' => [
+								'desktop' => '12px',
+								'tablet'  => '12px',
+								'mobile'  => '12px'
+							],
+							'variation' => 'n6',
+							'line-height' => '1.3',
+							'text-transform' => 'uppercase',
+						]),
 						'setting' => [ 'transport' => 'postMessage' ],
 					],
 
@@ -708,6 +709,20 @@ $options = [
 										'id' => 'default',
 									],
 								],
+							],
+
+							$prefix . 'cardBorder' => [
+								'label' => __( 'Card Border', 'blocksy' ),
+								'type' => 'ct-border',
+								'design' => 'inline',
+								'setting' => [ 'transport' => 'postMessage' ],
+								'value' => [
+									'width' => 1,
+									'style' => 'none',
+									'color' => [
+										'color' => 'rgba(44,62,80,0.2)',
+									],
+								]
 							],
 
 							$prefix . 'card_spacing' => [

@@ -7,6 +7,7 @@ import {
 } from '@wordpress/element'
 import OptionsPanel from '../OptionsPanel'
 import { normalizeCondition, matchValuesWithCondition } from 'match-conditions'
+import { useDeviceManagerState } from '../../customizer/components/useDeviceManager'
 
 import useForceUpdate from './use-force-update'
 
@@ -18,6 +19,7 @@ const Condition = ({
 	hasRevertButton
 }) => {
 	const forceUpdate = useForceUpdate()
+	const { currentView } = useDeviceManagerState()
 
 	useEffect(() => {
 		renderingChunk.map(
@@ -42,7 +44,7 @@ const Condition = ({
 						}),
 						{}
 				  )
-				: value
+				: { ...value, wp_customizer_current_view: currentView }
 		) ? (
 			<OptionsPanel
 				purpose={purpose}

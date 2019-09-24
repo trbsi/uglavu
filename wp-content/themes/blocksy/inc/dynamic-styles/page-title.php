@@ -21,7 +21,7 @@ if ($page_title_source) {
 		$type = 'type-2';
 	}
 
-	// title size
+	// title
 	blocksy_output_font_css([
 		'font_value' => blocksy_akg_or_customizer(
 			'pageTitleFont',
@@ -43,26 +43,67 @@ if ($page_title_source) {
 	]);
 
 	// font color
-	$pageTitleFontColor = blocksy_get_colors(
-		blocksy_akg_or_customizer(
+	blocksy_output_colors([
+		'value' => blocksy_akg_or_customizer(
 			'pageTitleFontColor',
 			$page_title_source
 		),
-		[
+		'default' => [
+			'default' => [ 'color' => 'var(--paletteColor4)' ],
+		],
+		'css' => $css,
+		'variables' => [
+			'default' => [
+				'selector' => '.entry-header',
+				'variable' => 'initialColor'
+			],
+		],
+	]);
+
+	blocksy_output_font_css([
+		'font_value' => blocksy_akg_or_customizer(
+			'pageMetaFont',
+			$page_title_source,
+			blocksy_typography_default_values([
+				'size' => [
+					'desktop' => '12px',
+					'tablet'  => '12px',
+					'mobile'  => '12px'
+				],
+				'variation' => 'n6',
+				'line-height' => '1.3',
+				'text-transform' => 'uppercase',
+			])
+		),
+		'css' => $css,
+		'tablet_css' => $tablet_css,
+		'mobile_css' => $mobile_css,
+		'selector' => '.entry-header .entry-meta'
+	]);
+
+	blocksy_output_colors([
+		'value' => blocksy_akg_or_customizer(
+			'pageMetaFontColor',
+			$page_title_source
+		),
+		'default' => [
 			'default' => [ 'color' => 'var(--paletteColor4)' ],
 			'hover' => [ 'color' => 'var(--paletteColor1)' ],
-		]
-	);
+		],
+		'css' => $css,
+		'variables' => [
+			'default' => [
+				'selector' => '.entry-header .entry-meta',
+				'variable' => 'initialColor'
+			],
 
-	$css->put(
-		':root',
-		"--pageTitleFontInitialColor: {$pageTitleFontColor['default']}"
-	);
+			'hover' => [
+				'selector' => '.entry-header .entry-meta',
+				'variable' => 'hoverColor'
+			],
+		],
+	]);
 
-	$css->put(
-		':root',
-		"--pageTitleFontHoverColor: {$pageTitleFontColor['hover']}"
-	);
 
 	if ($type === 'type-2' || is_customize_preview()) {
 		// height
@@ -81,31 +122,35 @@ if ($page_title_source) {
 		]);
 
 		// overlay color
-		$pageTitleOverlay = blocksy_get_colors(
-			blocksy_akg_or_customizer(
+		blocksy_output_colors([
+			'value' => blocksy_akg_or_customizer(
 				'pageTitleOverlay',
 				$page_title_source
 			),
-			[ 'default' => [ 'color' => 'rgba(41, 51, 60, 0.2)' ] ]
-		);
-
-		$css->put(
-			':root',
-			"--pageTitleOverlay: {$pageTitleOverlay['default']}"
-		);
+			'default' => ['default' => ['color' => 'rgba(41, 51, 60, 0.2)']],
+			'css' => $css,
+			'variables' => [
+				'default' => [
+					'selector' => ':root',
+					'variable' => 'pageTitleOverlay'
+				],
+			],
+		]);
 
 		// background color
-		$pageTitleBackground = blocksy_get_colors(
-			blocksy_akg_or_customizer(
+		blocksy_output_colors([
+			'value' => blocksy_akg_or_customizer(
 				'pageTitleBackground',
 				$page_title_source
 			),
-			[ 'default' => [ 'color' => '#EDEFF2' ] ]
-		);
-
-		$css->put(
-			':root',
-			"--pageTitleBackground: {$pageTitleBackground['default']}"
-		);
+			'default' => ['default' => ['color' => '#EDEFF2']],
+			'css' => $css,
+			'variables' => [
+				'default' => [
+					'selector' => ':root',
+					'variable' => 'pageTitleBackground'
+				],
+			],
+		]);
 	}
 }

@@ -13,18 +13,16 @@ $options = [
 		'setting' => [ 'transport' => 'postMessage' ],
 		'inner-options' => [
 
-			blocksy_rand_md5() => [
-				'type' => 'ct-title',
-				'label' => __( 'Color Palettes', 'blocksy' ),
-			],
-
 			'colorPalette' => [
-				'label' => false,
+				'label' => __( 'Color Palettes', 'blocksy' ),
 				'type'  => 'ct-color-palettes-picker',
 				'design' => 'block',
 				'setting' => [ 'transport' => 'postMessage' ],
 				'predefined' => true,
-				'wrapperAttr' => [ 'data-type' => 'color-palette' ],
+				'wrapperAttr' => [ 
+					'data-type' => 'color-palette',
+					'data-label' => 'heading-label'
+				],
 
 				'value' => [
 					'color1' => [

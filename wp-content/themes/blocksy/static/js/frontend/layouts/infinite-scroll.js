@@ -8,7 +8,7 @@ import { watchLayoutContainerForReveal } from '../animated-element'
 InfiniteScroll.imagesLoaded = (fragment, fn) => fn()
 InfiniteScroll.Button.prototype.hide = () => {}
 
-export const maybeInitInfiniteScroll = (layoutEl, outlayer = null) => {
+export const mount = (layoutEl, outlayer = null) => {
   let paginationContainer = layoutEl.parentNode.querySelector('.ct-pagination')
 
   if (!paginationContainer) return

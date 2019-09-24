@@ -11,7 +11,9 @@ const Select = ({ value, option: { choices, placeholder }, onChange }) => {
 			selectedItem={value}
 			onChange={selection => onChange(selection)}
 			itemToString={item =>
-				item ? orderedChoices.find(({ key }) => key === item).value : ''
+				item && orderedChoices.find(({ key }) => key === item)
+					? orderedChoices.find(({ key }) => key === item).value
+					: ''
 			}>
 			{({
 				getInputProps,
@@ -32,6 +34,7 @@ const Select = ({ value, option: { choices, placeholder }, onChange }) => {
 						})}
 						placeholder={placeholder || 'Select value...'}
 						readOnly
+						disabled={orderedChoices.length === 0}
 					/>
 
 					{isOpen && (

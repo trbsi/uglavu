@@ -1,17 +1,6 @@
 <?php
 
 $options = [
-
-	blocksy_rand_md5() => [
-		'title' => __( 'Header', 'blocksy' ),
-		'type' => 'tab',
-		'options' => [
-
-			blocksy_get_options('general/single-header-options')
-
-		],
-	],
-
 	blocksy_rand_md5() => [
 		'title' => __( 'Page', 'blocksy' ),
 		'type' => 'tab',

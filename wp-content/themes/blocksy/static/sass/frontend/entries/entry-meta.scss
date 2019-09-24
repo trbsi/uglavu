@@ -3,14 +3,12 @@
 	flex-wrap: wrap;
 	align-items: center;
 	list-style: none;
-	font-size: var(--metaFontSize, 12px);
-	font-weight: 600;
-	text-transform: uppercase;
 	padding: 0;
 	margin: 0 0 -5px 0;
 
 	> li {
 		display: flex;
+		flex-wrap: wrap;
 		align-items: center;
 		margin-bottom: 5px;
 	}
@@ -43,9 +41,16 @@
 // categories & tags
 .ct-meta-tags,
 .ct-meta-categories {
+	margin-top: calc(var(--margin) * -1);
+
+	> * {
+		margin-top: var(--margin);
+	}
 
 	// simple
 	&[data-type="simple"] {
+		--margin: 5px;
+
 		.ct-meta-element {
 			&:not(:last-child) {
 				a:after {
@@ -58,6 +63,8 @@
 
 	// pill
 	&[data-type="pill"] {
+		--margin: 7px;
+
 		.ct-meta-element {
 			--buttonFontSize: 11px;
 			--height: 25px;
@@ -75,6 +82,8 @@
 
 	// underline
 	&[data-type="underline"] {
+		--margin: 10px;
+
 		.ct-meta-element {
 			&:not(:last-child) {
 				margin-right: 7px;

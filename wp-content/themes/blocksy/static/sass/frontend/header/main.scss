@@ -1,52 +1,12 @@
-@import 'header-type-1';
-@import 'header-type-2';
-@import 'header-top-bar';
-@import 'header-mobile';
-
-@import 'header-mixin';
-@import 'header-border';
-@import 'header-button';
-@import 'special-elements-container';
-
-.site-header {
-	position: relative;
-	z-index: 2; // or higher
-}
-
-
-// Logo
-.site-branding {
-	flex-shrink: 0;
-
-	.custom-logo-link {
-		display: flex;
-	}
-
-	.custom-logo {
-		width: auto;
-		height: var(--logoMaxHeight);
-	}
-}
-
-.site-title {
-	margin: 0;
-}
-
-.site-description {
-	font-size: 13px;
-	font-weight: 500;
-}
-
-
-// Mobile header breakpoint
-.header-desktop {
-	@include media-breakpoint-down (md) {
-		display: none;
-	}
-}
-
-.header-mobile {
-	@include media-breakpoint-up (lg) {
-		display: none;
-	}
-}
+@import 'layout';
+@import 'rows';
+@import 'elements';
+@import 'menu';
+@import 'mini-cart';
+@import 'search';
+@import 'socials';
+@import 'text';
+@import 'trigger';
+@import 'site-title';
+@import 'button';
+@import 'offcanvas';

@@ -1,5 +1,15 @@
 .ct-meta-box-container {
 
+	.ct-attachment,
+	.ct-option-input,
+	.ct-option-slider,
+	.ct-buttons-group,
+	.ct-option-checkbox,
+	.ct-option-textarea,
+	.ct-responsive-container {
+		max-width: 400px;
+	}
+
 	// controls group
 	.ct-controls-group {
 		border-bottom: 1px solid rgba(226, 228, 231, 0.5);
@@ -16,28 +26,20 @@
 	}
 
 	// image uploader
-	.ct-attachment {
-		max-width: 400px;
-
-		.thumbnail img {
-			max-width: 100%;
-		}
-	}
-
-
-	// input
-	.ct-option-input {
-		max-width: 400px;
-	}
-
-	// textarea
-	.ct-option-textarea {
-		max-width: 400px;
+	.ct-attachment .thumbnail img {
+		max-width: 100%;
 	}
 
 	// slider
-	.ct-option-slider {
-		max-width: 400px;
+	.ct-option-slider input[type="number"] {
+		font-size: var(--fontSize);
+		padding: var(--padding);
+		height: var(--height);
+		border-radius: 3px;
+
+		&:hover, &:focus {
+			border-color: #0e8ecc;
+		}
 	}
 
 	// typography
@@ -56,15 +58,9 @@
 		}
 	}
 
-	// buttons group
-	.ct-buttons-group {
-		max-width: 400px;
-	}
-
 	.ct-responsive-container {
 		display: flex;
 		align-items: center;
-		max-width: 400px;
 
 		.ct-option-slider {
 			flex: 1 0 auto;
@@ -89,16 +85,18 @@
 
 	// color picker
 	.ct-color-modal-wrapper {
-		flex: 0 0 100%;
-		position: relative;
+		margin-left: 250px;
+
+		.ct-arrow {
+			z-index: 1;
+		}
 	}
 
 	.ct-color-picker-modal {
-		top: 13px;
-		left: 240px;
-		width: 280px;
+		left: -17px;
 		box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
 	}
+
 
 	// image picker
 	.ct-image-picker {

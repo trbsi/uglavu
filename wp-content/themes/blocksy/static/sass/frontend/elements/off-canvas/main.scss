@@ -1,0 +1,19 @@
+@import 'modal';
+@import 'panel';
+
+.ct-bag-content {
+
+	// horizontal alignment
+	&[data-align="center"] {
+		align-items: center;
+	}
+
+	&[data-align="right"] {
+		align-items: flex-end;
+	}
+
+	// vertical alignment
+	&[data-align="middle"] {
+		justify-content: center;
+	}
+}

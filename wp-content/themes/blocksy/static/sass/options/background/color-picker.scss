@@ -1,22 +1,18 @@
 .ct-background-modal {
-
-	.ct-color-modal-wrapper {
-		position: relative;
-		width: 100%;
-	}
-
+	
 	.ct-color-picker-modal {
-		position: relative;
+		--position: relative;
+		--width: calc(100% + 40px);
 		z-index: 0;
-		width: calc(100% + 40px);
 		top: initial;
 		right: initial;
 		margin: 0 -20px;
 		box-shadow: none;
-		opacity: 1 !important;
 		border-radius: 0;
+		opacity: 1 !important;
 		transform: none !important;
 		transition: none !important;
+		background: transparent;
 
 		.ct-color-picker-top,
 		.wp-picker-holder,
@@ -24,14 +20,12 @@
 			padding: 25px 20px;
 		}
 
-		.ct-color-picker-bottom {
-			padding-bottom: 0;
+		.ct-color-picker-skins li:not(:last-child) {
+			margin-right: 14.5px;
 		}
 
-		.wp-picker-holder {
-			> .iris-picker .iris-square {
-				width: 189px !important;
-			}
+		.ct-color-picker-bottom {
+			padding-bottom: 0;
 		}
 	}
 
@@ -41,17 +35,6 @@
 		}
 	}
 }
-
-
-// color tab
-.ct-color-tab .ct-control {
-	margin-top: 0;
-
-	> header, > section {
-		display: none;
-	}
-}
-
 
 .ct-image-tab,
 .ct-patterns-tab {
@@ -68,18 +51,28 @@
 		.ct-color-picker-bottom {
 			padding-top: 0;
 		}
-	}
 
-	.ct-color-modal-wrapper .ct-arrow {
-		top: 14px;
-		left: 234px !important;
-		bottom: initial;
-		width: 12px;
-		height: 12px;
-		background: #fff;
-		border: none;
-		border-top: 1px solid #e6e6e6;
-		border-left: 1px solid #e6e6e6;
-		transform: rotate(45deg);
+		&:before {
+			position: absolute;
+			content: '';
+			top: -7px;
+			right: 26px;
+			width: 12px;
+			height: 12px;
+			background: #fff;
+			border-top: 1px solid #e6e6e6;
+			border-left: 1px solid #e6e6e6;
+			transform: rotate(45deg);
+		}
+	}
+}
+
+
+// color tab
+.ct-color-tab .ct-control {
+	margin-top: 0;
+
+	> header > section {
+		display: none;
 	}
 }

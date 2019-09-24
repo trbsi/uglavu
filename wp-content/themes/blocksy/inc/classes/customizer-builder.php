@@ -1,29 +1,227 @@
 <?php
 
+require_once dirname( __FILE__ ) . '/builder/builder-renderer.php';
+
 class Blocksy_Customizer_Builder {
 	public function __construct() {
 	}
 
-	public function register_options_for_customizer($wp_customize) {
-		return
+	public function get_header_default_value() {
+		return [
+			'current_section' => 'type-1',
+			'sections' => [
+				$this->get_header_structure_for([
+					'id' => 'type-1',
+					'mode' => 'placements',
+					'items' => [
+
+						'desktop' => [
+							'middle-row' => [
+								'start' => ['logo'],
+								'end' => ['menu', 'search']
+							]
+						],
+
+						'mobile' => [
+							'middle-row' => [
+								'start' => ['logo'],
+								'end' => ['trigger']
+							],
+
+							'offcanvas' => [
+								'start' => [
+									'mobile-menu',
+									'button'
+								]
+							]
+						]
+					]
+				]),
+
+				$this->get_header_structure_for([
+					'id' => 'type-2',
+					'mode' => 'placements',
+					'items' => [
+
+						'desktop' => [
+							'middle-row' => [
+								'start' => ['logo'],
+								'middle' => ['menu'],
+								'end' => ['search', 'button']
+							]
+						],
+
+						'mobile' => [
+							'middle-row' => [
+								'start' => ['search'],
+								'middle' => ['logo'],
+								'end' => ['trigger']
+							],
+
+							'offcanvas' => [
+								'start' => [
+									'mobile-menu',
+									'button'
+								]
+							]
+						]
+					]
+				]),
+
+				$this->get_header_structure_for([
+					'id' => 'type-3',
+					'mode' => 'placements',
+					'items' => [
+
+						'desktop' => [
+							'middle-row' => [
+								'start' => ['search'],
+								'middle' => ['logo'],
+								'end' => ['socials']
+							],
+
+							'bottom-row' => [
+								'middle' => ['menu'],
+							],
+						],
+
+						'mobile' => [
+							'middle-row' => [
+								'start' => ['search'],
+								'middle' => ['logo'],
+								'end' => ['trigger']
+							],
+
+							'offcanvas' => [
+								'start' => [
+									'mobile-menu',
+									'button'
+								]
+							]
+						]
+					]
+				]),
+			]
+		];
+	}
+
+	public function render($panel_type = 'header', $device = null) {
+		$optionsMapping = [
+			'header' => 'header_placements',
+			'footer' => 'footer_placements'
+		];
+
+		if (! $device) {
+			$device = wp_is_mobile() ? 'mobile' : 'desktop';
+		}
+
+		$renderer = new Blocksy_Customizer_Builder_Render_Placements(
+			$device,
+			$optionsMapping[$panel_type]
+		);
+
+		return $renderer->render();
+	}
+
+    public function render_offcanvas($device = 'mobile', $has_container = true) {
+		$optionsMapping = [
+			'header' => 'header_placements',
+			'footer' => 'footer_placements'
+		];
+
+		$renderer = new Blocksy_Customizer_Builder_Render_Placements(
+			$device,
+			$optionsMapping['header']
+		);
+
+		return $renderer->render_offcanvas($has_container);
+    }
+
+	public function typography_keys($panel_type = 'header') {
+		$render = new Blocksy_Customizer_Builder_Render_Placements();
+		$section = $render->get_current_section();
+
+		$result = [];
+
+		foreach ($section['items'] as $item) {
+			$nested_item = $render->get_item_config_for($item['id']);
+
+			if (
+				! isset($nested_item['config']['typography_keys'])
+				||
+				empty($nested_item['config']['typography_keys'])
+			) {
+				continue;
+			}
+
+			$data = $render->get_item_data_for($item['id']);
+
+			foreach ($nested_item['config']['typography_keys'] as $key) {
+				$result[] = blocksy_akg($key, $data, []);
+			}
+		}
+
+		return $result;
+	}
+
+	public function dynamic_css($panel_type = 'header', $args = []) {
+		foreach ($this->get_registered_items_by($panel_type) as $item) {
+			if (! file_exists($item['path'] . '/dynamic-styles.php')) {
+				continue;
+			}
+
+			$render = new Blocksy_Customizer_Builder_Render_Placements();
+
+			$args['atts'] = $render->get_item_data_for($item['id']);
+
+			blocksy_get_variables_from_file(
+				$item['path'] . '/dynamic-styles.php',
+				array(),
+				$args
+			);
+		/*
 		blocksy_customizer_register_options(
-			$wp_customize
+			$wp_customize,
+			$builder->get_options_for('header', $item),
+			[
+				'include_container_types' => false,
+				'limit_level' => 5
+			]
+		);
+		 */
+		}
+	}
+
+	public function output_footer_templates() {
+		if (wp_is_mobile()) {
+			return '';
+		}
+
+		return $this->output_header_template('desktop') . (
+			$this->output_header_template('mobile')
+		);
+	}
+
+	public function output_header_template($type = 'desktop') {
+		return blocksy_html_tag(
+			'script',
+			[
+				'id' => 'ct-header-template-' . $type,
+				'type' => 'text/template/' . $type
+			],
+			$this->render('header', $type)
 		);
 	}
 
 	public function get_data_for_customizer() {
 		$result = [];
 
-		$result['header'] = $this->get_registered_items_by('header');
-		$result['footer'] = $this->get_registered_items_by('footer');
+		$result['header'] = $this->get_registered_items_by('header', 'all', true);
+		$result['footer'] = $this->get_registered_items_by('footer', 'all', true);
 
 		$result['secondary_items'] = [
-			'header' => $this->get_registered_items_by(
-				'header', 'secondary', true
-			),
-			'footer' => $this->get_registered_items_by(
-				'footer', 'secondary', true
-			),
+			'header' => $this->get_registered_items_by('header', 'secondary'),
+			'footer' => $this->get_registered_items_by('footer', 'secondary'),
 		];
 
 		return $result;
@@ -48,10 +246,10 @@ class Blocksy_Customizer_Builder {
 		$items = [];
 
 		$primary_items = [
-			'top-bar',
-			'middle-bar',
-			'bottom-bar',
-			'offcanvas-bar'
+			'top-row',
+			'middle-row',
+			'bottom-row',
+			'offcanvas'
 		];
 
 		foreach ($paths_to_look_for_items as $single_path) {
@@ -76,7 +274,7 @@ class Blocksy_Customizer_Builder {
 				$future_data = [
 					'id' => $id,
 					'config' => $this->read_config_for($single_item),
-					'path' => $single_item
+					'path' => $single_item,
 				];
 
 				if ($require_options) {
@@ -86,22 +284,19 @@ class Blocksy_Customizer_Builder {
 					);
 				}
 
-				$items[] = $future_data;
+				// if ($future_data['config']['enabled']) {
+					$items[] = $future_data;
+				// }
 			}
 		}
 
 		return $items;
 	}
 
-
 	private function read_config_for( $file_path ) {
 		$name = explode( '-', basename($file_path) );
 		$name = array_map( 'ucfirst', $name );
 		$name = implode( ' ', $name );
-
-		return [
-			'name' => $name
-		];
 
 		$_extract_variables = [ 'config' => [] ];
 
@@ -115,11 +310,19 @@ class Blocksy_Customizer_Builder {
 			}
 		}
 
-
 		$_extract_variables['config'] = array_merge(
 			[
 				'name' => $name,
-				'description' => ''
+				'description' => '',
+				'typography_keys' => [],
+				'devices' => ['desktop', 'mobile'],
+				'selective_refresh' => [],
+				'allowed_in' => [],
+				'excluded_from' => [],
+
+				// border | drop
+				'shortcut_style' => 'drop',
+				'enabled' => true
 			],
 			$_extract_variables['config']
 		);
@@ -141,58 +344,133 @@ class Blocksy_Customizer_Builder {
 		], false);
 	}
 
-	public function get_header_structure_for($id, $mode = 'placements') {
+	public function get_header_structure_for($args = []) {
+		$args = wp_parse_args($args, [
+			'id' => null,
+			'mode' => 'placements',
+			'items' => []
+		]);
+
+		$args['items'] = wp_parse_args($args['items'], [
+			'desktop' => [],
+			'mobile' => []
+		]);
+
+		$args['items']['desktop'] = wp_parse_args($args['items']['desktop'], [
+			'top-row' => [],
+			'middle-row' => [],
+			'bottom-row' => [],
+		]);
+
+		$args['items']['mobile'] = wp_parse_args($args['items']['mobile'], [
+			'top-row' => [],
+			'middle-row' => [],
+			'bottom-row' => [],
+			'offcanvas' => [],
+		]);
+
 		$base = [
-			'id' => $id,
-			'mode' => $mode,
+			'id' => $args['id'],
+			'mode' => $args['mode'],
 			'items' => []
 		];
 
-		if ($mode === 'placements') {
+		if ($args['mode'] === 'placements') {
 			$base['desktop'] = [
-				$this->get_bar_structure_for('top-bar', $mode),
-				$this->get_bar_structure_for('middle-bar', $mode),
-				$this->get_bar_structure_for('bottom-bar', $mode),
+				$this->get_bar_structure_for([
+					'id' => 'top-row',
+					'mode' => $args['mode'],
+					'items' => $args['items']['desktop']['top-row']
+				]),
+				$this->get_bar_structure_for([
+					'id' => 'middle-row',
+					'mode' => $args['mode'],
+					'items' => $args['items']['desktop']['middle-row']
+				]),
+				$this->get_bar_structure_for([
+					'id' => 'bottom-row',
+					'mode' => $args['mode'],
+					'items' => $args['items']['desktop']['bottom-row']
+				]),
 			];
 
 			$base['mobile'] = [
-				$this->get_bar_structure_for('top-bar', $mode),
-				$this->get_bar_structure_for('middle-bar', $mode),
-				$this->get_bar_structure_for('bottom-bar', $mode),
-				$this->get_bar_structure_for('offcanvas-bar', $mode, false),
+				$this->get_bar_structure_for([
+					'id' => 'top-row',
+					'mode' => $args['mode'],
+					'items' => $args['items']['mobile']['top-row']
+				]),
+				$this->get_bar_structure_for([
+					'id' => 'middle-row',
+					'mode' => $args['mode'],
+					'items' => $args['items']['mobile']['middle-row']
+				]),
+				$this->get_bar_structure_for([
+					'id' => 'bottom-row',
+					'mode' => $args['mode'],
+					'items' => $args['items']['mobile']['bottom-row']
+				]),
+				$this->get_bar_structure_for([
+					'id' => 'offcanvas',
+					'mode' => $args['mode'],
+					'has_secondary' => false,
+					'items' => $args['items']['mobile']['offcanvas']
+				]),
 			];
 		}
 
-		if ($mode === 'rows') {
+		if ($args['mode'] === 'rows') {
 			$base['desktop'] = [
-				$this->get_bar_structure_for('top-bar', $mode),
-				$this->get_bar_structure_for('middle-bar', $mode),
-				$this->get_bar_structure_for('bottom-bar', $mode),
+				$this->get_bar_structure_for([
+					'id' => 'top-row',
+					'mode' => $args['mode']
+				]),
+				$this->get_bar_structure_for([
+					'id' => 'middle-row',
+					'mode' => $args['mode']
+				]),
+				$this->get_bar_structure_for([
+					'id' => 'bottom-row',
+					'mode' => $args['mode']
+				]),
 			];
 		}
 
 		return $base;
 	}
 
-	private function get_bar_structure_for(
-		$id, $mode = 'placements', $has_secondary = true
-	) {
+	private function get_bar_structure_for($args = []) {
+		$args = wp_parse_args($args, [
+			'id' => null,
+			'mode' => 'placements',
+			'has_secondary' => true,
+			'items' => []
+		]);
+
+		$args['items'] = wp_parse_args($args['items'], [
+			'start' => [],
+			'middle' => [],
+			'end' => [],
+			'start-middle' => [],
+			'end-middle' => [],
+		]);
+
 		$placements = [
-			['id' => 'start', 'items' => []]
+			['id' => 'start', 'items' => $args['items']['start']]
 		];
 
-		if ($has_secondary) {
-			$placements[] = ['id' => 'middle', 'items' => []];
-			$placements[] = ['id' => 'end', 'items' => []];
+		if ($args['has_secondary']) {
+			$placements[] = ['id' => 'middle', 'items' => $args['items']['middle']];
+			$placements[] = ['id' => 'end', 'items' => $args['items']['end']];
 
-			$placements[] = ['id' => 'start-middle', 'items' => []];
-			$placements[] = ['id' => 'end-middle', 'items' => []];
+			$placements[] = ['id' => 'start-middle', 'items' => $args['items']['start-middle']];
+			$placements[] = ['id' => 'end-middle', 'items' => $args['items']['end-middle']];
 		}
 
 		return array_merge([
-			'id' => $id,
+			'id' => $args['id'],
 		], (
-			$mode === 'rows' ? [
+			$args['mode'] === 'rows' ? [
 				'row' => []
 			] : ['placements' => $placements]
 		));

@@ -93,9 +93,10 @@ function blocksy_theme_get_dynamic_styles( $name, $variables = array() ) {
 
 	$dynamic_style = get_template_directory() . '/inc/dynamic-styles/' . $name . '.php';
 
-	if ( ! $dynamic_style ) {
+	if (! $dynamic_style) {
 		return;
 	}
 
 	blocksy_get_variables_from_file( $dynamic_style, array(), $variables );
 }
+

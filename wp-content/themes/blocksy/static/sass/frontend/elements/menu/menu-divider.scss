@@ -1,8 +1,10 @@
 [data-menu-divider] > ul > li {
+	display: flex;
+	align-items: center;
+	
 	&:not(:last-child) {
 		&:after {
 			color: var(--menuInitialColor);
-			margin-left: var(--menuItemsSpacing);
 		}
 	}
 }
@@ -11,7 +13,8 @@
 	&:not(:last-child) {
 		&:after {
 			content: '/';
-			font-size: 90%;
+			margin-top: -1px;
+			font-size: 10px;
 			font-weight: normal;
 		}
 	}

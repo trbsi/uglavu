@@ -33,7 +33,7 @@ input[type="password"],
 
 	@include input-placeholder {
 		opacity: 1;
-		color: rgba(44, 62, 80, 0.6);
+		color: inherit;
 	}
 }
 

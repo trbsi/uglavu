@@ -68,7 +68,7 @@ body:not(.sidebar) {
 	&.elementor-page,
 	&.single, &.page {
 		.content-area {
-			overflow-x: hidden;
+			overflow: hidden;
 		}
 	}
 }

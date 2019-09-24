@@ -1,32 +1,34 @@
 import { enable, disable } from './no-bounce'
 
-const showOffcanvas = () => {
-	document.body.classList.add('ct-offcanvas-active')
-	document.body.classList.remove('ct-offcanvas')
+const showOffcanvas = settings => {
+	const sidePanel = document.querySelector('.side-panel')
 
-	var pickclick =
-		navigator.userAgent.match(/iPad/i) ||
-		navigator.userAgent.match(/iPhone/)
-			? 'touchend'
-			: 'click'
+	document.body.classList.add(
+		sidePanel.dataset.position === 'left'
+			? 'left-panel-active'
+			: 'right-panel-active'
+	)
 
 	window.addEventListener(
-		pickclick,
+		'click',
 		() => {
-			if (document.body.classList.contains('ct-offcanvas-active')) {
-				hideOffcanvas()
+			if (
+				document.body.classList.contains('right-panel-active') ||
+				document.body.classList.contains('left-panel-active')
+			) {
+				hideOffcanvas(settings)
 			}
 		},
 		{ once: true }
 	)
 
-	document.querySelector('.ct-offcanvas-menu .ct-bag-close').addEventListener(
+	sidePanel.querySelector('.ct-bag-close').addEventListener(
 		'click',
 		event => {
 			event.preventDefault()
 			event.stopPropagation()
 
-			hideOffcanvas()
+			hideOffcanvas(settings)
 		},
 		{ once: true }
 	)
@@ -35,25 +37,43 @@ const showOffcanvas = () => {
 }
 
 const hideOffcanvas = () => {
-	document.body.classList.remove('ct-offcanvas-active')
-	document.body.classList.add('ct-offcanvas')
-	document.body.classList.add('ct-offcanvas-hiding')
+	if (
+		!(
+			document.body.classList.contains('right-panel-active') ||
+			document.body.classList.contains('left-panel-active')
+		)
+	) {
+		return
+	}
 
-	setTimeout(() => {
-		document.body.classList.remove('ct-offcanvas-hiding')
-	}, 250)
+	document.body.classList.remove('right-panel-active', 'left-panel-active')
+	document.body.classList.add('panel-hiding')
+
+	setTimeout(() => document.body.classList.remove('panel-hiding'), 250)
 
 	document
-		.querySelector('.mobile-menu-toggle')
+		.querySelector('[data-id="trigger"] > a')
 		.firstElementChild.classList.remove('close')
 
 	disable()
 }
 
-export const handleClick = e => {
-	if (document.body.classList.contains('ct-offcanvas-active')) {
+export const handleClick = (e, settings) => {
+	settings = {
+		onClose: () => {},
+		...settings
+	}
+
+	if (
+		document.body.classList.contains('right-panel-active') ||
+		document.body.classList.contains('left-panel-active')
+	) {
 		hideOffcanvas()
 	} else {
-		showOffcanvas()
+		showOffcanvas(settings)
 	}
 }
+
+ctEvents.on('ct:offcanvas:force-close', () => {
+	hideOffcanvas()
+})

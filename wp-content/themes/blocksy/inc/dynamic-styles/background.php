@@ -16,38 +16,6 @@ blocksy_output_background_css([
 	)
 ]);
 
-// Header desktop
-blocksy_output_background_css([
-	'selector' => '.header-desktop',
-	'css' => $css,
-	'value' => get_theme_mod(
-		'headerBackground',
-		blocksy_background_default_value([
-			'backgroundColor' => [
-				'default' => [
-					'color' => '#ffffff'
-				],
-			],
-		])
-	)
-]);
-
-// Mobile header
-blocksy_output_background_css([
-	'selector' => '.header-mobile',
-	'css' => $css,
-	'value' => get_theme_mod(
-		'mobileHeaderBackground',
-		blocksy_background_default_value([
-			'backgroundColor' => [
-				'default' => [
-					'color' => '#ffffff'
-				],
-			],
-		])
-	)
-]);
-
 // Post
 blocksy_output_background_css([
 	'selector' => '.single .site-main',

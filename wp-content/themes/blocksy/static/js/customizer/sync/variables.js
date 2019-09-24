@@ -1,8 +1,6 @@
 import { getHeroVariables } from './hero-section'
 import { getPostListingVariables } from './template-parts/content-loop'
-import { getHeaderVariables } from './variables/header'
 import { getTypographyVariablesFor } from './variables/typography'
-import { getSiteBackgroundVariables } from './variables/site-background'
 import { getBackgroundVariablesFor } from './variables/background'
 import { getFormsVariablesFor } from './variables/forms'
 
@@ -46,9 +44,6 @@ handleVariablesFor({
 	...getHeroVariables(),
 	...getPostListingVariables(),
 
-	...getSiteBackgroundVariables(),
-
-	...getHeaderVariables(),
 	...getTypographyVariablesFor(),
 	...getBackgroundVariablesFor(),
 	...getFormsVariablesFor(),
@@ -140,10 +135,16 @@ handleVariablesFor({
 		unit: ''
 	},
 
-	narrowContainerWidth: {
-		variable: 'narrowContainerWidth',
-		unit: '%'
-	},
+	narrowContainerWidth: [
+		{
+			variable: 'narrowContainerWidth',
+			unit: '%'
+		},
+		{
+			variable: 'narrowContainerWidthNoUnit',
+			unit: ''
+		}
+	],
 
 	wideOffset: {
 		variable: 'wideOffset',

@@ -38,6 +38,7 @@ $comments_count = get_comments([
 	'user_id' => get_the_author_meta('ID'),
 	'count' => true,
 ]);
+
 $posts_count = count_user_posts(get_the_author_meta('ID'));
 
 ?>
@@ -68,9 +69,11 @@ $posts_count = count_user_posts(get_the_author_meta('ID'));
 								Articles: <span><?php echo esc_html($posts_count) ?></span>
 							</li>
 
-							<li>
-								Comments: <span><?php echo esc_html($comments_count) ?></span>
-							</li>
+							<?php if (intval($comments_count) > 0) { ?>
+								<li>
+									Comments: <span><?php echo esc_html($comments_count) ?></span>
+								</li>
+							<?php } ?>
 						</ul>
 
 						<div class="archive-description">

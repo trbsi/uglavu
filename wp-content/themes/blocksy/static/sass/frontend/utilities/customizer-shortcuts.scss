@@ -1,0 +1,112 @@
+[data-shortcut] {
+	position: relative;
+	transition: box-shadow 0.15s ease;
+}
+
+.ct-customizer-shortcut {
+	position: absolute;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	color: #fff !important;
+	margin: 0 !important;
+	opacity: 0;
+	visibility: hidden;
+
+	transition: color 0.15s ease,
+				opacity 0.15s ease,
+				transform 0.15s ease,
+				visibility 0.15s ease;
+
+	&:hover {
+		color: rgba(255, 255, 255, 0.75);
+	}
+}
+
+
+// type border
+[data-shortcut="border"] {
+	box-shadow: inset 0px 0px 0px 1px transparent;
+
+	> .ct-customizer-shortcut {
+		top: 0;
+		left: 0;
+		width: auto !important;
+		height: 28px;
+		padding: 0 13px;
+		font-size: 10px;
+		font-weight: 600;
+		letter-spacing: 0.03em;
+		text-transform: uppercase;
+		background: #0073AA;
+		border-bottom-right-radius: 2px;
+
+		
+	}
+
+	&:hover {
+		box-shadow: inset 0px 0px 0px 1px #0073AA;
+
+		> .ct-customizer-shortcut {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+}
+
+
+// type drop
+$drop-size: 22px;
+
+[data-shortcut="drop"] {
+
+	> .ct-customizer-shortcut {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		top: calc(50% - #{$drop-size / 2});
+		right: -5px;
+		width: $drop-size;
+		height: $drop-size;
+		transform: translateX(100%);
+
+		&:before, &:after {
+			position: absolute;
+			content: '';
+		}
+
+		&:before {
+			top: 0;
+			left: 0;
+			width: inherit;
+			height: inherit;
+			background: #0073AA;
+			border-radius: 100% 100% 100% 2px;
+			transform: rotate(45deg);
+		}
+
+		&:after {
+			left: -15px;
+			width: calc(100% + #{$drop-size});
+			height: calc( 100% + #{$drop-size});
+		}
+		
+		svg {
+			position: relative;
+			z-index: 1;
+			width: 14px;
+			height: 14px;
+			fill: currentColor;
+		}
+	}
+
+	&:hover {
+		> .ct-customizer-shortcut {
+			opacity: 1;
+			visibility: visible;
+			transform: translateX(calc(100% + 10px));
+		}
+	}
+}

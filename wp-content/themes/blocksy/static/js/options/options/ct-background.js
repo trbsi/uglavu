@@ -6,11 +6,12 @@ import {
 	useEffect,
 	useMemo,
 	useCallback,
+	createPortal,
 	useState
 } from '@wordpress/element'
-import classnames from 'classnames'
+import cls from 'classnames'
 import BackgroundModal from './background/BackgroundModal'
-import OutsideClickHandler from 'react-outside-click-handler'
+import OutsideClickHandler from './react-outside-click-handler'
 import { Manager, Reference, Popper } from 'react-popper'
 import { getUrlForPattern } from './background/PatternPicker'
 import { __ } from 'ct-i18n'
@@ -55,19 +56,21 @@ const maybeConvertFromColorPickerTo = value => {
 const Background = ({ option, value, onChange }) => {
 	const [isOpen, setIsOpen] = useState(false)
 	const [outsideClickFreezed, setOutsideClickFreezed] = useState(false)
+	const backgroundWrapper = useRef()
 
 	value = maybeConvertFromColorPickerTo(value)
 
 	return (
 		<Manager>
 			<div
-				className={classnames('ct-background', {
+				ref={backgroundWrapper}
+				className={cls('ct-background', {
 					active: isOpen
 				})}>
 				<Reference>
 					{({ ref }) => (
 						<div
-							className={classnames('ct-background-preview', {
+							className={cls('ct-background-preview', {
 								'no-color':
 									value.background_type === 'color' &&
 									value.backgroundColor.default.color ===
@@ -109,7 +112,7 @@ const Background = ({ option, value, onChange }) => {
 									value.background_type === 'pattern'
 										? `url(${getUrlForPattern(
 												value.background_pattern
-											)})`
+										  )})`
 										: '',
 
 								'--backgroundImage': value.background_image.url
@@ -149,11 +152,7 @@ const Background = ({ option, value, onChange }) => {
 					)}
 				</Reference>
 
-				<OutsideClickHandler
-					useCapture={false}
-					display="block"
-					disabled={!isOpen || outsideClickFreezed}
-					onOutsideClick={() => setIsOpen(false)}>
+				{backgroundWrapper && backgroundWrapper.current && (
 					<Popper
 						eventsEnabled={isOpen}
 						modifiers={{
@@ -165,21 +164,57 @@ const Background = ({ option, value, onChange }) => {
 								enabled: false
 							}
 						}}>
-						{({ ref, placement }) => (
-							<BackgroundModal
-								onChange={onChange}
-								value={value}
-								innerRef={ref}
-								placement={placement}
-								option={option}
-								setOutsideClickFreezed={setOutsideClickFreezed}
-							/>
-						)}
+						{({ ref, placement }) =>
+							backgroundWrapper &&
+							backgroundWrapper.current &&
+							createPortal(
+								<OutsideClickHandler
+									useCapture={false}
+									display="block"
+									disabled={!isOpen || outsideClickFreezed}
+									onOutsideClick={() => {
+										setTimeout(() => setIsOpen(false))
+									}}
+									wrapperProps={{
+										ref,
+										'data-placement': placement,
+										className: cls('ct-background-modal', {
+											active: isOpen
+										})
+									}}>
+									<BackgroundModal
+										onChange={onChange}
+										value={value}
+										innerRef={ref}
+										placement={placement}
+										option={option}
+										isOpen={isOpen}
+										setOutsideClickFreezed={
+											setOutsideClickFreezed
+										}
+									/>
+								</OutsideClickHandler>,
+								backgroundWrapper.current
+									.closest('.ct-control')
+									.querySelector(
+										'.ct-background-modal-wrapper'
+									)
+							)
+						}
 					</Popper>
-				</OutsideClickHandler>
+				)}
 			</div>
 		</Manager>
 	)
 }
+
+Background.ControlEnd = () => (
+	<div
+		className="ct-background-modal-wrapper"
+		onMouseDown={e => e.stopPropagation()}
+		onMouseUp={e => e.stopPropagation()}
+		onClick={e => e.stopPropagation()}
+	/>
+)
 
 export default Background

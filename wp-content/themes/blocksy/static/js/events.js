@@ -1,88 +1,52 @@
 /**
- * Listen and trigger custom events to communicate between javascript components
+ * Probably split string into general purpose object representation for
+ * event names and listeners. This function leaves objects un-modified.
+ *
+ * @param topicStringOrObject {String | Object}
+ * @param listener {Function | false}
+ *
+ * @returns {Object} {
+ *    eventname: listener,
+ *    otherevent: listener
+ * }
  */
-const eventsManager = new (function() {
-  var _events = {}
-  var currentIndentation = 1
-  var debug = false
+const splitTopicStringOrObject = (topicStringOrObject, listener) =>
+  typeof topicStringOrObject !== 'string'
+    ? topicStringOrObject
+    : topicStringOrObject
+        .replace(/\s\s+/g, ' ')
+        .trim()
+        .split(' ')
+        .reduce(
+          (allEvents, event) => ({
+            ...allEvents,
+            [event]: listener
+          }),
 
-  this.countAll = function(topic) {
-    return _events[topic]
-  }
+          {}
+        )
 
-  /**
-   * Make log helper public
-   *
-   * @param {String} [message]
-   * @param {Object} [data]
-   */
-  this.log = log
+class EventsManager {
+  _events = {}
 
-  /**
-   * Enable/Disable Debug
-   * @param {Boolean} enabled
-   */
-  this.debug = function(enabled) {
-    debug = Boolean(enabled)
-
-    return this
-  }
-
-  /**
-   * Add event listener
-   *
-   * @param event {String | Object}
-   *   Can be a:
-   *     - single event: 'event1'
-   *     - space separated event list: 'event1 event2 event2'
-   *     - an object: {event1: function () {}, event2: function () {}}
-   *
-   * @param callback {Function}
-   */
-  this.on = function(topicStringOrObject, listener) {
-    objectMap(splitTopicStringOrObject(topicStringOrObject, listener), function(
-      eventName,
+  on(topicStringOrObject, listener) {
+    const eventsAndListeners = splitTopicStringOrObject(
+      topicStringOrObject,
       listener
-    ) {
-      ;(_events[eventName] || (_events[eventName] = [])).push(listener)
+    )
 
-      debug && log('✚ ' + eventName)
-    })
-
-    return this
-  }
-
-  /**
-   * Same as .on(), but callback will executed only once
-   */
-  this.one = function(topicStringOrObject, listener) {
-    objectMap(splitTopicStringOrObject(topicStringOrObject, listener), function(
-      eventName,
-      listener
-    ) {
-      ;(_events[eventName] || (_events[eventName] = [])).push(once(listener))
-
-      debug && log('✚ [' + eventName + ']')
-    })
+    Object.keys(eventsAndListeners).map(
+      eventName =>
+        (this._events = {
+          ...this._events,
+          [eventName]: [
+            ...(this._events[eventName] || []),
+            eventsAndListeners[eventName]
+          ]
+        })
+    )
 
     return this
-
-    // https://github.com/jashkenas/underscore/blob/8fc7032295d60aff3620ef85d4aa6549a55688a0/underscore.js#L946
-    function once(func) {
-      var memo
-
-      var times = 2
-
-      return function() {
-        if (--times > 0) {
-          memo = func.apply(this, arguments)
-        }
-
-        if (times <= 1) func = null
-
-        return memo
-      }
-    }
   }
 
   /**
@@ -93,22 +57,22 @@ const eventsManager = new (function() {
    * @param topicStringOrObject {String | Object}
    * @param listener {Function | false}
    */
-  this.off = function(topicStringOrObject, listener) {
-    objectMap(splitTopicStringOrObject(topicStringOrObject, listener), function(
-      eventName,
+  off(topicStringOrObject, listener) {
+    const eventsAndListeners = splitTopicStringOrObject(
+      topicStringOrObject,
       listener
-    ) {
-      if (_events[eventName]) {
-        if (listener) {
-          _events[eventName].splice(
-            _events[eventName].indexOf(listener) >>> 0,
+    )
+
+    Object.keys(eventsAndListeners).map(eventName => {
+      if (this._events[eventName]) {
+        if (eventsAndListeners[eventName]) {
+          this._events[eventName].splice(
+            this._events[eventName].indexOf(listener) >>> 0,
             1
           )
         } else {
-          _events[eventName] = []
+          this._events[eventName] = []
         }
-
-        debug && log('✖ ' + eventName)
       }
     })
 
@@ -123,21 +87,16 @@ const eventsManager = new (function() {
    * @param topicStringOrObject {String | Object}
    * @param data {Object}
    */
-  this.trigger = function(eventName, data) {
-    objectMap(splitTopicStringOrObject(eventName), function(eventName) {
-      log('╭─ ' + eventName, data)
+  trigger(eventName, data) {
+    const events = splitTopicStringOrObject(eventName)
 
-      changeIndentation(+1)
+    const dispatchSingleEvent = listenerDescriptor =>
+      listenerDescriptor && listenerDescriptor.call(window, data)
 
+    Object.keys(events).map(eventName => {
       try {
-        // TODO: REFACTOR THAT!!!!!!!!!
-        // Maybe this is an occasion for using 'all' event???
-        if (eventName === 'fw:options:init') {
-          fw.options.startListeningToEvents(data.$elements || document.body)
-        }
-
-        ;(_events[eventName] || []).map(dispatchSingleEvent)
-        ;(_events['all'] || []).map(dispatchSingleEvent)
+        ;(this._events[eventName] || []).map(dispatchSingleEvent)
+        ;(this._events['all'] || []).map(dispatchSingleEvent)
       } catch (e) {
         console.log(
           '%c [Events] Exception raised.',
@@ -150,113 +109,12 @@ const eventsManager = new (function() {
           throw e
         }
       }
-
-      changeIndentation(-1)
-
-      log('╰─ ' + eventName, data)
-
-      function dispatchSingleEvent(listenerDescriptor) {
-        if (!listenerDescriptor) return
-
-        listenerDescriptor.call(window, data)
-      }
     })
 
     return this
-
-    function changeIndentation(increment) {
-      if (typeof increment != 'undefined') {
-        currentIndentation += increment > 0 ? +1 : -1
-      }
-
-      if (currentIndentation < 0) {
-        currentIndentation = 0
-      }
-    }
   }
+}
 
-  /**
-   * Check if an event has listeners
-   * @param {String} [event]
-   * @return {Boolean}
-   */
-  this.hasListeners = function(eventName) {
-    if (!_events) {
-      return false
-    }
+const events = new EventsManager()
 
-    return (_events[eventName] || []).length > 0
-  }
-
-  /**
-   * Probably split string into general purpose object representation for
-   * event names and listeners. This function leaves objects un-modified.
-   *
-   * @param topicStringOrObject {String | Object}
-   * @param listener {Function | false}
-   *
-   * @returns {Object} {
-   *    eventname: listener,
-   *    otherevent: listener
-   * }
-   */
-  function splitTopicStringOrObject(topicStringOrObject, listener) {
-    if (typeof topicStringOrObject !== 'string') {
-      return topicStringOrObject
-    }
-
-    var arrayOfEvents = topicStringOrObject
-      .replace(/\s\s+/g, ' ')
-      .trim()
-      .split(' ')
-
-    var len = arrayOfEvents.length
-
-    var listenerDescriptor = Object.create(null)
-
-    for (var i = 0; i < len; i++) {
-      listenerDescriptor[arrayOfEvents[i]] = listener
-    }
-
-    return listenerDescriptor
-  }
-
-  /**
-   * returns a new object with the predicate applied to each value
-   * objectMap({a: 3, b: 5, c: 9}, (key, value) => value + 1); // {a: 4, b: 6, c: 10}
-   * objectMap({a: 3, b: 5, c: 9}, (key, value) => key); // {a: 'a', b: 'b', c: 'c'}
-   * objectMap({a: 3, b: 5, c: 9}, (key, value) => key + value); // {a: 'a3', b: 'b5', c: 'c9'}
-   *
-   * https://github.com/angus-c/just/tree/master/packages/object-map
-   */
-  function objectMap(obj, predicate) {
-    var result = {}
-    var keys = Object.keys(obj)
-    var len = keys.length
-
-    for (var i = 0; i < len; i++) {
-      var key = keys[i]
-      result[key] = predicate(key, obj[key])
-    }
-
-    return result
-  }
-
-  function log(message, data) {
-    if (!debug) {
-      return
-    }
-
-    if (typeof data != 'undefined') {
-      console.log('[Event] ' + getIndentation() + message, '─', data)
-    } else {
-      console.log('[Event] ' + getIndentation() + message)
-    }
-
-    function getIndentation() {
-      return new Array(currentIndentation).join('│ ')
-    }
-  }
-})()
-
-export default eventsManager
+export default events

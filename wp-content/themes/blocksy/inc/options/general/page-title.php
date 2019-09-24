@@ -146,14 +146,10 @@ $when_enabled_general_settings = [
 			],
 			'options' => [
 
-				blocksy_rand_md5() => [
-					'type' => 'ct-divider',
-					'attr' => [ 'data-type' => 'small' ],
-				],
-
 				$prefix . 'hero_height' => [
 					'label' => __( 'Container Min Height', 'blocksy' ),
 					'type' => 'ct-slider',
+					'divider' => 'top',
 					'value' => '230px',
 					'design' => $has_default ? 'inline' : 'block',
 					'units' => blocksy_units_config([
@@ -180,11 +176,6 @@ $when_enabled_general_settings = [
 					'attr' => [ 'data-type' => 'small-space' ],
 					'options' => [
 
-						blocksy_rand_md5() => [
-							'type' => 'ct-divider',
-							'attr' => [ 'data-type' => 'small' ],
-						],
-
 						$prefix . 'page_title_bg_type' => [
 							'label' => __( 'Background type', 'blocksy' ),
 							'type' => 'ct-radio',
@@ -193,6 +184,7 @@ $when_enabled_general_settings = [
 							'view' => 'text',
 							'inline' => true,
 							'design' => $has_default ? 'inline' : 'block',
+							'divider' => 'top',
 							'attr' => [ 'data-radio-text' => 'small' ],
 							'choices' => array_merge([
 								'color' => __( 'Color', 'blocksy' ),
@@ -242,11 +234,24 @@ $when_enabled_general_settings = [
 							],
 							'options' => [
 
-								$prefix . 'enable_parallax' => [
-									'label' => __( 'Parallax Effect', 'blocksy' ),
-									'type' => 'ct-switch',
-									'value' => 'no',
+								$prefix . 'parallax' => [
+									'label' => __( 'Enable Parallax Effect On', 'blocksy' ),
+									'type' => 'ct-visibility',
+									'design' => $has_default ? 'inline' : 'block',
+									'allow_empty' => true,
 									'setting' => [ 'transport' => 'postMessage' ],
+
+									'value' => [
+										'desktop' => false,
+										'tablet' => false,
+										'mobile' => false,
+									],
+
+									'choices' => blocksy_ordered_keys([
+										'desktop' => __( 'Desktop', 'blocksy' ),
+										'tablet' => __( 'Tablet', 'blocksy' ),
+										'mobile' => __( 'Mobile', 'blocksy' ),
+									]),
 								],
 
 							],
@@ -259,15 +264,13 @@ $when_enabled_general_settings = [
 
 	[
 		$is_single ? [
-			blocksy_rand_md5() => [
-				'type' => 'ct-divider',
-				'attr' => [ 'data-type' => 'small' ],
-			],
 
 			$prefix . 'single_meta_elements' => [
 				'label' => __( 'Meta Elements', 'blocksy' ),
 				'type' => 'ct-checkboxes',
+				'design' => $has_default ? 'inline' : 'block',
 				'attr' => [ 'data-columns' => '2' ],
+				'divider' => 'top',
 				'setting' => [ 'transport' => 'postMessage' ],
 				'allow_empty' => true,
 				'choices' => blocksy_ordered_keys(
@@ -324,11 +327,6 @@ $when_enabled_general_settings = [
 		] : []
 	],
 
-	blocksy_rand_md5() => [
-		'type' => 'ct-divider',
-		'attr' => [ 'data-type' => 'small' ],
-	],
-
 	$prefix . 'page_excerpt_visibility' => [
 		'label' => $is_single ? __( 'Page Info Visibility', 'blocksy' ) : __(
 			'Page Info Description', 'blocksy'
@@ -336,6 +334,7 @@ $when_enabled_general_settings = [
 		'type' => 'ct-visibility',
 		'design' => $has_default ? 'inline' : false,
 		'allow_empty' => true,
+		'divider' => 'top',
 		'setting' => [ 'transport' => 'postMessage' ],
 
 		'value' => [
@@ -356,7 +355,7 @@ $when_enabled_design_settings = [
 
 	$prefix . 'pageTitleFont' => [
 		'type' => 'ct-typography',
-		'label' => __( 'Font', 'blocksy' ),
+		'label' => __( 'Title Font', 'blocksy' ),
 		'value' => blocksy_typography_default_values([
 			'size' => [
 				'desktop' => '32px',
@@ -380,10 +379,6 @@ $when_enabled_design_settings = [
 			'default' => [
 				'color' => 'var(--paletteColor4)',
 			],
-
-			'hover' => [
-				'color' => 'var(--paletteColor1)',
-			],
 		],
 
 		'pickers' => [
@@ -391,13 +386,73 @@ $when_enabled_design_settings = [
 				'title' => __( 'Initial color', 'blocksy' ),
 				'id' => 'default',
 			],
-
-			[
-				'title' => __( 'Hover color', 'blocksy' ),
-				'id' => 'hover',
-			],
 		],
 	],
+
+	blocksy_rand_md5() => [
+		'type' => 'ct-condition',
+		'condition' => [
+			'any' => [
+				$prefix . 'single_meta_elements/author:truthy' => 'yes',
+				$prefix . 'single_meta_elements/comments:truthy' => 'yes',
+				$prefix . 'single_meta_elements/date:truthy' => 'yes',
+				$prefix . 'single_meta_elements/updated:truthy' => 'yes',
+				$prefix . 'single_meta_elements/categories:truthy' => 'yes',
+				$prefix . 'single_meta_elements/tags:truthy' => 'yes',
+			]
+		],
+		'options' => [
+
+			$prefix . 'pageMetaFont' => [
+				'type' => 'ct-typography',
+				'label' => __( 'Meta Font', 'blocksy' ),
+				'value' => blocksy_typography_default_values([
+					'size' => [
+						'desktop' => '12px',
+						'tablet'  => '12px',
+						'mobile'  => '12px'
+					],
+					'variation' => 'n6',
+					'line-height' => '1.3',
+					'text-transform' => 'uppercase',
+				]),
+				'divider' => 'top',
+				'design' => $has_default ? 'inline' : 'block',
+				'setting' => [ 'transport' => 'postMessage' ],
+			],
+
+			$prefix . 'pageMetaFontColor' => [
+				'label' => __( 'Meta Color', 'blocksy' ),
+				'type'  => 'ct-color-picker',
+				'design' => 'inline',
+				'setting' => [ 'transport' => 'postMessage' ],
+
+				'value' => [
+					'default' => [
+						'color' => 'var(--paletteColor4)',
+					],
+
+					'hover' => [
+						'color' => 'var(--paletteColor1)',
+					],
+				],
+
+				'pickers' => [
+					[
+						'title' => __( 'Initial color', 'blocksy' ),
+						'id' => 'default',
+					],
+
+					[
+						'title' => __( 'Hover color', 'blocksy' ),
+						'id' => 'hover',
+					],
+				],
+			],
+
+		],
+	],
+
 
 	blocksy_rand_md5() => [
 		'type' => 'ct-condition',
@@ -415,6 +470,7 @@ $when_enabled_design_settings = [
 						'label' => __( 'Image Overlay Color', 'blocksy' ),
 						'type'  => 'ct-color-picker',
 						'design' => 'inline',
+						'divider' => 'top',
 						'setting' => [ 'transport' => 'postMessage' ],
 
 						'value' => [
@@ -443,6 +499,7 @@ $when_enabled_design_settings = [
 						'label' => __( 'Background Color', 'blocksy' ),
 						'type'  => 'ct-color-picker',
 						'design' => 'inline',
+						'divider' => 'top',
 						'setting' => [ 'transport' => 'postMessage' ],
 
 						'value' => [

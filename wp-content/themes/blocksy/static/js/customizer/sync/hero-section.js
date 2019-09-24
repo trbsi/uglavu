@@ -236,11 +236,22 @@ export const renderHeroSection = prefix => {
 	if (
 		type === 'type-2' &&
 		(getOptionFor('page_title_bg_type', prefix) === 'custom_image' ||
-			getOptionFor('page_title_bg_type', prefix) === 'featured_image') &&
-		getOptionFor('enable_parallax', prefix) === 'yes'
+			getOptionFor('page_title_bg_type', prefix) === 'featured_image')
 	) {
-		if (document.querySelector('.hero-section figure')) {
-			document.querySelector('.hero-section').dataset.parallax = ''
+		const parallaxResult = getOptionFor('parallax', prefix)
+		const parallaxOutput = [
+			...(parallaxResult.desktop ? ['desktop'] : []),
+			...(parallaxResult.tablet ? ['tablet'] : []),
+			...(parallaxResult.mobile ? ['mobile'] : [])
+		]
+
+		if (
+			document.querySelector('.hero-section figure') &&
+			parallaxOutput.length > 0
+		) {
+			document.querySelector(
+				'.hero-section'
+			).dataset.parallax = parallaxOutput.join(':')
 
 			window.ctEvents.trigger('blocksy:parallax:init')
 		}
@@ -417,16 +428,27 @@ const getVariablesForPrefix = prefix => ({
 		selector: '.entry-header .page-title'
 	}),
 
-	[`${prefix}_pageTitleFontColor`]: [
+	[`${prefix}_pageTitleFontColor`]: {
+		selector: '.entry-header',
+		variable: 'initialColor',
+		type: 'color'
+	},
+
+	...typographyOption({
+		id: `${prefix}_pageMetaFont`,
+		selector: '.entry-header .entry-meta'
+	}),
+
+	[`${prefix}_pageMetaFontColor`]: [
 		{
-			selector: ':root',
-			variable: 'pageTitleFontInitialColor',
+			selector: '.entry-header .entry-meta',
+			variable: 'initialColor',
 			type: 'color:default'
 		},
 
 		{
-			selector: ':root',
-			variable: 'pageTitleFontHoverColor',
+			selector: '.entry-header .entry-meta',
+			variable: 'hoverColor',
 			type: 'color:hover'
 		}
 	],
@@ -460,7 +482,7 @@ const watchOptionsFor = prefix => {
 
 		`${prefix}_page_title_bg_type`,
 		`${prefix}_custom_hero_background`,
-		`${prefix}_enable_parallax`
+		`${prefix}_parallax`
 	].map(id =>
 		wp.customize(id, val => val.bind(to => renderHeroSection(prefix)))
 	)

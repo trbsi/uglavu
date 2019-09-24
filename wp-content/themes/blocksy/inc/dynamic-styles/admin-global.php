@@ -37,7 +37,6 @@ $css->put(
 	"--paletteColor5: {$colorPalette['color5']}"
 );
 
-
 $button_color = blocksy_get_colors(
 	get_theme_mod('buttonColor'),
 	[

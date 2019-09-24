@@ -9,31 +9,9 @@
 
 	.entry-header {
 		.entry-title, .page-title {
-			// font-size: var(--pageTitleFontSize);
-			// line-height: 1.4;
-			margin: initial;
-			color: var(--pageTitleFontInitialColor);
-
 			span {
 				&:after {
 					content: ':';
-				}
-			}
-		}
-
-		.page-description {
-			font-weight: 500;
-			color: var(--pageTitleFontInitialColor);
-		}
-
-		.entry-meta {
-			color: var(--pageTitleFontInitialColor);
-
-			a {
-				color: var(--pageTitleFontInitialColor);
-
-				&:hover {
-					color: var(--pageTitleFontHoverColor);
 				}
 			}
 		}

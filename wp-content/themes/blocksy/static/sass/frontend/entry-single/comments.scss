@@ -296,7 +296,8 @@
 	}
 
 	.form-submit {
-		margin: 0;
+		margin-top: 2em;
+		margin-bottom: 0;
 	}
 }
 
@@ -309,16 +310,27 @@
 }
 
 
-// cookie consent
-.comment-form-cookies-consent {
-	display: flex;
-	align-items: center;
+// other fields
+.comment-form {
+	.ct-respond-form-textarea {
+		~ p:not(.form-submit) {
+			display: flex;
+			align-items: center;
+			line-height: normal;
+			margin-top: 0 !important;
+			margin-bottom: 1em !important;
 
-	label {
-		margin-left: 10px;
-		cursor: pointer;
-		opacity: 0.8;
-		font-size: 13px;
-		line-height: 13px;
-	}	
+			label {
+				--fontSize: 14px;
+				font-size: var(--fontSize);
+				cursor: pointer;
+				opacity: 0.8;
+			}
+		}
+	}
 }
+
+
+
+
+

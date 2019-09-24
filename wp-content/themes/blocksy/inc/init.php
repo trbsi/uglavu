@@ -78,9 +78,7 @@ add_action('after_setup_theme', function () {
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus(
 		[
-			'primary' => esc_html__( 'Primary Menu', 'blocksy' ),
 			'footer' => esc_html__( 'Footer Menu', 'blocksy' ),
-			'header_top_bar' => esc_html__( 'Header Top Bar', 'blocksy' ),
 		]
 	);
 
@@ -262,9 +260,6 @@ require get_template_directory() . '/inc/footer.php';
 require get_template_directory() . '/inc/visibility.php';
 require get_template_directory() . '/inc/social-icons.php';
 require get_template_directory() . '/inc/header-helpers.php';
-require get_template_directory() . '/inc/header/header-top-bar.php';
-require get_template_directory() . '/inc/header/mobile-menu.php';
-require get_template_directory() . '/inc/header/transparent.php';
 require get_template_directory() . '/inc/elementor-integration.php';
 require get_template_directory() . '/inc/meta-boxes.php';
 require get_template_directory() . '/inc/hero-section.php';

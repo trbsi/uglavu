@@ -9,12 +9,6 @@
  * @package Blocksy
  */
 
-$search_live_results_output = '';
-
-if (get_theme_mod('search_enable_live_results', 'yes') === 'yes') {
-	$search_live_results_output = 'data-live-results';
-}
-
 $columns_output = '';
 
 $footer_section_1 = get_theme_mod(
@@ -195,7 +189,7 @@ if (get_theme_mod('footer_reveal', 'no') === 'yes') {
 
 ?>
 
-<div id="search-modal" class="ct-modal" <?php echo wp_kses_post($search_live_results_output) ?>>
+<div id="search-modal" class="ct-modal">
 	<div class="ct-bag-container">
 		<div class="ct-bag-actions">
 			<div class="ct-bag-close">
@@ -209,6 +203,9 @@ if (get_theme_mod('footer_reveal', 'no') === 'yes') {
 	</div>
 </div>
 
+<a class="skip-link screen-reader-text" href="#primary">
+<?php _e( 'Skip to content', 'blocksy' ); ?></a>
+
 <?php if (function_exists('blocksy_ext_cookies_consent_output')) { ?>
 	<?php
 		/**
@@ -219,7 +216,12 @@ if (get_theme_mod('footer_reveal', 'no') === 'yes') {
 	?>
 <?php } ?>
 
-<?php blocksy_header_mobile_modal() ?>
+<?php
+
+$b = new Blocksy_Customizer_Builder();
+echo $b->render_offcanvas();
+
+?>
 
 <?php wp_footer(); ?>
 

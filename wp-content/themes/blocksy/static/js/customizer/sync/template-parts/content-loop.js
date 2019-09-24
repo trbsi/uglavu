@@ -344,7 +344,6 @@ const watchOptionsFor = prefix =>
 })
 
 const getVariablesForPrefix = prefix => ({
-	// Blog
 	...typographyOption({
 		id: `${prefix}_cardTitleFont`,
 		selector: '.entry-card .entry-title'
@@ -382,12 +381,10 @@ const getVariablesForPrefix = prefix => ({
 		type: 'color'
 	},
 
-	[`${prefix}_cardMetaSize`]: {
-		selector: '.entry-card',
-		variable: 'metaFontSize',
-		responsive: true,
-		unit: 'px'
-	},
+	...typographyOption({
+		id: `${prefix}_cardMetaFont`,
+		selector: '.entry-card .entry-meta'
+	}),
 
 	[`${prefix}_cardMetaColor`]: [
 		{
@@ -434,6 +431,12 @@ const getVariablesForPrefix = prefix => ({
 	[`${prefix}_cardBackground`]: {
 		variable: 'cardBackground',
 		type: 'color'
+	},
+
+	[`${prefix}_cardBorder`]: {
+		selector: '[data-cards="boxed"] .entry-card',
+		variable: 'border',
+		type: 'border'
 	},
 
 	[`${prefix}_cardsGap`]: {
