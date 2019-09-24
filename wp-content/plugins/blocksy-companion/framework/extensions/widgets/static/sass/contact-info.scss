@@ -11,13 +11,9 @@
 		}
 	}
 
-	i {
+	.item-icon {
 		flex-shrink: 0;
 		margin-right: 18px;
-
-		svg {
-			opacity: 0.9;
-		}
 	}
 
 	.contact-info {
@@ -29,18 +25,18 @@
 		font-weight: 600;
 	}
 
-	// fill type
-	[data-icons*="solid"] {
+	// icons color
+	[data-icons*='simple'] .item-icon {
+		color: rgba(100, 110, 119, 1);
+	}
 
-		i {
-			background: rgba(218, 222, 228, 0.3);
-			transition: color 0.12s cubic-bezier(0.455, 0.03, 0.515, 0.955),
-						background 0.12s cubic-bezier(0.455, 0.03, 0.515, 0.955);
-		}
+	[data-icons*='solid'] .item-icon {
+		color: rgba(100, 110, 119, 1);
+		background: rgba(218, 222, 228, 0.3);
+	}
 
-		li:hover i {
-			color: #fff;
-			background: var(--paletteColor1);
-		}
+	[data-icons*='outline'] .item-icon {
+		color: rgba(100, 110, 119, 1);
+		border: 1px solid rgba(218, 222, 228, 1);
 	}
 }

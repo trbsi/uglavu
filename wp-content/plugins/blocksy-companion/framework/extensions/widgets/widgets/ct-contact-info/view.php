@@ -108,10 +108,12 @@ echo $before_title . wp_kses_post( $title ) . $after_title;
 
 <?php if ($has_enabled_layer) { ?>
 
-	<ul data-icons="<?php echo $icons_size . '-' . $icons_type . $fill_type_output ?>">
+	<ul 
+		data-icons="<?php echo $icons_size . '-' . $icons_type . $fill_type_output ?>" data-icons-color="custom">
+		
 		<?php foreach ($contact_information as $single_layer) { ?>
 			<li>
-				<i>
+				<i class="item-icon">
 					<?php echo $svgs[$single_layer['id']] ?>
 				</i>
 

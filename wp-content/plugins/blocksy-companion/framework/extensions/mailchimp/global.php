@@ -1,53 +1,66 @@
 <?php
 
 // Mailchimp
-$mailchimpContent = blocksy_get_colors(
-	get_theme_mod('mailchimpContent'),
-	['default' => ['color' => 'var(--paletteColor3)']]
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('mailchimpContent'),
 
-$css->put(
-	'.ct-mailchimp-block',
-	"--mailchimpContent: {$mailchimpContent['default']}"
-);
+	'default' => [
+		'default' => [ 'color' => 'var(--paletteColor3)' ],
+	],
 
-$mailchimpButton = blocksy_get_colors(
-	get_theme_mod('mailchimpButton'),
-	[
+	'css' => $css,
+
+	'variables' => [
+		'default' => [
+			'selector' => '.ct-mailchimp-block',
+			'variable' => 'mailchimpContent'
+		],
+	],
+]);
+
+blocksy_output_colors([
+	'value' => get_theme_mod('mailchimpButton'),
+	'default' => [
 		'default' => [ 'color' => 'var(--paletteColor1)' ],
 		'hover' => [ 'color' => 'var(--paletteColor2)' ],
-	]
-);
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.ct-mailchimp-block',
+			'variable' => 'buttonInitialColor'
+		],
 
-$css->put(
-	'.ct-mailchimp-block',
-	"--buttonInitialColor: {$mailchimpButton['default']}"
-);
+		'hover' => [
+			'selector' => '.ct-mailchimp-block',
+			'variable' => 'buttonHoverColor'
+		]
+	],
+]);
 
-$css->put(
-	'.ct-mailchimp-block',
-	"--buttonHoverColor: {$mailchimpButton['hover']}"
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('mailchimpBackground'),
+	'default' => ['default' => [ 'color' => '#ffffff' ]],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.ct-mailchimp-block',
+			'variable' => 'backgroundColor'
+		],
+	],
+]);
 
-$mailchimpBackground = blocksy_get_colors(
-	get_theme_mod('mailchimpBackground'),
-	['default' => ['color' => '#ffffff']]
-);
-
-$css->put(
-	'.ct-mailchimp-block',
-	"--backgroundColor: {$mailchimpBackground['default']}"
-);
-
-$mailchimpShadow = blocksy_get_colors(
-	get_theme_mod('mailchimpShadow'),
-	['default' => ['color' => 'rgba(210, 213, 218, 0.4)']]
-);
-
-$css->put(
-	'.ct-mailchimp-block',
-	"--mailchimpShadow: {$mailchimpShadow['default']}"
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('mailchimpShadow'),
+	'default' => ['default' => [ 'color' => 'rgba(210, 213, 218, 0.4)' ]],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.ct-mailchimp-block',
+			'variable' => 'mailchimpShadow'
+		],
+	],
+]);
 
 blocksy_output_responsive([
 	'css' => $css,

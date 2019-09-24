@@ -86,9 +86,11 @@ echo $before_title . wp_kses_post( $title ) . $after_title;
 					],
 				]
 			),
-			$size . '-' . $type . (
-				$type === 'simple' ? '' : '-' . $fill
-			)
+			[
+				'type' => $size . '-' . $type . (
+					$type === 'simple' ? '' : '-' . $fill
+				)
+			]
 		);
 	?>
 

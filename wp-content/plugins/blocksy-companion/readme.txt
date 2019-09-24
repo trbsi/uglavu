@@ -24,6 +24,11 @@ This plugin runs and adds its enhacements only if the Blocksy theme is installed
 
 == Changelog ==
 
+1.5.0: 2019-09-20
+- New: Compatibility with Blocksy 1.5.0
+- Improvement: Better handling for social icons
+- Improvement: Support for responsive color picker
+
 1.1.8: 2019-08-20
 * Fix: Remove Google+ social network
 * Fix: Scripts loading order, makes sure `ct-events` are always present

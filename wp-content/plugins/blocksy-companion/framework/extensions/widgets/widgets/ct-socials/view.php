@@ -41,9 +41,11 @@ echo blocksy_social_icons(
 			],
 		]
 	),
-	$size . '-' . $type . (
-		$type === 'simple' ? '' : '-' . $fill
-	)
+	[
+		'type' => $size . '-' . $type . (
+			$type === 'simple' ? '' : '-' . $fill
+		)
+	]
 );
 
 echo wp_kses_post($after_widget);

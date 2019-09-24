@@ -1,46 +1,65 @@
 <?php
 
 // Content color
-$cookieContentColor = blocksy_get_colors(
-	get_theme_mod('cookieContentColor'),
-	['default' => ['color' => 'var(--paletteColor3)']]
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('cookieContentColor'),
 
-$css->put(
-	'.cookie-notification',
-	"--cookieContentColor: {$cookieContentColor['default']}"
-);
+	'default' => [
+		'default' => [ 'color' => 'var(--paletteColor3)' ],
+	],
+
+	'css' => $css,
+
+	'variables' => [
+		'default' => [
+			'selector' => '.cookie-notification',
+			'variable' => 'cookieContentColor'
+		],
+	],
+]);
 
 
 // Button color
-$cookieButtonBackground = blocksy_get_colors(
-	get_theme_mod('cookieButtonBackground'),
-	[
+blocksy_output_colors([
+	'value' => get_theme_mod('cookieButtonBackground'),
+
+	'default' => [
 		'default' => [ 'color' => 'var(--paletteColor1)' ],
 		'hover' => [ 'color' => 'var(--paletteColor2)' ],
-	]
-);
+	],
 
-$css->put(
-	'.cookie-notification',
-	"--buttonInitialColor: {$cookieButtonBackground['default']}"
-);
+	'css' => $css,
 
-$css->put(
-	'.cookie-notification',
-	"--buttonHoverColor: {$cookieButtonBackground['hover']}"
-);
+	'variables' => [
+		'default' => [
+			'selector' => '.cookie-notification',
+			'variable' => 'buttonInitialColor'
+		],
+
+		'hover' => [
+			'selector' => '.cookie-notification',
+			'variable' => 'buttonHoverColor'
+		]
+	],
+]);
 
 // Background color
-$cookieBackground = blocksy_get_colors(
-	get_theme_mod('cookieBackground'),
-	[ 'default' => [ 'color' => '#ffffff' ] ]
-);
+blocksy_output_colors([
+	'value' => get_theme_mod('cookieBackground'),
 
-$css->put(
-	'.cookie-notification',
-	"--backgroundColor: {$cookieBackground['default']}"
-);
+	'default' => [
+		'default' => [ 'color' => '#ffffff' ],
+	],
+
+	'css' => $css,
+
+	'variables' => [
+		'default' => [
+			'selector' => '.cookie-notification',
+			'variable' => 'backgroundColor'
+		],
+	],
+]);
 
 $cookieMaxWidth = get_theme_mod( 'cookieMaxWidth', 400 );
 $css->put( ':root', '--cookieMaxWidth: ' . $cookieMaxWidth . 'px' );
