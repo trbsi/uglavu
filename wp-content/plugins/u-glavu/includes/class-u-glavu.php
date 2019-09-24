@@ -135,6 +135,7 @@ class U_Glavu {
 			$this->adminLoader = new U_Glavu_Admin_Loader($this->loader);
 			if ( in_array($pagenow, ['edit.php']) ) {
 				$this->adminLoader->load_posts_filter();
+				$this->adminLoader->load_posts_columns();
 			}
 
 			if (in_array($pagenow, ['post-new.php'])) {

@@ -1,5 +1,6 @@
 <?php 
 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/posts/list/class-u-glavu-admin-posts-filter.php';
+require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/posts/list/class-u-glavu-admin-posts-columns.php';
 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/posts/create/class-u-glavu-admin-posts-create-og-tags.php';
 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/posts/create/class-u-glavu-admin-posts-create-scrape-og-tags.php';
 
@@ -15,6 +16,12 @@ class U_Glavu_Admin_Loader {
 	public function load_posts_filter(): U_Glavu_Admin_Posts_Filter
 	{
 		$class = new U_Glavu_Admin_Posts_Filter($this->loader);
+		return $class;
+	}
+
+	public function load_posts_columns(): U_Glavu_Admin_Posts_Columns
+	{
+		$class = new U_Glavu_Admin_Posts_Columns($this->loader);
 		return $class;
 	}
 
