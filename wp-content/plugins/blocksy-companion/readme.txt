@@ -24,6 +24,9 @@ This plugin runs and adds its enhacements only if the Blocksy theme is installed
 
 == Changelog ==
 
+1.5.1: 2019-09-24
+Improvement: Better animations for quick view modal
+
 1.5.0: 2019-09-20
 - New: Compatibility with Blocksy 1.5.0
 - Improvement: Better handling for social icons

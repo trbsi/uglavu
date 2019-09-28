@@ -27,40 +27,37 @@ function blocksy_get_woocommerce_quickview() {
 
 	?>
 
-	<div id="quick-view-<?php esc_attr_e($id) ?>" class="ct-modal quick-view-modal">
-		<div class="ct-bag-container">
-			<div class="ct-bag-content" data-align="middle">
+	<div id="quick-view-<?php esc_attr_e($id) ?>" data-behaviour="modal" class="panel quick-view-modal">
+		<div class="content-container" data-align="middle">
+			<div <?php wc_product_class('ct-container', $product->get_id()) ?>>
+				<section class="ct-quick-view-images">
+					<?php woocommerce_show_product_sale_flash() ?>
+					<?php woocommerce_show_product_images() ?>
+				</section>
 
-				<div <?php wc_product_class('ct-container', $product->get_id()) ?>>
-					<section class="ct-quick-view-images">
-						<?php woocommerce_show_product_sale_flash() ?>
-						<?php woocommerce_show_product_images() ?>
-					</section>
+				<section class="ct-quick-view-summary">
+					<div class="close-button">
+						<span class="lines-button close"></span>
+					</div>
 
-					<section class="ct-quick-view-summary">
-						<div class="ct-bag-close">
-							<span class="lines-button close"></span>
-						</div>
+					<div class="entry-summary">
+						<?php
+							woocommerce_template_single_title();
+							woocommerce_template_single_price();
+							woocommerce_template_single_excerpt();
+							woocommerce_template_single_add_to_cart();
+						?>
+					</div>
 
-						<div class="entry-summary">
-							<?php
-								woocommerce_template_single_title();
-								woocommerce_template_single_price();
-								woocommerce_template_single_excerpt();
-								woocommerce_template_single_add_to_cart();
-							?>
-						</div>
-
-						<div class="ct-quick-view-actions">
-							<?php if ($is_in_stock) { ?>
-								<a href="#" class="ct-quick-add"><?php echo __('Add To Cart', 'blc') ?></a>
-							<?php } ?>
-							<a href="<?php echo get_permalink($product->get_id()) ?>" class="ct-quick-more">More Information</a>
-						</div>
-					</section>
-				</div>
-
+					<div class="ct-quick-view-actions">
+						<?php if ($is_in_stock) { ?>
+							<a href="#" class="ct-quick-add"><?php echo __('Add To Cart', 'blc') ?></a>
+						<?php } ?>
+						<a href="<?php echo get_permalink($product->get_id()) ?>" class="ct-quick-more">More Information</a>
+					</div>
+				</section>
 			</div>
+
 		</div>
 	</div>
 

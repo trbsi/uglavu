@@ -21,26 +21,6 @@
 		}
 	}
 
-	.ct-bag-close {
-		position: absolute;
-		z-index: 2;
-		top: 35px;
-		right: 30px;
-		width: 34px;
-		height: 34px;
-		opacity: 1;
-		border-radius: 100%;
-		background: #F6F6F6;
-
-		.close {
-			color: inherit;
-		}
-
-		.lines-button {
-			width: 12px;
-		}
-	}
-
 	&:before {
 		position: absolute;
 		z-index: 2;
@@ -53,7 +33,6 @@
 		box-shadow: 0px 0px 20px 20px #fff;
 	}
 }
-
 
 
 .quick-view-modal div.product form.cart {
