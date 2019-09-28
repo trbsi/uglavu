@@ -38,7 +38,7 @@ class U_Glavu_Admin_Posts_Create_Og_Tags {
 	    ]));
 	}
 
-	public function get_site_and_site_post_id($externalUrl)
+	public function get_site_and_site_post_id(string $externalUrl)
 	{
 		global $wpdb;
 
@@ -50,7 +50,7 @@ class U_Glavu_Admin_Posts_Create_Og_Tags {
 		$siteData = $wpdb->get_row($wpdb->prepare($query, [$host]));
 
 		//get site post id from url
-		$sitePostId = $this->get_site_post_id($externalUrl);
+		$sitePostId = $this->get_site_post_id($externalUrl, (bool) $siteData->generate_id);
 
 		return [
 			'siteId' => $siteData->id,
@@ -58,19 +58,21 @@ class U_Glavu_Admin_Posts_Create_Og_Tags {
 		];
 	}
 
-	public function get_host_from_url($externalUrl)
+	public function get_host_from_url(string $externalUrl)
 	{
 		$parsedUrl = parse_url($externalUrl);
 		return str_replace('www.', '', $parsedUrl['host']);
 	}
 
-	public function get_site_post_id($externalUrl)
+	public function get_site_post_id(string $externalUrl, bool $generateId)
 	{
 		$externalUrl = strtok($externalUrl, '?');
 		$urlData = parse_url($externalUrl);
 		preg_match_all('/\d+/', $urlData['path'], $matches);
 
-		if (!empty($matches[0])) {
+		if (true === $generateId) {
+			$sitePostId = $this->extract_site_post_id_from_url($urlData);
+		} else if (!empty($matches[0])) {
 		    $sitePostId = end($matches[0]);
 		    //sometimes there can be some other numbers in url that are not post id but article info
 		    //usually post ids are big numbers
