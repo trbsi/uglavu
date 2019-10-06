@@ -24,8 +24,16 @@ This plugin runs and adds its enhacements only if the Blocksy theme is installed
 
 == Changelog ==
 
+1.5.3: 2019-10-02
+- Fix: Properly access global classes inside namespace
+
+1.5.2: 2019-10-01
+- New: Clear cache on theme and plugin update
+- New: Add shadow for Mailchimp form
+- Improvement: Change class of the panel
+
 1.5.1: 2019-09-24
-Improvement: Better animations for quick view modal
+- Improvement: Better animations for quick view modal
 
 1.5.0: 2019-09-20
 - New: Compatibility with Blocksy 1.5.0

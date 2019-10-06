@@ -25,8 +25,10 @@ class Autoloader {
 		'ExtensionsManagerApi' => 'framework/extensions-manager-api.php',
 		'Dashboard' => 'framework/dashboard.php',
 		'ThemeIntegration' => 'framework/theme-integration.php',
+		'CacheResetManager' => 'framework/cache-reset-manager.php',
 
 		'GoogleAnalytics' => 'framework/features/google-analytics.php',
+
 
 		'DemoInstall' => 'framework/features/demo-install.php',
 		'DemoInstallContentExport' => 'framework/features/demo-install/content-export.php',

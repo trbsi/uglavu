@@ -120,7 +120,6 @@ $options = [
 
 				blocksy_rand_md5() => [
 					'type' => 'ct-divider',
-					'attr' => [ 'data-type' => 'small' ],
 				],
 
 				'mailchimp_subscribe_visibility' => [
@@ -219,28 +218,22 @@ $options = [
 				],
 
 				'mailchimpShadow' => [
-					'label' => __( 'Shadow Color', 'blc' ),
-					'type'  => 'ct-color-picker',
-					'design' => 'inline',
+					'label' => __( 'Shadow', 'blocksy' ),
+					'type' => 'ct-box-shadow',
+					'responsive' => true,
+					'divider' => 'top',
 					'setting' => [ 'transport' => 'postMessage' ],
-
-					'value' => [
-						'default' => [
+					'value' => blocksy_box_shadow_value([
+						'enable' => true,
+						'h_offset' => 0,
+						'v_offset' => 50,
+						'blur' => 90,
+						'spread' => 0,
+						'inset' => false,
+						'color' => [
 							'color' => 'rgba(210, 213, 218, 0.4)',
 						],
-					],
-
-					'pickers' => [
-						[
-							'title' => __( 'Initial', 'blc' ),
-							'id' => 'default',
-						],
-					],
-				],
-
-				blocksy_rand_md5() => [
-					'type' => 'ct-divider',
-					'attr' => [ 'data-type' => 'small' ],
+					])
 				],
 
 				'mailchimpSpacing' => [
@@ -255,6 +248,7 @@ $options = [
 						],
 					]),
 					'responsive' => true,
+					'divider' => 'top',
 					'setting' => [ 'transport' => 'postMessage' ],
 				],
 

@@ -27,7 +27,7 @@ function blocksy_get_woocommerce_quickview() {
 
 	?>
 
-	<div id="quick-view-<?php esc_attr_e($id) ?>" data-behaviour="modal" class="panel quick-view-modal">
+	<div id="quick-view-<?php esc_attr_e($id) ?>" data-behaviour="modal" class="ct-panel quick-view-modal">
 		<div class="content-container" data-align="middle">
 			<div <?php wc_product_class('ct-container', $product->get_id()) ?>>
 				<section class="ct-quick-view-images">

@@ -62,6 +62,26 @@ blocksy_output_colors([
 	],
 ]);
 
+blocksy_output_box_shadow([
+	'css' => $css,
+	'tablet_css' => $tablet_css,
+	'mobile_css' => $mobile_css,
+	'selector' => '.ct-mailchimp-block',
+	'value' => get_theme_mod('mailchimpShadow', blocksy_box_shadow_value([
+		'enable' => true,
+		'h_offset' => 0,
+		'v_offset' => 50,
+		'blur' => 90,
+		'spread' => 0,
+		'inset' => false,
+		'color' => [
+			'color' => 'rgba(210, 213, 218, 0.4)',
+		],
+	])),
+	'responsive' => true
+]);
+
+
 blocksy_output_responsive([
 	'css' => $css,
 	'tablet_css' => $tablet_css,

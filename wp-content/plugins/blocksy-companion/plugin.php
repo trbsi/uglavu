@@ -54,6 +54,8 @@ class Plugin {
 			'register_all_widgets',
 		]);
 
+		new CacheResetManager();
+
 		$this->extensions_api = new ExtensionsManagerApi();
 		$this->theme_integration = new ThemeIntegration();
 		$this->demo = new DemoInstall();

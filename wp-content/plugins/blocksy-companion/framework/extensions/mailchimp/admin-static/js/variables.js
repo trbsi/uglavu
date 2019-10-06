@@ -27,9 +27,11 @@ handleVariablesFor({
 	},
 
 	mailchimpShadow: {
-		variable: 'mailchimpShadow',
-		type: 'color'
-	},
+		selector: '.ct-mailchimp-block',
+		type: 'box-shadow',
+		variable: 'boxShadow',
+		responsive: true
+	},	
 
 	mailchimpSpacing: {
 		variable: 'mailchimpSpacing',

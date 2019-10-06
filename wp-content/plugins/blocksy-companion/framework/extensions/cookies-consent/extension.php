@@ -6,7 +6,6 @@ class BlocksyExtensionCookiesConsent {
 	public static function onActivation() {
 		do_action('wpsc_add_cookie', 'blocksy_cookies_consent_accepted');
 
-
 		if (function_exists('flush_rocket_htaccess')) {
 			add_filter('rocket_cache_dynamic_cookies', function ($cookies) {
 				$cookies[] = 'blocksy_cookies_consent_accepted';
