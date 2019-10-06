@@ -10,14 +10,14 @@
 		cursor: pointer;
 
 		&.active {
-			color: #0582bd;
+			color: var(--accentColor);
 		}
 
 		&:not(.active) {
-			color: #CFD1D2;
+			color: var(--color, #CFD1D2);
 
 			&:hover {
-				color: #a5abaf;
+				color: var(--color, #a5abaf);
 			}
 		}
 

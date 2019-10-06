@@ -46,16 +46,16 @@ aside {
 		&:not([data-widgets="separated"]) {
 			padding: var(--sidebarInnerSpacing);
 			background: var(--sidebarBackgroundColor);
-			border: var(--sidebarBorderSize) solid var(--sidebarBorderColor);
-			box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.01);
+			border: var(--border);
+			box-shadow: var(--boxShadow);
 		}
 
 		&[data-widgets="separated"] {
 			.ct-widget {
 				padding: var(--sidebarInnerSpacing);
 				background: var(--sidebarBackgroundColor);
-				border: var(--sidebarBorderSize) solid var(--sidebarBorderColor);
-				box-shadow: 0px 12px 18px -6px rgba(34, 56, 101, 0.02);
+				border: var(--border);
+				box-shadow: var(--boxShadow);
 			}
 		}
 	}
@@ -69,9 +69,8 @@ aside {
 				position: absolute;
 				content: '';
 				top: 0;
-				width: var(--sidebarDividerSize);
 				height: 100%;
-				background: var(--sidebarDividerColor);
+				border-right: var(--border);
 			}
 		}
 	}

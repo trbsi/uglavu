@@ -38,12 +38,14 @@ onDocumentLoaded(() => {
 
 		{
 			els: '.ct-back-to-top',
-			load: () => import('./frontend/back-to-top-link')
+			load: () => import('./frontend/back-to-top-link'),
+			events: ['ct:back-to-top:mount']
 		},
 
 		{
 			els: '.share-box[data-type="type-2"]',
-			load: () => import('./frontend/share-box')
+			load: () => import('./frontend/share-box'),
+			events: ['ct:single:share-box:update']
 		},
 
 		{
@@ -140,7 +142,7 @@ onDocumentLoaded(() => {
 				'#main-container > header .ct-header-search > a[href]'
 			],
 
-			load: () => import('./frontend/search-overlay'),
+			load: () => import('./frontend/overlay'),
 			events: ['ct:header:update']
 		},
 
@@ -156,12 +158,12 @@ onDocumentLoaded(() => {
 })
 
 ctEvents.on('ct:overlay:handle-click', ({ e, el, options = {} }) => {
-	import('./frontend/search-overlay').then(({ handleClick }) =>
-		handleClick(e, el, {
-			modalTarget: el.hash,
+	import('./frontend/overlay').then(({ handleClick }) => {
+		handleClick(e, {
+			container: document.querySelector(el.hash),
 			...options
 		})
-	)
+	})
 })
 
 const initOverlayTrigger = () => {
@@ -188,8 +190,22 @@ const initOverlayTrigger = () => {
 					.querySelector('.mobile-menu-toggle')
 					.firstElementChild.classList.toggle('close')
 
+				import('./frontend/overlay').then(({ handleClick }) =>
+					handleClick(event, {
+						container: document.querySelector(
+							document.querySelector('.mobile-menu-toggle').hash
+						),
+						onClose: () =>
+							document
+								.querySelector('.mobile-menu-toggle')
+								.firstElementChild.classList.remove('close')
+					})
+				)
+
+				return
+
 				if (document.querySelector('.side-panel')) {
-					import('./frontend/offcanvas').then(({ handleClick }) =>
+					import('./frontend/overlay').then(({ handleClick }) =>
 						handleClick(event)
 					)
 					return

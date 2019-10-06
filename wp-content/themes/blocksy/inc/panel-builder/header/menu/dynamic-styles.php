@@ -104,10 +104,20 @@ $css->put(
 	'--marginTop: ' . $dropdownTopOffset . 'px'
 );
 
+
+// Dropdown box width
 $dropdownMenuWidth = blocksy_akg( 'dropdownMenuWidth', $atts, 200 );
 $css->put(
 	$selector . ' .sub-menu',
 	'--width: ' . $dropdownMenuWidth . 'px'
+);
+
+
+// Dropdown items spacing
+$dropdownItemsSpacing = blocksy_akg( 'dropdownItemsSpacing', $atts, 13 );
+$css->put(
+	$selector . ' .sub-menu li',
+	'--padding: ' . $dropdownItemsSpacing . 'px'
 );
 
 
@@ -175,6 +185,26 @@ blocksy_output_colors([
 			'variable' => 'backgroundColor'
 		],
 	],
+]);
+
+// Box shadow
+blocksy_output_box_shadow([
+	'css' => $css,
+	'tablet_css' => $tablet_css,
+	'mobile_css' => $mobile_css,
+	'selector' => $selector . ' .sub-menu',
+	'value' => blocksy_akg('headerDropdownShadow', $atts, blocksy_box_shadow_value([
+		'enable' => true,
+		'h_offset' => 0,
+		'v_offset' => 10,
+		'blur' => 20,
+		'spread' => 0,
+		'inset' => false,
+		'color' => [
+			'color' => 'rgba(41, 51, 61, 0.1)',
+		],
+	])),
+	'responsive' => true
 ]);
 
 // Border radius

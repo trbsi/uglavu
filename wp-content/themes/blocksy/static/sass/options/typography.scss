@@ -106,8 +106,6 @@
 		height: 17px;
 		font-size: 10px;
 		letter-spacing: 0.1em;
-		// font: 400 10px/10px dashicons;
-		// transform: rotate(-90deg);
 		opacity: 0.5;
 		color: inherit;
 
@@ -190,12 +188,12 @@
 			border-color 0.1s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 
 		&.active {
-			border-color: #0e8ecc;
-			box-shadow: 0 0 0 1px #0e8ecc;
+			border-color: var(--accentColor);
+			box-shadow: 0 0 0 1px var(--accentColor);
 		}
 
 		&:hover {
-			border-color: #0e8ecc;
+			border-color: var(--accentColor);
 		}
 	}
 
@@ -354,30 +352,26 @@
 
 	.ct-responsive-controls li {
 		&:not(.active) {
-			color: #d6d8dc;
+			--color: #d6d8dc;
 
 			&:hover {
-				color: #b6b9bf;
+				--color: #b6b9bf;
 			}
 		}
 
 		&.ct-disabled {
 			opacity: 0.3;
 			pointer-events: none;
-
-			// &:hover {
-			// 	opacity: 0.5;
-			// }
 		}
 	}
 
 	.ct-slider:before {
-		background: #e3e6e8;
+		--backgroundColor: #e3e6e8;
 	}
 
 	.ct-value-changer {
-		border-color: rgba(230, 232, 234, 0.6);
-		background: rgba(230, 232, 234, 0.6);
+		--borderColor: rgba(230, 232, 234, 0.6);
+		--backgroundColor: rgba(230, 232, 234, 0.6);
 
 		input[type="number"] {
 			background: #fff;
@@ -436,15 +430,15 @@
 				color: #727c88;
 
 				&:hover {
-					color: #0e8ecc;
+					color: var(--accentColor);
 				}
 			}
 
 			&.active {
 				z-index: 2;
 				color: #fff;
-				background: #0e8ecc;
-				border-color: #0e8ecc;
+				background: var(--accentColor);
+				border-color: var(--accentColor);
 			}
 
 			&[data-variant='capitalize']:before {
@@ -512,11 +506,11 @@
 	&:hover,
 	&.active {
 		color: #fff;
-		background: #0e8ecc;
-		border-color: #0e8ecc;
+		background: var(--accentColor);
+		border-color: var(--accentColor);
 
 		&:after {
-			box-shadow: -5px 0px 15px 10px #0e8ecc;
+			box-shadow: -5px 0px 15px 10px var(--accentColor);
 		}
 
 		+ * {

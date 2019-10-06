@@ -227,13 +227,16 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 					<a class="ct-meta-element" href="<?php echo esc_attr(get_permalink()); ?>#ct-comments">
 						<?php
 
-
-							$singular_text = ' Comment';
-							$plural_text = ' Comments';
+							// translators: text for one review
+							$singular_text = __('1 Comment', 'blocksy');
+							// translators: % refers to the number of comments, when more than 1
+							$plural_text = __('% Comments', 'blocksy');
 
 							if ( get_post_type() === 'product' ) {
-								$singular_text = ' Review';
-								$plural_text = ' Reviews';
+								// translators: text for one review
+								$singular_text = __('1 Review', 'blocksy');
+								// translators: % refers to the number of reviews, when more than 1
+								$plural_text = __('% Reviews', 'blocksy');
 							}
 
 							if ($args['meta_type'] === 'icons' && !$args['force_icons']) {
@@ -243,8 +246,8 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 
 							echo wp_kses_post(get_comments_number_text(
 								'',
-								'1' . $singular_text,
-								'%' . $plural_text
+								$singular_text,
+								$plural_text
 							));
 
 						?>

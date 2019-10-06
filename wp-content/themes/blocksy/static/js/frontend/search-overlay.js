@@ -7,6 +7,7 @@ export const mount = el => {
 import { enable, disable } from './no-bounce'
 
 function initAnimatedModal(el, options) {
+	return
 	var settings = {
 		modalTarget: 'animatedModal',
 		animatedIn: 'ct-fade-in',
@@ -28,6 +29,7 @@ function initAnimatedModal(el, options) {
 }
 
 export const handleClick = (event, el, options) => {
+	return
 	var settings = {
 		modalTarget: 'animatedModal',
 		animatedIn: 'ct-fade-in',
@@ -118,6 +120,7 @@ export const handleClick = (event, el, options) => {
 }
 
 function closeModal($el, settings) {
+	return
 	var modalContainer = $el.querySelector('.ct-bag-container')
 
 	if (!document.body.classList.contains('modal-active')) {

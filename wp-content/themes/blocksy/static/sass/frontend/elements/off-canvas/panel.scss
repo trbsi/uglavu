@@ -1,69 +1,60 @@
-body[class*="panel-"] #main-container {
-	transition: transform 0.25s ease-in-out;
+[data-panel*='in'],
+[data-panel*='out'] {
+	#main-container {
+		transition: transform 0.25s ease-in-out;
+	}
 }
 
-body[class*="panel-active"] {
-	overflow: hidden;
+[data-panel*='right'] {
+	#main-container {
+		transform: translate3d(-70px, 0, 0);
+	}
+}
 
-	.side-panel {
+[data-panel*='left'] {
+	#main-container {
+		transform: translate3d(70px, 0, 0);
+	}
+}
+
+// panel
+[data-behaviour*='side'] {
+	box-shadow: var(--boxShadow);
+
+	&.active {
 		opacity: 1;
 		visibility: visible;
 		transform: translate3d(0, 0, 0);
 	}
 }
 
-@include media-breakpoint-down (md) {
-	.right-panel-active {
-		#main-container {
-			transform: translate3d(-70px, 0, 0);
-		}
-	}
-
-	.left-panel-active {
-		#main-container {
-			transform: translate3d(70px, 0, 0);
-		}
-	}
-}
-
-
-
-.side-panel {
+[data-behaviour*='side'] {
 	@include media-breakpoint-down (sm) {
-		--panelWidth: 90vw;
+		--width: 90vw;
 	}
 
-	@include media-breakpoint-only (md) {
-		--panelWidth: 70vw;
+	@include media-breakpoint-up (md) {
+		--width: 65vw;
 	}
 
-	@include media-breakpoint-up (lg) {
-		--panelWidth: 40vw;
-	}
-
+	width: var(--width);
 	position: fixed;
-	z-index: 2;
-	width: var(--panelWidth);
 	top: 0;
 	bottom: 0;
-	overflow-y: hidden;
-	-webkit-overflow-scrolling: touch;
-	
+	z-index: 2;
 	opacity: 0;
 	visibility: hidden;
-	transition: opacity 0.25s ease-in-out,
+	transition: opacity 0.25s ease-in-out, 
 				transform 0.25s ease-in-out,
 				visibility 0.25s ease-in-out;
+}
 
-	&[data-position="right"] {
-		right: 0;
-		transform: translate3d(20%, 0, 0);
-		box-shadow: -5px 0px 70px 0px rgba(0,0,0,0.35);
-	}
+[data-behaviour*='right-side'] {
+	right: 0;
+	transform: translate3d(20%, 0, 0);
+}
 
-	&[data-position="left"] {
-		left: 0;
-		transform: translate3d(-20%, 0, 0);
-		box-shadow: 5px 0px 70px 0px rgba(0,0,0,0.35);
-	}
+[data-behaviour*='left-side'] {
+	left: 0;
+	transform: translate3d(-20%, 0, 0);
 }

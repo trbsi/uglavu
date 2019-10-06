@@ -74,7 +74,32 @@ $options = [
 
 					blocksy_rand_md5() => [
 						'type' => 'ct-divider',
-						'attr' => [ 'data-type' => 'small' ],
+					],
+
+					blocksy_rand_md5() => [
+						'type' => 'ct-condition',
+						'condition' => [ 'sidebar_type' => 'type-2 | type-3 | type-4' ],
+						'options' => [
+
+							'sidebarInnerSpacing' => [
+								'label' => __( 'Cotainer Inner Spacing', 'blocksy' ),
+								'type' => 'ct-slider',
+								'min' => 5,
+								'max' => 80,
+								'responsive' => true,
+								'value' => [
+									'mobile' => 35,
+									'tablet' => 35,
+									'desktop' => 35,
+								],
+								'setting' => [ 'transport' => 'postMessage' ],
+							],
+
+							blocksy_rand_md5() => [
+								'type' => 'ct-divider',
+							],
+
+						],
 					],
 
 					'sidebarWidgetsSpacing' => [
@@ -109,7 +134,6 @@ $options = [
 
 					blocksy_rand_md5() => [
 						'type' => 'ct-divider',
-						'attr' => [ 'data-type' => 'small' ],
 					],
 
 					'has_sticky_sidebar' => [
@@ -125,12 +149,13 @@ $options = [
 						'options' => [
 
 							'sidebarOffset' => [
-								'label' => __( 'Sidebar Top Offset', 'blocksy' ),
+								'label' => __( 'Top Offset', 'blocksy' ),
 								'type' => 'ct-slider',
 								'value' => 50,
 								'min' => 0,
 								'max' => 200,
 								'defaultUnit' => 'px',
+								'divider' => 'top',
 								'setting' => [ 'transport' => 'postMessage' ],
 							],
 
@@ -139,7 +164,6 @@ $options = [
 
 					blocksy_rand_md5() => [
 						'type' => 'ct-divider',
-						'attr' => [ 'data-type' => 'small' ],
 					],
 
 					'sidebar_visibility' => [
@@ -200,7 +224,6 @@ $options = [
 
 					blocksy_rand_md5() => [
 						'type' => 'ct-divider',
-						'attr' => [ 'data-type' => 'small' ],
 					],
 
 					'sidebarWidgetsHeadingsFont' => [
@@ -263,7 +286,6 @@ $options = [
 
 					blocksy_rand_md5() => [
 						'type' => 'ct-divider',
-						'attr' => [ 'data-type' => 'small' ],
 					],
 
 					blocksy_rand_md5() => [
@@ -290,11 +312,6 @@ $options = [
 								],
 							],
 
-							blocksy_rand_md5() => [
-								'type' => 'ct-divider',
-								'attr' => [ 'data-type' => 'small' ],
-							],
-
 						],
 					],
 
@@ -303,38 +320,20 @@ $options = [
 						'condition' => [ 'sidebar_type' => 'type-2' ],
 						'options' => [
 
-							'sidebarBorderColor' => [
-								'label' => __( 'Border Color', 'blocksy' ),
-								'type'  => 'ct-color-picker',
-								'design' => 'inline',
+							'sidebarBorder' => [
+								'label' => __( 'Border', 'blocksy' ),
+								'type' => 'ct-border',
+								'design' => 'block',
+								'divider' => 'top',
+								'responsive' => true,
 								'setting' => [ 'transport' => 'postMessage' ],
 								'value' => [
-									'default' => [
+									'width' => 1,
+									'style' => 'none',
+									'color' => [
 										'color' => 'rgba(224, 229, 235, 0.8)',
 									],
-								],
-
-								'pickers' => [
-									[
-										'title' => __( 'Initial', 'blocksy' ),
-										'id' => 'default',
-									],
-								],
-							],
-
-							'sidebarBorderSize' => [
-								'label' => __( 'Border Size', 'blocksy' ),
-								'type' => 'ct-number',
-								'design' => 'inline',
-								'value' => 0,
-								'min' => 0,
-								'max' => 5,
-								'setting' => [ 'transport' => 'postMessage' ],
-							],
-
-							blocksy_rand_md5() => [
-								'type' => 'ct-divider',
-								'attr' => [ 'data-type' => 'small' ],
+								]
 							],
 
 						],
@@ -345,38 +344,19 @@ $options = [
 						'condition' => [ 'sidebar_type' => 'type-3' ],
 						'options' => [
 
-							'sidebarDividerColor' => [
-								'label' => __( 'Divider Color', 'blocksy' ),
-								'type'  => 'ct-color-picker',
-								'design' => 'inline',
+							'sidebarDivider' => [
+								'label' => __( 'Divider', 'blocksy' ),
+								'type' => 'ct-border',
+								'design' => 'block',
+								'responsive' => true,
 								'setting' => [ 'transport' => 'postMessage' ],
 								'value' => [
-									'default' => [
+									'width' => 1,
+									'style' => 'solid',
+									'color' => [
 										'color' => 'rgba(224, 229, 235, 0.8)',
 									],
-								],
-
-								'pickers' => [
-									[
-										'title' => __( 'Initial', 'blocksy' ),
-										'id' => 'default',
-									],
-								],
-							],
-
-							'sidebarDividerSize' => [
-								'label' => __( 'Divider Size', 'blocksy' ),
-								'type' => 'ct-number',
-								'design' => 'inline',
-								'value' => 1,
-								'min' => 1,
-								'max' => 5,
-								'setting' => [ 'transport' => 'postMessage' ],
-							],
-
-							blocksy_rand_md5() => [
-								'type' => 'ct-divider',
-								'attr' => [ 'data-type' => 'small' ],
+								]
 							],
 
 						],
@@ -384,25 +364,31 @@ $options = [
 
 					blocksy_rand_md5() => [
 						'type' => 'ct-condition',
-						'condition' => [ 'sidebar_type' => 'type-2 | type-3 | type-4' ],
+						'condition' => [ 'sidebar_type' => 'type-2' ],
 						'options' => [
 
-							'sidebarInnerSpacing' => [
-								'label' => __( 'Cotainer Inner Spacing', 'blocksy' ),
-								'type' => 'ct-slider',
-								'min' => 5,
-								'max' => 80,
+							'sidebarShadow' => [
+								'label' => __( 'Shadow', 'blocksy' ),
+								'type' => 'ct-box-shadow',
 								'responsive' => true,
-								'value' => [
-									'mobile' => 35,
-									'tablet' => 35,
-									'desktop' => 35,
-								],
+								'divider' => 'top',
 								'setting' => [ 'transport' => 'postMessage' ],
+								'value' => blocksy_box_shadow_value([
+									'enable' => true,
+									'h_offset' => 0,
+									'v_offset' => 12,
+									'blur' => 18,
+									'spread' => -6,
+									'inset' => false,
+									'color' => [
+										'color' => 'rgba(34, 56, 101, 0.04)',
+									],
+								])
 							],
 
 						],
 					],
+
 				],
 			],
 		],

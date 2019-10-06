@@ -7,7 +7,7 @@
 	padding: 1px;
 	border-radius: 3px;
 	box-sizing: border-box;
-	border: 1px solid #ddd;
+	border: 1px solid var(--borderColor, #ddd);
 	background: var(--backgroundColor, #F7F7F7);
 	transition: background 0.1s ease,
 				border-color 0.1s ease;
@@ -46,10 +46,6 @@
 	}
 
 	&:not(.no-unit-list) {
-		// &:hover {
-		// 	background: #fff;
-		// }
-
 		.ct-current-value {
 			cursor: pointer;
 
@@ -65,7 +61,7 @@
 .ct-value-divider {
 	// width: 1px;
 	height: 50%;
-	border-left: 1px solid #ccc;
+	border-left: 1px solid var(--borderColor, #ccc);
 }
 
 // current value

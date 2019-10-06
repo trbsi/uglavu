@@ -1,5 +1,4 @@
 .mobile-menu ul {
-	overflow-y: auto;
 	@include list-normalize;
 
 	li {
@@ -17,7 +16,6 @@
 	.page_item_has_children {
 		> ul {
 			font-size: 75%;
-			// overflow: hidden;
 
 			&.is-animating {
 				transition: height 0.3s ease;
@@ -28,8 +26,11 @@
 			display: none;
 		}
 	}
-}
 
+	.sub-menu {
+		overflow: hidden;
+	}
+}
 
 
 // type 1

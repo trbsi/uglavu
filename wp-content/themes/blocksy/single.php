@@ -40,10 +40,9 @@ if (
 
 <?php
 
-while ( have_posts() ) :
-	the_post();
+the_post();
 
-	?>
+?>
 
 	<?php
 		/**
@@ -68,11 +67,6 @@ while ( have_posts() ) :
 		</div>
 
 	</div>
-
-	<?php
-endwhile; // End of the loop.
-
-?>
 
 <?php
 	ob_start();

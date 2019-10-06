@@ -1,6 +1,5 @@
 [data-shortcut] {
 	position: relative;
-	transition: box-shadow 0.15s ease;
 }
 
 .ct-customizer-shortcut {
@@ -28,7 +27,9 @@
 
 // type border
 [data-shortcut="border"] {
-	box-shadow: inset 0px 0px 0px 1px transparent;
+	outline: 1px solid transparent;
+	outline-offset: -1px;
+	transition: outline 0.15s ease;
 
 	> .ct-customizer-shortcut {
 		top: 0;
@@ -42,12 +43,10 @@
 		text-transform: uppercase;
 		background: #0073AA;
 		border-bottom-right-radius: 2px;
-
-		
 	}
 
 	&:hover {
-		box-shadow: inset 0px 0px 0px 1px #0073AA;
+		outline: 1px solid #0073AA;
 
 		> .ct-customizer-shortcut {
 			opacity: 1;

@@ -146,6 +146,40 @@ blocksy_output_colors([
 	],
 ]);
 
+blocksy_output_colors([
+	'value' => get_theme_mod('cardProductBackground'),
+	'default' => [
+		'default' => [ 'color' => '#ffffff' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.shop-entry-card',
+			'variable' => 'backgroundColor'
+		],
+	],
+]);
+
+// Box shadow
+blocksy_output_box_shadow([
+	'css' => $css,
+	'tablet_css' => $tablet_css,
+	'mobile_css' => $mobile_css,
+	'selector' => '.shop-entry-card',
+	'value' => get_theme_mod('cardProductShadow', blocksy_box_shadow_value([
+		'enable' => true,
+		'h_offset' => 0,
+		'v_offset' => 12,
+		'blur' => 18,
+		'spread' => -6,
+		'inset' => false,
+		'color' => [
+			'color' => 'rgba(34, 56, 101, 0.03)',
+		],
+	])),
+	'responsive' => true
+]);
+
 
 // woo single product
 $productGalleryWidth = get_theme_mod( 'productGalleryWidth', 50 );

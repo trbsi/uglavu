@@ -493,7 +493,6 @@ $options = [
 
 							blocksy_rand_md5() => [
 								'type' => 'ct-divider',
-								'attr' => [ 'data-type' => 'small' ]
 							],
 
 						],
@@ -542,7 +541,6 @@ $options = [
 
 							blocksy_rand_md5() => [
 								'type' => 'ct-divider',
-								'attr' => [ 'data-type' => 'small' ]
 							],
 
 						],
@@ -603,7 +601,6 @@ $options = [
 
 							blocksy_rand_md5() => [
 								'type' => 'ct-divider',
-								'attr' => [ 'data-type' => 'small' ]
 							],
 
 							$prefix . 'cardButtonTextColor' => [
@@ -689,13 +686,42 @@ $options = [
 
 							blocksy_rand_md5() => [
 								'type' => 'ct-divider',
-								'attr' => [ 'data-type' => 'small' ]
+							],
+
+							$prefix . 'card_spacing' => [
+								'label' => __( 'Card Inner Spacing', 'blocksy' ),
+								'type' => 'ct-slider',
+								'min' => 0,
+								'max' => 100,
+								'responsive' => true,
+								'value' => [
+									'mobile' => 25,
+									'tablet' => 35,
+									'desktop' => 35,
+								],
+								'setting' => [ 'transport' => 'postMessage' ],
+							],
+
+							$prefix . 'cardBorder' => [
+								'label' => __( 'Card Border', 'blocksy' ),
+								'type' => 'ct-border',
+								'design' => 'inline',
+								'divider' => 'top',
+								'setting' => [ 'transport' => 'postMessage' ],
+								'value' => [
+									'width' => 1,
+									'style' => 'none',
+									'color' => [
+										'color' => 'rgba(44,62,80,0.2)',
+									],
+								]
 							],
 
 							$prefix . 'cardBackground' => [
 								'label' => __( 'Card Background Color', 'blocksy' ),
 								'type'  => 'ct-color-picker',
 								'design' => 'inline',
+								'divider' => 'top',
 								'setting' => [ 'transport' => 'postMessage' ],
 								'value' => [
 									'default' => [
@@ -711,32 +737,23 @@ $options = [
 								],
 							],
 
-							$prefix . 'cardBorder' => [
-								'label' => __( 'Card Border', 'blocksy' ),
-								'type' => 'ct-border',
-								'design' => 'inline',
-								'setting' => [ 'transport' => 'postMessage' ],
-								'value' => [
-									'width' => 1,
-									'style' => 'none',
-									'color' => [
-										'color' => 'rgba(44,62,80,0.2)',
-									],
-								]
-							],
-
-							$prefix . 'card_spacing' => [
-								'label' => __( 'Card Inner Spacing', 'blocksy' ),
-								'type' => 'ct-slider',
-								'min' => 0,
-								'max' => 100,
+							$prefix . 'cardShadow' => [
+								'label' => __( 'Card Shadow', 'blocksy' ),
+								'type' => 'ct-box-shadow',
 								'responsive' => true,
-								'value' => [
-									'mobile' => 25,
-									'tablet' => 35,
-									'desktop' => 35,
-								],
+								'divider' => 'top',
 								'setting' => [ 'transport' => 'postMessage' ],
+								'value' => blocksy_box_shadow_value([
+									'enable' => true,
+									'h_offset' => 0,
+									'v_offset' => 12,
+									'blur' => 18,
+									'spread' => -6,
+									'inset' => false,
+									'color' => [
+										'color' => 'rgba(34, 56, 101, 0.04)',
+									],
+								])
 							],
 
 						],

@@ -451,6 +451,13 @@ const getVariablesForPrefix = prefix => ({
 		unit: 'px'
 	},
 
+	[`${prefix}_cardShadow`]: {
+		selector: '[data-cards="boxed"] .entry-card',
+		type: 'box-shadow',
+		variable: 'boxShadow',
+		responsive: true
+	},
+
 	[`${prefix}_archive_order`]: {
 		variable: 'avatarSize',
 		unit: 'px',

@@ -201,6 +201,27 @@ blocksy_output_responsive([
 	])
 ]);
 
+// Box shadow
+blocksy_output_box_shadow([
+	'css' => $css,
+	'tablet_css' => $tablet_css,
+	'mobile_css' => $mobile_css,
+	'selector' => '[data-cards="boxed"] .entry-card',
+	'value' => blocksy_akg('cardShadow', $listing_source, blocksy_box_shadow_value([
+		'enable' => true,
+		'h_offset' => 0,
+		'v_offset' => 12,
+		'blur' => 18,
+		'spread' => -6,
+		'inset' => false,
+		'color' => [
+			'color' => 'rgba(34, 56, 101, 0.04)',
+		],
+	])),
+	'responsive' => true
+]);
+
+
 // TODO: extract here based on current screen when we multiply archive_order
 // options
 $archive_order = blocksy_akg_or_customizer(

@@ -63,6 +63,12 @@ export const handleMenuVariables = ({ selector }) => ({
 		unit: 'px'
 	},
 
+	dropdownItemsSpacing: {
+		selector: `${selector} .sub-menu li`,
+		variable: 'padding',
+		unit: 'px'
+	},
+
 	...typographyOption({
 		id: 'headerDropdownFont',
 		selector: `${selector} .sub-menu`
@@ -101,6 +107,13 @@ export const handleMenuVariables = ({ selector }) => ({
 		selector,
 		type: 'spacing',
 		variable: 'margin',
+		responsive: true
+	},
+
+	headerDropdownShadow: {
+		selector: `${selector} .sub-menu`,
+		type: 'box-shadow',
+		variable: 'boxShadow',
 		responsive: true
 	},
 

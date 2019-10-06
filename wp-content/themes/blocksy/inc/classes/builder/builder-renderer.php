@@ -84,22 +84,21 @@ class Blocksy_Customizer_Builder_Render_Placements {
 		$atts = $this->get_item_data_for('offcanvas');
 		$row_config = $this->get_item_config_for('offcanvas');
 
-		$class = 'ct-modal';
+		$class = 'ct-panel';
+		$behavior = 'modal';
 
 		$position_output = [];
 
 		if (blocksy_default_akg('offcanvas_behavior', $atts, 'panel') !== 'modal') {
-			$class = 'side-panel';
-
-			$position_output['data-position'] = blocksy_default_akg(
+			$behavior = blocksy_default_akg(
 				'side_panel_position', $atts, 'right'
-			);
+			) . '-side';
 		}
 
 		$without_container = blocksy_html_tag(
 			'div',
 			array_merge([
-				'class' => 'ct-bag-container'
+				'class' => 'content-container',
 			], (
 				is_customize_preview() ? [
 					'data-item-label' => $row_config['config']['name'],
@@ -107,24 +106,17 @@ class Blocksy_Customizer_Builder_Render_Placements {
 					'data-location' => $this->get_customizer_location_for('offcanvas')
 				] : []
 			)),
-			'
-				<div class="ct-bag-actions">
-					<div class="ct-bag-close">
-						<span class="lines-button close"></span>
-					</div>
-				</div>
-				' . blocksy_html_tag(
-					'div',
-					[
-						'class' => 'ct-bag-content',
-						'data-align' => blocksy_default_akg(
-							'offcanvasContentAlignment',
-							$atts,
-							'left'
-						)
-					],
-					$content
-				)
+			blocksy_html_tag(
+				'section',
+				[
+					'data-align' => blocksy_default_akg(
+						'offcanvasContentAlignment',
+						$atts,
+						'left'
+					)
+				],
+				$content
+			)
 		);
 
 		if (! $has_container) {
@@ -137,11 +129,15 @@ class Blocksy_Customizer_Builder_Render_Placements {
 				[
 					'id' => 'offcanvas',
 					'class' => $class,
+					'data-behaviour' => $behavior,
 					'data-device' => $this->device
 				],
 				$position_output
 			),
-			$without_container
+
+			'<div class="close-button">
+				<span class="lines-button close"></span>
+			</div>' .  $without_container
 		);
 	}
 

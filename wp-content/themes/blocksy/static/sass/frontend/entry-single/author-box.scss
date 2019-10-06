@@ -51,8 +51,8 @@
 	&[data-type="type-1"] {
 		margin: 60px 0;
 		background: var(--singleAuthorBoxBackground);
-		// border: 6px solid var(--singleAuthorBoxBorder);
-		box-shadow: 0px 50px 90px 0px var(--singleAuthorBoxShadow);
+		box-shadow: var(--boxShadow);
+		// box-shadow: 0px 50px 90px 0px var(--singleAuthorBoxShadow);
 
 		figure {
 			@include media-breakpoint-down (sm) {

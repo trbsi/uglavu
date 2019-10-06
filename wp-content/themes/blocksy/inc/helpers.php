@@ -7,6 +7,17 @@
  * @package Blocksy
  */
 
+function blocksy_locate_theme_path($rel_path) {
+	if (is_child_theme() && file_exists(get_stylesheet_directory() . $rel_path)) {
+		return get_stylesheet_directory() . $rel_path;
+	} elseif (file_exists(get_template_directory() . $rel_path)) {
+		return get_template_directory() . $rel_path;
+	} else {
+		return false;
+	}
+}
+
+
 function blocksy_assert_args($args, $fields = []) {
 	foreach ($fields as $single_field) {
 		if (

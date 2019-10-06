@@ -288,34 +288,39 @@ blocksy_output_colors([
 	],
 ]);
 
-blocksy_output_colors([
-	'value' => get_theme_mod('sidebarBorderColor'),
-	'default' => [
-		'default' => [ 'color' => 'rgba(224, 229, 235, 0.8)' ],
-	],
+// Sidebar border
+blocksy_output_border([
 	'css' => $css,
-	'variables' => [
-		'default' => ['variable' => 'sidebarBorderColor'],
-	],
+	'tablet_css' => $tablet_css,
+	'mobile_css' => $mobile_css,
+	'selector' => 'aside[data-type="type-2"]',
+	'variableName' => 'border',
+	'value' => get_theme_mod('sidebarBorder', [
+		'width' => 1,
+		'style' => 'none',
+		'color' => [
+			'color' => 'rgba(224, 229, 235, 0.8)',
+		],
+	]),
+	'responsive' => true
 ]);
 
-$sidebarBorderSize = get_theme_mod( 'sidebarBorderSize', 0 );
-$css->put( ':root', '--sidebarBorderSize: ' . $sidebarBorderSize . 'px' );
 
-blocksy_output_colors([
-	'value' => get_theme_mod('sidebarDividerColor'),
-	'default' => [
-		'default' => [ 'color' => 'rgba(224, 229, 235, 0.8)' ],
-	],
+blocksy_output_border([
 	'css' => $css,
-	'variables' => [
-		'default' => ['variable' => 'sidebarDividerColor'],
-	],
+	'tablet_css' => $tablet_css,
+	'mobile_css' => $mobile_css,
+	'selector' => 'aside[data-type="type-3"]',
+	'variableName' => 'border',
+	'value' => get_theme_mod('sidebarDivider', [
+		'width' => 1,
+		'style' => 'solid',
+		'color' => [
+			'color' => 'rgba(224, 229, 235, 0.8)',
+		],
+	]),
+	'responsive' => true
 ]);
-
-$sidebarDividerSize = get_theme_mod( 'sidebarDividerSize', 1 );
-$css->put( ':root', '--sidebarDividerSize: ' . $sidebarDividerSize . 'px' );
-
 
 blocksy_output_responsive([
 	'css' => $css,
@@ -341,6 +346,27 @@ blocksy_output_responsive([
 		'tablet' => 35,
 		'desktop' => 35,
 	])
+]);
+
+
+// Sidebar shadow
+blocksy_output_box_shadow([
+	'css' => $css,
+	'tablet_css' => $tablet_css,
+	'mobile_css' => $mobile_css,
+	'selector' => 'aside[data-type="type-2"]',
+	'value' => get_theme_mod('sidebarShadow', blocksy_box_shadow_value([
+		'enable' => true,
+		'h_offset' => 0,
+		'v_offset' => 12,
+		'blur' => 18,
+		'spread' => -6,
+		'inset' => false,
+		'color' => [
+			'color' => 'rgba(34, 56, 101, 0.04)',
+		],
+	])),
+	'responsive' => true
 ]);
 
 
@@ -631,17 +657,23 @@ blocksy_output_colors([
 	],
 ]);
 
-blocksy_output_colors([
-	'value' => get_theme_mod('singleAuthorBoxShadow'),
-	'default' => [
-		'default' => [ 'color' => 'rgba(210, 213, 218, 0.4)' ],
-	],
+blocksy_output_box_shadow([
 	'css' => $css,
-	'variables' => [
-		'default' => [
-			'variable' => 'singleAuthorBoxShadow'
+	'tablet_css' => $tablet_css,
+	'mobile_css' => $mobile_css,
+	'selector' => '.author-box[data-type="type-1"]',
+	'value' => get_theme_mod('singleAuthorBoxShadow', blocksy_box_shadow_value([
+		'enable' => true,
+		'h_offset' => 0,
+		'v_offset' => 50,
+		'blur' => 90,
+		'spread' => 0,
+		'inset' => false,
+		'color' => [
+			'color' => 'rgba(210, 213, 218, 0.4)',
 		],
-	],
+	])),
+	'responsive' => true
 ]);
 
 
@@ -823,6 +855,9 @@ blocksy_output_responsive([
 
 
 // To top button
+$topButtonOffset = get_theme_mod( 'topButtonOffset', 0 );
+$css->put( '.ct-back-to-top', '--bottom: ' . $topButtonOffset . 'px' );
+
 blocksy_output_colors([
 	'value' => get_theme_mod('topButtonIconColor'),
 	'default' => [

@@ -1,5 +1,5 @@
 import { createElement, Component, useState } from '@wordpress/element'
-import OutsideClickHandler from 'react-outside-click-handler'
+import OutsideClickHandler from './react-outside-click-handler'
 import classnames from 'classnames'
 import ColorPicker from './ct-color-picker'
 

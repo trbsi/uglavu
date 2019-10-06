@@ -11,6 +11,13 @@ export const handleRowVariables = ({ selector }) => ({
 		unit: 'px'
 	},
 
+	headerRowShadow: {
+		selector,
+		type: 'box-shadow',
+		variable: 'boxShadow',
+		responsive: true
+	},
+
 	...handleBackgroundOptionFor({
 		id: 'headerRowBackground',
 		selector
@@ -20,15 +27,15 @@ export const handleRowVariables = ({ selector }) => ({
 		selector: `${selector}[data-border] > div:before`,
 		variable: 'border',
 		type: 'border',
-		responsive: true,
+		responsive: true
 	},
 
 	headerRowBottomBorder: {
 		selector: `${selector}[data-border] > div:after`,
 		variable: 'border',
 		type: 'border',
-		responsive: true,
-	},
+		responsive: true
+	}
 })
 
 const updateBorderFor = (

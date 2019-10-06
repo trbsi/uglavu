@@ -189,17 +189,13 @@ if (get_theme_mod('footer_reveal', 'no') === 'yes') {
 
 ?>
 
-<div id="search-modal" class="ct-modal">
-	<div class="ct-bag-container">
-		<div class="ct-bag-actions">
-			<div class="ct-bag-close">
-				<span class="lines-button close"></span>
-			</div>
-		</div>
+<div id="search-modal" class="ct-panel" data-behaviour="modal">
+	<div class="close-button">
+		<span class="lines-button close"></span>
+	</div>
 
-		<div class="ct-bag-content" data-align="middle">
-			<?php get_search_form(); ?>
-		</div>
+	<div class="content-container" data-align="middle">
+		<?php get_search_form(); ?>
 	</div>
 </div>
 

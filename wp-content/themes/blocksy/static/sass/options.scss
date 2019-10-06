@@ -1,3 +1,7 @@
+:root {
+	--accentColor: #0e8ecc;
+}
+
 $accent_color: #0e8ecc;
 
 @import 'options/widgets-backend';
@@ -31,6 +35,8 @@ $accent_color: #0e8ecc;
 @import 'options/ratio-picker';
 @import 'options/background/main';
 @import 'options/color/main';
+@import 'options/ct-editor';
+@import 'options/box-shadow';
 
 
 // ui styles

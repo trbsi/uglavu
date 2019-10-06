@@ -1,16 +1,15 @@
 $panel-height: 320px;
 
 .ct-panel-builder {
-	position: fixed;
+	position: absolute;
 	z-index: 999;
-	left: 320px;
+	left: 0;
 	right: 0;
-	bottom: 0;
+	bottom: $panel-height * -1;
 	height: $panel-height;
 	background: #eee;
 	box-sizing: border-box;
 	border-top: 1px solid #ddd;
-	bottom: $panel-height * -1;
 	transition: bottom 0.18s linear;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -40,8 +39,7 @@ $panel-height: 320px;
 			}
 
 			.ct-panel-builder {
-				// transform: translateY(0);
-				bottom: 0;
+				bottom: 0 !important;
 			}
 		}
 	}

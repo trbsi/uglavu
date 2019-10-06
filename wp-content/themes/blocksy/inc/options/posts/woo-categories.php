@@ -54,69 +54,6 @@ $options = [
 					'attr' => [ 'data-type' => 'small' ]
 				],
 
-				'product_catalog_panel' => [
-					'label' => __( 'Product Catalog', 'blocksy' ),
-					'type' => 'ct-panel',
-					'wrapperAttr' => [ 'data-panel' => 'only-arrow' ],
-					'setting' => [ 'transport' => 'postMessage' ],
-					'inner-options' => [
-
-						'woocommerce_shop_page_display' => [
-							'label' => __( 'Shop page display', 'blocksy' ),
-							'type' => 'ct-select',
-							'value' => '',
-							'view' => 'text',
-							'placeholder' => __('Show products', 'blocksy'),
-							'design' => 'block',
-							'desc' => __( 'Choose what to display on the main shop page.', 'blocksy' ),
-							'choices' => blocksy_ordered_keys(
-								[
-									'' => __('Show products', 'blocksy'),
-									'subcategories' => __('Show categories', 'blocksy'),
-									'both' => __('Show categories & products', 'blocksy'),
-								]
-							),
-						],
-
-						'woocommerce_category_archive_display' => [
-							'label' => __( 'Category display', 'blocksy' ),
-							'type' => 'ct-select',
-							'value' => '',
-							'view' => 'text',
-							'placeholder' => __('Show products', 'blocksy'),
-							'design' => 'block',
-							'desc' => __( 'Choose what to display on product category pages.', 'blocksy' ),
-							'choices' => blocksy_ordered_keys(
-								[
-									'' => __('Show products', 'blocksy'),
-									'subcategories' => __('Show subcategories', 'blocksy'),
-									'both' => __('Show subcategories & products', 'blocksy'),
-								]
-							),
-						],
-
-						'woocommerce_default_catalog_orderby' => [
-							'label' => __( 'Default product sorting', 'blocksy' ),
-							'type' => 'ct-select',
-							'value' => 'menu_order',
-							'view' => 'text',
-							'design' => 'block',
-							'desc' => __( 'How should products be sorted in the catalog by default?', 'blocksy' ),
-							'choices' => blocksy_ordered_keys(
-								[
-									'menu_order' => __('Default sorting (custom ordering + name)', 'blocksy'),
-									'popularity' => __('Popularity (sales)', 'blocksy'),
-									'rating' => __('Average rating', 'blocksy'),
-									'date' => __('Sort by most recent', 'blocksy'),
-									'price' => __('Sort by price (asc)', 'blocksy'),
-									'price-desc' => __('Sort by price (desc)', 'blocksy'),
-								]
-							),
-						],
-
-					],
-				],
-
 				'product_card_options_panel' => [
 					'label' => __( 'Card Options', 'blocksy' ),
 					'type' => 'ct-panel',
@@ -425,12 +362,55 @@ $options = [
 									],
 								],
 
+								'cardProductBackground' => [
+									'label' => __( 'Card Background Color', 'blocksy' ),
+									'type'  => 'ct-color-picker',
+									'design' => 'inline',
+									'divider' => 'top',
+									'setting' => [ 'transport' => 'postMessage' ],
+									'value' => [
+										'default' => [
+											'color' => '#ffffff',
+										],
+									],
+
+									'pickers' => [
+										[
+											'title' => __( 'Initial', 'blocksy' ),
+											'id' => 'default',
+										],
+									],
+								],
+
+								'cardProductShadow' => [
+									'label' => __( 'Card Shadow', 'blocksy' ),
+									'type' => 'ct-box-shadow',
+									'responsive' => true,
+									'divider' => 'top',
+									'setting' => [ 'transport' => 'postMessage' ],
+									'value' => blocksy_box_shadow_value([
+										'enable' => true,
+										'h_offset' => 0,
+										'v_offset' => 12,
+										'blur' => 18,
+										'spread' => -6,
+										'inset' => false,
+										'color' => [
+											'color' => 'rgba(34, 56, 101, 0.03)',
+										],
+									])
+								],
+
 							],
 						],
 
 					],
 				],
 
+				blocksy_rand_md5() => [
+					'type' => 'ct-divider',
+					'attr' => [ 'data-type' => 'small' ]
+				],
 
 				blocksy_rand_md5() => [
 					'type' => 'ct-condition',
@@ -460,6 +440,73 @@ $options = [
 					'setting' => [ 'transport' => 'postMessage' ],
 				],
 
+				blocksy_rand_md5() => [
+					'type' => 'ct-divider',
+					'attr' => [ 'data-type' => 'small' ]
+				],
+
+				'product_catalog_panel' => [
+					'label' => __( 'Product Catalog', 'blocksy' ),
+					'type' => 'ct-panel',
+					'wrapperAttr' => [ 'data-panel' => 'only-arrow' ],
+					'setting' => [ 'transport' => 'postMessage' ],
+					'inner-options' => [
+
+						'woocommerce_shop_page_display' => [
+							'label' => __( 'Shop page display', 'blocksy' ),
+							'type' => 'ct-select',
+							'value' => '',
+							'view' => 'text',
+							'placeholder' => __('Show products', 'blocksy'),
+							'design' => 'block',
+							'desc' => __( 'Choose what to display on the main shop page.', 'blocksy' ),
+							'choices' => blocksy_ordered_keys(
+								[
+									'' => __('Show products', 'blocksy'),
+									'subcategories' => __('Show categories', 'blocksy'),
+									'both' => __('Show categories & products', 'blocksy'),
+								]
+							),
+						],
+
+						'woocommerce_category_archive_display' => [
+							'label' => __( 'Category display', 'blocksy' ),
+							'type' => 'ct-select',
+							'value' => '',
+							'view' => 'text',
+							'placeholder' => __('Show products', 'blocksy'),
+							'design' => 'block',
+							'desc' => __( 'Choose what to display on product category pages.', 'blocksy' ),
+							'choices' => blocksy_ordered_keys(
+								[
+									'' => __('Show products', 'blocksy'),
+									'subcategories' => __('Show subcategories', 'blocksy'),
+									'both' => __('Show subcategories & products', 'blocksy'),
+								]
+							),
+						],
+
+						'woocommerce_default_catalog_orderby' => [
+							'label' => __( 'Default product sorting', 'blocksy' ),
+							'type' => 'ct-select',
+							'value' => 'menu_order',
+							'view' => 'text',
+							'design' => 'block',
+							'desc' => __( 'How should products be sorted in the catalog by default?', 'blocksy' ),
+							'choices' => blocksy_ordered_keys(
+								[
+									'menu_order' => __('Default sorting (custom ordering + name)', 'blocksy'),
+									'popularity' => __('Popularity (sales)', 'blocksy'),
+									'rating' => __('Average rating', 'blocksy'),
+									'date' => __('Sort by most recent', 'blocksy'),
+									'price' => __('Sort by price (asc)', 'blocksy'),
+									'price-desc' => __('Sort by price (desc)', 'blocksy'),
+								]
+							),
+						],
+
+					],
+				],
 
 				blocksy_rand_md5() => [
 					'type'  => 'ct-title',

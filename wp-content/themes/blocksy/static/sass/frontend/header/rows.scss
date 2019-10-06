@@ -1,3 +1,23 @@
+// row box-shadow
+[data-row] {
+	position: relative;
+	box-shadow: var(--boxShadow);
+}
+
+[data-row="top"] {
+	z-index: 3;
+}
+
+[data-row="middle"] {
+	z-index: 2;
+}
+
+[data-row="bottom"] {
+	z-index: 1;
+}
+
+
+// border top & bottom
 [data-border] > div {
 	position: relative;
 

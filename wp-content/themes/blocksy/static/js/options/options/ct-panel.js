@@ -94,6 +94,16 @@ export const PanelMetaWrapper = ({ id, option, getActualOption, value }) => {
 		}
 	}, [panelsState, id, panelsHelpers])
 
+	useEffect(() => {
+		return () => {
+			;[
+				...document.querySelectorAll(
+					'.control-section.ct-panel-open:not(.open)'
+				)
+			].map(el => el.classList.remove('ct-panel-open'))
+		}
+	}, [])
+
 	return getActualOption({
 		open: () => panelsHelpers.open(id),
 

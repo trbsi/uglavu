@@ -342,7 +342,12 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 			);
 
 			if (! have_posts()) {
-				$description = '<div class="' . $description_class . '">Sorry, but nothing matched your search terms. Please try again with some different keywords.</div>';
+				// translators: %s are the opening and closing of the html tags
+				$description = sprintf(
+					__('%sSorry, but nothing matched your search terms. Please try again with some different keywords.%s', 'blocksy'),
+					'<div class="' . $description_class . '">',
+					'</div>'
+				);
 			}
 		}
 

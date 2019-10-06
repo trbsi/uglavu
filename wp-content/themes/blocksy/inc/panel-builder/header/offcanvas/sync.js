@@ -9,7 +9,14 @@ ctEvents.on(
 			...handleBackgroundOptionFor({
 				id: 'offcanvasBackground',
 				selector: '#offcanvas'
-			})
+			}),
+
+			headerPanelShadow: {
+				selector: '[data-behaviour*="side"]',
+				type: 'box-shadow',
+				variable: 'boxShadow',
+				responsive: true
+			},
 		}
 	}
 )
@@ -21,8 +28,8 @@ ctEvents.on(
 
 		if (optionId === 'offcanvasContentAlignment') {
 			document.querySelector(
-				'#offcanvas .ct-bag-content'
-			).dataset.align = optionValue
+				'#offcanvas .content-container'
+			).firstElementChild.dataset.align = optionValue
 		}
 
 		if (
@@ -32,30 +39,22 @@ ctEvents.on(
 			const el = document.querySelector('#offcanvas')
 
 			ctEvents.trigger('ct:offcanvas:force-close', {
-				$el: document.querySelector('#offcanvas'),
-				settings: {
-					onClose: () => {
-						document.querySelector('.mobile-menu-toggle') &&
-							document
-								.querySelector('.mobile-menu-toggle')
-								.firstElementChild.classList.remove('close')
-					}
-				}
+				container: document.querySelector(
+					document.querySelector('.mobile-menu-toggle').hash
+				),
+				onClose: () =>
+					document
+						.querySelector('.mobile-menu-toggle')
+						.firstElementChild.classList.remove('close')
 			})
 
 			setTimeout(() => {
-				el.removeAttribute('data-position')
-				el.classList.remove('ct-modal', 'side-panel')
+				el.removeAttribute('data-behaviour')
 
-				el.classList.add(
+				el.dataset.behaviour =
 					values.offcanvas_behavior === 'modal'
-						? 'ct-modal'
-						: 'side-panel'
-				)
-
-				if (values.side_panel_position !== 'modal') {
-					el.dataset.position = values.side_panel_position
-				}
+						? 'modal'
+						: `${values.side_panel_position}-side`
 			}, 1000)
 		}
 	}

@@ -36,37 +36,21 @@ const getItemsDistribution = nav => {
 	}
 
 	if (
-		nav.closest('.ct-container').querySelectorAll('[data-id*="menu"]')
-			.length === 1 &&
+		nav.closest('[class*="ct-container"]') &&
+		nav
+			.closest('[class*="ct-container"]')
+			.querySelectorAll('[data-id*="menu"]').length === 1 &&
 		nav.closest('[data-column="middle"]')
 	) {
-		console.log(
-			'here start',
-			[
-				...nav
-					.closest('.ct-container')
-					.querySelectorAll('[data-column="start"] [data-id]')
-			].reduce((sum, el) => sum + el.getBoundingClientRect().width, 0)
-		)
-
-		console.log(
-			'here end',
-			[
-				...nav
-					.closest('.ct-container')
-					.querySelectorAll('[data-column="end"] [data-id]')
-			].reduce((sum, el) => sum + el.getBoundingClientRect().width, 0)
-		)
-
 		containerWidth =
-			[...nav.closest('.ct-container').children].reduce(
+			[...nav.closest('[class*="ct-container"]').children].reduce(
 				(sum, el) => sum + el.getBoundingClientRect().width,
 				0
 			) -
 			Math.max(
 				[
 					...nav
-						.closest('.ct-container')
+						.closest('[class*="ct-container"]')
 						.querySelectorAll('[data-column="start"] [data-id]')
 				].reduce((sum, el) => {
 					let style = window.getComputedStyle(el)
@@ -79,7 +63,7 @@ const getItemsDistribution = nav => {
 				}, 0),
 				[
 					...nav
-						.closest('.ct-container')
+						.closest('[class*="ct-container"]')
 						.querySelectorAll('[data-column="end"] [data-id]')
 				].reduce((sum, el) => {
 					let style = window.getComputedStyle(el)
@@ -148,7 +132,7 @@ const maybeCreateMoreItemsFor = nav => {
 	moreContainer.insertAdjacentHTML(
 		'afterbegin',
 		`<a href="#">
-      More
+      ${ct_localizations.more_text}
       <span class="child-indicator">
         <svg width="8" height="8" viewBox="0 0 15 15">
             <path d="M2.1,3.2l5.4,5.4l5.4-5.4L15,4.3l-7.5,7.5L0,4.3L2.1,3.2z"></path>

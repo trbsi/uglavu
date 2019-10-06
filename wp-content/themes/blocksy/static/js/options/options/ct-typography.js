@@ -10,7 +10,7 @@ import {
 } from '@wordpress/element'
 import classnames from 'classnames'
 import TypographyModal from './typography/TypographyModal'
-import OutsideClickHandler from 'react-outside-click-handler'
+import OutsideClickHandler from './react-outside-click-handler'
 import { humanizeVariations } from './typography/helpers'
 import { maybePromoteScalarValueIntoResponsive } from '../../customizer/components/responsive-controls'
 import { Manager, Reference, Popper } from 'react-popper'

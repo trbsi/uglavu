@@ -1,6 +1,8 @@
 .shop-entry-card {
 	position: relative;
 	z-index: 1;
+	background: var(--backgroundColor);
+	box-shadow: var(--boxShadow);
 
 	> figure {
 		position: relative;

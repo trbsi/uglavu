@@ -22,9 +22,8 @@ class ColorPicker extends Component {
 	})
 
 	state = {
-		is_picking: null,
-		isTransitioning: null,
-		shouldAnimate: true
+		isPicking: null,
+		isTransitioning: null
 	}
 
 	render() {
@@ -32,13 +31,12 @@ class ColorPicker extends Component {
 			<OutsideClickHandler
 				useCapture={false}
 				display="inline-block"
-				disabled={!this.state.is_picking}
+				disabled={!this.state.isPicking}
 				className="ct-color-picker-container"
 				onOutsideClick={() =>
 					this.setState({
-						is_picking: null,
-						isTransitioning: this.state.is_picking,
-						shouldAnimate: true
+						isPicking: null,
+						isTransitioning: this.state.isPicking
 					})
 				}>
 				{this.props.option.pickers
@@ -55,27 +53,17 @@ class ColorPicker extends Component {
 							picker={picker}
 							key={picker.id}
 							option={this.props.option}
-							is_picking={this.state.is_picking}
+							isPicking={this.state.isPicking}
 							isTransitioning={this.state.isTransitioning}
-							shouldAnimate={this.state.shouldAnimate}
-							onPickingChange={is_picking =>
-								this.setState(({ is_picking }) => ({
+							onPickingChange={isPicking =>
+								this.setState({
 									isTransitioning: picker.id,
-									shouldAnimate: is_picking
-										? is_picking === picker.id
-											? true
-											: false
-										: true,
-									is_picking:
-										is_picking === picker.id
-											? null
-											: picker.id
-								}))
+									isPicking
+								})
 							}
 							stopTransitioning={() =>
 								this.setState({
-									isTransitioning: false,
-									shouldAnimate: true
+									isTransitioning: false
 								})
 							}
 							onChange={newPicker =>

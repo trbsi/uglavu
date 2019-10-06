@@ -11,6 +11,7 @@ add_filter(
 
 /**
  * @param number $length Number of words allowed in excerpt.
+ * @see https://smallenvelop.com/limit-post-excerpt-length-in-wordpress/
  */
 function blocksy_trim_excerpt( $excerpt, $length ) {
 	//CUSTOM START

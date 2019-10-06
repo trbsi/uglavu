@@ -172,15 +172,15 @@ class Blocksy_Css_Injector {
 	 * @param string|array $value CSS syntax.
 	 */
 	public function put( $key, $value ) {
-		if ( is_string( $value ) && trim( $value ) === '' ) {
+		if (is_string($value) && trim($value) === '') {
 			return;
 		}
 
-		if ( $this->css_selector_prefix ) {
-			if ( is_array( $key ) ) {
+		if ($this->css_selector_prefix) {
+			if (is_array($key)) {
 				$new_key = [];
 
-				foreach ( $key as $nested_key ) {
+				foreach ($key as $nested_key) {
 					$new_key[] = $this->css_selector_prefix . ' ' . $nested_key;
 				}
 
@@ -190,12 +190,12 @@ class Blocksy_Css_Injector {
 			}
 		}
 
-		if ( is_array( $key ) ) {
-			$key = implode( ",\n", $key );
+		if (is_array($key)) {
+			$key = implode(",\n", $key);
 		}
 
-		if ( ! isset( $this->attr[ $key ] ) ) {
-			$this->attr[ $key ] = [];
+		if (! isset($this->attr[$key])) {
+			$this->attr[$key] = [];
 		}
 
 		$rules = [];
@@ -315,6 +315,8 @@ class Blocksy_Css_Injector {
 	 * the weight of the selectors.
 	 */
 	private function merge_class_with_the_same_css() {
+		return;
+
 		$new_names = [];
 		$used = [];
 

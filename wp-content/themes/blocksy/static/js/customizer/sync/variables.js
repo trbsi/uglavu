@@ -204,24 +204,18 @@ handleVariablesFor({
 		type: 'color'
 	},
 
-	sidebarBorderColor: {
-		variable: 'sidebarBorderColor',
-		type: 'color'
+	sidebarBorder: {
+		selector: 'aside[data-type="type-2"]',
+		variable: 'border',
+		type: 'border',
+		responsive: true
 	},
 
-	sidebarBorderSize: {
-		variable: 'sidebarBorderSize',
-		unit: 'px'
-	},
-
-	sidebarDividerColor: {
-		variable: 'sidebarDividerColor',
-		type: 'color'
-	},
-
-	sidebarDividerSize: {
-		variable: 'sidebarDividerSize',
-		unit: 'px'
+	sidebarDivider: {
+		selector: 'aside[data-type="type-3"]',
+		variable: 'border',
+		type: 'border',
+		responsive: true
 	},
 
 	sidebarWidgetsSpacing: {
@@ -234,6 +228,13 @@ handleVariablesFor({
 		variable: 'sidebarInnerSpacing',
 		responsive: true,
 		unit: 'px'
+	},
+
+	sidebarShadow: {
+		selector: 'aside[data-type="type-2"]',
+		type: 'box-shadow',
+		variable: 'boxShadow',
+		responsive: true
 	},
 
 	// Related Posts
@@ -424,14 +425,11 @@ handleVariablesFor({
 		type: 'color'
 	},
 
-	singleAuthorBoxBorder: {
-		variable: 'singleAuthorBoxBorder',
-		type: 'color'
-	},
-
 	singleAuthorBoxShadow: {
-		variable: 'singleAuthorBoxShadow',
-		type: 'color'
+		selector: '.author-box[data-type="type-1"]',
+		type: 'box-shadow',
+		variable: 'boxShadow',
+		responsive: true
 	},
 
 	// Footer
@@ -621,6 +619,19 @@ handleVariablesFor({
 		}
 	],
 
+	cardProductBackground: {
+		selector: '.shop-entry-card',
+		variable: 'backgroundColor',
+		type: 'color'
+	},
+
+	cardProductShadow: {
+		selector: '.shop-entry-card',
+		type: 'box-shadow',
+		variable: 'boxShadow',
+		responsive: true
+	},
+
 	// Woocommerce single
 	singleProductPriceColor: {
 		selector: '.entry-summary .price',
@@ -649,6 +660,13 @@ handleVariablesFor({
 	},
 
 	// To top button
+	topButtonOffset: {
+		selector: '.ct-back-to-top',
+		variable: 'bottom',
+		responsive: true,
+		unit: 'px'
+	},
+
 	topButtonIconColor: [
 		{
 			selector: '.ct-back-to-top',

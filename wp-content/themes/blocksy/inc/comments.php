@@ -80,7 +80,7 @@ function blocksy_custom_comment_template( $comment, $args, $depth ) {
 								$args,
 								array(
 									'add_below' => 'ct-comment-inner',
-									'reply_text' => 'Reply',
+									'reply_text' => __('Reply', 'blocksy'),
 									'depth' => $depth,
 									'max_depth' => $args['max_depth'],
 								)

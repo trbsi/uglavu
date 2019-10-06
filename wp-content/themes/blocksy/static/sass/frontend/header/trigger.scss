@@ -1,6 +1,7 @@
 .ct-header-trigger {
 	display: flex;
 	align-items: center;
+	transition: opacity 0.3s ease;
 
 	a {
 		display: flex;
@@ -116,8 +117,7 @@
 
 
 // hide trigger when off-canvas is oppened
-.modal-active,
-[class*="panel-active"] {
+[data-overlay*='in'] {
 	.ct-header-trigger {
 		opacity: 0;
 	}

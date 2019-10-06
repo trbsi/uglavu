@@ -1,13 +1,12 @@
 .ct-back-to-top {
 	position: fixed;
 	z-index: 100;
-	bottom: 0;
+	bottom: var(--bottom, 0);
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	width: 33px;
 	height: 33px;
-	margin: 25px;
 	color: var(--linkInitialColor);
 	opacity: 0;
 	visibility: hidden;
@@ -44,22 +43,26 @@
 		border-radius: 100%;
 	}
 
+	&[data-alignment="left"] {
+		left: 25px;
+	}
+
 	&[data-alignment="right"] {
-		right: 0;
+		right: 25px;
 	}
 }
 
 // With passepartout
 .ct-passepartout {
 	.ct-back-to-top {
+		bottom: calc(var(--passepartoutSize) + var(--bottom));
+
 		&[data-alignment="right"] {
-			right: var(--passepartoutSize);
-			bottom: var(--passepartoutSize);
+			right: calc(var(--passepartoutSize) + 25px);
 		}
 
 		&[data-alignment="left"] {
-			left: var(--passepartoutSize);
-			bottom: var(--passepartoutSize);
+			left: calc(var(--passepartoutSize) + 25px);
 		}
 	}
 }

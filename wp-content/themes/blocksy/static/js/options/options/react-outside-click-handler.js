@@ -1,25 +1,10 @@
 import { createElement, Component, Fragment } from '@wordpress/element'
-import PropTypes from 'prop-types'
 import cls from 'classnames'
-
-import { forbidExtraProps } from 'airbnb-prop-types'
-import { addEventListener } from 'consolidated-events'
-import objectValues from 'object.values'
-
-import contains from 'document.contains'
 
 const DISPLAY = {
 	BLOCK: 'block',
 	FLEX: 'flex',
 	INLINE_BLOCK: 'inline-block'
-}
-
-const propTypes = {
-	children: PropTypes.node.isRequired,
-	onOutsideClick: PropTypes.func.isRequired,
-	disabled: PropTypes.bool,
-	useCapture: PropTypes.bool,
-	display: PropTypes.oneOf(objectValues(DISPLAY))
 }
 
 const defaultProps = {
@@ -48,6 +33,7 @@ export default class OutsideClickHandler extends Component {
 
 	componentWillReceiveProps({ disabled, useCapture }) {
 		const { disabled: prevDisabled } = this.props
+
 		if (prevDisabled !== disabled) {
 			if (disabled) {
 				this.removeEventListeners()
@@ -68,19 +54,23 @@ export default class OutsideClickHandler extends Component {
 		const { useCapture } = this.props
 
 		const isDescendantOfRoot =
-			this.childNode && contains(this.childNode, e.target)
+			this.childNode && this.childNode.contains(e.target)
 
 		if (!isDescendantOfRoot) {
 			if (this.removeMouseUp) {
 				this.removeMouseUp()
 				this.removeMouseUp = null
 			}
-			this.removeMouseUp = addEventListener(
-				document,
-				'mouseup',
-				this.onMouseUp,
-				{ capture: useCapture }
-			)
+
+			document.addEventListener('mouseup', this.onMouseUp, useCapture)
+
+			this.removeMouseUp = () => {
+				document.removeEventListener(
+					'mouseup',
+					this.onMouseUp,
+					useCapture
+				)
+			}
 		}
 	}
 
@@ -91,7 +81,8 @@ export default class OutsideClickHandler extends Component {
 		const { onOutsideClick } = this.props
 
 		const isDescendantOfRoot =
-			this.childNode && contains(this.childNode, e.target)
+			this.childNode && this.childNode.contains(e.target)
+
 		if (this.removeMouseUp) {
 			this.removeMouseUp()
 			this.removeMouseUp = null
@@ -110,12 +101,15 @@ export default class OutsideClickHandler extends Component {
 	}
 
 	addMouseDownEventListener(useCapture) {
-		this.removeMouseDown = addEventListener(
-			document,
-			'mousedown',
-			this.onMouseDown,
-			{ capture: useCapture }
-		)
+		document.addEventListener('mousedown', this.onMouseDown, useCapture)
+
+		this.removeMouseDown = () => {
+			document.removeEventListener(
+				'mousedown',
+				this.onMouseDown,
+				useCapture
+			)
+		}
 	}
 
 	removeEventListeners() {
@@ -137,5 +131,4 @@ export default class OutsideClickHandler extends Component {
 	}
 }
 
-// OutsideClickHandler.propTypes = propTypes
 OutsideClickHandler.defaultProps = defaultProps

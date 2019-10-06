@@ -90,7 +90,7 @@ $options = [
 							],
 
 							'top_button_shape' => [
-								'label' => __( 'Button Shape', 'blocksy' ),
+								'label' => __( 'Shape', 'blocksy' ),
 								'type' => 'ct-radio',
 								'value' => 'square',
 								'view' => 'radio',
@@ -103,12 +103,24 @@ $options = [
 								],
 							],
 
+							'topButtonOffset' => [
+								'label' => __( 'Bottom Offset', 'blocksy' ),
+								'type' => 'ct-slider',
+								'min' => 25,
+								'max' => 300,
+								'value' => 25,
+								'responsive' => true,
+								'divider' => 'top',
+								'setting' => [ 'transport' => 'postMessage' ],
+							],
+
 							'top_button_alignment' => [
-								'label' => __( 'Button Alignment', 'blocksy' ),
+								'label' => __( 'Alignment', 'blocksy' ),
 								'type' => 'ct-radio',
 								'value' => 'right',
 								'setting' => [ 'transport' => 'postMessage' ],
 								'view' => 'text',
+								'divider' => 'top',
 								'attr' => [ 'data-type' => 'alignment' ],
 								'choices' => [
 									'left' => '',
@@ -118,7 +130,6 @@ $options = [
 
 							blocksy_rand_md5() => [
 								'type' => 'ct-divider',
-								'attr' => [ 'data-type' => 'small' ],
 							],
 
 							'back_top_visibility' => [

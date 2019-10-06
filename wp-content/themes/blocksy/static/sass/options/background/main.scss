@@ -23,6 +23,7 @@
 	max-height: 455px;
 	border-radius: 6px;
 	background: #fff;
+	margin-bottom: 25px;
 	transform-origin: center top;
 	box-shadow: 0 15px 15px rgba(0, 0, 0, 0.1);
 
@@ -108,7 +109,7 @@
 				bottom: -1px;
 				width: calc(100% + 2px);
 				height: 2px;
-				background: #0e8ecc;
+				background: var(--accentColor);
 			}
 		}
 	}

@@ -1,6 +1,7 @@
 import { getCache } from './helpers'
 import { renderSidebar, renderSidebarPosition } from './sidebar-helpers'
 import { getOptionFor } from './hero-section'
+import { renderSidebar as renderSidebarOpts } from './sidebar'
 
 export const getPrefixFor = () => {
 	if (document.body.classList.contains('blog')) {
@@ -39,11 +40,13 @@ const renderLocalSidebar = prefix => {
 
 	renderSidebar(
 		getOptionFor('has_sidebar', prefix) === 'yes' &&
-		getOptionFor('structure', prefix) !== 'gutenberg'
+			getOptionFor('structure', prefix) !== 'gutenberg'
 			? 'yes'
 			: 'no',
 		getOptionFor('sidebar_position', prefix)
 	)
+
+	renderSidebarOpts()
 
 	ctEvents.trigger('ct:custom-select:init')
 }

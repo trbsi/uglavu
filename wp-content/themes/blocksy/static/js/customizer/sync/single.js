@@ -262,9 +262,11 @@ export const replaceArticleAndRemoveParts = () => {
 				el.dataset.count = count
 			}
 		})
+
+		ctEvents.trigger('ct:single:share-box:update')
 	}
 
-	if ((wp.customize('has_author_box')() || 'no') === 'yes') {
+	if ((wp.customize('has_author_box')() || 'no') !== 'yes') {
 		const authorBox = document.querySelector(
 			'.site-main .content-area article .author-box'
 		)

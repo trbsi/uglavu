@@ -199,6 +199,7 @@ add_action('wp_enqueue_scripts', function () {
 		'rest_url' => get_rest_url(),
 		'search_url' => get_search_link( 'QUERY_STRING' ),
 		'show_more_text' => __( 'Show more', 'blocksy' ),
+		'more_text' => __( 'More', 'blocksy' ),
 	];
 
 	if ( is_customize_preview() ) {
@@ -238,50 +239,52 @@ add_action(
 	}
 );
 
-require get_template_directory() . '/inc/classes/customizer-builder.php';
-require get_template_directory() . '/inc/schema-org.php';
-require get_template_directory() . '/inc/classes/class-ct-css-injector.php';
-require get_template_directory() . '/inc/classes/class-ct-attributes-parser.php';
-require get_template_directory() . '/inc/excerpt.php';
 require get_template_directory() . '/inc/helpers.php';
-require get_template_directory() . '/inc/inline-svgs.php';
-require get_template_directory() . '/inc/css-helpers.php';
-require get_template_directory() . '/inc/dynamic-css.php';
-require get_template_directory() . '/inc/pagination.php';
-require get_template_directory() . '/inc/sidebar.php';
-require get_template_directory() . '/inc/post-meta.php';
-require get_template_directory() . '/inc/images.php';
-require get_template_directory() . '/inc/single-helpers.php';
-require get_template_directory() . '/inc/options-logic.php';
-require get_template_directory() . '/inc/comments.php';
-require get_template_directory() . '/inc/share-box.php';
-require get_template_directory() . '/inc/menus.php';
-require get_template_directory() . '/inc/footer.php';
-require get_template_directory() . '/inc/visibility.php';
-require get_template_directory() . '/inc/social-icons.php';
-require get_template_directory() . '/inc/header-helpers.php';
-require get_template_directory() . '/inc/elementor-integration.php';
-require get_template_directory() . '/inc/meta-boxes.php';
-require get_template_directory() . '/inc/hero-section.php';
-require get_template_directory() . '/inc/woocommerce-integration.php';
-require get_template_directory() . '/inc/posts-listing.php';
-require get_template_directory() . '/inc/gallery.php';
-require get_template_directory() . '/inc/backgrounds.php';
-require get_template_directory() . '/inc/typography/core.php';
+require get_template_directory() . '/inc/classes/customizer-builder.php';
+require blocksy_locate_theme_path('/inc/schema-org.php');
+require blocksy_locate_theme_path('/inc/classes/class-ct-css-injector.php');
+require blocksy_locate_theme_path('/inc/classes/class-ct-attributes-parser.php');
+require blocksy_locate_theme_path('/inc/excerpt.php');
+require blocksy_locate_theme_path('/inc/inline-svgs.php');
 
-require get_template_directory() . '/template-parts/content-helpers.php';
+require blocksy_locate_theme_path('/inc/css-helpers.php');
+require blocksy_locate_theme_path('/inc/css/box-shadow-option.php');
+require blocksy_locate_theme_path('/inc/dynamic-css.php');
+require blocksy_locate_theme_path('/inc/pagination.php');
+require blocksy_locate_theme_path('/inc/sidebar.php');
+require blocksy_locate_theme_path('/inc/post-meta.php');
+require blocksy_locate_theme_path('/inc/images.php');
+require blocksy_locate_theme_path('/inc/single-helpers.php');
+require blocksy_locate_theme_path('/inc/options-logic.php');
+require blocksy_locate_theme_path('/inc/comments.php');
+require blocksy_locate_theme_path('/inc/share-box.php');
+require blocksy_locate_theme_path('/inc/menus.php');
+require blocksy_locate_theme_path('/inc/footer.php');
+require blocksy_locate_theme_path('/inc/visibility.php');
+require blocksy_locate_theme_path('/inc/social-icons.php');
+require blocksy_locate_theme_path('/inc/header-helpers.php');
+require blocksy_locate_theme_path('/inc/elementor-integration.php');
+require blocksy_locate_theme_path('/inc/meta-boxes.php');
+require blocksy_locate_theme_path('/inc/hero-section.php');
+require blocksy_locate_theme_path('/inc/woocommerce-integration.php');
+require blocksy_locate_theme_path('/inc/posts-listing.php');
+require blocksy_locate_theme_path('/inc/gallery.php');
+require blocksy_locate_theme_path('/inc/backgrounds.php');
+require blocksy_locate_theme_path('/inc/typography/core.php');
+
+require blocksy_locate_theme_path('/template-parts/content-helpers.php');
 
 /**
  * Custom template tags for this theme.
  */
-require get_template_directory() . '/inc/template-tags.php';
+require blocksy_locate_theme_path('/inc/template-tags.php');
 
 /**
  * Customizer additions.
  */
 require get_template_directory() . '/inc/customizer.php';
 
-if ( is_admin() ) {
+if (is_admin()) {
 	require get_template_directory() . '/admin/init.php';
 }
 

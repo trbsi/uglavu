@@ -35,8 +35,6 @@ add_filter( 'body_class', function ( $classes ) {
 		$classes[] = 'ct-' . $forms_type;
 	}
 
-	$classes[] = 'header-' . get_theme_mod('header_type', 'type-1');
-
 	if ( is_single() || is_page() ) {
 		if (
 			blocksy_default_akg(

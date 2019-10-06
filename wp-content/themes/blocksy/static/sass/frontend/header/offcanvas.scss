@@ -1,11 +1,7 @@
 #offcanvas {
-	@include media-breakpoint-up (lg) {
-		display: none;
-	}
-	
-	.ct-bag-content {
+	.content-container section {
 		--margin: 20px 0;
-		
+
 		> * {
 			margin: var(--margin);
 
@@ -18,29 +14,37 @@
 			}
 		}
 	}
-}
 
 
-// Type modal
-#offcanvas.ct-modal .ct-bag-content {
-	--maxWidth: 500px;
+	// modal
+	&[data-behaviour="modal"] {
+		@include media-breakpoint-only (md) {
+			--padding: 40px 20vw;
+		}
 
-	justify-content: center;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-
-// Type side panel
-.side-panel .ct-bag-content {
-	&[data-align="center"] {
-	}
-	@include media-breakpoint-down (sm) {
-		--padding: 0 40px 40px 40px;
+		@include media-breakpoint-up (lg) {
+			--padding: 40px 25vw;
+		}
 	}
 
-	@include media-breakpoint-only (md) {
-		--padding: 0 20% 40px 20%;
+	// panel
+	&[data-behaviour*="side"] {
+		@include media-breakpoint-down (sm) {
+			--padding: 40px;
+		}
+
+		@include media-breakpoint-up (md) {
+			--padding: 40px 20%;
+		}
 	}
-	justify-content: center;
+
+
+	// content alignment
+	section[data-align="center"] {
+		align-items: center;
+	}
+
+	section[data-align="right"] {
+		align-items: flex-end;
+	}
 }

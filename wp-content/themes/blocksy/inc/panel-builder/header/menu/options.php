@@ -13,8 +13,8 @@ $options = [
 			// translators: placeholder here means the actual URL.
 			__( 'Assign a menu for this element. You can edit your menu %shere%s.', 'blocksy' ),
 			sprintf(
-				'<a href="%s" data-trigger-section="nav_menus">',
-				admin_url('/customize.php?autofocus[section]=nav_menus')
+				'<a href="%s" target="_blank">',
+				admin_url('/nav-menus.php')
 			),
 			'</a>'
 		),
@@ -237,8 +237,9 @@ $options = [
 				'label' => __( 'Dropdown Top Offset', 'blocksy' ),
 				'type' => 'ct-slider',
 				'value' => 15,
-				'min' => 0,
+				'min' => -50,
 				'max' => 50,
+				'steps' => 'half',
 				'setting' => [ 'transport' => 'postMessage' ],
 			],
 
@@ -248,6 +249,16 @@ $options = [
 				'value' => 200,
 				'min' => 100,
 				'max' => 300,
+				'divider' => 'bottom',
+				'setting' => [ 'transport' => 'postMessage' ],
+			],
+
+			'dropdownItemsSpacing' => [
+				'label' => __( 'Dropdown Items Vertical Spacing', 'blocksy' ),
+				'type' => 'ct-slider',
+				'value' => 13,
+				'min' => 5,
+				'max' => 30,
 				'setting' => [ 'transport' => 'postMessage' ],
 			],
 
@@ -339,6 +350,24 @@ $options = [
 						'id' => 'default',
 					],
 				],
+			],
+
+			'headerDropdownShadow' => [
+				'label' => __( 'Shadow', 'blocksy' ),
+				'type' => 'ct-box-shadow',
+				'responsive' => true,
+				'divider' => 'bottom',
+				'value' => blocksy_box_shadow_value([
+					'enable' => true,
+					'h_offset' => 0,
+					'v_offset' => 10,
+					'blur' => 20,
+					'spread' => 0,
+					'inset' => false,
+					'color' => [
+						'color' => 'rgba(41, 51, 61, 0.1)',
+					],
+				])
 			],
 
 			'headerDropdownRadius' => [
