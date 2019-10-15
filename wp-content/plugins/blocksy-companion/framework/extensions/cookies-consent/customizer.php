@@ -84,14 +84,18 @@ $options = [
 					'options' => [
 
 						'cookieContentColor' => [
-							'label' => __( 'Content Color', 'blc' ),
+							'label' => __( 'Font Color', 'blc' ),
 							'type'  => 'ct-color-picker',
 							'design' => 'inline',
 							'setting' => [ 'transport' => 'postMessage' ],
 
 							'value' => [
 								'default' => [
-									'color' => 'var(--paletteColor3)',
+									'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
+								],
+
+								'hover' => [
+									'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 								],
 							],
 
@@ -99,6 +103,13 @@ $options = [
 								[
 									'title' => __( 'Initial', 'blc' ),
 									'id' => 'default',
+									'inherit' => 'var(--color)'
+								],
+
+								[
+									'title' => __( 'Hover', 'blc' ),
+									'id' => 'hover',
+									'inherit' => 'var(--colorHover)'
 								],
 							],
 						],

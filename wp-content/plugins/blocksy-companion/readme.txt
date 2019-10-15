@@ -23,6 +23,10 @@ This plugin runs and adds its enhacements only if the Blocksy theme is installed
 2. Activate the plugin by going to **Plugins** page in WordPress admin and clicking on **Activate** link.
 
 == Changelog ==
+1.5.4: 2019-10-10
+- New: Improved content importer for demo install
+- New: Modify demo install screen
+- Improvement: Customizer sync helpers for handling `CT_CSS_SKIP_RULEDEFAULT`
 
 1.5.3: 2019-10-02
 - Fix: Properly access global classes inside namespace

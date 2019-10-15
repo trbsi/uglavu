@@ -2,21 +2,21 @@
 	--spacing: 20px;
 
 	[data-icons*='simple'] {
-		--linkInitialColor: rgba(100, 110, 119, 1);
-		--linkHoverColor: var(--paletteColor1);
+		--color: rgba(100, 110, 119, 1);
+		--colorHover: var(--paletteColor1);
 	}
 
 	[data-icons*='solid'] {
-		--linkInitialColor: rgba(100, 110, 119, 1);
-		--linkHoverColor: #fff;
-		--backgroundColorInitial: rgba(218, 222, 228, 0.3);
+		--color: rgba(100, 110, 119, 1);
+		--colorHover: #fff;
+		--backgroundColor: rgba(218, 222, 228, 0.3);
 		--backgroundColorHover: var(--paletteColor1);
 	}
 
 	[data-icons*='outline'] {
-		--linkInitialColor: rgba(100, 110, 119, 1);
-		--linkHoverColor: var(--paletteColor1);
-		--backgroundColorInitial: rgba(218, 222, 228, 1);
+		--color: rgba(100, 110, 119, 1);
+		--colorHover: var(--paletteColor1);
+		--backgroundColor: rgba(218, 222, 228, 1);
 		--backgroundColorHover: var(--paletteColor1);
 	}
 }

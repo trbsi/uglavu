@@ -51,7 +51,7 @@ const Plugins = ({ demoConfiguration, setDemoConfiguration, style }) => {
 					</svg>
 				</i>
 
-				<h2>{__('Install Plugins', 'blc')}</h2>
+				<h2>{__('Install & Activate Plugins', 'blc')}</h2>
 				<p>
 					{__(
 						'The following plugins are required for this demo template in order to work properly.',

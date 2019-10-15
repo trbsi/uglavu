@@ -80,7 +80,7 @@ echo $before_title . wp_kses_post( $title ) . $after_title;
 
 		<?php
 			if (function_exists('blocksy_ext_cookies_checkbox')) {
-				echo blocksy_ext_cookies_checkbox();
+				echo blocksy_ext_cookies_checkbox('mailchimp');
 			}
 		?>
 	</div>

@@ -1,14 +1,24 @@
 import { handleVariablesFor } from 'customizer-sync-helpers'
 
 handleVariablesFor({
-	// Cookie
-	cookieContentColor: {
-		variable: 'cookieContentColor',
-		type: 'color'
-	},
+	
+	cookieContentColor: [
+		{
+			selector: '.cookie-notification',
+			variable: 'color',
+			type: 'color:default'
+		},
+
+		{
+			selector: '.cookie-notification',
+			variable: 'colorHover',
+			type: 'color:hover'
+		}
+	],
 
 	cookieBackground: {
-		variable: 'cookieBackground',
+		selector: '.cookie-notification',
+		variable: 'backgroundColor',
 		type: 'color'
 	},
 
@@ -27,7 +37,8 @@ handleVariablesFor({
 	],
 
 	cookieMaxWidth: {
-		variable: 'cookieMaxWidth',
+		selector: '.cookie-notification',
+		variable: 'maxWidth',
 		unit: 'px'
 	}
 })

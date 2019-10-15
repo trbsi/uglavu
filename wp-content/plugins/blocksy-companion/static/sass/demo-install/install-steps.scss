@@ -67,26 +67,6 @@
 		z-index: 2;
 		top: 0;
 		right: 0;
-		font-size: 15px;
-		font-weight: 600;
-		letter-spacing: 0.03em;
-		color: #687c93;
-		height: 40px;
-		border: none;
-		cursor: pointer;
-		padding: 0 18px;
-		border-radius: 4px;
-		background: rgb(243, 246, 248);
-		transition: background 0.2s ease color 0.2s ease;
-
-		&:focus {
-			outline: none;
-		}
-
-		&:hover {
-			color: #fff;
-			background: #0073aa;
-		}
 
 		&.demo-back-btn {
 			left: 0;

@@ -97,7 +97,7 @@ function blc_ext_mailchimp_subscribe_form($forced = false) {
 
 			<?php
 				if (function_exists('blocksy_ext_cookies_checkbox')) {
-					echo blocksy_ext_cookies_checkbox();
+					echo blocksy_ext_cookies_checkbox('subscribe');
 				}
 			?>
 

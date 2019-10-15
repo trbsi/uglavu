@@ -64,8 +64,12 @@ function blocksy_ext_cookies_consent_output($forced = false) {
 	return ob_get_clean();
 }
 
-function blocksy_ext_cookies_checkbox() {
+function blocksy_ext_cookies_checkbox($prefix = '') {
 	ob_start();
+
+	if (! empty($prefix)) {
+		$prefix = '_' . $prefix;
+	}
 
 	$message = get_theme_mod(
 		'forms_cookie_consent_content',
@@ -79,8 +83,8 @@ function blocksy_ext_cookies_checkbox() {
 	?>
 
 	<p class="gdpr-confirm-policy">
-		<input id="gdprconfirm" name="gdprconfirm" type="checkbox" required />
-		<label for="gdprconfirm"><?php echo $message ?></label>
+		<input id="gdprconfirm<?php echo $prefix ?>" name="gdprconfirm" type="checkbox" required />
+		<label for="gdprconfirm<?php echo $prefix ?>"><?php echo $message ?></label>
 	</p>
 
 	<?php

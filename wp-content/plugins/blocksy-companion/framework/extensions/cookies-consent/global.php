@@ -3,17 +3,20 @@
 // Content color
 blocksy_output_colors([
 	'value' => get_theme_mod('cookieContentColor'),
-
 	'default' => [
-		'default' => [ 'color' => 'var(--paletteColor3)' ],
+		'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
+		'hover' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
 	],
-
 	'css' => $css,
-
 	'variables' => [
 		'default' => [
 			'selector' => '.cookie-notification',
-			'variable' => 'cookieContentColor'
+			'variable' => 'color'
+		],
+
+		'hover' => [
+			'selector' => '.cookie-notification',
+			'variable' => 'colorHover'
 		],
 	],
 ]);
@@ -22,14 +25,11 @@ blocksy_output_colors([
 // Button color
 blocksy_output_colors([
 	'value' => get_theme_mod('cookieButtonBackground'),
-
 	'default' => [
 		'default' => [ 'color' => 'var(--paletteColor1)' ],
 		'hover' => [ 'color' => 'var(--paletteColor2)' ],
 	],
-
 	'css' => $css,
-
 	'variables' => [
 		'default' => [
 			'selector' => '.cookie-notification',
@@ -43,16 +43,14 @@ blocksy_output_colors([
 	],
 ]);
 
+
 // Background color
 blocksy_output_colors([
 	'value' => get_theme_mod('cookieBackground'),
-
 	'default' => [
 		'default' => [ 'color' => '#ffffff' ],
 	],
-
 	'css' => $css,
-
 	'variables' => [
 		'default' => [
 			'selector' => '.cookie-notification',
@@ -61,6 +59,9 @@ blocksy_output_colors([
 	],
 ]);
 
-$cookieMaxWidth = get_theme_mod( 'cookieMaxWidth', 400 );
-$css->put( ':root', '--cookieMaxWidth: ' . $cookieMaxWidth . 'px' );
 
+$cookieMaxWidth = get_theme_mod( 'cookieMaxWidth', 400 );
+$css->put( 
+	'.cookie-notification', 
+	'--maxWidth: ' . $cookieMaxWidth . 'px' 
+);

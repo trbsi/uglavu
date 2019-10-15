@@ -1,11 +1,20 @@
 import { handleVariablesFor } from 'customizer-sync-helpers'
 
 handleVariablesFor({
-	// Mailchimp
-	mailchimpContent: {
-		variable: 'mailchimpContent',
-		type: 'color'
-	},
+
+	mailchimpContent: [
+		{
+			selector: '.ct-mailchimp-block',
+			variable: 'color',
+			type: 'color:default'
+		},
+
+		{
+			selector: '.ct-mailchimp-block',
+			variable: 'colorHover',
+			type: 'color:hover'
+		}
+	],
 
 	mailchimpButton: [
 		{
@@ -22,6 +31,7 @@ handleVariablesFor({
 	],
 
 	mailchimpBackground: {
+		selector: '.ct-mailchimp-block',
 		variable: 'mailchimpBackground',
 		type: 'color'
 	},
@@ -34,7 +44,8 @@ handleVariablesFor({
 	},	
 
 	mailchimpSpacing: {
-		variable: 'mailchimpSpacing',
+		selector: '.ct-mailchimp-block',
+		variable: 'padding',
 		responsive: true,
 		unit: ''
 	}

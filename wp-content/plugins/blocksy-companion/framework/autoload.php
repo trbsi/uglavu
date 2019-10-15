@@ -46,7 +46,7 @@ class Autoloader {
 		 * No namespace
 		 */
 		'_BlocksyWidgetFactory' => 'framework/widgets-manager.php',
-		'_Blocksy_WXR_Importer' => 'framework/features/demo-install/wxr-importer.php',
+		'_Blocksy_WP_Import' => 'framework/features/demo-install/wp-importer.php',
 
 		// TODO: remove when getting rid of EDD
 		'_EDD_SL_Plugin_Updater' => 'framework/EDD_SL_Plugin_Updater.php',

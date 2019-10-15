@@ -13,7 +13,9 @@ import { DemosContext } from '../DemoInstall'
 import DashboardContext from '../../DashboardContext'
 
 const DemosList = () => {
-	const { demos_list, setCurrentDemo } = useContext(DemosContext)
+	const { currentlyInstalledDemo, demos_list, setCurrentDemo } = useContext(
+		DemosContext
+	)
 	const { Link } = useContext(DashboardContext)
 
 	return (
@@ -52,7 +54,11 @@ const DemosList = () => {
 								<button
 									className="ct-button-primary"
 									onClick={() => setCurrentDemo(demo.name)}>
-									{__('Install', 'blc')}
+									{currentlyInstalledDemo &&
+									currentlyInstalledDemo.demo ===
+										`${demo.name}:${demo.builder}`
+										? __('Modify', 'blc')
+										: __('Install', 'blc')}
 								</button>
 							</div>
 						</div>

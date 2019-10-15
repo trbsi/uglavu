@@ -12,6 +12,8 @@ class DemoInstall {
 		'blocksy_demo_install_widgets',
 		'blocksy_demo_install_options',
 		'blocksy_demo_install_content',
+		'blocksy_demo_register_current_demo',
+		'blocksy_demo_deregister_current_demo',
 
 		// 'blocksy_extension_activate',
 		// 'blocksy_extension_deactivate',
@@ -57,6 +59,60 @@ class DemoInstall {
 	public function blocksy_demo_activate_plugins() {
 		$plugins = new DemoInstallPluginsInstaller();
 		$plugins->import();
+	}
+
+	public function blocksy_demo_register_current_demo() {
+		$this->start_streaming();
+
+		if (! isset($_REQUEST['demo_name']) || !$_REQUEST['demo_name']) {
+			Plugin::instance()->demo->emit_sse_message([
+				'action' => 'complete',
+				'error' => 'No demo name passed.',
+			]);
+
+			exit;
+		}
+
+		$demo_name = explode(':', $_REQUEST['demo_name']);
+
+		if (! isset($demo_name[1])) {
+			$demo_name[1] = '';
+		}
+
+		$demo = $demo_name[0];
+		$builder = $demo_name[1];
+
+		$this->set_current_demo($demo . ':' . $builder);
+
+		Plugin::instance()->demo->emit_sse_message([
+			'action' => 'complete',
+			'error' => false
+		]);
+
+		exit;
+	}
+
+	public function blocksy_demo_deregister_current_demo() {
+		$this->start_streaming();
+
+		update_option('blocksy_ext_demos_current_demo', null);
+
+		Plugin::instance()->demo->emit_sse_message([
+			'action' => 'complete',
+			'error' => false
+		]);
+
+		exit;
+	}
+
+	public function get_current_demo() {
+		return get_option('blocksy_ext_demos_current_demo', null);
+	}
+
+	public function set_current_demo($demo) {
+		update_option('blocksy_ext_demos_current_demo', [
+			'demo' => $demo
+		]);
 	}
 
 	public function fetch_single_demo($args = []) {
@@ -137,7 +193,8 @@ class DemoInstall {
 
 		wp_send_json_success([
 			'demos' => $demos,
-			'active_plugins' => $plugins
+			'active_plugins' => $plugins,
+			'current_installed_demo' => $this->get_current_demo()
 		]);
 	}
 

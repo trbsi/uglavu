@@ -21,6 +21,7 @@ import cn from 'classnames'
 import DashboardContext from '../../DashboardContext'
 import { DemosContext } from '../DemoInstall'
 
+import ModifyDemo from './Wizzard/ModifyDemo'
 import ChildTheme from './Wizzard/ChildTheme'
 import PickBuilder from './Wizzard/PickBuilder'
 import Content from './Wizzard/Content'
@@ -30,15 +31,21 @@ import { getStepsForDemoConfiguration } from './Installer/useInstaller'
 
 const DemoToInstall = ({ location, navigate }) => {
 	const [showDemoToInstall, setShowDemoToInstall] = useState(true)
+
 	const {
 		installerBlockingReleased,
 		demos_list,
 		currentDemo,
 		pluginsStatus,
+		currentlyInstalledDemo: globalCurrentlyInstalledDemo,
 		setCurrentDemo
 	} = useContext(DemosContext)
 
 	const { is_child_theme } = useContext(DashboardContext)
+
+	const [currentlyInstalledDemo, setCurrentlyInstalledDemo] = useState(
+		globalCurrentlyInstalledDemo
+	)
 
 	const [demoConfiguration, setDemoConfiguration] = useState({
 		builder: '',
@@ -57,6 +64,7 @@ const DemoToInstall = ({ location, navigate }) => {
 	const [properDemoName, _] = (currentDemo || '').split(':')
 
 	const configurationSteps = [
+		'modify_demo',
 		'child_theme',
 		'builder',
 		'plugins',
@@ -65,6 +73,19 @@ const DemoToInstall = ({ location, navigate }) => {
 	].filter(step => {
 		if (!currentDemo) {
 			return false
+		}
+
+		if (step === 'modify_demo') {
+			if (!currentlyInstalledDemo) {
+				return false
+			}
+
+			if (
+				currentlyInstalledDemo.demo !==
+				`${properDemoName}:${demoConfiguration.builder}`
+			) {
+				return false
+			}
 		}
 
 		if (step === 'child_theme') {
@@ -112,6 +133,7 @@ const DemoToInstall = ({ location, navigate }) => {
 			)
 
 			setCurrentConfigurationStep(0)
+			setCurrentlyInstalledDemo(globalCurrentlyInstalledDemo)
 
 			setDemoConfiguration({
 				builder:
@@ -144,7 +166,8 @@ const DemoToInstall = ({ location, navigate }) => {
 				currentDemo && currentDemo.indexOf(':hide') === -1
 			}
 			className={cn('ct-demo-modal', {
-				'ct-demo-installer': stepName === 'installer'
+				'ct-demo-installer':
+					stepName === 'installer' || stepName === 'modify_demo'
 			})}
 			onDismiss={() => {
 				if (stepName === 'installer' && !installerBlockingReleased) {
@@ -174,6 +197,25 @@ const DemoToInstall = ({ location, navigate }) => {
 							}}>
 							{stepName => props => (
 								<Fragment>
+									{stepName === 'modify_demo' && (
+										<ModifyDemo
+											demoConfiguration={
+												demoConfiguration
+											}
+											nextStep={() => {
+												setCurrentConfigurationStep(
+													Math.min(
+														currentConfigurationStep +
+															1,
+														configurationSteps.length -
+															1
+													)
+												)
+											}}
+											style={props}
+										/>
+									)}
+
 									{stepName === 'child_theme' && (
 										<ChildTheme
 											style={props}
@@ -235,67 +277,70 @@ const DemoToInstall = ({ location, navigate }) => {
 						</Transition>
 					</div>
 
-					{stepName !== 'installer' && (
-						<div className="ct-demo-step-controls">
-							{currentConfigurationStep > 0 && (
+					{stepName !== 'installer' &&
+						stepName !== 'modify_demo' && (
+							<div className="ct-demo-step-controls">
+								{currentConfigurationStep > 0 && (
+									<button
+										className="ct-demo-btn demo-back-btn"
+										onClick={() => {
+											setCurrentConfigurationStep(
+												Math.max(
+													currentConfigurationStep -
+														1,
+													0
+												)
+											)
+										}}>
+										{__('Back', 'blc')}
+									</button>
+								)}
+
+								{configurationSteps.length > 2 && (
+									<ul className="ct-steps-pills">
+										{configurationSteps.map(
+											(step, index) =>
+												index ===
+												configurationSteps.length -
+													1 ? null : (
+													<li
+														className={cn({
+															active:
+																step ===
+																stepName
+														})}
+														key={step}>
+														{index + 1}
+													</li>
+												)
+										)}
+									</ul>
+								)}
+
 								<button
-									className="demo-back-btn"
+									className="ct-demo-btn demo-main-btn"
+									disabled={
+										stepName === 'content' &&
+										getStepsForDemoConfiguration({
+											demoConfiguration,
+											pluginsStatus,
+											is_child_theme
+										}).length === 0
+									}
 									onClick={() => {
 										setCurrentConfigurationStep(
-											Math.max(
-												currentConfigurationStep - 1,
-												0
+											Math.min(
+												currentConfigurationStep + 1,
+												configurationSteps.length - 1
 											)
 										)
 									}}>
-									{__('Back', 'blc')}
+									{stepName === 'content'
+										? __('Install', 'blc')
+										: __('Next', 'blc')}
 								</button>
-							)}
-
-							{configurationSteps.length > 2 && (
-								<ul className="ct-steps-pills">
-									{configurationSteps.map(
-										(step, index) =>
-											index ===
-											configurationSteps.length -
-												1 ? null : (
-												<li
-													className={cn({
-														active:
-															step === stepName
-													})}
-													key={step}>
-													{index + 1}
-												</li>
-											)
-									)}
-								</ul>
-							)}
-
-							<button
-								className="demo-main-btn"
-								disabled={
-									stepName === 'content' &&
-									getStepsForDemoConfiguration(
-										demoConfiguration,
-										pluginsStatus,
-										is_child_theme
-									).length === 0
-								}
-								onClick={() => {
-									setCurrentConfigurationStep(
-										Math.min(
-											currentConfigurationStep + 1,
-											configurationSteps.length - 1
-										)
-									)
-								}}>
-								{stepName === 'content'
-									? __('Install', 'blc')
-									: __('Next', 'blc')}
-							</button>
-						</div>
-					)}
+							</div>
+						)}
 				</div>
 			)}
 		/>

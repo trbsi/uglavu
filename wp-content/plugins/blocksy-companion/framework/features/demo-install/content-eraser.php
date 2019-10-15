@@ -7,12 +7,14 @@ class DemoInstallContentEraser {
 		Plugin::instance()->demo->start_streaming();
 
 		if (! current_user_can('edit_theme_options')) {
+			/*
 			Plugin::instance()->demo->emit_sse_message([
 				'action' => 'complete',
 				'error' => 'No permission.',
 			]);
 
 			exit;
+			 */
 		}
 
 		$this->reset_widgets_data();
@@ -222,6 +224,7 @@ class DemoInstallContentEraser {
 
 	private function reset_menus() {
 		return;
+
 		Plugin::instance()->demo->emit_sse_message([
 			'action' => 'erase_menus_data',
 			'error' => false,

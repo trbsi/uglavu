@@ -3,17 +3,20 @@
 // Mailchimp
 blocksy_output_colors([
 	'value' => get_theme_mod('mailchimpContent'),
-
 	'default' => [
-		'default' => [ 'color' => 'var(--paletteColor3)' ],
+		'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
+		'hover' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
 	],
-
 	'css' => $css,
-
 	'variables' => [
 		'default' => [
 			'selector' => '.ct-mailchimp-block',
-			'variable' => 'mailchimpContent'
+			'variable' => 'color'
+		],
+
+		'hover' => [
+			'selector' => '.ct-mailchimp-block',
+			'variable' => 'colorHover'
 		],
 	],
 ]);

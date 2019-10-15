@@ -25,12 +25,17 @@ import SubmitSupport from '../helpers/SubmitSupport'
 
 let demos_cache = null
 let plugins_cache = null
+let currently_installed_demo_cache = null
 
 const DemoInstall = ({ children, path, location }) => {
 	const [isLoading, setIsLoading] = useState(!demos_cache)
 	const [demos_list, setDemosList] = useState(demos_cache || [])
 	const [pluginsStatus, setPluginsStatus] = useState(plugins_cache || {})
 	const [currentDemo, setCurrentDemo] = useState(null)
+	const [currentlyInstalledDemo, setCurrentlyInstalledDemo] = useState(
+		currently_installed_demo_cache
+	)
+
 	const [demoConfiguration, setDemoConfiguration] = useState({
 		builder: ''
 	})
@@ -59,6 +64,7 @@ const DemoInstall = ({ children, path, location }) => {
 				if (success) {
 					setDemosList(data.demos)
 					setPluginsStatus(data.active_plugins)
+					setCurrentlyInstalledDemo(data.current_installed_demo)
 					plugins_cache = data.active_plugins
 					demos_cache = data.demos
 				}
@@ -112,7 +118,9 @@ const DemoInstall = ({ children, path, location }) => {
 										pluginsStatus,
 										installerBlockingReleased,
 										setInstallerBlockingReleased,
-										setCurrentDemo
+										setCurrentDemo,
+										currentlyInstalledDemo,
+										setCurrentlyInstalledDemo
 									}}>
 									<DemosList />
 									<DemoToInstall />

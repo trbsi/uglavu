@@ -1,5 +1,6 @@
 .ct-open-quick-view {
 	position: absolute;
+	z-index: 2;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -52,15 +53,13 @@
 .shop-entries {
 
 	&[data-layout="grid"] .ct-open-quick-view {
-		right: 0;
-		bottom: 0;
-		margin: 0 20px 20px 0;
+		right: 20px;
+		bottom: 20px;
 	}
 
 	&[data-layout="shop-simple"] .ct-open-quick-view {
-		top: 0;
-		right: 0;
-		margin: 20px 20px 0 0;
+		right: 20px;
+		bottom: 20px;
 	}
 
 

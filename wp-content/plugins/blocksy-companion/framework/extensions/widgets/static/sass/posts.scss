@@ -35,6 +35,12 @@
 			min-width: 0;
 		}
 
+		.ct-post-title {
+			font-size: 15px;
+			font-weight: 500;
+			line-height: 1.4;
+		}
+
 		.ct-entry-meta {
 			span {
 				&:not(:last-child) {

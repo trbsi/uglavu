@@ -18,12 +18,17 @@ const listener = e => {
 	e.returnValue = ''
 }
 
-export const getStepsForDemoConfiguration = (
+export const getStepsForDemoConfiguration = ({
 	demoConfiguration,
 	pluginsStatus,
-	is_child_theme
-) => {
+	is_child_theme,
+	includeMetaSteps = false
+}) => {
 	let steps = []
+
+	if (includeMetaSteps) {
+		steps.push('register_current_demo')
+	}
 
 	if (demoConfiguration.child_theme) {
 		if (!is_child_theme) {
@@ -64,6 +69,7 @@ export const useInstaller = demoConfiguration => {
 		currentDemo,
 		setCurrentDemo,
 		setInstallerBlockingReleased,
+		setCurrentlyInstalledDemo,
 		pluginsStatus
 	} = useContext(DemosContext)
 
@@ -85,6 +91,14 @@ export const useInstaller = demoConfiguration => {
 		.map(({ plugin }) => plugin)
 
 	const [stepsDescriptors, setStepsDescriptors] = useState({
+		register_current_demo: {
+			title: __('Register demo', 'blc'),
+
+			query_string: `action=blocksy_demo_register_current_demo&wp_customize=on&demo_name=${currentDemo}:${demoConfiguration.builder ||
+				demoVariations[0].builder}`,
+			expected_signals: 1
+		},
+
 		child_theme: {
 			title: __('Child theme', 'blc'),
 			query_string: `action=blocksy_demo_install_child_theme`,
@@ -104,6 +118,7 @@ export const useInstaller = demoConfiguration => {
 			query_string: `action=blocksy_demo_erase_content&wp_customize=on`,
 			expected_signals: 6
 		},
+
 		options: {
 			title: __('Import options', 'blc'),
 
@@ -126,11 +141,12 @@ export const useInstaller = demoConfiguration => {
 		}
 	})
 
-	const stepsForConfiguration = getStepsForDemoConfiguration(
+	const stepsForConfiguration = getStepsForDemoConfiguration({
 		demoConfiguration,
 		pluginsStatus,
-		is_child_theme
-	)
+		is_child_theme,
+		includeMetaSteps: true
+	})
 
 	const stepName = stepsForConfiguration[currentStep]
 
@@ -212,14 +228,27 @@ export const useInstaller = demoConfiguration => {
 					users
 				} = data.data
 
+				const preliminary_data = {
+					...data.data,
+					term_count: data.data.terms.length,
+					post_count: data.data.posts.filter(
+						({ post_type }) => post_type !== 'attachment'
+					).length,
+					media_count: data.data.posts.filter(
+						({ post_type }) => post_type === 'attachment'
+					).length,
+					comment_count: data.data.posts.reduce(
+						(total, post) => total + (post.comments || []).length,
+						0
+					),
+					users_count: Object.keys(data.data.authors).length
+				}
+
 				setStepsDescriptors({
 					...stepsDescriptorsRef.current,
 					content: {
 						...stepsDescriptorsRef.current.content,
-						preliminary_data: {
-							...data.data,
-							users_count: users.length
-						},
+						preliminary_data,
 
 						comment_count: 0,
 						media_count: 0,
@@ -228,11 +257,11 @@ export const useInstaller = demoConfiguration => {
 						users_count: 0,
 
 						expected_signals:
-							comment_count +
-							media_count +
-							post_count +
-							term_count +
-							users.length +
+							preliminary_data.comment_count +
+							preliminary_data.media_count +
+							preliminary_data.post_count +
+							preliminary_data.term_count +
+							preliminary_data.users_count +
 							3
 					}
 				})
@@ -274,6 +303,10 @@ export const useInstaller = demoConfiguration => {
 
 	useEffect(() => {
 		window.addEventListener('beforeunload', listener)
+
+		setCurrentlyInstalledDemo({
+			demo: `${currentDemo}:${demoConfiguration.builder}`
+		})
 
 		return () => {
 			window.removeEventListener('beforeunload', listener)

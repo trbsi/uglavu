@@ -14,7 +14,7 @@ import DashboardContext from '../../../DashboardContext'
 import Checkbox from '../../../helpers/Checkbox'
 
 const ChildTheme = ({ demoConfiguration, setDemoConfiguration, style }) => {
-	const { is_child_theme } = useContext(DashboardContext)
+	const { is_child_theme, child_theme_exists } = useContext(DashboardContext)
 
 	return (
 		<div className="ct-demo-child" style={style}>
@@ -57,16 +57,29 @@ const ChildTheme = ({ demoConfiguration, setDemoConfiguration, style }) => {
 				</svg>
 			</i>
 
-			<h2>{__('Install Child Theme', 'blc')}</h2>
+			{!child_theme_exists ? (
+				<h2>{__('Install Child Theme', 'blc')}</h2>
+			) : (
+				<h2>{__('Activate Child Theme', 'blc')}</h2>
+			)}
 
 			{!is_child_theme && (
 				<Fragment>
-					<p>
-						{__(
-							'We strongly recommend to install the child theme, this way you will have freedom to make changes without breaking the parent theme.',
-							'blc'
-						)}
-					</p>
+					{!child_theme_exists ? (
+						<p>
+							{__(
+								'We strongly recommend to install the child theme, this way you will have freedom to make changes without breaking the parent theme.',
+								'blc'
+							)}
+						</p>
+					) : (
+						<p>
+							{__(
+								'We strongly recommend to activate the child theme, this way you will have freedom to make changes without breaking the parent theme.',
+								'blc'
+							)}
+						</p>
+					)}
 
 					<Checkbox
 						checked={demoConfiguration.child_theme}
@@ -76,7 +89,9 @@ const ChildTheme = ({ demoConfiguration, setDemoConfiguration, style }) => {
 								child_theme: !demoConfiguration.child_theme
 							})
 						}>
-						{__('Install Child Theme', 'blc')}
+						{!child_theme_exists
+							? __('Install Child Theme', 'blc')
+							: __('Activate Child Theme', 'blc')}
 					</Checkbox>
 				</Fragment>
 			)}

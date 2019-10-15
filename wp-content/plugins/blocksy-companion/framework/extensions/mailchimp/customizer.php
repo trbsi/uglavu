@@ -156,7 +156,11 @@ $options = [
 
 					'value' => [
 						'default' => [
-							'color' => 'var(--paletteColor3)',
+							'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
+						],
+
+						'hover' => [
+							'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 						],
 					],
 
@@ -164,6 +168,13 @@ $options = [
 						[
 							'title' => __( 'Initial', 'blc' ),
 							'id' => 'default',
+							'inherit' => 'var(--color)'
+						],
+
+						[
+							'title' => __( 'Hover', 'blc' ),
+							'id' => 'hover',
+							'inherit' => 'var(--colorHover)'
 						],
 					],
 				],
