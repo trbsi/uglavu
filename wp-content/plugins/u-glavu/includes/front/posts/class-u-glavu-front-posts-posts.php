@@ -1,14 +1,25 @@
-<?php 
+<?php
 
-class U_Glavu_Front_Posts_Posts
+namespace UGlavu\Includes\Front;
+
+use UGlavu\Includes\UGlavuLoader;
+
+class UGlavuFrontPostsPosts
 {
-	public function __construct(U_Glavu_Loader $loader) 
-	{
-		$loader->add_filter('posts_join', $this, 'join_og_tags', 10, 2);
-		$loader->add_filter( 'posts_fields', $this, 'select_extra_fields', 10, 2); 
-	}
+    private $loader;
 
-	public function join_og_tags ($join, $query) {
+    public function __construct(UGlavuLoader $loader)
+	{
+        $this->loader = $loader;
+    }
+
+	public function run()
+    {
+        $this->loader->add_filter('posts_join', $this, 'join_og_tags', 10, 2);
+        $this->loader->add_filter( 'posts_fields', $this, 'select_extra_fields', 10, 2);
+    }
+
+    public function join_og_tags ($join, $query) {
 	    global $wpdb;
 		if ($query->is_main_query()) {
 		    $join .= " LEFT JOIN wp_og_tags ON ({$wpdb->posts}.ID = wp_og_tags.post_id)";

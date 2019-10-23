@@ -1,5 +1,7 @@
 <?php
 
+namespace UGlavu\Includes;
+
 /**
  * Define the internationalization functionality
  *

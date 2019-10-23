@@ -1,15 +1,26 @@
 <?php
 
+namespace UGlavu\Includes\Admin\Posts\Listing;
+
+use UGlavu\Includes\UGlavuLoader;
+
 /**
  * @see  https://codex.wordpress.org/Plugin_API/Action_Reference/manage_posts_custom_column#Custom_post_type
  */
-class U_Glavu_Admin_Posts_Columns {
+class UGlavuAdminPostsColumns {
 
-	public function __construct(U_Glavu_Loader $loader)
+    private $loader;
+
+	public function __construct(UGlavuLoader $loader)
 	{
-		$loader->add_action( 'manage_posts_columns', $this, 'add_datetime_column', 15);
-		$loader->add_action( 'manage_posts_custom_column', $this, 'custom_columns', 10, 2); 
+	    $this->loader = $loader;
 	}
+
+	public function run()
+    {
+        $this->loader->add_action( 'manage_posts_columns', $this, 'add_datetime_column', 15);
+        $this->loader->add_action( 'manage_posts_custom_column', $this, 'custom_columns', 10, 2);
+    }
  
 	public function add_datetime_column( $columns )
 	{

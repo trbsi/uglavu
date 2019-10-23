@@ -1,5 +1,7 @@
 <?php
 
+namespace UGlavu\Includes;
+
 /**
  * Fired during plugin deactivation
  *

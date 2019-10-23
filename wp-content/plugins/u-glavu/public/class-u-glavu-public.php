@@ -1,5 +1,7 @@
 <?php
 
+namespace UGlavu\PublicClass;
+
 /**
  * The public-facing functionality of the plugin.
  *

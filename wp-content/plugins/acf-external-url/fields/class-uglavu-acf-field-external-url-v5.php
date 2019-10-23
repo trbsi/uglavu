@@ -30,8 +30,8 @@ class uglavu_acf_field_external_url extends acf_field {
 	
 	function __construct( $settings ) {
 		
-		$this->loader = new U_Glavu_Loader(); 
-		$this->adminLoader = new U_Glavu_Admin_Loader($this->loader);
+		$this->loader = new \UGlavu\Includes\UGlavuLoader();
+		$this->adminLoader = new \UGlavu\Includes\Admin\UGlavuAdminLoader($this->loader);
 
 		/*
 		*  name (string) Single word, no spaces. Underscores allowed
@@ -139,7 +139,7 @@ class uglavu_acf_field_external_url extends acf_field {
 	*/
 	
 	function render_field( $field ) {
-		$ogClasses = $this->adminLoader->load_og_tags_scraper_and_saver($this->loader);
+		$ogClasses = $this->adminLoader->load_og_tags_scraper_and_saver();
 		
 		/*
 		*  Review the data of $field.

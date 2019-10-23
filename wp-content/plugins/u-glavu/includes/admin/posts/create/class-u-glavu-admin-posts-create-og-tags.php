@@ -1,8 +1,12 @@
-<?php 
+<?php
 
-class U_Glavu_Admin_Posts_Create_Og_Tags { 
+namespace UGlavu\Includes\Admin\Posts\Create;
 
-	public function __construct(U_Glavu_Loader $loader) 
+use UGlavu\Includes\UGlavuLoader;
+
+class UGlavuAdminPostsCreateOgTags {
+
+	public function __construct(UGlavuLoader $loader)
 	{
 		$loader->add_action( 'acf/save_post', $this, 'save_external_url', 15);
 	}

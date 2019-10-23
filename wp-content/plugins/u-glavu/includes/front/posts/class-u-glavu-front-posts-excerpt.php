@@ -1,15 +1,26 @@
-<?php 
+<?php
 
-class U_Glavu_Front_Posts_Excerpt 
+namespace UGlavu\Includes\Front;
+
+use UGlavu\Includes\UGlavuLoader;
+
+class UGlavuFrontPostsExcerpt
 {
-	public function __construct(U_Glavu_Loader $loader) 
+    private $loader;
+
+	public function __construct(UGlavuLoader $loader)
 	{
-		/* remove the default filter */
-		remove_filter('get_the_excerpt', 'wp_trim_excerpt');
-		 
-		/* now, add your own filter */
-		$loader->add_filter('get_the_excerpt', $this, 'lt_html_excerpt');
+	    $this->loader = $loader;
 	}
+
+	public function run()
+    {
+        /* remove the default filter */
+        remove_filter('get_the_excerpt', 'wp_trim_excerpt');
+
+        /* now, add your own filter */
+        $this->loader->add_filter('get_the_excerpt', $this, 'lt_html_excerpt');
+    }
 
 	/**
 	 * @see https://wpwhatnot.com/allow-html-excerpts/

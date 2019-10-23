@@ -1,5 +1,12 @@
 <?php
 
+namespace UGlavu;
+
+use DI\Container;
+use UGlavu\Includes\U_Glavu;
+use UGlavu\Includes\U_Glavu_Activator;
+use UGlavu\Includes\U_Glavu_Deactivator;
+
 /**
  * The plugin bootstrap file
  *
@@ -42,7 +49,6 @@ define( 'U_GLAVU_VERSION', '1.0.0' );
  * This action is documented in includes/class-u-glavu-activator.php
  */
 function activate_u_glavu() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-u-glavu-activator.php';
 	U_Glavu_Activator::activate();
 }
 
@@ -51,7 +57,6 @@ function activate_u_glavu() {
  * This action is documented in includes/class-u-glavu-deactivator.php
  */
 function deactivate_u_glavu() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-u-glavu-deactivator.php';
 	U_Glavu_Deactivator::deactivate();
 }
 
@@ -75,7 +80,15 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-u-glavu.php';
  */
 function run_u_glavu() {
 
-	$plugin = new U_Glavu();
+    $container = getContainer();
+	$plugin = $container->get(U_Glavu::class);
 	$plugin->run();
 }
 run_u_glavu();
+
+
+function getContainer()
+{
+    $container = new Container();
+    return $container;
+}

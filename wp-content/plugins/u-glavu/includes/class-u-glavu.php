@@ -1,5 +1,7 @@
 <?php
 
+namespace UGlavu\Includes;
+
 /**
  * The file that defines the core plugin class
  *
@@ -12,6 +14,15 @@
  * @package    U_Glavu
  * @subpackage U_Glavu/includes
  */
+use UGlavu\Admin\U_Glavu_Admin;
+use function UGlavu\getContainer;
+use UGlavu\Includes\Admin\Posts\Create\UGlavuAdminPostsCreateOgTags;
+use UGlavu\Includes\Admin\Posts\Create\UGlavuAdminPostsCreateScrapeOgTags;
+use UGlavu\Includes\Admin\Posts\Listing\UGlavuAdminPostsColumns;
+use UGlavu\Includes\Admin\Posts\Listing\UGlavuAdminPostsFilter;
+use UGlavu\Includes\Front\UGlavuFrontPostsExcerpt;
+use UGlavu\Includes\Front\UGlavuFrontPostsPosts;
+use UGlavu\PublicClass\U_Glavu_Public;
 
 /**
  * The core plugin class.
@@ -35,7 +46,7 @@ class U_Glavu {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      U_Glavu_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      UGlavuLoader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -57,8 +68,8 @@ class U_Glavu {
 	 */
 	protected $version;
 
-	private $adminLoader;
-	private $frontLoader;
+	/** @var \DI\Container */
+	private $container;
 
 
 	/**
@@ -71,7 +82,8 @@ class U_Glavu {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'U_GLAVU_VERSION' ) ) {
+        $this->container = getContainer();
+        if ( defined( 'U_GLAVU_VERSION' ) ) {
 			$this->version = U_GLAVU_VERSION;
 		} else {
 			$this->version = '1.0.0';
@@ -82,8 +94,7 @@ class U_Glavu {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
-	}
+    }
 
 	/**
 	 * Load the required dependencies for this plugin.
@@ -103,48 +114,22 @@ class U_Glavu {
 	 */
 	private function load_dependencies() {
 		global $pagenow;
-		/**
-		 * The class responsible for orchestrating the actions and filters of the
-		 * core plugin.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-u-glavu-loader.php';
 
-		/**
-		 * The class responsible for defining internationalization functionality
-		 * of the plugin.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-u-glavu-i18n.php';
-
-		/**
-		 * The class responsible for defining all actions that occur in the admin area.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-u-glavu-admin.php';
-
-		/**
-		 * The class responsible for defining all actions that occur in the public-facing
-		 * side of the site.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-u-glavu-public.php';
-
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/admin/class-u-glavu-admin-loader.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/front/class-u-glavu-front-loader.php';
-
-		$this->loader = new U_Glavu_Loader(); 
+		$this->loader = $this->container->get(UGlavuLoader::class);
 
 		if (is_admin()) {
-			$this->adminLoader = new U_Glavu_Admin_Loader($this->loader);
 			if ( in_array($pagenow, ['edit.php']) ) {
-				$this->adminLoader->load_posts_filter();
-				$this->adminLoader->load_posts_columns();
+                $this->container->get(UGlavuAdminPostsFilter::class)->run();
+                $this->container->get(UGlavuAdminPostsColumns::class)->run();
 			}
 
 			if (in_array($pagenow, ['post-new.php'])) {
-				$this->adminLoader->load_og_tags_scraper_and_saver($this->loader);
+                $this->container->get(UGlavuAdminPostsCreateOgTags::class);
+                $this->container->get(UGlavuAdminPostsCreateScrapeOgTags::class);
 			}
 		} else {
-			$this->frontLoader = new U_Glavu_Front_Loader($this->loader);
-			$this->frontLoader->load_posts_excerpt_modifier();
-			$this->frontLoader->load_posts_front_modifier();
+            $this->container->get(UGlavuFrontPostsExcerpt::class)->run();
+            $this->container->get(UGlavuFrontPostsPosts::class)->run();
 		}
 
 	}
@@ -182,9 +167,10 @@ class U_Glavu {
 
 
 		if(is_admin()) {
-			$ogClasses = $this->adminLoader->load_og_tags_scraper_and_saver($this->loader);
+			$scrapeOgTags = $this->container->get(UGlavuAdminPostsCreateScrapeOgTags::class);
+
 			//ajax action for scraping tags
-			$this->loader->add_action( 'wp_ajax_scrape_fb_og_tags', $ogClasses['scrapeOgTags'], 'scrape_fb_og_tags');
+			$this->loader->add_action( 'wp_ajax_scrape_fb_og_tags', $scrapeOgTags, 'scrape_fb_og_tags');
 		}
 	}
 
@@ -228,7 +214,7 @@ class U_Glavu {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    U_Glavu_Loader    Orchestrates the hooks of the plugin.
+	 * @return    UGlavuLoader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;

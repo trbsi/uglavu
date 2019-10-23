@@ -1,5 +1,7 @@
 <?php
 
+namespace UGlavu\Includes;
+
 /**
  * Register all actions and filters for the plugin
  *
@@ -21,7 +23,7 @@
  * @subpackage U_Glavu/includes
  * @author     U Glavu <info@uglavu.com>
  */
-class U_Glavu_Loader {
+class UGlavuLoader {
 
 	/**
 	 * The array of actions registered with WordPress.

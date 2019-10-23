@@ -1,19 +1,25 @@
-<?php 
+<?php
 
-class U_Glavu_Admin_Posts_Create_Scrape_Og_Tags { 
+namespace UGlavu\Includes\Admin\Posts\Create;
+
+use UGlavu\Includes\UGlavuLoader;
+
+class UGlavuAdminPostsCreateScrapeOgTags {
 
 	private $createOgTags;
 
 	public function __construct(
-		U_Glavu_Loader $loader,
-		U_Glavu_Admin_Posts_Create_Og_Tags $createOgTags
+		UGlavuLoader $loader,
+		UGlavuAdminPostsCreateOgTags $createOgTags
 	) {
 		$this->createOgTags = $createOgTags;
 	}
 
+    /**
+     * Ajax function
+     */
 	public function scrape_fb_og_tags() 
 	{
-		file_put_contents('t.txt', 333);
 		$externalUrl = str_replace([' '], '', $_POST['external_url']);
 
 		//check if this is URL

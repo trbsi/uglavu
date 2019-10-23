@@ -1,34 +1,30 @@
-<?php 
-require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/posts/list/class-u-glavu-admin-posts-filter.php';
-require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/posts/list/class-u-glavu-admin-posts-columns.php';
-require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/posts/create/class-u-glavu-admin-posts-create-og-tags.php';
-require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/posts/create/class-u-glavu-admin-posts-create-scrape-og-tags.php';
+<?php
 
-class U_Glavu_Admin_Loader { 
+namespace UGlavu\Includes\Admin;
 
-	private $loader;
+use function UGlavu\getContainer;
+use UGlavu\Includes\Admin\Posts\Create\UGlavuAdminPostsCreateOgTags;
+use UGlavu\Includes\Admin\Posts\Create\UGlavuAdminPostsCreateScrapeOgTags;
+use UGlavu\Includes\UGlavuLoader;
 
-	public function __construct(U_Glavu_Loader $loader) 
+class UGlavuAdminLoader {
+
+    private $loader;
+    private $container;
+
+	public function __construct(UGlavuLoader $loader)
 	{
+	    $this->container = getContainer();
 		$this->loader = $loader;
 	}
 
-	public function load_posts_filter(): U_Glavu_Admin_Posts_Filter
-	{
-		$class = new U_Glavu_Admin_Posts_Filter($this->loader);
-		return $class;
-	}
-
-	public function load_posts_columns(): U_Glavu_Admin_Posts_Columns
-	{
-		$class = new U_Glavu_Admin_Posts_Columns($this->loader);
-		return $class;
-	}
-
+    /**
+     * Used in uglavu_acf_field_external_url
+     */
 	public function load_og_tags_scraper_and_saver(): array
 	{
-		$createOgTags = new U_Glavu_Admin_Posts_Create_Og_Tags($this->loader);
-		$scrapeOgTags = new U_Glavu_Admin_Posts_Create_Scrape_Og_Tags($this->loader, $createOgTags);
+		$createOgTags = $this->container->get(UGlavuAdminPostsCreateOgTags::class);
+		$scrapeOgTags = $this->container->get(UGlavuAdminPostsCreateScrapeOgTags::class);
 
 		return [
 			'createOgTags' => $createOgTags,

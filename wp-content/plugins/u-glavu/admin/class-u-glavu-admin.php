@@ -1,5 +1,7 @@
 <?php
 
+namespace UGlavu\Admin;
+
 /**
  * The admin-specific functionality of the plugin.
  *

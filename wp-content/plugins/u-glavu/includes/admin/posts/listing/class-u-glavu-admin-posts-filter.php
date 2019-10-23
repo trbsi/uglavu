@@ -1,25 +1,35 @@
 <?php
 
+namespace UGlavu\Includes\Admin\Posts\Listing;
+
+use UGlavu\Includes\UGlavuLoader;
+
 /**
  * @see  https://rudrastyh.com/wordpress/date-range-filter.html
  */
-class U_Glavu_Admin_Posts_Filter {
+class UGlavuAdminPostsFilter {
 
-	function __construct(U_Glavu_Loader $loader) {
+    private $loader;
 
-		// if you do not want to remove default "by month filter", remove/comment this line
-		add_filter( 'months_dropdown_results', '__return_empty_array' );
- 
-		// include CSS/JS, in our case jQuery UI datepicker
-		$loader->add_action( 'admin_enqueue_scripts', $this, 'jqueryui' );
- 
-		// HTML of the filter
-		$loader->add_action( 'restrict_manage_posts', $this, 'form' );
- 
-		// the function that filters posts
-		$loader->add_action( 'pre_get_posts', $this, 'filterquery' );
- 
+	function __construct(UGlavuLoader $loader)
+    {
+        $this->loader = $loader;
 	}
+
+	public function run()
+    {
+        // if you do not want to remove default "by month filter", remove/comment this line
+        add_filter( 'months_dropdown_results', '__return_empty_array' );
+
+        // include CSS/JS, in our case jQuery UI datepicker
+        $this->loader->add_action( 'admin_enqueue_scripts', $this, 'jqueryui' );
+
+        // HTML of the filter
+        $this->loader->add_action( 'restrict_manage_posts', $this, 'form' );
+
+        // the function that filters posts
+        $this->loader->add_action( 'pre_get_posts', $this, 'filterquery' );
+    }
  
 	/*
 	 * Add jQuery UI CSS and the datepicker script
