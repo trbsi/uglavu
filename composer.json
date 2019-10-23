@@ -1,0 +1,12 @@
+{
+    "name": "U Glavu",
+    "require": {
+        "php": ">=7.0.0",
+        "php-di/php-di": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "UGlavu\\": "wp-content/plugins/u-glavu/"
+        }
+    }
+}
