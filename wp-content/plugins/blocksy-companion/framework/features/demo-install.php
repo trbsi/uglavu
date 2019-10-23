@@ -14,6 +14,7 @@ class DemoInstall {
 		'blocksy_demo_install_content',
 		'blocksy_demo_register_current_demo',
 		'blocksy_demo_deregister_current_demo',
+		'blocksy_demo_deactivate_plugins',
 
 		// 'blocksy_extension_activate',
 		// 'blocksy_extension_deactivate',
@@ -26,9 +27,9 @@ class DemoInstall {
 	public function __construct() {
 		$this->attach_ajax_actions();
 
-		add_filter( 'woocommerce_enable_setup_wizard', '__return_false' );
+		// add_filter( 'woocommerce_enable_setup_wizard', '__return_false' );
 		// add_filter( 'woocommerce_show_admin_notice', '__return_false' );
-		add_filter( 'woocommerce_prevent_automatic_wizard_redirect', '__return_false' );
+		// add_filter( 'woocommerce_prevent_automatic_wizard_redirect', '__return_false' );
 	}
 
 	public function blocksy_demo_install_child_theme() {
@@ -103,6 +104,11 @@ class DemoInstall {
 		]);
 
 		exit;
+	}
+
+	public function blocksy_demo_deactivate_plugins() {
+		$plugins = new DemoInstallPluginsUninstaller();
+		$plugins->import();
 	}
 
 	public function get_current_demo() {

@@ -24,3 +24,14 @@ ctEvents.on('ct:archive-product-replace-cards:update', ({ article }) => {
 		ctEvents.trigger('ct:quick-view:update')
 	}
 })
+
+checkAndReplace({
+	id: 'has_floating_bar',
+	strategy: 'append',
+
+	parent_selector: 'body',
+	selector: '.ct-floating-bar',
+	fragment_id: 'blocksy-woo-floating-cart',
+
+	whenInserted: () => ctEvents.trigger('blocksy:woo:floating-cart:init')
+})

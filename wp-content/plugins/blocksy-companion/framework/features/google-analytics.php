@@ -5,7 +5,7 @@ namespace Blocksy;
 class GoogleAnalytics {
 	public function __construct() {
 		add_filter(
-			'blocksy_misc_end_section_customizer_options',
+			'blocksy_engagement_general_end_customizer_options',
 			[$this, 'generate_google_analytics_opts']
 		);
 
@@ -45,39 +45,24 @@ class GoogleAnalytics {
 	}
 
 	public function generate_google_analytics_opts($options) {
-		$options['google_analytics'] = [
-			'title' => __('Google Analytics', 'blc'),
-			'container' => [ 'priority' => 7 ],
-			'options' => [
+		$options[] = [
+			'analytics_id' => [
+				'label' => __( 'Google Analytics', 'blc' ),
+				'type' => 'text',
+				'design' => 'block',
+				'value' => '',
+				'desc' => __( 'Insert here your Google Analytics tracking ID', 'blc' ),
+				'disableRevertButton' => true,
+				'setting' => [ 'transport' => 'postMessage' ],
+			],
 
-				'integrations_section_options' => [
-					'type' => 'ct-options',
-					'setting' => [ 'transport' => 'postMessage' ],
-					'inner-options' => [
-						blocksy_rand_md5() => [
-							'label' => __( 'Google Analytics', 'blc' ),
-							'type' => 'ct-title',
-						],
-
-						'analytics_id' => [
-							'label' => __( 'Tracking ID', 'blc' ),
-							'type' => 'text',
-							'design' => 'inline',
-							'value' => '',
-							'setting' => [ 'transport' => 'postMessage' ],
-						],
-
-						'ip_anonymization' => [
-							'label' => __( 'IP Anonymization', 'blc' ),
-							'type' => 'ct-switch',
-							'value' => 'no',
-							'desc' => __( 'Enable Google Analytics IP anonymization feature <a href="https://developers.google.com/analytics/devguides/collection/gtagjs/ip-anonymization">(more info)</a>.', 'blc' ),
-							'setting' => [ 'transport' => 'postMessage' ],
-						],
-					],
-				],
-
-			]
+			'ip_anonymization' => [
+				'label' => __( 'IP Anonymization', 'blc' ),
+				'type' => 'ct-switch',
+				'value' => 'no',
+				'desc' => __( 'Enable Google Analytics IP anonymization feature <a href="https://developers.google.com/analytics/devguides/collection/gtagjs/ip-anonymization">(more info)</a>.', 'blc' ),
+				'setting' => [ 'transport' => 'postMessage' ],
+			],
 		];
 
 		return $options;

@@ -40,7 +40,7 @@ $widget_data = json_encode(
 				'#',
 				[
 					'lazyload' => true,
-					'tag' => 'a',
+					'tag_name' => 'a',
 					'html_atts' => [
 						'target' => '_blank',
 						'href' => '#',

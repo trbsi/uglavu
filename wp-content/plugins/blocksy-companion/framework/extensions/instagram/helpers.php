@@ -216,7 +216,7 @@ function blc_output_instagram_section($forced = false) {
 						'#',
 						[
 							'lazyload' => true,
-							'tag' => 'a',
+							'tag_name' => 'a',
 							'html_atts' => [
 								'target' => '_blank',
 								'href' => '#',

@@ -37,6 +37,7 @@ class Autoloader {
 
 		'DemoInstallChildThemeInstaller' => 'framework/features/demo-install/child-theme.php',
 		'DemoInstallPluginsInstaller' => 'framework/features/demo-install/required-plugins.php',
+		'DemoInstallPluginsUninstaller' => 'framework/features/demo-install/plugins-uninstaller.php',
 		'DemoInstallContentInstaller' => 'framework/features/demo-install/content-installer.php',
 		'DemoInstallOptionsInstaller' => 'framework/features/demo-install/options-import.php',
 		'DemoInstallWidgetsInstaller' => 'framework/features/demo-install/widgets-import.php',

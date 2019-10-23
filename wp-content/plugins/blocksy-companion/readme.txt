@@ -23,6 +23,13 @@ This plugin runs and adds its enhacements only if the Blocksy theme is installed
 2. Activate the plugin by going to **Plugins** page in WordPress admin and clicking on **Activate** link.
 
 == Changelog ==
+1.5.5: 2019-10-18
+- New: Floating cart for products
+- Improvement: Deactivate demo plugins on demo uninstall
+- Improvement: Scope companion to sites, not whole network
+- Improvement: Add theme minimum supported version
+- Fix: Enable Woo wizzard back
+
 1.5.4: 2019-10-10
 - New: Improved content importer for demo install
 - New: Modify demo install screen

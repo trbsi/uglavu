@@ -1,6 +1,8 @@
 import $ from 'jquery'
 import { markImagesAsLoaded } from '../../../instagram/static/js/lazy-load-helpers'
 import { onDocumentLoaded } from '../../../instagram/static/js/helpers'
+import { mountFloatingCart } from './floating-cart'
+import ctEvents from 'ct-events'
 
 const store = {}
 
@@ -17,8 +19,13 @@ const cachedFetch = url =>
 				})
 			)
 
-const mount = () =>
-	[...document.querySelectorAll('.ct-open-quick-view')].map(el => {
+ctEvents.on('blocksy:woo:floating-cart:init', () => {
+	mountFloatingCart()
+})
+
+const mount = () => {
+	mountFloatingCart()
+	;[...document.querySelectorAll('.ct-open-quick-view')].map(el => {
 		if (el.hasQuickViewInit) return
 		el.hasQuickViewInit = true
 
@@ -128,6 +135,7 @@ const mount = () =>
 			})
 		})
 	})
+}
 
 onDocumentLoaded(() => {
 	mount()

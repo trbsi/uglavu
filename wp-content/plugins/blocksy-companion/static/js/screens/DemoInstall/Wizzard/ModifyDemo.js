@@ -17,7 +17,8 @@ const ModifyDemo = ({ style, nextStep }) => {
 	const {
 		setCurrentlyInstalledDemo,
 		setCurrentDemo,
-		currentDemo
+		currentDemo,
+		demos_list
 	} = useContext(DemosContext)
 
 	const [currentStep, setCurrentStep] = useState(0)
@@ -27,10 +28,21 @@ const ModifyDemo = ({ style, nextStep }) => {
 
 	const [properDemoName, _] = (currentDemo || '').split(':')
 
+	const demoVariations = demos_list.filter(
+		({ name }) => name === properDemoName
+	)
+
 	const stepsDescriptors = {
 		erase_content: {
 			title: __('Erase content', 'blc'),
 			query_string: `action=blocksy_demo_erase_content&wp_customize=on`
+		},
+
+		deactivate_demo_plugins: {
+			title: __('Deactivate demo plugins', 'blc'),
+			query_string: `action=blocksy_demo_deactivate_plugins&plugins=${demoVariations[0].plugins.join(
+				':'
+			)}`
 		},
 
 		deregister_current_demo: {
@@ -39,7 +51,11 @@ const ModifyDemo = ({ style, nextStep }) => {
 		}
 	}
 
-	const stepsForConfiguration = ['erase_content', 'deregister_current_demo']
+	const stepsForConfiguration = [
+		'erase_content',
+		'deactivate_demo_plugins',
+		'deregister_current_demo'
+	]
 
 	const stepName = stepsForConfiguration[currentStep]
 
@@ -123,7 +139,9 @@ const ModifyDemo = ({ style, nextStep }) => {
 
 			{runningState === 'idle' && (
 				<Fragment>
-					<p>{__('What steps do you want to perform next?', 'blc')}</p>
+					<p>
+						{__('What steps do you want to perform next?', 'blc')}
+					</p>
 
 					<div className="ct-modify-actions">
 						<button

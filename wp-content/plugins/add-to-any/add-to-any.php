@@ -3,7 +3,7 @@
 Plugin Name: AddToAny Share Buttons
 Plugin URI: https://www.addtoany.com/
 Description: Share buttons for your pages including AddToAny's universal sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp and many more.
-Version: 1.7.38
+Version: 1.7.39
 Author: AddToAny
 Author URI: https://www.addtoany.com/
 Text Domain: add-to-any
@@ -416,6 +416,7 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 			$button_src		= $options['button_custom'];
 			$button_width	= '';
 			$button_height	= '';
+			$button_style   = '';
 		} else if ( isset( $options['button'] ) && 'TEXT' == $options['button'] ) {
 			// Text-only button
 			$button_text	= stripslashes( $options[ 'button_text'] );
@@ -428,6 +429,7 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 				$button_src    = 'https://static.addtoany.com/buttons/a2a.svg';
 				$button_width  = ! empty( $args['icon_size'] ) ? ' width="' . $args['icon_size'] .'"'  : ' width="32"';
 				$button_height = ! empty( $args['icon_size'] ) ? ' height="' . $args['icon_size'] .'"'  : ' height="32"';
+				$button_style  = $is_amp ? ' style="background-color:#0166ff"' : '';
 			}
 		}
 		
@@ -436,7 +438,7 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 		} elseif ( ! empty( $button_text ) ) {
 			$button = $button_text;
 		} elseif ( ! empty( $button_src ) ) {
-			$button	= '<img src="' . $button_src . '"' . $button_width . $button_height . ' alt="Share">';
+			$button	= '<img src="' . $button_src . '"' . $button_width . $button_height . $button_style . ' alt="Share">';
 		} else {
 			$button = '';
 		}
@@ -974,8 +976,12 @@ function A2A_SHARE_SAVE_add_to_content( $content ) {
 
 function A2A_SHARE_SAVE_pre_get_posts( $query ) {
 	if ( $query->is_main_query() ) {
-		add_filter( 'the_content', 'A2A_SHARE_SAVE_add_to_content', 98 );
-		add_filter( 'the_excerpt', 'A2A_SHARE_SAVE_add_to_content', 98 );
+		// Hook to change the standard buttons' priority number in content
+		// Example: add_filter( 'addtoany_content_priority', 20 );
+		$priority = apply_filters( 'addtoany_content_priority', 98 );
+
+		add_filter( 'the_content', 'A2A_SHARE_SAVE_add_to_content', $priority );
+		add_filter( 'the_excerpt', 'A2A_SHARE_SAVE_add_to_content', $priority );
 	}
 }
 

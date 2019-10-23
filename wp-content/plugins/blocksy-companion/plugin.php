@@ -27,6 +27,9 @@ class Plugin {
 	public $feat_google_analytics = null;
 	public $demo = null;
 
+	private $is_blocksy = '__NOT_SET__';
+	private $desired_blocksy_version = '1.5.0';
+
 	/**
 	 * Instance.
 	 *
@@ -107,7 +110,22 @@ class Plugin {
 	}
 
 	private function check_if_blocksy_is_activated() {
-		return strpos(wp_get_theme()->get('Name'), 'Blocksy') !== false;
+		if ($this->is_blocksy === '__NOT_SET__') {
+			$theme = wp_get_theme();
+
+			$is_correct_theme = strpos(
+				$theme->get('Name'), 'Blocksy'
+			) !== false;
+
+			$is_correct_version = version_compare(
+				$theme->get('Version'),
+				$this->desired_blocksy_version
+			);
+
+			$this->is_blocksy = $is_correct_theme && $is_correct_version;
+		}
+
+		return !!$this->is_blocksy;
 	}
 
 	public function plugin_update() {

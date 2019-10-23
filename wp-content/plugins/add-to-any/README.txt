@@ -3,8 +3,8 @@ Contributors: micropat, addtoany
 Tags: buttons, share, icons, social media, share buttons, sharing, share button, media, social, marketing, links, email, seo, woocommerce, google, linkedin, reddit, facebook, twitter, pinterest, whatsapp, instagram, youtube, share this, sharethis, feed
 Requires at least: 3.7
 Tested up to: 5.3
-Requires PHP: 5.2
-Stable tag: 1.7.38
+Requires PHP: 5.6
+Stable tag: 1.7.39
 
 Share buttons for WordPress including the AddToAny sharing button, Facebook, Twitter, WhatsApp, Pinterest, Reddit, many more, and follow icons too.
 
@@ -19,7 +19,7 @@ AddToAny is the home of universal sharing, and the AddToAny plugin is the most p
 * [**Standard**](https://www.addtoany.com/buttons/customize/wordpress/standalone_services) share buttons — share each piece of content
 * [**Floating**](https://www.addtoany.com/buttons/customize/wordpress/floating_share_buttons) share buttons — responsive & customizable, vertical & horizontal
 * **Counters** — fast & official [share counts](https://www.addtoany.com/buttons/customize/wordpress/share_counters) in the same style
-* **Follow** buttons** — [social media links](https://www.addtoany.com/buttons/customize/wordpress/follow_buttons) to your Instagram, YouTube, Snapchat
+* **Follow** buttons — [social media links](https://www.addtoany.com/buttons/customize/wordpress/follow_buttons) to your Instagram, YouTube, Snapchat
 * **Image** sharing buttons - share buttons for [sharing images](https://www.addtoany.com/buttons/customize/wordpress/image_sharing)
 * **Vector** share buttons & follow buttons — [custom color](https://www.addtoany.com/buttons/customize/wordpress/icon_color) SVG icons
 * **Custom** share icons — use your own if you prefer
@@ -345,6 +345,12 @@ Upload (or move) the `add-to-any` plugin directory into the `/wp-content/mu-plug
 5. Settings for Floating Share Bars
 
 == Changelog ==
+
+= 1.7.39 =
+* Fix AMP version of the AddToAny universal icon
+* Enable the `addtoany_content_priority` filter hook to modify the priority of standard placement in content
+* Add a workaround for a bug in Jetpack's Related Posts on AMP pages that prevents some added content from loading
+* Bump minimum PHP version to 5.6
 
 = 1.7.38 =
 * Update AMP support for compatibility with AMP's standard mode

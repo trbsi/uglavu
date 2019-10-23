@@ -85,10 +85,10 @@ function blc_ext_mailchimp_subscribe_form($forced = false) {
 		<form action="<?php echo esc_attr($form_url) ?>" method="post" class="ct-mailchimp-form">
 			<div class="block-inner">
 				<?php if ( $has_name ) { ?>
-					<input type="text" name="FNAME" placeholder="<?php esc_attr_e($name_label); ?>" />
+					<input type="text" name="FNAME" placeholder="<?php esc_attr_e($name_label); ?>" title="<?php echo __('Name', 'blocksy') ?>" />
 				<?php } ?>
 
-				<input type="email" name="EMAIL" placeholder="<?php esc_attr_e($email_label); ?> *" required />
+				<input type="email" name="EMAIL" placeholder="<?php esc_attr_e($email_label); ?> *" title="<?php echo __('Email', 'blocksy') ?>" required />
 
 				<button class="button">
 					<?php echo esc_html($button_text) ?>

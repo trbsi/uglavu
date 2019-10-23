@@ -24,7 +24,6 @@ function blocksy_get_woocommerce_quickview() {
 
 	$content = ob_start();
 
-
 	?>
 
 	<div id="quick-view-<?php esc_attr_e($id) ?>" data-behaviour="modal" class="ct-panel quick-view-modal">
@@ -78,10 +77,81 @@ function blocksy_output_quick_view_link($for_preview = false) {
 		||
 		$for_preview
 	) {
-		return '<a href="#quick-view-' . $id . '" class="ct-open-quick-view"><svg width="16" height="16" viewBox="0 0 40 40"><path d="M39.6,18.6C34.9,11.5,29.2,5,20,5C10.8,5,5.1,11.5,0.4,18.6c-0.6,0.8-0.6,1.9,0,2.8C5.1,28.5,10.8,35,20,35s14.9-6.5,19.6-13.6C40.1,20.5,40.1,19.5,39.6,18.6z M20,30.7c-5.7,0-10.1-3-15.5-10.7C9.9,12.3,14.3,9.3,20,9.3s10.1,3,15.5,10.7C30.1,27.7,25.7,30.7,20,30.7zM25,20c0,2.8-2.2,5-5,5s-5-2.2-5-5s2.2-5,5-5C22.8,15,25,17.2,25,20z"/></svg><span data-loader="circles"><span></span><span></span><span></span></span></a>';
+		return '<a href="#quick-view-' . $id . '" class="ct-open-quick-view"><span hidden>' . __('Quick view', 'blocksy') . '</span><svg width="16" height="16" viewBox="0 0 40 40"><path d="M39.6,18.6C34.9,11.5,29.2,5,20,5C10.8,5,5.1,11.5,0.4,18.6c-0.6,0.8-0.6,1.9,0,2.8C5.1,28.5,10.8,35,20,35s14.9-6.5,19.6-13.6C40.1,20.5,40.1,19.5,39.6,18.6z M20,30.7c-5.7,0-10.1-3-15.5-10.7C9.9,12.3,14.3,9.3,20,9.3s10.1,3,15.5,10.7C30.1,27.7,25.7,30.7,20,30.7zM25,20c0,2.8-2.2,5-5,5s-5-2.2-5-5s2.2-5,5-5C22.8,15,25,17.2,25,20z"/></svg><span data-loader="circles"><span></span><span></span><span></span></span></a>';
 	}
 
 	return '';
 
+}
+
+function blc_output_woo_floating_cart_cache() {
+	if (! is_customize_preview()) return;
+
+	blocksy_add_customizer_preview_cache(
+		blocksy_html_tag(
+			'div',
+			[ 'data-id' => 'blocksy-woo-floating-cart' ],
+			blocksy_woo_floating_cart(true)
+		)
+	);
+}
+
+function blocksy_woo_floating_cart($forced = false) {
+	if (! function_exists('is_woocommerce')) {
+		return '';
+	}
+
+	global $product;
+
+	if (! is_product()) {
+		return '';
+	}
+
+	if (! $forced) {
+		blc_output_woo_floating_cart_cache();
+	}
+
+	if (get_theme_mod('has_floating_bar', 'yes') !== 'yes') {
+		if (! $forced) {
+			return '';
+		}
+	}
+
+	$image_output = blocksy_image([
+		'attachment_id' => $product->get_image_id(),
+		'size' => 'woocommerce_gallery_thumbnail',
+		'ratio' => '1/1',
+		'lazyload' => false,
+		'tag_name' => 'div',
+	]);
+
+	ob_start();
+
+	?>
+		<div class="ct-floating-bar">
+			<div class="ct-container">
+				<section>
+					<?php echo $image_output ?>
+
+					<?php woocommerce_template_single_title() ?>
+				</section>
+
+				<section>
+					<?php
+						woocommerce_template_single_price();
+
+						if ($product->is_type('simple')) {
+							woocommerce_simple_add_to_cart();
+						} else {
+							woocommerce_template_loop_add_to_cart();
+						}
+					?>
+				</section>
+			</div>
+		</div>
+
+	<?php
+
+	return ob_get_clean();
 }
 

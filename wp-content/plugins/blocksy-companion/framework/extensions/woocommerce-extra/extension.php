@@ -89,5 +89,17 @@ class BlocksyExtensionWoocommerceExtra {
 				return $opts;
 			}
 		);
+
+		add_filter(
+			'blocksy_single_product_elements_end_customizer_options',
+			function ($opts) {
+				$opts['has_floating_bar'] = blocksy_get_options(
+					dirname( __FILE__ ) . '/floating-cart.php',
+					[], false
+				);
+
+				return $opts;
+			}
+		);
 	}
 }
