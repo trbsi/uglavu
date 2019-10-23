@@ -22,7 +22,7 @@ namespace UGlavu\Includes;
  * @subpackage U_Glavu/includes
  * @author     U Glavu <info@uglavu.com>
  */
-class U_Glavu_Deactivator {
+class UGlavuDeactivator {
 
 	/**
 	 * Short Description. (use period)

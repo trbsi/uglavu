@@ -38,7 +38,7 @@ use UGlavu\PublicClass\U_Glavu_Public;
  * @subpackage U_Glavu/includes
  * @author     U Glavu <info@uglavu.com>
  */
-class U_Glavu {
+class UGlavu {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
