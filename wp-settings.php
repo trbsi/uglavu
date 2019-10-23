@@ -1,4 +1,7 @@
 <?php
+
+require_once 'vendor/autoload.php';
+
 /**
  * Used to set up and fix common variables and include
  * the WordPress procedural and class library.
