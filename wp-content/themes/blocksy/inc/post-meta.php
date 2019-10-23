@@ -38,6 +38,9 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 				'plain' => false,
 				'meta_type' => 'simple',
 				'force_icons' => false,
+
+				// default | custom
+				'date_format_source' => 'custom',
 				'date_format' => 'M j, Y',
 
 				// simple | standard
@@ -45,6 +48,13 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 
 			]
 		);
+
+		$date_format = $args['date_format'];
+		$default_date_format = get_option('date_format', $args['date_format']);
+
+		if ($args['date_format_source'] === 'default') {
+			$date_format = $default_date_format;
+		}
 
 		if ( ! empty( $args['class'] ) ) {
 			$args['class'] = ' ' . $args['class'];
@@ -101,7 +111,7 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 		$container_attr = array_merge([
 			'class' => $args['plain'] ? 'product-categories' : 'entry-meta' . (
 				$avatar
-			) . $args['class'],
+            ) . $args['class'],
 		], $label_output, (
 			$args['plain'] ? [] : [
 				'data-type' => $args['meta_type']
@@ -181,8 +191,9 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 
 					<span
 						class="ct-meta-element"
+						<?php echo ('data-default-format="' . $default_date_format . '"') ?>
 						<?php echo ('data-date="' . get_the_date('c') . '"') ?>>
-						<?php echo esc_html(get_the_date( $args['date_format'] )); ?>
+						<?php echo esc_html(get_the_date( $date_format )); ?>
 					</span>
 				</li>
 			<?php } ?>
@@ -208,8 +219,9 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 
 					<span
 						class="ct-meta-element"
+						<?php echo ('data-default-format="' . $default_date_format . '"') ?>
 						<?php echo ('data-date="' . get_the_modified_date('c') . '"') ?>>
-						<?php echo esc_html(get_the_modified_date( $args['date_format'] )); ?>
+						<?php echo esc_html(get_the_modified_date($date_format)); ?>
 					</span>
 				</li>
 			<?php } ?>
@@ -325,7 +337,7 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 
 		?>
 
-		<ul <?php echo blocksy_attr_to_html($container_attr) ?>>
+		<ul <?php echo blocksy_attr_to_html($container_attr) ?> <?php blocksy_schema_org_definitions_e('blog') ?>>
 			<?php
 				/**
 				 * Note to code reviewers: This line doesn't need to be escaped.

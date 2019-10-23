@@ -10,8 +10,8 @@
 
 [data-layout="shop-simple"] {
 	display: grid;
-	grid-column-gap: 35px;
-	grid-row-gap: 35px;
+	grid-column-gap: var(--cardsGap);
+	grid-row-gap: var(--cardsGap);
 
 	.shop-entry-card {
 		display: grid;
@@ -65,7 +65,7 @@
 		display: flex;
 		position: absolute;
 		left: 0;
-		bottom: 30px;
+		bottom: 20px;
 		width: 100%;
 		padding: 0 20px;
 		opacity: 0;

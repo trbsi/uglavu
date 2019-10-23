@@ -198,11 +198,6 @@ export const getTypographyVariablesFor = () => ({
 	}),
 
 	...typographyOption({
-		id: 'sidebarWidgetsHeadingsFont',
-		selector: '.ct-sidebar .ct-post-title'
-	}),
-
-	...typographyOption({
 		id: 'singleProductTitleFont',
 		selector: '.product_title'
 	}),

@@ -19,8 +19,8 @@ blocksy_output_responsive([
 blocksy_output_colors([
 	'value' => blocksy_akg('searchHeaderIconColor', $atts),
 	'default' => [
-		'default' => [ 'color' => 'var(--paletteColor3)' ],
-		'hover' => [ 'color' => 'var(--paletteColor1)' ],
+		'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
+		'hover' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
 	],
 	'css' => $css,
 	'tablet_css' => $tablet_css,
@@ -28,12 +28,12 @@ blocksy_output_colors([
 	'variables' => [
 		'default' => [
 			'selector' => '.ct-header-search',
-			'variable' => 'linkInitialColor'
+			'variable' => 'color'
 		],
 
 		'hover' => [
 			'selector' => '.ct-header-search',
-			'variable' => 'linkHoverColor'
+			'variable' => 'colorHover'
 		],
 	],
 	'responsive' => true
@@ -44,19 +44,19 @@ blocksy_output_colors([
 blocksy_output_colors([
 	'value' => blocksy_akg('searchHeaderLinkColor', $atts),
 	'default' => [
-		'default' => [ 'color' => 'var(--paletteColor5)' ],
-		'hover' => [ 'color' => 'var(--paletteColor1)' ],
+		'default' => [ 'color' => '#ffffff' ],
+		'hover' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
 	],
 	'css' => $css,
 	'variables' => [
 		'default' => [
 			'selector' => '#search-modal',
-			'variable' => 'linkInitialColor'
+			'variable' => 'color'
 		],
 
 		'hover' => [
 			'selector' => '#search-modal',
-			'variable' => 'linkHoverColor'
+			'variable' => 'colorHover'
 		],
 	],
 ]);
@@ -84,6 +84,7 @@ blocksy_output_spacing([
 	'tablet_css' => $tablet_css,
 	'mobile_css' => $mobile_css,
 	'selector' => '.ct-header-search',
+	'important' => true,
 	'value' => blocksy_default_akg(
 		'headerSearchMargin', $atts,
 		blocksy_spacing_value([

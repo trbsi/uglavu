@@ -7,11 +7,11 @@
 	justify-content: center;
 	width: 33px;
 	height: 33px;
-	color: var(--linkInitialColor);
+	color: var(--color);
 	opacity: 0;
 	visibility: hidden;
 	transform: translate3d(0, 15px, 0);
-	background: var(--buttonInitialColor);
+	background: var(--backgroundColor);
 	box-shadow: 0px 5px 20px 0px rgba(210, 213, 218, 0.2);
 	transition: opacity 0.3s ease,
 				color 0.3s ease,
@@ -20,8 +20,8 @@
 				visibility 0.3s ease;
 
 	&:hover {
-		color: var(--linkHoverColor);
-		background: var(--buttonHoverColor);
+		color: var(--colorHover);
+		background: var(--backgroundColorHover);
 	}
 
 	svg {

@@ -24,18 +24,18 @@ blocksy_output_colors([
 	'value' => blocksy_akg('mobileMenuColor', $atts),
 	'default' => [
 		'default' => [ 'color' => '#ffffff' ],
-		'hover' => [ 'color' => 'var(--paletteColor1)' ],
+		'hover' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
 	],
 	'css' => $css,
 	'variables' => [
 		'default' => [
 			'selector' => '.mobile-menu',
-			'variable' => 'linkInitialColor'
+			'variable' => 'color'
 		],
 
 		'hover' => [
 			'selector' => '.mobile-menu',
-			'variable' => 'linkHoverColor'
+			'variable' => 'colorHover'
 		],
 	],
 ]);

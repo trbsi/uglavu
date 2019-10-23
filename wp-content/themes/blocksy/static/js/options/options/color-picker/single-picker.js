@@ -19,10 +19,13 @@ const SinglePicker = ({
 	onPickingChange,
 	stopTransitioning,
 
+	innerRef,
+
 	isTransitioning,
 	isPicking
 }) => {
 	const el = useRef()
+
 	if (option.inline_modal) {
 		return (
 			<div ref={el} className="ct-color-picker-single">
@@ -32,6 +35,7 @@ const SinglePicker = ({
 						<PickerModal
 							option={option}
 							onChange={onChange}
+							picker={picker}
 							value={value}
 						/>,
 						el.current.closest('.ct-single-palette')
@@ -50,7 +54,13 @@ const SinglePicker = ({
 
 	return (
 		<div
-			ref={el}
+			ref={instance => {
+				el.current = instance
+
+				if (innerRef) {
+					innerRef.current = instance
+				}
+			}}
 			className={classnames('ct-color-picker-single', {
 				[`ct-no-color`]:
 					(value || {}).color === getNoColorPropFor(option)
@@ -58,14 +68,6 @@ const SinglePicker = ({
 			<span tabIndex="0">
 				<span
 					tabIndex="0"
-					onMouseDownCapture={e => {
-						e.nativeEvent.stopImmediatePropagation()
-						e.nativeEvent.stopPropagation()
-					}}
-					onMouseUpCapture={e => {
-						e.nativeEvent.stopImmediatePropagation()
-						e.nativeEvent.stopPropagation()
-					}}
 					onClick={e => {
 						e.stopPropagation()
 
@@ -78,11 +80,21 @@ const SinglePicker = ({
 						onPickingChange(futureIsPicking)
 					}}
 					style={
-						(value || {}).color !== getNoColorPropFor(option)
+						(value || {}).color.indexOf(
+							getNoColorPropFor(option)
+						) === -1
 							? {
 									background: (value || {}).color
 							  }
-							: {}
+							: {
+									...(picker.inherit &&
+									(value || {}).color !==
+										getNoColorPropFor(option)
+										? {
+												background: picker.inherit
+										  }
+										: {})
+							  }
 					}>
 					<i className="ct-tooltip-top">{picker.title}</i>
 				</span>
@@ -133,6 +145,7 @@ const SinglePicker = ({
 									style={props}
 									option={option}
 									onChange={onChange}
+									picker={picker}
 									value={value}
 									el={el}
 								/>

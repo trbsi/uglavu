@@ -72,14 +72,14 @@ the_post();
 	ob_start();
 
 	if ( $has_related_posts ) {
-		blocksy_related_posts( intval( get_theme_mod( 'related_posts_count', 3 ) ) );
+		blocksy_related_posts();
 	}
 
 	$related_posts_output = ob_get_clean();
 
 	ob_start();
 
-	blocksy_related_posts( 8 );
+	blocksy_related_posts(true);
 
 	$related = ob_get_clean();
 

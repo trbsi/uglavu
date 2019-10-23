@@ -30,11 +30,15 @@
 }
 
 .form-row-first {
-	width: 47%;
-	float: left;
+	@include media-breakpoint-up (md) {
+		width: 47%;
+		float: left;
+	}
 }
 
 .form-row-last {
-	width: 47%;
-	float: right;
+	@include media-breakpoint-up (md) {
+		width: 47%;
+		float: right;
+	}
 }

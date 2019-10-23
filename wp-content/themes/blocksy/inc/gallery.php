@@ -142,6 +142,12 @@ function blocksy_flexy_pills($number_of_sliders, $pills_images = null) {
 				?>
 
 				<a href="#" <?php if (intval($index) === 1) echo ' class="active"' ?>>
+					<span hidden>
+						<?php
+							// translators: %s is the number of the slide
+							echo sprintf(__('Slide %s', 'blocksy'), $index);
+						?>
+					</span>
 				</a>
 
 				<?php

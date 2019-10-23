@@ -114,28 +114,53 @@ $options = [
 	],
 
 	function_exists('is_shop') ? [
-		'woocommerce' => [
-			'title' => __('Shop', 'blocksy'),
-			'only_if_exists' => true,
-			'container' => [ 'priority' => 2 ],
-			'options' => [
-
-				'woocomerrce_posts_test' => [
-					'title' => __( 'Archives', 'blocksy' ),
-					'container' => [ 'priority' => 2 ],
-					// 'only_if_exists' => true,
-					'options' => blocksy_get_options( 'posts/woo-categories' ),
-				],
-
-				'woocomerrce_single' => [
-					'title' => __( 'Single Product', 'blocksy' ),
-					'container' => [ 'priority' => 2 ],
-					// 'only_if_exists' => true,
-					'options' => blocksy_get_options( 'posts/woo-single' ),
-				],
-
-			]
+		blocksy_rand_md5() => [
+			'type' => 'ct-group-title',
+			'kind' => 'divider',
+			'priority' => 2,
 		],
+
+		'woocomerrce_posts_test' => [
+			'title' => __( 'WooCommerce Archives', 'blocksy' ),
+			'container' => [
+				'priority' => 2
+			],
+			// 'only_if_exists' => true,
+			'options' => blocksy_get_options( 'posts/woo-categories' ),
+		],
+
+		'woocomerrce_single' => [
+			'title' => __( 'Single Product', 'blocksy' ),
+			'container' => [
+				'priority' => 2,
+				'type' => 'child'
+			],
+			// 'only_if_exists' => true,
+			'options' => blocksy_get_options( 'posts/woo-single' ),
+		],
+
+		'woocommerce_checkout' => [
+			'title' => __( 'Checkout Page', 'blocksy' ),
+			'container' => [
+				'priority' => 2,
+				'type' => 'child'
+			],
+			'only_if_exists' => true,
+			'options' => []
+		],
+
+		/*
+		'woocommerce_misc' => [
+			'title' => __( 'Notice & Images', 'blocksy' ),
+			'container' => [
+				'priority' => 2,
+				'type' => 'child'
+			],
+			'options' => []
+
+		]
+		 */
+
 	] : [],
 
 	[
@@ -155,32 +180,6 @@ $options = [
 			'title' => __( 'Social Network Accounts', 'blocksy' ),
 			'container' => [ 'priority' => 6 ],
 			'options' => blocksy_get_options( 'engagement/social-accounts' ),
-		],
-	],
-
-	[
-		blocksy_rand_md5() => [
-			'type' => 'ct-group-title',
-			'title' => __( 'Miscellaneous', 'blocksy' ),
-			'priority' => 7,
-		],
-
-		'misc_general' => [
-			'title' => __('General', 'blocksy'),
-			'container' => [ 'priority' => 7 ],
-			'options' => blocksy_get_options( 'miscellaneous/misc_general' ),
-		],
-
-		'pagination' => [
-			'title' => __('Pagination', 'blocksy'),
-			'container' => [ 'priority' => 7 ],
-			'options' => blocksy_get_options( 'miscellaneous/pagination' ),
-		],
-
-		'forms' => [
-			'title' => __('Form Elements', 'blocksy'),
-			'container' => [ 'priority' => 7 ],
-			'options' => blocksy_get_options( 'miscellaneous/forms' ),
 		],
 	],
 

@@ -48,181 +48,6 @@ $options = [
 				'setting' => [ 'transport' => 'postMessage' ],
 			],
 
-			'has_back_top' => [
-				'label' => __( 'Scroll to Top', 'blocksy' ),
-				'type' => 'ct-panel',
-				'switch' => true,
-				'value' => 'no',
-				'setting' => [ 'transport' => 'postMessage' ],
-				'inner-options' => [
-
-					blocksy_rand_md5() => [
-						'title' => __( 'General', 'blocksy' ),
-						'type' => 'tab',
-						'options' => [
-
-							'top_button_type' => [
-								'label' => false,
-								'type' => 'ct-image-picker',
-								'value' => 'type-1',
-								'attr' => [
-									'data-type' => 'background',
-									'data-columns' => '3',
-								],
-								'setting' => [ 'transport' => 'postMessage' ],
-								'choices' => [
-
-									'type-1' => [
-										'src'   => blocksy_image_picker_file( 'top-1' ),
-										'title' => __( 'Type 1', 'blocksy' ),
-									],
-
-									'type-2' => [
-										'src'   => blocksy_image_picker_file( 'top-2' ),
-										'title' => __( 'Type 2', 'blocksy' ),
-									],
-
-									'type-3' => [
-										'src'   => blocksy_image_picker_file( 'top-3' ),
-										'title' => __( 'Type 3', 'blocksy' ),
-									],
-								],
-							],
-
-							'top_button_shape' => [
-								'label' => __( 'Shape', 'blocksy' ),
-								'type' => 'ct-radio',
-								'value' => 'square',
-								'view' => 'radio',
-								'inline' => true,
-								'design' => 'inline',
-								'setting' => [ 'transport' => 'postMessage' ],
-								'choices' => [
-									'square' => __( 'Square', 'blocksy' ),
-									'circle' => __( 'Circle', 'blocksy' ),
-								],
-							],
-
-							'topButtonOffset' => [
-								'label' => __( 'Bottom Offset', 'blocksy' ),
-								'type' => 'ct-slider',
-								'min' => 25,
-								'max' => 300,
-								'value' => 25,
-								'responsive' => true,
-								'divider' => 'top',
-								'setting' => [ 'transport' => 'postMessage' ],
-							],
-
-							'top_button_alignment' => [
-								'label' => __( 'Alignment', 'blocksy' ),
-								'type' => 'ct-radio',
-								'value' => 'right',
-								'setting' => [ 'transport' => 'postMessage' ],
-								'view' => 'text',
-								'divider' => 'top',
-								'attr' => [ 'data-type' => 'alignment' ],
-								'choices' => [
-									'left' => '',
-									'right' => '',
-								],
-							],
-
-							blocksy_rand_md5() => [
-								'type' => 'ct-divider',
-							],
-
-							'back_top_visibility' => [
-								'label' => __( 'Visibility', 'blocksy' ),
-								'type' => 'ct-visibility',
-								'design' => 'block',
-								'setting' => [ 'transport' => 'postMessage' ],
-
-								'value' => [
-									'desktop' => true,
-									'tablet' => true,
-									'mobile' => false,
-								],
-
-								'choices' => blocksy_ordered_keys([
-									'desktop' => __( 'Desktop', 'blocksy' ),
-									'tablet' => __( 'Tablet', 'blocksy' ),
-									'mobile' => __( 'Mobile', 'blocksy' ),
-								]),
-							],
-
-						],
-					],
-
-					blocksy_rand_md5() => [
-						'title' => __( 'Design', 'blocksy' ),
-						'type' => 'tab',
-						'options' => [
-
-							'topButtonIconColor' => [
-								'label' => __( 'Icon Color', 'blocksy' ),
-								'type'  => 'ct-color-picker',
-								'design' => 'inline',
-								'setting' => [ 'transport' => 'postMessage' ],
-
-								'value' => [
-									'default' => [
-										'color' => '#ffffff',
-									],
-
-									'hover' => [
-										'color' => '#ffffff',
-									],
-								],
-
-								'pickers' => [
-									[
-										'title' => __( 'Initial', 'blocksy' ),
-										'id' => 'default',
-									],
-
-									[
-										'title' => __( 'Hover', 'blocksy' ),
-										'id' => 'hover',
-									],
-								],
-							],
-
-							'topButtonShapeBackground' => [
-								'label' => __( 'Shape Background Color', 'blocksy' ),
-								'type'  => 'ct-color-picker',
-								'design' => 'inline',
-								'setting' => [ 'transport' => 'postMessage' ],
-
-								'value' => [
-									'default' => [
-										'color' => 'var(--paletteColor3)',
-									],
-
-									'hover' => [
-										'color' => 'var(--paletteColor4)',
-									],
-								],
-
-								'pickers' => [
-									[
-										'title' => __( 'Initial', 'blocksy' ),
-										'id' => 'default',
-									],
-
-									[
-										'title' => __( 'Hover', 'blocksy' ),
-										'id' => 'hover',
-									],
-								],
-							],
-
-						],
-					],
-
-				],
-			],
-
 			blocksy_rand_md5() => [
 				'type' => 'ct-divider',
 			],
@@ -335,11 +160,11 @@ $options = [
 
 								'value' => [
 									'default' => [
-										'color' => 'var(--paletteColor3)',
+										'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 									],
 
 									'hover' => [
-										'color' => 'var(--paletteColor1)',
+										'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 									],
 								],
 
@@ -347,11 +172,13 @@ $options = [
 									[
 										'title' => __( 'Initial', 'blocksy' ),
 										'id' => 'default',
+										'inherit' => 'var(--color)'
 									],
 
 									[
 										'title' => __( 'Hover', 'blocksy' ),
 										'id' => 'hover',
+										'inherit' => 'var(--colorHover)'
 									],
 								],
 							],
@@ -524,7 +351,7 @@ $options = [
 						'options' => [
 
 							'footerWidgetsTitleColor' => [
-								'label' => __( 'Title Color', 'blocksy' ),
+								'label' => __( 'Widgets Title Color', 'blocksy' ),
 								'type'  => 'ct-color-picker',
 								'design' => 'inline',
 								'setting' => [ 'transport' => 'postMessage' ],
@@ -551,31 +378,11 @@ $options = [
 
 								'value' => [
 									'default' => [
-										'color' => 'var(--paletteColor3)',
-									],
-								],
-
-								'pickers' => [
-									[
-										'title' => __( 'Initial', 'blocksy' ),
-										'id' => 'default',
-									],
-								],
-							],
-
-							'footerWidgetsLink' => [
-								'label' => __( 'Link Color', 'blocksy' ),
-								'type'  => 'ct-color-picker',
-								'design' => 'inline',
-								'setting' => [ 'transport' => 'postMessage' ],
-
-								'value' => [
-									'default' => [
-										'color' => 'var(--paletteColor3)',
+										'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 									],
 
 									'hover' => [
-										'color' => 'var(--paletteColor1)',
+										'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 									],
 								],
 
@@ -583,14 +390,17 @@ $options = [
 									[
 										'title' => __( 'Initial', 'blocksy' ),
 										'id' => 'default',
+										'inherit' => 'var(--color)'
 									],
 
 									[
 										'title' => __( 'Hover', 'blocksy' ),
 										'id' => 'hover',
+										'inherit' => 'var(--colorHover)'
 									],
 								],
 							],
+
 
 							blocksy_rand_md5() => [
 								'type' => 'ct-divider',
@@ -719,7 +529,7 @@ $options = [
 
 								'value' => [
 									'default' => [
-										'color' => 'var(--paletteColor3)',
+										'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 									],
 								],
 
@@ -727,6 +537,7 @@ $options = [
 									[
 										'title' => __( 'Initial', 'blocksy' ),
 										'id' => 'default',
+										'inherit' => 'var(--color)'
 									],
 								],
 							],

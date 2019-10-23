@@ -57,24 +57,25 @@ add_action('customize_register', function ($wp_customize) {
 		$wp_customize->remove_section('colors');
 		$wp_customize->remove_section('woocommerce_product_catalog');
 
-		$wp_customize->add_section(
-			new Blocksy_Group_Title(
-				$wp_customize,
-				'plugin_integrations',
-				[
-					'title' => esc_html__('Plugin Integrations', 'blocksy'),
-					'priority' => 3,
-				]
-			)
-		);
-	}
 
-	$wp_customize->add_panel('woocommerce', [
-		'priority' => 4,
-		'capability' => 'manage_woocommerce',
-		'theme_supports' => '',
-		'title' => __( 'WooCommerce', 'blocksy' ),
-	]);
+		/*
+		$wp_customize->get_control('woocommerce_demo_store_notice')->section = 'woocommerce_misc';
+		$wp_customize->get_control('woocommerce_demo_store_notice')->priority = 15;
+		$wp_customize->get_control('woocommerce_demo_store')->section = 'woocommerce_misc';
+		$wp_customize->get_control('woocommerce_demo_store')->priority = 15;
+
+
+		$wp_customize->get_control('woocommerce_single_image_width')->section = 'woocommerce_misc';
+		$wp_customize->get_control('woocommerce_thumbnail_image_width')->section = 'woocommerce_misc';
+		$wp_customize->get_control('woocommerce_thumbnail_cropping')->section = 'woocommerce_misc';
+*/
+
+		$wp_customize->remove_control('woocommerce_single_image_width');
+		$wp_customize->remove_control('woocommerce_thumbnail_image_width');
+		$wp_customize->remove_control('woocommerce_thumbnail_cropping');
+		$wp_customize->remove_control('woocommerce_demo_store_notice');
+		$wp_customize->remove_control('woocommerce_demo_store');
+	}
 
 	$wp_customize->add_section(
 		new Blocksy_Group_Title(
@@ -543,6 +544,7 @@ function blocksy_customizer_register_options(
 
 					$single_partial['settings'] = [$opt['id']];
 
+					$single_partial['fallback_refresh'] = false;
 					$wp_customize->selective_refresh->add_partial(
 						$single_partial['id'],
 						$single_partial

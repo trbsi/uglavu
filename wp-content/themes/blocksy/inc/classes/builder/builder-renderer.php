@@ -102,7 +102,6 @@ class Blocksy_Customizer_Builder_Render_Placements {
 			], (
 				is_customize_preview() ? [
 					'data-item-label' => $row_config['config']['name'],
-					'data-shortcut' => 'border',
 					'data-location' => $this->get_customizer_location_for('offcanvas')
 				] : []
 			)),

@@ -200,17 +200,23 @@ wp.customize('footer_widgets_container', val =>
 )
 
 wp.customize('footer_primary_area_visibility', val =>
-	val.bind(to =>
+	val.bind(to => {
 		responsiveClassesFor(
 			'footer_primary_area_visibility',
 			document.querySelector('.site-footer .footer-primary-area')
 		)
-	)
+
+		ctEvents.trigger('ct:footer-reveal:update')
+	})
 )
 
 wp.customize('copyright_text', val => val.bind(to => renderCopyright()))
 wp.customize('has_copyright', val => val.bind(to => renderCopyright()))
-wp.customize('copyright_visibility', val => val.bind(to => renderCopyright()))
+wp.customize('copyright_visibility', val => {
+	val.bind(to => renderCopyright())
+
+	ctEvents.trigger('ct:footer-reveal:update')
+})
 wp.customize('footer_base', val =>
 	val.bind(
 		to => (document.querySelector('footer.site-footer').dataset.type = to)

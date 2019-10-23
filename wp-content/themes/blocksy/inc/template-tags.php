@@ -236,8 +236,14 @@ function blocksy_post_navigation( $check_for_preview = false ) {
  *
  * @param number $per_page Number of posts to output.
  */
-function blocksy_related_posts( $per_page = 4 ) {
+function blocksy_related_posts( $is_cache_phase = false ) {
 	global $post;
+
+	$per_page = intval( get_theme_mod( 'related_posts_count', 3 ));
+
+	if ($is_cache_phase) {
+		$per_page = 8;
+	}
 
 	$post_type = get_post_type( $post );
 
@@ -262,13 +268,13 @@ function blocksy_related_posts( $per_page = 4 ) {
 
 	$all_taxonomy_ids = [];
 
-	$all_taxonomies = get_the_terms( $post->ID, $taxonomy );
+	$all_taxonomies = get_the_terms($post->ID, $taxonomy);
 
-	if ( ! $all_taxonomies ) {
+	if (! $all_taxonomies) {
 		return '';
 	}
 
-	foreach ( $all_taxonomies as $current_taxonomy ) {
+	foreach ($all_taxonomies as $current_taxonomy) {
 		$all_taxonomy_ids[] = $current_taxonomy->term_id;
 	}
 
@@ -290,6 +296,25 @@ function blocksy_related_posts( $per_page = 4 ) {
 
 	$label = get_theme_mod('related_label', __( 'Related Posts', 'blocksy' ));
 
+	$meta_elements = get_theme_mod(
+		'related_meta_elements',
+		[
+			'author' => false,
+			'date' => true,
+			'categories' => false,
+			'comments' => true,
+		]
+	);
+
+	if ($is_cache_phase) {
+		$meta_elements = [
+			'author' => true,
+			'date' => true,
+			'categories' => true,
+			'comments' => true,
+		];
+	}
+
 	$columns = get_theme_mod( 'related_posts_columns', 3 );
 
 	$class = 'ct-related-posts';
@@ -300,56 +325,94 @@ function blocksy_related_posts( $per_page = 4 ) {
 		'mobile' => false,
 	]));
 
-	if ( $query->have_posts() ) {
-		?>
-		<div class="<?php echo esc_attr($class) ?>">
-			<div class="ct-container">
-				<h4 class="ct-related-posts-label">
-					<?php echo wp_kses_post($label); ?>
-				</h4>
-
-				<ul data-columns="<?php echo esc_attr( $columns ); ?>">
-					<?php while ( $query->have_posts() ) { ?>
-						<?php $query->the_post(); ?>
-
-						<li>
-							<?php
-								echo wp_kses_post(blocksy_image(
-									[
-										'attachment_id' => get_post_thumbnail_id(),
-										'ratio' => '4/3',
-										'tag_name' => 'a',
-										'size' => 'large',
-										'html_atts' => [
-											'href' => esc_url( get_permalink() ),
-										],
-									]
-								));
-							?>
-
-							<h3 class="related-entry-title">
-								<a href="<?php echo esc_url( get_permalink() ); ?>"><?php the_title(); ?></a>
-							</h3>
-
-							<div class="related-entry-meta">
-								<span>
-									<?php echo esc_html( get_the_time( 'M j, Y' ) ); ?>
-								</span>
-
-								<?php if ( get_comments_number() > 0 ) { ?>
-									<span>
-										<?php echo wp_kses_post( get_comments_number_text( '', '1 Comment', '% Comments' ) ); ?>
-									</span>
-								<?php } ?>
-							</div>
-						</li>
-					<?php } ?>
-				</ul>
-			</div>
-		</div>
-
-		<?php
+	if (! $query->have_posts()) {
+		wp_reset_postdata();
+		return;
 	}
+
+	?>
+
+	<div class="<?php echo esc_attr($class) ?>">
+		<div class="ct-container">
+			<h4 class="ct-related-posts-label">
+				<?php echo wp_kses_post($label); ?>
+			</h4>
+
+			<ul data-columns="<?php echo esc_attr( $columns ); ?>">
+				<?php while ( $query->have_posts() ) { ?>
+					<?php $query->the_post(); ?>
+
+					<li>
+						<?php
+							echo wp_kses_post(blocksy_image(
+								[
+									'attachment_id' => get_post_thumbnail_id(),
+									'ratio' => get_theme_mod(
+										'related_featured_image_ratio',
+										'16/9'
+									),
+									'tag_name' => 'a',
+									'size' => 'medium_large',
+									'html_atts' => [
+										'href' => esc_url( get_permalink() ),
+									],
+								]
+							));
+						?>
+
+						<h3 class="related-entry-title">
+							<a href="<?php echo esc_url( get_permalink() ); ?>"><?php the_title(); ?></a>
+						</h3>
+
+						<?php
+							echo blocksy_post_meta(
+								[
+									'categories' => blocksy_akg(
+										'categories',
+										$meta_elements,
+										false
+									),
+									'author' => blocksy_akg(
+										'author',
+										$meta_elements,
+										false
+									),
+									// 'author_avatar' => blocksy_akg( 'has_author_avatar', $single_component, 'no' ) === 'yes',
+									'post_date' => blocksy_akg(
+										'date',
+										$meta_elements,
+										false
+									),
+									'comments' => blocksy_akg(
+										'comments',
+										$meta_elements,
+										false
+									),
+								],
+								[
+									'date_format_source' => get_theme_mod(
+										'related_date_format_source',
+										'default'
+									),
+									'date_format' => get_theme_mod(
+										'related_meta_date_format',
+										'M j, Y'
+									),
+									'labels' => $is_cache_phase || get_theme_mod(
+										'has_related_meta_label',
+									   	'yes'
+									) === 'yes',
+								]
+							);
+
+						?>
+					</li>
+				<?php } ?>
+			</ul>
+		</div>
+	</div>
+
+	<?php
 
 	wp_reset_postdata();
 }

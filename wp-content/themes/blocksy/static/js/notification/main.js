@@ -23,4 +23,19 @@ export const mount = el => {
 			el.querySelector('.notice-blocksy-plugin-root')
 		)
 	}
+
+	;[...document.querySelectorAll('[data-dismiss]')].map(el => {
+		el.addEventListener('click', e => {
+			e.preventDefault()
+
+			el.closest('.notice-footer-builder').remove()
+
+			$.ajax(ajaxurl, {
+				type: 'POST',
+				data: {
+					action: 'blocksy_dismissed_notice_footer_builder'
+				}
+			})
+		})
+	})
 }

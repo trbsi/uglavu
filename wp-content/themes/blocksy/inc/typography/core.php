@@ -28,7 +28,6 @@ class Blocksy_Fonts_Manager {
 			'blockquote',
 			'pre',
 			'sidebarWidgetsTitleFont',
-			'sidebarWidgetsHeadingsFont',
 			'singleProductTitleFont',
 			'cardProductTitleFont',
 			blocksy_get_posts_listing_source()['prefix'] . '_cardTitleFont',
@@ -50,6 +49,29 @@ class Blocksy_Fonts_Manager {
 					],
 					'variation' => 'n7',
 					'line-height' => '1.3',
+				])
+			);
+
+			$fonts_ids[] = blocksy_akg_or_customizer(
+				'pageMetaFont',
+				$page_title_source,
+				blocksy_typography_default_values([
+					'size' => [
+						'desktop' => '12px',
+						'tablet'  => '12px',
+						'mobile'  => '12px'
+					],
+					'variation' => 'n6',
+					'line-height' => '1.3',
+					'text-transform' => 'uppercase',
+				])
+			);
+
+			$fonts_ids[] = blocksy_akg_or_customizer(
+				'pageExcerptFont',
+				$page_title_source,
+				blocksy_typography_default_values([
+					'variation' => 'n5',
 				])
 			);
 		}

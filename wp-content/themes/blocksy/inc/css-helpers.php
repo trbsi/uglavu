@@ -315,6 +315,8 @@ function blocksy_output_spacing($args = []) {
 			'selector' => null,
 			'property' => 'margin',
 
+			'important' => false,
+
 			'value' => null,
 		]
 	);
@@ -325,6 +327,8 @@ function blocksy_output_spacing($args = []) {
 		$args['selector'],
 		'--' . $args['property'] . ': ' . blocksy_spacing_prepare_for_device(
 			$value['desktop']
+		) . (
+			$args['important'] ? ' !important' : ''
 		)
 	);
 
@@ -332,6 +336,8 @@ function blocksy_output_spacing($args = []) {
 		$args['selector'],
 		'--' . $args['property'] . ': ' . blocksy_spacing_prepare_for_device(
 			$value['tablet']
+		) . (
+			$args['important'] ? ' !important' : ''
 		)
 	);
 
@@ -339,6 +345,8 @@ function blocksy_output_spacing($args = []) {
 		$args['selector'],
 		'--' . $args['property'] . ': ' . blocksy_spacing_prepare_for_device(
 			$value['mobile']
+		) . (
+			$args['important'] ? ' !important' : ''
 		)
 	);
 }

@@ -34,8 +34,8 @@ blocksy_output_responsive([
 blocksy_output_colors([
 	'value' => blocksy_akg('headerSocialsIconColor', $atts),
 	'default' => [
-		'default' => [ 'color' => 'var(--paletteColor3)' ],
-		'hover' => [ 'color' => 'var(--paletteColor1)' ],
+		'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
+		'hover' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
 	],
 	'css' => $css,
 	'tablet_css' => $tablet_css,
@@ -44,12 +44,12 @@ blocksy_output_colors([
 	'variables' => [
 		'default' => [
 			'selector' => '.ct-header-socials',
-			'variable' => 'linkInitialColor'
+			'variable' => 'color'
 		],
 
 		'hover' => [
 			'selector' => '.ct-header-socials',
-			'variable' => 'linkHoverColor'
+			'variable' => 'colorHover'
 		]
 	],
 
@@ -70,7 +70,7 @@ blocksy_output_colors([
 	'variables' => [
 		'default' => [
 			'selector' => '.ct-header-socials',
-			'variable' => 'backgroundColorInitial'
+			'variable' => 'backgroundColor'
 		],
 
 		'hover' => [
@@ -89,6 +89,7 @@ blocksy_output_spacing([
 	'tablet_css' => $tablet_css,
 	'mobile_css' => $mobile_css,
 	'selector' => '.ct-header-socials',
+	'important' => true,
 	'value' => blocksy_default_akg(
 		'headerSocialsMargin', $atts,
 		blocksy_spacing_value([

@@ -22,5 +22,6 @@ $class .= ' ' . blocksy_visibility_classes($search_visibility);
 		c0,0.9-0.3,1.7-0.7,2.4l1.7,1.7C10.1,8.8,10.1,9.4,9.7,9.7z M4.4,1.3c-1.7,0-3.1,1.4-3.1,3.1s1.4,3.1,3.1,3.1c1.7,0,3.1-1.4,3.1-3.1
 		S6.1,1.3,4.4,1.3z"/>
 		</svg>
+		<span hidden><?php echo __('Search', 'blocksy') ?></span>
 	</a>
 </div>

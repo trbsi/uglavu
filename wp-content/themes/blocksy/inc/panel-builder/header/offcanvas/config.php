@@ -3,4 +3,3 @@
 $config = [
 	'name' => __('Offcanvas', 'blocksy')
 ];
-

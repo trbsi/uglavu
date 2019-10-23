@@ -42,24 +42,22 @@ if ($page_title_source) {
 		'selector' => '.entry-header .page-title'
 	]);
 
-	// font color
 	blocksy_output_colors([
-		'value' => blocksy_akg_or_customizer(
-			'pageTitleFontColor',
-			$page_title_source
-		),
+		'value' => blocksy_akg_or_customizer( 'pageTitleFontColor', $page_title_source ),
 		'default' => [
 			'default' => [ 'color' => 'var(--paletteColor4)' ],
 		],
 		'css' => $css,
 		'variables' => [
 			'default' => [
-				'selector' => '.entry-header',
-				'variable' => 'initialColor'
+				'selector' => '.entry-header .page-title',
+				'variable' => 'color'
 			],
 		],
 	]);
 
+
+	// meta
 	blocksy_output_font_css([
 		'font_value' => blocksy_akg_or_customizer(
 			'pageMetaFont',
@@ -82,24 +80,50 @@ if ($page_title_source) {
 	]);
 
 	blocksy_output_colors([
-		'value' => blocksy_akg_or_customizer(
-			'pageMetaFontColor',
-			$page_title_source
-		),
+		'value' => blocksy_akg_or_customizer( 'pageMetaFontColor', $page_title_source ),
 		'default' => [
-			'default' => [ 'color' => 'var(--paletteColor4)' ],
-			'hover' => [ 'color' => 'var(--paletteColor1)' ],
+			'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
+			'hover' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
 		],
 		'css' => $css,
 		'variables' => [
 			'default' => [
 				'selector' => '.entry-header .entry-meta',
-				'variable' => 'initialColor'
+				'variable' => 'color'
 			],
 
 			'hover' => [
 				'selector' => '.entry-header .entry-meta',
-				'variable' => 'hoverColor'
+				'variable' => 'colorHover'
+			],
+		],
+	]);
+
+	// excerpt
+	blocksy_output_font_css([
+		'font_value' => blocksy_akg_or_customizer(
+			'pageExcerptFont',
+			$page_title_source,
+			blocksy_typography_default_values([
+				'variation' => 'n5',
+			])
+		),
+		'css' => $css,
+		'tablet_css' => $tablet_css,
+		'mobile_css' => $mobile_css,
+		'selector' => '.entry-header .page-description'
+	]);
+
+	blocksy_output_colors([
+		'value' => blocksy_akg_or_customizer( 'pageExcerptColor', $page_title_source ),
+		'default' => [
+			'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
+		],
+		'css' => $css,
+		'variables' => [
+			'default' => [
+				'selector' => '.entry-header .page-description',
+				'variable' => 'color'
 			],
 		],
 	]);
@@ -111,8 +135,8 @@ if ($page_title_source) {
 			'css' => $css,
 			'tablet_css' => $tablet_css,
 			'mobile_css' => $mobile_css,
-			'selector' => ':root',
-			'variableName' => 'pageTitleMinHeight',
+			'selector' => '.hero-section[data-type="type-2"]',
+			'variableName' => 'minHeight',
 			'unit' => '',
 			'value' => blocksy_akg_or_customizer(
 				'hero_height',
@@ -131,7 +155,7 @@ if ($page_title_source) {
 			'css' => $css,
 			'variables' => [
 				'default' => [
-					'selector' => ':root',
+					'selector' => '.hero-section[data-type="type-2"]',
 					'variable' => 'pageTitleOverlay'
 				],
 			],
@@ -147,7 +171,7 @@ if ($page_title_source) {
 			'css' => $css,
 			'variables' => [
 				'default' => [
-					'selector' => ':root',
+					'selector' => '.hero-section[data-type="type-2"]',
 					'variable' => 'pageTitleBackground'
 				],
 			],

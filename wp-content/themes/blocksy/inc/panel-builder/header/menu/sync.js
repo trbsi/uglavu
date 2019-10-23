@@ -23,22 +23,22 @@ export const handleMenuVariables = ({ selector }) => ({
 
 	menuFontColor: [
 		{
-			selector,
-			variable: 'menuInitialColor',
+			selector: `${selector} > ul > li > a`,
+			variable: 'color',
 			type: 'color:default',
 			responsive: true
 		},
 
 		{
-			selector,
-			variable: 'menuHoverColor',
+			selector: `${selector} > ul > li > a`,
+			variable: 'colorHover',
 			type: 'color:hover',
 			responsive: true
 		},
 
 		{
-			selector,
-			variable: 'menuActiveColor',
+			selector: `${selector} > ul > li > a`,
+			variable: 'colorActive',
 			type: 'color:active',
 			responsive: true
 		}
@@ -77,14 +77,14 @@ export const handleMenuVariables = ({ selector }) => ({
 	headerDropdownFontColor: [
 		{
 			selector: `${selector} .sub-menu`,
-			variable: 'menuInitialColor',
+			variable: 'color',
 			type: 'color:default',
 			responsive: true
 		},
 
 		{
 			selector: `${selector} .sub-menu`,
-			variable: 'menuHoverColor',
+			variable: 'colorHover',
 			type: 'color:hover',
 			responsive: true
 		}
@@ -107,7 +107,8 @@ export const handleMenuVariables = ({ selector }) => ({
 		selector,
 		type: 'spacing',
 		variable: 'margin',
-		responsive: true
+		responsive: true,
+		important: true
 	},
 
 	headerDropdownShadow: {

@@ -27,14 +27,14 @@ ctEvents.on(
 			cartHeaderIconColor: [
 				{
 					selector: '.ct-header-cart > a',
-					variable: 'linkInitialColor',
+					variable: 'color',
 					type: 'color:default',
 					responsive: true
 				},
 
 				{
 					selector: '.ct-header-cart > a',
-					variable: 'linkHoverColor',
+					variable: 'colorHover',
 					type: 'color:hover',
 					responsive: true
 				}
@@ -65,14 +65,14 @@ ctEvents.on(
 			cartFontColor: [
 				{
 					selector: '.ct-cart-content',
-					variable: 'linkInitialColor',
+					variable: 'color',
 					type: 'color:default',
 					responsive: true
 				},
 
 				{
 					selector: '.ct-cart-content',
-					variable: 'linkHoverColor',
+					variable: 'colorHover',
 					type: 'color:hover',
 					responsive: true
 				}
@@ -86,10 +86,11 @@ ctEvents.on(
 			},
 
 			headerCartMargin: {
-				selector: '.ct-cart-content',
+				selector: '.ct-header-cart',
 				type: 'spacing',
 				variable: 'margin',
-				responsive: true
+				responsive: true,
+				important: true
 			}
 		}
 	}

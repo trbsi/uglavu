@@ -47,13 +47,34 @@ $options = [
 
 			[
 				blocksy_rand_md5() => [
-					'type' => 'ct-divider',
+					'type' => 'ct-title',
+					'label' => __( 'Page Elements', 'blocksy' ),
 				],
 			],
 
 			blocksy_get_options('general/sidebar-particular', [
 				'prefix' => 'blog',
-			])
+			]),
+
+			blocksy_get_options('general/pagination', [
+				'prefix' => 'blog',
+			]),
+
+			[
+				blocksy_rand_md5() => [
+					'type' => 'ct-title',
+					'label' => __( 'Functionality Options', 'blocksy' ),
+				],
+
+				'has_posts_reveal' => [
+					'label' => __( 'Cards Reveal Effect', 'blocksy' ),
+					'type' => 'ct-switch',
+					'value' => 'no',
+					'setting' => [ 'transport' => 'postMessage' ],
+				],
+
+			],
+
 		],
 	],
 ];

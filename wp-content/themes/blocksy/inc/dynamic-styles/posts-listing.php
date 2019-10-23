@@ -26,17 +26,17 @@ blocksy_output_colors([
 	'value' => blocksy_akg_or_customizer('cardTitleColor', $listing_source),
 	'default' => [
 		'default' => [ 'color' => 'var(--paletteColor4)' ],
-		'hover' => [ 'color' => 'var(--paletteColor1)' ],
+		'hover' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
 	],
 	'css' => $css,
 	'variables' => [
 		'default' => [
-			'selector' => '.entry-title',
-			'variable' => 'linkInitialColor'
+			'selector' => '.entry-card .entry-title',
+			'variable' => 'color'
 		],
 		'hover' => [
-			'selector' => '.entry-title',
-			'variable' => 'linkHoverColor'
+			'selector' => '.entry-card .entry-title',
+			'variable' => 'colorHover'
 		],
 	],
 ]);
@@ -45,7 +45,7 @@ blocksy_output_responsive([
 	'css' => $css,
 	'tablet_css' => $tablet_css,
 	'mobile_css' => $mobile_css,
-	'selector' => ':root',
+	'selector' => '.entry-excerpt',
 	'variableName' => 'cardExcerptSize',
 	'value' => blocksy_akg_or_customizer('cardExcerptSize', $listing_source, [
 		'mobile' => 16,
@@ -57,13 +57,13 @@ blocksy_output_responsive([
 blocksy_output_colors([
 	'value' => blocksy_akg_or_customizer('cardExcerptColor', $listing_source),
 	'default' => [
-		'default' => ['color' => 'var(--fontColor)']
+		'default' => ['color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT')]
 	],
 	'css' => $css,
 	'variables' => [
 		'default' => [
 			'selector' => '.entry-excerpt',
-			'variable' => 'cardExcerptColor'
+			'variable' => 'color'
 		]
 	],
 ]);
@@ -92,19 +92,19 @@ blocksy_output_font_css([
 blocksy_output_colors([
 	'value' => blocksy_akg_or_customizer('cardMetaColor', $listing_source),
 	'default' => [
-		'default' => [ 'color' => 'var(--fontColor)' ],
-		'hover' => [ 'color' => 'var(--paletteColor1)' ],
+		'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
+		'hover' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
 	],
 	'css' => $css,
 	'variables' => [
 		'default' => [
 			'selector' => '.entry-meta',
-			'variable' => 'linkInitialColor'
+			'variable' => 'color'
 		],
 
 		'hover' => [
 			'selector' => '.entry-meta',
-			'variable' => 'linkHoverColor'
+			'variable' => 'colorHover'
 		],
 	],
 ]);
@@ -157,6 +157,7 @@ blocksy_output_colors([
 	'css' => $css,
 	'variables' => [
 		'default' => [
+			'selector' => '[data-cards="boxed"] .entry-card',
 			'variable' => 'cardBackground'
 		],
 	],
@@ -179,7 +180,7 @@ blocksy_output_responsive([
 	'css' => $css,
 	'tablet_css' => $tablet_css,
 	'mobile_css' => $mobile_css,
-	'selector' => ':root',
+	'selector' => '.entries',
 	'variableName' => 'cardsGap',
 	'value' => blocksy_akg_or_customizer('cardsGap', $listing_source, [
 		'mobile' => 30,
@@ -192,7 +193,7 @@ blocksy_output_responsive([
 	'css' => $css,
 	'tablet_css' => $tablet_css,
 	'mobile_css' => $mobile_css,
-	'selector' => ':root',
+	'selector' => '[data-cards="boxed"] .entry-card',
 	'variableName' => 'cardSpacing',
 	'value' => blocksy_akg_or_customizer('card_spacing', $listing_source, [
 		'mobile' => 25,
@@ -207,7 +208,7 @@ blocksy_output_box_shadow([
 	'tablet_css' => $tablet_css,
 	'mobile_css' => $mobile_css,
 	'selector' => '[data-cards="boxed"] .entry-card',
-	'value' => blocksy_akg('cardShadow', $listing_source, blocksy_box_shadow_value([
+	'value' => blocksy_akg_or_customizer('cardShadow', $listing_source, blocksy_box_shadow_value([
 		'enable' => true,
 		'h_offset' => 0,
 		'v_offset' => 12,
@@ -219,6 +220,20 @@ blocksy_output_box_shadow([
 		],
 	])),
 	'responsive' => true
+]);
+
+// Featured Image Radius
+blocksy_output_spacing([
+	'css' => $css,
+	'tablet_css' => $tablet_css,
+	'mobile_css' => $mobile_css,
+	'selector' => '.entry-card .ct-image-container',
+	'property' => 'borderRadius',
+	'value' => blocksy_akg_or_customizer( 'cardThumbRadius', $listing_source,
+		blocksy_spacing_value([
+			'linked' => true,
+		])
+	)
 ]);
 
 

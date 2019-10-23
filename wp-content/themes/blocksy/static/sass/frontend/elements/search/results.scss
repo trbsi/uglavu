@@ -1,13 +1,5 @@
 #search-modal {
-
-	a {
-		color: var(--linkInitialColor);
-
-		&:hover {
-			color: var(--linkHoverColor);
-		}
-	}
-
+	
 	ul {
 		display: grid;
 		@include media-breakpoint-up (md) {

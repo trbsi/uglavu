@@ -62,14 +62,14 @@
 [data-icons-color='custom'] {
 	&[data-icons*='simple'] {
 		a {
-			// --linkInitialColor: rgba(100, 110, 119, 1);
-			// --linkHoverColor: var(--paletteColor1);
+			// --color: rgba(100, 110, 119, 1);
+			// --colorHover: var(--paletteColor1);
 		}
 	}
 
 	&[data-icons*='solid'] {
 		a {
-			background: var(--backgroundColorInitial);
+			background: var(--backgroundColor);
 
 			&:hover {
 				background: var(--backgroundColorHover);
@@ -79,7 +79,7 @@
 
 	&[data-icons*='outline'] {
 		a {
-			border: 1px solid var(--backgroundColorInitial);
+			border: 1px solid var(--backgroundColor);
 
 			&:hover {
 				border-color: var(--backgroundColorHover);

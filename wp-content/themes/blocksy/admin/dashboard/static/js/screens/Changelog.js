@@ -1,4 +1,3 @@
-import snarkdown from 'snarkdown'
 import { createElement, useState, useEffect } from '@wordpress/element'
 import { dateI18n } from '@wordpress/date'
 import { __, sprintf } from 'ct-i18n'
@@ -34,7 +33,17 @@ const SingleVersion = ({ versionDescriptor }) => {
 			<div
 				className="ct-release-info"
 				dangerouslySetInnerHTML={{
-					__html: snarkdown(allReleaseChanges.join('\n'))
+					__html: `<ul><li>
+
+                        ${allReleaseChanges
+							.join('\n')
+							.trim()
+							.split('\n')
+							.map(c => c.replace(/^-\s/, ''))
+							.map(c => c.replace(/`(.*?)`/g, '<code>$1</code>'))
+							.join('</li><li>')}
+                        </li></ul>`
+
 						.replace(
 							/New:/g,
 							'<span class="new" title="New"></span>'
@@ -100,11 +109,11 @@ export default () => {
 					return phase === 'leave'
 						? {
 								duration: 300
-							}
+						  }
 						: {
 								delay: 300,
 								duration: 300
-							}
+						  }
 				}}>
 				{isLoading => {
 					if (isLoading) {
@@ -124,29 +133,24 @@ export default () => {
 									'has-sources':
 										changelog && changelog.length > 1
 								})}>
-								{changelog &&
-									changelog.length > 1 && (
-										<ul className="changelog-sources">
-											{changelog.map(
-												({ title }, index) => (
-													<li
-														className={classnames({
-															active:
-																index ===
-																currentChangelog
-														})}
-														onClick={() =>
-															setCurrentChangelog(
-																index
-															)
-														}
-														key={title}>
-														{title}
-													</li>
-												)
-											)}
-										</ul>
-									)}
+								{changelog && changelog.length > 1 && (
+									<ul className="changelog-sources">
+										{changelog.map(({ title }, index) => (
+											<li
+												className={classnames({
+													active:
+														index ===
+														currentChangelog
+												})}
+												onClick={() =>
+													setCurrentChangelog(index)
+												}
+												key={title}>
+												{title}
+											</li>
+										))}
+									</ul>
+								)}
 
 								<ul className="changelog-explanation">
 									<li>
@@ -165,18 +169,18 @@ export default () => {
 									? parseChangelog(
 											changelog[currentChangelog]
 												.changelog
-										).map(versionDescriptor => (
+									  ).map(versionDescriptor => (
 											<SingleVersion
 												key={versionDescriptor.version}
 												versionDescriptor={
 													versionDescriptor
 												}
 											/>
-										))
+									  ))
 									: __(
 											'No changelog present at the moment.',
 											'blocksy'
-										)}
+									  )}
 							</div>
 						</animated.div>
 					)

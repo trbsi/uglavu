@@ -122,21 +122,36 @@ $options = [
 						'condition' => [ 'page_content_style' => 'boxed' ],
 						'options' => [
 
-							blocksy_rand_md5() => [
-								'type' => 'ct-divider',
-								'attr' => [ 'data-type' => 'small' ],
-							],
-
 							'page_content_background' => [
 								'label' => __( 'Content Area Background', 'blocksy' ),
 								'type' => 'ct-background',
 								'design' => 'inline',
+								'divider' => 'top',
 								'setting' => [ 'transport' => 'postMessage' ],
 								'value' => blocksy_background_default_value([
 									'backgroundColor' => [
 										'default' => [
 											'color' => '#ffffff',
 										],
+									],
+								])
+							],
+
+							'pageContentBoxedShadow' => [
+								'label' => __( 'Content Area Shadow', 'blocksy' ),
+								'type' => 'ct-box-shadow',
+								'responsive' => true,
+								'divider' => 'top',
+								'setting' => [ 'transport' => 'postMessage' ],
+								'value' => blocksy_box_shadow_value([
+									'enable' => false,
+									'h_offset' => 0,
+									'v_offset' => 12,
+									'blur' => 18,
+									'spread' => -6,
+									'inset' => false,
+									'color' => [
+										'color' => 'rgba(34, 56, 101, 0.04)',
 									],
 								])
 							],
@@ -153,6 +168,7 @@ $options = [
 									],
 								]),
 								'responsive' => true,
+								'divider' => 'top',
 								'setting' => [ 'transport' => 'postMessage' ],
 							],
 
@@ -175,18 +191,81 @@ $options = [
 				'setting' => [ 'transport' => 'postMessage' ],
 				'inner-options' => [
 
-					'page_comments_background' => [
-						'label' => __( 'Container Background', 'blocksy' ),
-						'type' => 'ct-background',
-						'design' => 'inline',
-						'setting' => [ 'transport' => 'postMessage' ],
-						'value' => blocksy_background_default_value([
-							'backgroundColor' => [
-								'default' => [
-									'color' => '#f8f9fb',
+					blocksy_rand_md5() => [
+						'title' => __( 'General', 'blocksy' ),
+						'type' => 'tab',
+						'options' => [
+
+							'pageCommentsContainerWidth' => [
+								'label' => __( 'Container Width', 'blocksy' ),
+								'type' => 'ct-slider',
+								'min' => 50,
+								'max' => 100,
+								'responsive' => true,
+								'value' => [
+									'mobile' => 100,
+									'tablet' => 100,
+									'desktop' => 60,
+								],
+								'defaultUnit' => '%',
+								'setting' => [ 'transport' => 'postMessage' ],
+							],
+
+						],
+					],
+
+					blocksy_rand_md5() => [
+						'title' => __( 'Design', 'blocksy' ),
+						'type' => 'tab',
+						'options' => [
+
+							'pageCommentsFontColor' => [
+								'label' => __( 'Font Color', 'blocksy' ),
+								'type'  => 'ct-color-picker',
+								'design' => 'inline',
+								'setting' => [ 'transport' => 'postMessage' ],
+
+								'value' => [
+									'default' => [
+										'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
+									],
+
+									'hover' => [
+										'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
+									],
+								],
+
+								'pickers' => [
+									[
+										'title' => __( 'Initial', 'blocksy' ),
+										'id' => 'default',
+										'inherit' => 'var(--color)'
+									],
+
+									[
+										'title' => __( 'Hover', 'blocksy' ),
+										'id' => 'hover',
+										'inherit' => 'var(--colorHover)'
+									],
 								],
 							],
-						]),
+
+							'page_comments_background' => [
+								'label' => __( 'Container Background', 'blocksy' ),
+								'type' => 'ct-background',
+								'design' => 'inline',
+								'divider' => 'top',
+								'setting' => [ 'transport' => 'postMessage' ],
+								'value' => blocksy_background_default_value([
+									'backgroundColor' => [
+										'default' => [
+											'color' => '#f8f9fb',
+										],
+									],
+								])
+							],
+
+						],
 					],
 
 				],

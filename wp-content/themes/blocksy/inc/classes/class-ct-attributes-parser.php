@@ -133,7 +133,7 @@ class Blocksy_Attributes_Parser {
 	 * @param string $attribute_value attribute value.
 	 * @param string $tag             img | source.
 	 */
-	private function add_attribute_to_images_with_tag(
+	public function add_attribute_to_images_with_tag(
 		$content,
 		$attribute_name,
 		$attribute_value,
@@ -172,7 +172,7 @@ class Blocksy_Attributes_Parser {
 	 * @param string $attribute attribute name.
 	 * @param string $tag       - img | source.
 	 */
-	private function remove_attribute_from_images_with_tag(
+	public function remove_attribute_from_images_with_tag(
 		$content,
 		$attribute,
 		$tag = 'img'
@@ -209,7 +209,7 @@ class Blocksy_Attributes_Parser {
 	 * @param string $attribute - attribute name.
 	 * @param string $tag       - img | source.
 	 */
-	private function remove_attribute_from_single_image(
+	public function remove_attribute_from_single_image(
 		$image,
 		$attribute,
 		$tag = 'img'
@@ -233,7 +233,7 @@ class Blocksy_Attributes_Parser {
 	 * @param string $new_attribute_name - attribute name.
 	 * @param string $tag       - img | source.
 	 */
-	private function rename_attribute_for_single_image(
+	public function rename_attribute_for_single_image(
 		$image,
 		$old_attribute_name,
 		$new_attribute_name,
@@ -281,7 +281,7 @@ class Blocksy_Attributes_Parser {
 	 * @param string $attribute_value value for the attribute.
 	 * @param string $tag             - img | source.
 	 */
-	private function add_attribute_to_single_image(
+	public function add_attribute_to_single_image(
 		$image,
 		$attribute_name,
 		$attribute_value,

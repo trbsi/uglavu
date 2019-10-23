@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header( 'shop' ); ?>
 
 <section id="primary" class="content-area">
-<div class="ct-container">
+<div class="ct-container" <?php echo blocksy_sidebar_position_attr() ?>>
 	<section>
 		<?php
 			/**
@@ -64,15 +64,16 @@ get_header( 'shop' ); ?>
 			do_action( 'woocommerce_after_main_content' );
 		?>
 
-		<?php
-			/**
-			 * woocommerce_sidebar hook.
-			 *
-			 * @hooked woocommerce_get_sidebar - 10
-			 */
-			do_action( 'woocommerce_sidebar' );
-		?>
 	</section>
+
+	<?php
+		/**
+		 * woocommerce_sidebar hook.
+		 *
+		 * @hooked woocommerce_get_sidebar - 10
+		 */
+		do_action( 'woocommerce_sidebar' );
+	?>
 </div>
 </section>
 

@@ -17,14 +17,14 @@ ctEvents.on(
 			searchHeaderIconColor: [
 				{
 					selector: '.ct-header-search',
-					variable: 'linkInitialColor',
+					variable: 'color',
 					type: 'color:default',
 					responsive: true
 				},
 
 				{
 					selector: '.ct-header-search',
-					variable: 'linkHoverColor',
+					variable: 'colorHover',
 					type: 'color:hover',
 					responsive: true
 				}
@@ -33,14 +33,14 @@ ctEvents.on(
 			searchHeaderLinkColor: [
 				{
 					selector: '#search-modal',
-					variable: 'linkInitialColor',
+					variable: 'color',
 					type: 'color:default',
 					responsive: true
 				},
 
 				{
 					selector: '#search-modal',
-					variable: 'linkHoverColor',
+					variable: 'colorHover',
 					type: 'color:hover',
 					responsive: true
 				}
@@ -55,7 +55,8 @@ ctEvents.on(
 				selector: '.ct-header-search',
 				type: 'spacing',
 				variable: 'margin',
-				responsive: true
+				responsive: true,
+				important: true
 			}
 		}
 	}

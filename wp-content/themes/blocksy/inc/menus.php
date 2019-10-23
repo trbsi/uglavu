@@ -39,5 +39,9 @@ function blocksy_get_menus_items() {
 }
 
 function blocksy_get_default_menu() {
+	if (count(array_keys(blocksy_get_menus_items())) === 0) {
+		return null;
+	}
+
     return array_keys(blocksy_get_menus_items())[0];
 }

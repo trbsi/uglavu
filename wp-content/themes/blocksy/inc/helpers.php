@@ -7,6 +7,60 @@
  * @package Blocksy
  */
 
+add_filter('template_include', function ($template) {
+	if (blocksy_check_for_ie()) {
+		return blocksy_check_for_ie();
+	}
+
+	return $template;
+}, PHP_INT_MAX * 1);
+
+function blocksy_check_for_ie() {
+	$matches = null;
+
+	preg_match('/MSIE (.*?);/', $_SERVER['HTTP_USER_AGENT'], $matches);
+
+	if (
+		count($matches) > 1
+		||
+		preg_match(
+			"/(Trident\/(\d{2,}|7|8|9)(.*)rv:(\d{2,}))|(MSIE\ (\d{2,}|8|9)(.*)Tablet\ PC)|(Trident\/(\d{2,}|7|8|9))/",
+			$_SERVER["HTTP_USER_AGENT"],
+			$match
+		) !== 0
+	) {
+		return get_template_directory() . '/internet-explorer.php';
+	}
+
+	return null;
+}
+
+add_action(
+	'dynamic_sidebar_before',
+	function () {
+		ob_start();
+	}
+);
+
+add_action(
+	'dynamic_sidebar_after',
+	function () {
+		$text = str_replace(
+			'textwidget',
+			'textwidget entry-content',
+			ob_get_clean()
+		);
+
+		echo $text;
+	}
+);
+
+function blocksy_body_attr() {
+	return blocksy_attr_to_html([
+		'data-link' => get_theme_mod('content_link_type', 'type-1')
+	]);
+}
+
 function blocksy_locate_theme_path($rel_path) {
 	if (is_child_theme() && file_exists(get_stylesheet_directory() . $rel_path)) {
 		return get_stylesheet_directory() . $rel_path;

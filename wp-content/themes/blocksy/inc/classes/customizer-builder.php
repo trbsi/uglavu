@@ -105,6 +105,39 @@ class Blocksy_Customizer_Builder {
 		];
 	}
 
+	public function patch_header_value_for($processed_terms) {
+		$current_value = get_theme_mod(
+			'header_placements',
+			$this->get_header_default_value()
+		);
+
+		foreach ($current_value['sections'] as $index => $header) {
+			if (! isset($header['items'])) {
+				continue;
+			}
+
+			foreach ($header['items'] as $item_index => $item) {
+				if (! isset($item['values'])) {
+					continue;
+				}
+
+				if (! isset($item['values']['menu'])) {
+					continue;
+				}
+
+				if (! isset($processed_terms[$item['values']['menu']])) {
+					continue;
+				}
+
+				$current_value['sections'][$index][
+					'items'
+				][$item_index]['values']['menu'] = $processed_terms[$item['values']['menu']];
+			}
+		}
+
+		set_theme_mod('header_placements', $current_value);
+	}
+
 	public function render($panel_type = 'header', $device = null) {
 		$optionsMapping = [
 			'header' => 'header_placements',
@@ -207,7 +240,7 @@ class Blocksy_Customizer_Builder {
 			'script',
 			[
 				'id' => 'ct-header-template-' . $type,
-				'type' => 'text/template/' . $type
+				'type' => 'text-template/' . $type
 			],
 			$this->render('header', $type)
 		);

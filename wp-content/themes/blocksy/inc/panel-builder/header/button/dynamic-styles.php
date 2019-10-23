@@ -54,8 +54,8 @@ blocksy_output_spacing([
 	'tablet_css' => $tablet_css,
 	'mobile_css' => $mobile_css,
 	'selector' => '.ct-header-cta',
-	'value' => blocksy_default_akg(
-		'headerCtaMargin', $atts,
+    'important' => true,
+	'value' => blocksy_default_akg( 'headerCtaMargin', $atts,
 		blocksy_spacing_value([
 			'linked' => true,
 		])
@@ -69,8 +69,7 @@ blocksy_output_spacing([
 	'mobile_css' => $mobile_css,
 	'selector' => '.ct-header-cta',
 	'property' => 'borderRadius',
-	'value' => blocksy_default_akg(
-		'headerCtaRadius', $atts,
+	'value' => blocksy_default_akg( 'headerCtaRadius', $atts,
 		blocksy_spacing_value([
 			'linked' => true,
 		])

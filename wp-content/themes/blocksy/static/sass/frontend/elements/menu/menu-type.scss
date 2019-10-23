@@ -38,7 +38,7 @@
 
 	// type 2
 	&[data-type="type-2"] > ul > li {
-		&.current-menu-item a {
+		&.current-menu-item > a {
 			position: relative;
 
 			&:after {
@@ -55,18 +55,14 @@
 
 	// type 3
 	&[data-type="type-3"] > ul > li {
-		&.current-menu-item a {
+		&.current-menu-item > a {
 			background: var(--menuIndicatorActiveColor);
-
-			> a {
-				color: var(--menuActiveColor);
-			}
 		}
 	}
 
 	// menu 4
 	&[data-type="type-4"] > ul > li {
-		&.current-menu-item a {
+		&.current-menu-item > a {
 			position: relative;
 
 			&:before, &:after {

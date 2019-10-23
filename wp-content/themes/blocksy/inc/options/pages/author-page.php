@@ -20,7 +20,8 @@ $options = [
 
 			[
 				blocksy_rand_md5() => [
-					'type' => 'ct-divider',
+					'type'  => 'ct-title',
+					'label' => __( 'Page Elements', 'blocksy' ),
 				],
 			],
 

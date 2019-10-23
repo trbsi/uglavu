@@ -41,25 +41,25 @@ blocksy_output_font_css([
 blocksy_output_colors([
 	'value' => blocksy_akg('menuFontColor', $atts),
 	'default' => [
-		'default' => [ 'color' => 'var(--paletteColor3)' ],
-		'hover' => [ 'color' => 'var(--paletteColor1)' ],
-		'active' => [ 'color' => 'var(--paletteColor1)' ],
+		'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
+		'hover' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
+		'active' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
 	],
 	'css' => $css,
 	'variables' => [
 		'default' => [
-			'selector' => $selector,
-			'variable' => 'menuInitialColor'
+			'selector' => $selector . ' > ul > li > a',
+			'variable' => 'color'
 		],
 
 		'hover' => [
-			'selector' => $selector,
-			'variable' => 'menuHoverColor'
+			'selector' => $selector . ' > ul > li > a',
+			'variable' => 'colorHover'
 		],
 
 		'active' => [
-			'selector' => $selector,
-			'variable' => 'menuActiveColor'
+			'selector' => $selector . ' > ul > li > a',
+			'variable' => 'colorActive'
 		],
 	],
 ]);
@@ -86,6 +86,7 @@ blocksy_output_spacing([
 	'tablet_css' => $tablet_css,
 	'mobile_css' => $mobile_css,
 	'selector' => $selector,
+	'important' => true,
 	'value' => blocksy_default_akg(
 		'headerMenuMargin', $atts,
 		blocksy_spacing_value([
@@ -142,18 +143,18 @@ blocksy_output_colors([
 	'value' => blocksy_akg('headerDropdownFontColor', $atts),
 	'default' => [
 		'default' => [ 'color' => '#ffffff' ],
-		'hover' => [ 'color' => 'var(--paletteColor1)' ],
+		'hover' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
 	],
 	'css' => $css,
 	'variables' => [
 		'default' => [
 			'selector' => $selector . ' .sub-menu',
-			'variable' => 'menuInitialColor'
+			'variable' => 'color'
 		],
 
 		'hover' => [
 			'selector' => $selector . ' .sub-menu',
-			'variable' => 'menuHoverColor'
+			'variable' => 'colorHover'
 		],
 	],
 ]);

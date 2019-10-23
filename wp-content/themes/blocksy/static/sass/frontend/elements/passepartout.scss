@@ -20,6 +20,8 @@
 	}
 
 	#main-container {
+		min-height: calc(100vh - var(--passepartoutSize) * 2);
+
 		&:before, &:after {
 			position: fixed;
 			content: '';
@@ -36,16 +38,5 @@
 		&:after {
 			right: 0;
 		}
-	}
-
-	// admin bar
-	&.admin-bar {
-		&:before {
-			top: 32px;
-		}
-	}
-
-	#main-container {
-		min-height: calc(100vh - var(--passepartoutSize) * 2);
 	}
 }

@@ -19,8 +19,8 @@ blocksy_output_responsive([
 blocksy_output_colors([
 	'value' => blocksy_akg('cartHeaderIconColor', $atts),
 	'default' => [
-		'default' => [ 'color' => 'var(--paletteColor3)' ],
-		'hover' => [ 'color' => 'var(--paletteColor1)' ],
+		'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
+		'hover' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
 	],
 	'css' => $css,
 	'tablet_css' => $tablet_css,
@@ -28,12 +28,12 @@ blocksy_output_colors([
 	'variables' => [
 		'default' => [
 			'selector' => '.ct-header-cart > a',
-			'variable' => 'linkInitialColor'
+			'variable' => 'color'
 		],
 
 		'hover' => [
 			'selector' => '.ct-header-cart > a',
-			'variable' => 'linkHoverColor'
+			'variable' => 'colorHover'
 		],
 	],
 	'responsive' => true
@@ -78,7 +78,7 @@ blocksy_output_colors([
 	'value' => blocksy_akg('cartFontColor', $atts),
 	'default' => [
 		'default' => [ 'color' => '#ffffff' ],
-		'hover' => [ 'color' => 'var(--paletteColor1)' ],
+		'hover' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
 	],
 	'css' => $css,
 	'tablet_css' => $tablet_css,
@@ -86,12 +86,12 @@ blocksy_output_colors([
 	'variables' => [
 		'default' => [
 			'selector' => '.ct-cart-content',
-			'variable' => 'linkInitialColor'
+			'variable' => 'color'
 		],
 
 		'hover' => [
 			'selector' => '.ct-cart-content',
-			'variable' => 'linkHoverColor'
+			'variable' => 'colorHover'
 		],
 	],
 ]);
@@ -116,6 +116,7 @@ blocksy_output_spacing([
 	'tablet_css' => $tablet_css,
 	'mobile_css' => $mobile_css,
 	'selector' => '.ct-header-cart',
+	'important' => true,
 	'value' => blocksy_default_akg(
 		'headerCartMargin', $atts,
 		blocksy_spacing_value([

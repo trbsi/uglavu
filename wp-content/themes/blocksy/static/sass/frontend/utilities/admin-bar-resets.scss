@@ -8,7 +8,10 @@
 	}
 
 	#offcanvas,
-	#search-modal {
+	#search-modal,
+	.ct-floating-bar,
+	&.ct-passepartout:before,
+	.demo_store[data-position="top"] {
 		top: var(--adminBar) !important;
 	}
 }

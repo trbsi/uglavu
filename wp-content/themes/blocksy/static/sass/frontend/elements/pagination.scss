@@ -1,15 +1,14 @@
 .ct-pagination {
-	color: var(--paginationFontInitialColor);
 
 	&:not([data-divider]) {
-		margin-top: var(--paginationSpacing);
+		margin-top: var(--spacing);
 	}
 
 	// divider
 	&[data-divider] {
-		margin-top: calc(var(--paginationSpacing) / 2);
-		padding-top: calc(var(--paginationSpacing) / 2);
-		border-top: var(--paginationDivider);
+		margin-top: calc(var(--spacing) / 2);
+		padding-top: calc(var(--spacing) / 2);
+		border-top: var(--border);
 	}
 
 	.prev {
@@ -34,6 +33,7 @@
 	&[data-type="next_prev"] nav {
 		font-size: 14px;
 		font-weight: 600;
+		color: var(--color);
 
 		> * {
 			display: inline-flex;
@@ -45,16 +45,8 @@
 
 			&:not(.dots) {
 				&:hover {
-					border-color: var(--paginationAccentInitialColor);
+					border-color: var(--colorHover);
 				}
-			}
-		}
-
-		a {
-			color: var(--paginationFontInitialColor);
-
-			&:hover {
-				color: var(--paginationAccentInitialColor);
 			}
 		}
 
@@ -90,8 +82,8 @@
 			}
 
 			&.current {
-				color: var(--paginationFontHoverColor);
-				background: var(--paginationAccentInitialColor);
+				color: var(--colorActive);
+				background: var(--colorHover);
 			}
 		}
 
@@ -136,10 +128,10 @@
 	
 	// Load more & infinite scroll
 	&[data-type="load_more"] {
-		--buttonTextInitialColor: var(--paginationFontInitialColor);
-		--buttonTextHoverColor: var(--paginationFontHoverColor);
-		--buttonInitialColor: var(--paginationAccentInitialColor);
-		--buttonHoverColor: var(--paginationAccentHoverColor);
+		// --buttonTextInitialColor: var(--paginationFontInitialColor);
+		// --buttonTextHoverColor: var(--paginationFontHoverColor);
+		// --buttonInitialColor: var(--paginationAccentInitialColor);
+		// --buttonHoverColor: var(--paginationAccentHoverColor);
 	}
 
 	&[data-type="load_more"],

@@ -71,11 +71,11 @@ const RecommendedPlugins = () => {
 					return phase === 'leave'
 						? {
 								duration: 300
-							}
+						  }
 						: {
 								delay: 300,
 								duration: 300
-							}
+						  }
 				}}>
 				{isLoading => {
 					if (isLoading) {

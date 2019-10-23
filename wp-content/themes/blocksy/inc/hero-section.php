@@ -424,6 +424,12 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 		}
 	}
 
+	$date_format_source = blocksy_akg_or_customizer(
+		'date_format_source',
+		blocksy_get_page_title_source(),
+		'custom'
+	);
+
 	$date_format = blocksy_akg_or_customizer(
 		'single_meta_date_format',
 		blocksy_get_page_title_source(),
@@ -471,6 +477,7 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 							[
 								'avatar_size' => '50',
 								'date_format' => $date_format,
+								'date_format_source' => $date_format_source,
 								'labels' => $has_meta_label
 							]
 						);

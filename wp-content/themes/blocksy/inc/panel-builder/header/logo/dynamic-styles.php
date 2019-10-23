@@ -34,7 +34,7 @@ blocksy_output_colors([
 	'value' => blocksy_akg('siteTitleColor', $atts),
 	'default' => [
 		'default' => [ 'color' => 'var(--paletteColor4)' ],
-		'hover' => [ 'color' => 'var(--paletteColor1)' ],
+		'hover' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
 	],
 	'css' => $css,
 	'tablet_css' => $tablet_css,
@@ -42,12 +42,12 @@ blocksy_output_colors([
 	'variables' => [
 		'default' => [
 			'selector' => '.site-title',
-			'variable' => 'linkInitialColor'
+			'variable' => 'color'
 		],
 
 		'hover' => [
 			'selector' => '.site-title',
-			'variable' => 'linkHoverColor'
+			'variable' => 'colorHover'
 		],
 	],
 	'responsive' => true
@@ -77,7 +77,7 @@ blocksy_output_font_css([
 blocksy_output_colors([
 	'value' => blocksy_akg('siteTaglineColor', $atts),
 	'default' => [
-		'default' => [ 'color' => 'var(--paletteColor3)' ],
+		'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
 	],
 	'css' => $css,
 	'tablet_css' => $tablet_css,
@@ -85,7 +85,7 @@ blocksy_output_colors([
 	'variables' => [
 		'default' => [
 			'selector' => '.site-description',
-			'variable' => 'fontColor'
+			'variable' => 'color'
 		],
 	],
 	'responsive' => true
@@ -97,6 +97,7 @@ blocksy_output_spacing([
 	'tablet_css' => $tablet_css,
 	'mobile_css' => $mobile_css,
 	'selector' => '.site-branding',
+	'important' => true,
 	'value' => blocksy_default_akg(
 		'headerLogoMargin', $atts,
 		blocksy_spacing_value([

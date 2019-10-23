@@ -17,6 +17,7 @@ const BoxShadow = ({ value, option, onChange }) => {
 	})
 
 	const el = useRef()
+	const colorPicker = useRef()
 
 	return (
 		<div
@@ -29,7 +30,9 @@ const BoxShadow = ({ value, option, onChange }) => {
 					useCapture={false}
 					disabled={!isPicking}
 					className="ct-box-shadow-values"
+					additionalRefs={[colorPicker]}
 					onOutsideClick={() => {
+						console.log('here click outside')
 						if (!isPicking) {
 							return
 						}
@@ -112,6 +115,7 @@ const BoxShadow = ({ value, option, onChange }) => {
 				</OutsideClickHandler>
 
 				<SingleColorPicker
+					innerRef={colorPicker}
 					picker={{
 						id: 'default',
 						title: 'Initial'

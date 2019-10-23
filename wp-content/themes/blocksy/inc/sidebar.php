@@ -111,6 +111,12 @@ function blocksy_sidebar_position() {
 
 			return get_theme_mod( 'woo_sidebar_position', 'right' );
 		}
+
+		if ( get_theme_mod( 'product_has_sidebar', 'no' ) === 'no' ) {
+			return 'none';
+		}
+
+		return get_theme_mod( 'product_sidebar_position', 'right' );
 	}
 
 	if (!is_single() && !is_page()) {

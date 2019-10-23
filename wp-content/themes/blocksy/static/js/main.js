@@ -196,39 +196,11 @@ const initOverlayTrigger = () => {
 							document.querySelector('.mobile-menu-toggle').hash
 						),
 						onClose: () =>
+							document.querySelector('.mobile-menu-toggle') &&
 							document
 								.querySelector('.mobile-menu-toggle')
 								.firstElementChild.classList.remove('close')
 					})
-				)
-
-				return
-
-				if (document.querySelector('.side-panel')) {
-					import('./frontend/overlay').then(({ handleClick }) =>
-						handleClick(event)
-					)
-					return
-				}
-
-				import('./frontend/search-overlay').then(({ handleClick }) =>
-					handleClick(
-						event,
-						document.querySelector('.mobile-menu-toggle'),
-						{
-							modalTarget: document.querySelector(
-								'.mobile-menu-toggle'
-							).hash,
-							onClose: () => {
-								document.querySelector('.mobile-menu-toggle') &&
-									document
-										.querySelector('.mobile-menu-toggle')
-										.firstElementChild.classList.remove(
-											'close'
-										)
-							}
-						}
-					)
 				)
 			})
 }

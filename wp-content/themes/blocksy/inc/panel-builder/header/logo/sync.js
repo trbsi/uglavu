@@ -22,14 +22,14 @@ ctEvents.on(
 			siteTitleColor: [
 				{
 					selector: '.site-title',
-					variable: 'linkInitialColor',
+					variable: 'color',
 					type: 'color:default',
 					responsive: true
 				},
 
 				{
 					selector: '.site-title',
-					variable: 'linkHoverColor',
+					variable: 'colorHover',
 					type: 'color:hover',
 					responsive: true
 				}
@@ -42,7 +42,7 @@ ctEvents.on(
 
 			siteTaglineColor: {
 				selector: '.site-description',
-				variable: 'fontColor',
+				variable: 'color',
 				type: 'color:default',
 				responsive: true
 			},
@@ -51,7 +51,8 @@ ctEvents.on(
 				selector: '.site-branding',
 				type: 'spacing',
 				variable: 'margin',
-				responsive: true
+				responsive: true,
+				important: true
 			}
 		}
 	}

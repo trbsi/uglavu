@@ -1,12 +1,8 @@
 .ct-header-text {
 	display: flex;
 	align-items: center;
-	color: var(--linkInitialColor);
 	max-width: var(--maxWidth);
-
-	a {
-		text-decoration: underline;
-	}
+	color: var(--color);
 }
 
 [data-items] .ct-header-text {

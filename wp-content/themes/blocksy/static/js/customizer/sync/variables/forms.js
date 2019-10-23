@@ -3,64 +3,66 @@ export const getFormsVariablesFor = () => ({
 	// general
 	formTextColor: [
 		{
-			selector: ':root',
+			selector: 'form',
 			variable: 'formTextInitialColor',
 			type: 'color:default'
 		},
 
 		{
-			selector: ':root',
+			selector: 'form',
 			variable: 'formTextFocusColor',
 			type: 'color:focus'
 		}
 	],
 
 	formFontSize: {
+		selector: 'form',
 		variable: 'formFontSize',
 		unit: 'px'
 	},
 
 	formBackgroundColor: [
 		{
-			selector: ':root',
+			selector: 'form',
 			variable: 'formBackgroundInitialColor',
 			type: 'color:default'
 		},
 
 		{
-			selector: ':root',
+			selector: 'form',
 			variable: 'formBackgroundFocusColor',
 			type: 'color:focus'
 		}
 	],
 
 	formInputHeight: {
+		selector: 'form',
 		variable: 'formInputHeight',
 		unit: 'px'
 	},
 
 	formTextAreaHeight: {
-		selector: 'textarea',
+		selector: 'form textarea',
 		variable: 'formInputHeight',
 		unit: 'px'
 	},
 
 	formBorderColor: [
 		{
-			selector: ':root',
+			selector: 'form',
 			variable: 'formBorderInitialColor',
 			type: 'color:default'
 		},
 
 		{
-			selector: ':root',
+			selector: 'form',
 			variable: 'formBorderFocusColor',
 			type: 'color:focus'
 		}
 	],
 
 	formBorderSize: {
-		selector: ':root',
+		selector: 'form',
 		variable: 'formBorderSize',
 		unit: 'px'
 	},
@@ -69,40 +71,40 @@ export const getFormsVariablesFor = () => ({
 	// select box
 	selectDropdownTextColor: [
 		{
-			selector: ':root',
-			variable: 'selectDropdownTextInitialColor',
+			selector: '.selectr-container',
+			variable: 'color',
 			type: 'color:default'
 		},
 
 		{
-			selector: ':root',
-			variable: 'selectDropdownTextHoverColor',
+			selector: '.selectr-container',
+			variable: 'colorHover',
 			type: 'color:hover'
 		},
 
 		{
-			selector: ':root',
-			variable: 'selectDropdownTextActiveColor',
+			selector: '.selectr-container',
+			variable: 'colorActive',
 			type: 'color:active'
 		}
 	],
 
 	selectDropdownItemColor: [
 		{
-			selector: ':root',
+			selector: '.selectr-container',
 			variable: 'selectDropdownItemHoverColor',
 			type: 'color:hover'
 		},
 
 		{
-			selector: ':root',
+			selector: '.selectr-container',
 			variable: 'selectDropdownItemActiveColor',
 			type: 'color:active'
 		}
 	],
 
 	selectDropdownBackground: {
-		selector: ':root',
+		selector: '.selectr-container',
 		variable: 'selectDropdownBackground',
 		type: 'color'
 	},
@@ -110,13 +112,13 @@ export const getFormsVariablesFor = () => ({
 	// radio & checkbox
 	radioCheckboxColor: [
 		{
-			selector: ':root',
+			selector: '[type="radio"], [type="checkbox"]',
 			variable: 'radioCheckboxInitialColor',
 			type: 'color:default'
 		},
 
 		{
-			selector: ':root',
+			selector: '[type="radio"], [type="checkbox"]',
 			variable: 'radioCheckboxAccentColor',
 			type: 'color:accent'
 		}

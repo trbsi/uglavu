@@ -8,16 +8,24 @@ ctEvents.on(
 			triggerIconColor: [
 				{
 					selector: '.ct-header-trigger',
-					variable: 'linkInitialColor',
+					variable: 'color',
 					type: 'color:default'
 				},
 
 				{
 					selector: '.ct-header-trigger',
-					variable: 'linkHoverColor',
+					variable: 'colorHover',
 					type: 'color:hover'
 				}
-			]
+			],
+
+			triggerMargin: {
+				selector: '.ct-header-trigger',
+				type: 'spacing',
+				variable: 'margin',
+				responsive: true,
+				important: true
+			},
 		}
 	}
 )

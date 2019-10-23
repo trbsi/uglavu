@@ -4,18 +4,25 @@
 blocksy_output_colors([
 	'value' => get_theme_mod('formTextColor'),
 	'default' => [
-		'default' => [ 'color' => 'var(--paletteColor3)' ],
-		'focus' => [ 'color' => 'var(--paletteColor3)' ],
+		'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
+		'focus' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
 	],
 	'css' => $css,
 	'variables' => [
-		'default' => ['variable' => 'formTextInitialColor'],
-		'focus' => ['variable' => 'formTextFocusColor'],
+		'default' => [
+			'selector' => 'form',
+			'variable' => 'formTextInitialColor'
+		],
+
+		'focus' => [
+			'selector' => 'form',
+			'variable' => 'formTextFocusColor'
+		],
 	],
 ]);
 
 $formFontSize = get_theme_mod( 'formFontSize', 15 );
-$css->put( ':root', '--formFontSize: ' . $formFontSize . 'px' );
+$css->put( 'form', '--formFontSize: ' . $formFontSize . 'px' );
 
 blocksy_output_colors([
 	'value' => get_theme_mod('formBackgroundColor'),
@@ -25,17 +32,24 @@ blocksy_output_colors([
 	],
 	'css' => $css,
 	'variables' => [
-		'default' => ['variable' => 'formBackgroundInitialColor'],
-		'focus' => ['variable' => 'formBackgroundFocusColor'],
+		'default' => [
+			'selector' => 'form',
+			'variable' => 'formBackgroundInitialColor'
+		],
+
+		'focus' => [
+			'selector' => 'form',
+			'variable' => 'formBackgroundFocusColor'
+		],
 	],
 ]);
 
 $formInputHeight = get_theme_mod( 'formInputHeight', 45 );
-$css->put( ':root', '--formInputHeight: ' . $formInputHeight . 'px' );
+$css->put( 'form', '--formInputHeight: ' . $formInputHeight . 'px' );
 
 
 $formTextAreaHeight = get_theme_mod( 'formTextAreaHeight', 170 );
-$css->put( 'textarea', '--formInputHeight: ' . $formTextAreaHeight . 'px' );
+$css->put( 'form textarea', '--formInputHeight: ' . $formTextAreaHeight . 'px' );
 
 blocksy_output_colors([
 	'value' => get_theme_mod('formBorderColor'),
@@ -45,28 +59,46 @@ blocksy_output_colors([
 	],
 	'css' => $css,
 	'variables' => [
-		'default' => ['variable' => 'formBorderInitialColor'],
-		'focus' => ['variable' => 'formBorderFocusColor'],
+		'default' => [
+			'selector' => 'form',
+			'variable' => 'formBorderInitialColor'
+		],
+
+		'focus' => [
+			'selector' => 'form',
+			'variable' => 'formBorderFocusColor'
+		],
 	],
 ]);
 
 $formBorderSize = get_theme_mod( 'formBorderSize', 1 );
-$css->put( ':root', '--formBorderSize: ' . $formBorderSize . 'px' );
+$css->put( 'form', '--formBorderSize: ' . $formBorderSize . 'px' );
 
 
 // select box
 blocksy_output_colors([
 	'value' => get_theme_mod('selectDropdownTextColor'),
 	'default' => [
-		'default' => [ 'color' => 'var(--paletteColor3)' ],
-		'hover' => [ 'color' => 'var(--paletteColor3)' ],
+		'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
+		'hover' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
 		'active' => [ 'color' => '#ffffff' ],
 	],
 	'css' => $css,
 	'variables' => [
-		'default' => ['variable' => 'selectDropdownTextInitialColor'],
-		'hover' => ['variable' => 'selectDropdownTextHoverColor'],
-		'active' => ['variable' => 'selectDropdownItemActiveColor'],
+		'default' => [
+			'selector' => '.selectr-container',
+			'variable' => 'color'
+		],
+
+		'hover' => [
+			'selector' => '.selectr-container',
+			'variable' => 'colorHover'
+		],
+
+		'active' => [
+			'selector' => '.selectr-container',
+			'variable' => 'colorActive'
+		],
 	],
 ]);
 
@@ -78,8 +110,15 @@ blocksy_output_colors([
 	],
 	'css' => $css,
 	'variables' => [
-		'hover' => ['variable' => 'selectDropdownItemHoverColor'],
-		'active' => ['variable' => 'selectDropdownItemActiveColor'],
+		'hover' => [
+			'selector' => '.selectr-container',
+			'variable' => 'selectDropdownItemHoverColor'
+		],
+
+		'active' => [
+			'selector' => '.selectr-container',
+			'variable' => 'selectDropdownItemActiveColor'
+		],
 	],
 ]);
 
@@ -90,7 +129,10 @@ blocksy_output_colors([
 	],
 	'css' => $css,
 	'variables' => [
-		'default' => ['variable' => 'selectDropdownBackground'],
+		'default' => [
+			'selector' => '.selectr-container',
+			'variable' => 'selectDropdownBackground'
+		],
 	],
 ]);
 
@@ -103,8 +145,15 @@ blocksy_output_colors([
 	],
 	'css' => $css,
 	'variables' => [
-		'default' => ['variable' => 'radioCheckboxInitialColor'],
-		'accent' => ['variable' => 'radioCheckboxAccentColor'],
+		'default' => [
+			'selector' => '[type="radio"], [type="checkbox"]',
+			'variable' => 'radioCheckboxInitialColor'
+		],
+
+		'accent' => [
+			'selector' => '[type="radio"], [type="checkbox"]',
+			'variable' => 'radioCheckboxAccentColor'
+		],
 	],
 ]);
 

@@ -15,17 +15,11 @@ add_filter( 'body_class', function ( $classes ) {
 	$classes[] = 'ct-loading';
 	$classes[] = 'ct-no-js';
 
-	$site_background_type = get_theme_mod('site_background_type', 'color');
-
-	if ($site_background_type === 'pattern') {
-		$classes[] = 'site-has-pattern';
-	}
-
-	if ($site_background_type === 'image') {
-		$classes[] = 'site-has-background-image';
-	}
-
-	if (blocksy_sidebar_position() !== 'none') {
+    if (
+		blocksy_sidebar_position() !== 'none'
+		||
+		function_exists('is_product') && is_product()
+    ) {
 		$classes[] = 'sidebar';
 	}
 
@@ -76,6 +70,7 @@ add_filter( 'body_class', function ( $classes ) {
 			$pid = Brizy_Editor::get()->currentPostId();
 
 			$is_using_brizy = false;
+
 			try {
 				if ( in_array( get_post_type( $pid ), Brizy_Editor::get()->supported_post_types() ) ) {
 					$is_using_brizy = Brizy_Editor_Post::get( $pid )->uses_editor();
@@ -346,6 +341,12 @@ function blocksy_get_featured_image_output($check_for_preview = false) {
 
 		if ($image_width === 'wide') {
 			$class .= ' alignwide';
+		}
+	}
+
+	if (get_theme_mod('single_content_style', 'wide') === 'boxed') {
+		if (get_theme_mod('single_featured_image_boundless', 'no') === 'yes') {
+			$class .= ' ct-boundless';
 		}
 	}
 

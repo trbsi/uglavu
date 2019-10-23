@@ -48,7 +48,8 @@ function blocksy_custom_comment_template( $comment, $args, $depth ) {
 								'tag_name' => 'figure',
 								'img_atts' => [
 									'width' => intval($args['avatar_size']),
-									'height' => intval($args['avatar_size'])
+									'height' => intval($args['avatar_size']),
+									'alt' => $comment->comment_author
 								],
 							]
 						);
@@ -92,7 +93,7 @@ function blocksy_custom_comment_template( $comment, $args, $depth ) {
 			</div>
 
 
-			<div class="ct-comment-content">
+			<div class="ct-comment-content entry-content">
 				<?php comment_text(); ?>
 
 				<?php if ( '0' === $comment->comment_approved ) : ?>

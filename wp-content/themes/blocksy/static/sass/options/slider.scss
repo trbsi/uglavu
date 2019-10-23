@@ -29,7 +29,7 @@ $handle-size: 12px;
 		height: $handle-size;
 		border-radius: 100%;
 		background: var(--accentColor);
-		transition: box-shadow 0.2s ease,
+		transition: box-shadow 0.1s ease,
 					background 0.1s ease;
 
 		&:hover,

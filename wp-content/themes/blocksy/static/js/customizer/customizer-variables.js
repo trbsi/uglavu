@@ -43,9 +43,18 @@ export const listenToVariables = () => {
 			}
 		],
 
-		fontColor: {
-			variable: 'fontColor',
-			type: 'color'
-		}
+		fontColor: [
+			{
+				selector: ':root',
+				variable: 'color',
+				type: 'color:default'
+			},
+
+			{
+				selector: ':root',
+				variable: 'colorHover',
+				type: 'color:hover'
+			}
+		],
 	})
 }

@@ -39,6 +39,7 @@ $border-color: rgba(224, 229, 235, 0.8);
 
 // checkout page
 @import 'checkout-page';
+@import 'checkout-payment';
 
 
 // account page
@@ -48,3 +49,7 @@ $border-color: rgba(224, 229, 235, 0.8);
 
 // page builders adjustments
 @import 'page-builders';
+
+
+// blocks
+@import 'blocks/main';

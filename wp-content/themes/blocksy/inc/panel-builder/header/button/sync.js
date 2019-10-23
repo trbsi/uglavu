@@ -41,7 +41,8 @@ ctEvents.on(
 				selector: '.ct-header-cta',
 				type: 'spacing',
 				variable: 'margin',
-				responsive: true
+				responsive: true,
+				important: true
 			},
 
 			headerCtaRadius: {

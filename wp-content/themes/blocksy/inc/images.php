@@ -208,6 +208,10 @@ function blocksy_simple_image( $image_src, $args = [] ) {
 
 	$other_img_atts = '';
 
+    if (! isset($args['img_atts']['alt'])) {
+      $args['img_atts']['alt'] = __('Default image', 'blocksy');
+    }
+
 	foreach ( $args['img_atts'] as $attr => $value ) {
 		$other_img_atts .= $attr . '="' . $value . '" ';
 	}
@@ -247,7 +251,6 @@ function blocksy_simple_image( $image_src, $args = [] ) {
 	if ( $args['ratio_blocks'] ) {
 		$args['inner_content'] .= blocksy_generate_ratio($args['ratio']);
 	}
-
 
 	return '<' . $args['tag_name'] . ' ' . $other_html_atts . '>' .
 		'<img ' . $image_attr . '="' . $image_src . '" data-object-fit="~" ' . $other_img_atts . '>' .

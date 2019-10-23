@@ -1,20 +1,15 @@
-// elements spacing
-[data-items] {
-	--margin: 0 10px;
-
-	> * {
-		margin: var(--margin);
-	}
+[data-items] > * {
+	margin: var(--margin, 0 10px);
 }
 
 [data-column="start"] [data-items="primary"] > * {
 	&:first-child {
-		margin-left: 0;
+		--margin: 0 10px 0 0;
 	}
 }
 
 [data-column="end"] [data-items="primary"] > * {
 	&:last-child {
-		margin-right: 0;
+		--margin: 0 0 0 10px;
 	}
 }

@@ -30,16 +30,10 @@
 	}
 }
 
-[data-layout="grid"],
-[data-layout="classic"],
-[data-layout="enhanced-grid"] {
-	&[data-cards="simple"] .entry-card {
-		.ct-image-container {
-			@include media-breakpoint-up (md) {
-				width: initial;
-				margin-left: -15px;
-				margin-right: -15px;
-			}
-		}
+// Featured image border radius
+[data-cards="simple"],
+[data-layout="gutenberg"] {
+	.ct-image-container {
+		border-radius: var(--borderRadius, 0px);
 	}
 }

@@ -3,6 +3,7 @@ import { getPostListingVariables } from './template-parts/content-loop'
 import { getTypographyVariablesFor } from './variables/typography'
 import { getBackgroundVariablesFor } from './variables/background'
 import { getFormsVariablesFor } from './variables/forms'
+import { getPaginationVariables } from './pagination'
 
 import { handleVariablesFor } from 'customizer-sync-helpers'
 
@@ -43,63 +44,74 @@ handleVariablesFor({
 	// Page Hero
 	...getHeroVariables(),
 	...getPostListingVariables(),
+	...getPaginationVariables(),
 
 	...getTypographyVariablesFor(),
 	...getBackgroundVariablesFor(),
 	...getFormsVariablesFor(),
 
 	// Colors
-	fontColor: {
-		variable: 'fontColor',
-		type: 'color'
-	},
-
-	h1Color: {
-		variable: 'fontColor',
-		type: 'color',
-		selector: 'h1'
-	},
-
-	h2Color: {
-		variable: 'fontColor',
-		type: 'color',
-		selector: 'h2'
-	},
-
-	h3Color: {
-		variable: 'fontColor',
-		type: 'color',
-		selector: 'h3'
-	},
-
-	h4Color: {
-		variable: 'fontColor',
-		type: 'color',
-		selector: 'h4'
-	},
-
-	h5Color: {
-		variable: 'fontColor',
-		type: 'color',
-		selector: 'h5'
-	},
-
-	h6Color: {
-		variable: 'fontColor',
-		type: 'color',
-		selector: 'h6'
-	},
-
-	linkColor: [
+	fontColor: [
 		{
 			selector: ':root',
-			variable: 'linkInitialColor',
+			variable: 'color',
 			type: 'color:default'
 		},
 
 		{
 			selector: ':root',
-			variable: 'linkHoverColor',
+			variable: 'colorHover',
+			type: 'color:hover'
+		}
+	],
+
+	h1Color: {
+		variable: 'color',
+		type: 'color',
+		selector: '.entry-content h1'
+	},
+
+	h2Color: {
+		variable: 'color',
+		type: 'color',
+		selector: '.entry-content h2'
+	},
+
+	h3Color: {
+		variable: 'color',
+		type: 'color',
+		selector: '.entry-content h3'
+	},
+
+	h4Color: {
+		variable: 'color',
+		type: 'color',
+		selector: '.entry-content h4'
+	},
+
+	h5Color: {
+		variable: 'color',
+		type: 'color',
+		selector: '.entry-content h5'
+	},
+
+	h6Color: {
+		variable: 'color',
+		type: 'color',
+		selector: '.entry-content h6'
+	},
+
+	// Buttons Colors
+	buttonTextColor: [
+		{
+			selector: ':root',
+			variable: 'buttonTextInitialColor',
+			type: 'color:default'
+		},
+
+		{
+			selector: ':root',
+			variable: 'buttonTextHoverColor',
 			type: 'color:hover'
 		}
 	],
@@ -118,6 +130,27 @@ handleVariablesFor({
 		}
 	],
 
+	// Links Colors
+	contentLinksColor: [
+		{
+			selector: '.entry-content',
+			variable: 'entryLinkColor',
+			type: 'color:default'
+		},
+
+		{
+			selector: '.entry-content',
+			variable: 'entryLinkColorHover',
+			type: 'color:hover'
+		},
+
+		{
+			selector: '.entry-content',
+			variable: 'entryLinkTextColor',
+			type: 'color:text'
+		}
+	],
+
 	siteBackground: {
 		variable: 'siteBackground',
 		type: 'color'
@@ -125,11 +158,13 @@ handleVariablesFor({
 
 	// Layout
 	maxSiteWidth: {
+		selector: 'body',
 		variable: 'maxSiteWidth',
 		unit: 'px'
 	},
 
 	contentAreaSpacing: {
+		selector: '.content-area',
 		variable: 'contentAreaSpacing',
 		responsive: true,
 		unit: ''
@@ -137,16 +172,19 @@ handleVariablesFor({
 
 	narrowContainerWidth: [
 		{
+			selector: '[data-page-structure="narrow"]',
 			variable: 'narrowContainerWidth',
 			unit: '%'
 		},
 		{
+			selector: '[data-page-structure="narrow"]',
 			variable: 'narrowContainerWidthNoUnit',
 			unit: ''
 		}
 	],
 
 	wideOffset: {
+		selector: '[data-page-structure="narrow"]',
 		variable: 'wideOffset',
 		unit: 'px'
 	},
@@ -154,52 +192,51 @@ handleVariablesFor({
 	// Sidebar
 	sidebarWidth: [
 		{
+			selector: '[data-sidebar]',
 			variable: 'sidebarWidth',
 			unit: '%'
 		},
 		{
+			selector: '[data-sidebar]',
 			variable: 'sidebarWidthNoUnit',
 			unit: ''
 		}
 	],
 
 	sidebarGap: {
+		selector: '[data-sidebar]',
 		variable: 'sidebarGap',
 		unit: ''
 	},
 
 	sidebarOffset: {
+		selector: '[data-sidebar]',
 		variable: 'sidebarOffset',
 		unit: 'px'
 	},
 
 	sidebarWidgetsTitleColor: {
-		selector: '.ct-sidebar',
-		variable: 'widgetsTitleColor',
+		selector: '.ct-sidebar .widget-title',
+		variable: 'color',
 		type: 'color'
 	},
 
-	sidebarWidgetsFontColor: {
-		selector: '.ct-sidebar',
-		variable: 'widgetsFontColor',
-		type: 'color'
-	},
-
-	sidebarWidgetsLink: [
+	sidebarWidgetsFontColor: [
 		{
 			selector: '.ct-sidebar',
-			variable: 'linkInitialColor',
+			variable: 'color',
 			type: 'color:default'
 		},
 
 		{
 			selector: '.ct-sidebar',
-			variable: 'linkHoverColor',
+			variable: 'colorHover',
 			type: 'color:hover'
 		}
 	],
 
 	sidebarBackgroundColor: {
+		selector: '[data-sidebar] > aside',
 		variable: 'sidebarBackgroundColor',
 		type: 'color'
 	},
@@ -219,12 +256,14 @@ handleVariablesFor({
 	},
 
 	sidebarWidgetsSpacing: {
+		selector: '.ct-sidebar',
 		variable: 'sidebarWidgetsSpacing',
 		responsive: true,
 		unit: 'px'
 	},
 
 	sidebarInnerSpacing: {
+		selector: '[data-sidebar] > aside',
 		variable: 'sidebarInnerSpacing',
 		responsive: true,
 		unit: 'px'
@@ -239,102 +278,129 @@ handleVariablesFor({
 
 	// Related Posts
 	relatedPostsContainerSpacing: {
-		variable: 'relatedPostsContainerSpacing',
+		selector: '.ct-related-posts',
+		variable: 'padding',
 		responsive: true,
 		unit: ''
 	},
 
 	relatedPostsLabelColor: {
-		variable: 'relatedPostsLabelColor',
+		selector: '.ct-related-posts-label',
+		variable: 'color',
 		type: 'color'
 	},
 
 	relatedPostsLinkColor: [
 		{
-			selector: '.ct-related-posts',
-			variable: 'linkInitialColor',
+			selector: '.related-entry-title',
+			variable: 'color',
 			type: 'color:default'
 		},
 
 		{
-			selector: '.ct-related-posts',
-			variable: 'linkHoverColor',
+			selector: '.related-entry-title',
+			variable: 'colorHover',
 			type: 'color:hover'
 		}
 	],
 
-	relatedPostsMetaColor: {
-		variable: 'relatedPostsMetaColor',
-		type: 'color'
-	},
+	relatedPostsMetaColor: [
+		{
+			selector: '.ct-related-posts .entry-meta',
+			variable: 'color',
+			type: 'color:default'
+		},
 
-	relatedPostsContainerColor: {
-		variable: 'relatedPostsContainerColor',
-		type: 'color'
+		{
+			selector: '.ct-related-posts .entry-meta',
+			variable: 'colorHover',
+			type: 'color:hover'
+		}
+	],
+
+	relatedThumbRadius: {
+		selector: '.ct-related-posts .ct-image-container',
+		type: 'spacing',
+		variable: 'borderRadius',
+		responsive: true
 	},
 
 	// Comments
-	postCommentsBackground: {
-		variable: 'commentsBackground',
-		type: 'color'
+	postCommentsContainerWidth: {
+		selector: '.single .ct-comments',
+		variable: 'width',
+		unit: '%',
+		responsive: true
 	},
 
-	// Pagination
-	paginationSpacing: {
-		variable: 'paginationSpacing',
-		responsive: true,
-		unit: 'px'
+	pageCommentsContainerWidth: {
+		selector: '.page .ct-comments',
+		variable: 'width',
+		unit: '%',
+		responsive: true
 	},
+
+	postCommentsFontColor: [
+		{
+			selector: '.single .ct-comments',
+			variable: 'color',
+			type: 'color:default'
+		},
+
+		{
+			selector: '.single .ct-comments',
+			variable: 'colorHover',
+			type: 'color:hover'
+		}
+	],
+
+	pageCommentsFontColor: [
+		{
+			selector: '.page .ct-comments',
+			variable: 'color',
+			type: 'color:default'
+		},
+
+		{
+			selector: '.page .ct-comments',
+			variable: 'colorHover',
+			type: 'color:hover'
+		}
+	],
 
 	// Posts Navigation
 	postNavSpacing: {
-		variable: 'postNavSpacing',
+		selector: '.post-navigation',
+		variable: 'margin',
 		responsive: true,
 		unit: ''
 	},
 
-	paginationFontColor: [
+	postsNavFontColor: [
 		{
-			selector: ':root',
-			variable: 'paginationFontInitialColor',
+			selector: '.post-navigation',
+			variable: 'color',
 			type: 'color:default'
 		},
 
 		{
-			selector: ':root',
-			variable: 'paginationFontHoverColor',
+			selector: '.post-navigation',
+			variable: 'colorHover',
 			type: 'color:hover'
 		}
 	],
-
-	paginationAccentColor: [
-		{
-			selector: ':root',
-			variable: 'paginationAccentInitialColor',
-			type: 'color:default'
-		},
-
-		{
-			selector: ':root',
-			variable: 'paginationAccentHoverColor',
-			type: 'color:hover'
-		}
-	],
-
-	paginationDivider: {
-		variable: 'paginationDivider',
-		type: 'border'
-	},
 
 	// Share Box
 	topShareBoxSpacing: {
-		variable: 'topShareBoxSpacing',
+		selector: '.share-box[data-location="top"]',
+		variable: 'margin',
 		responsive: true,
 		unit: ''
 	},
 
 	bottomShareBoxSpacing: {
-		variable: 'bottomShareBoxSpacing',
+		selector: '.share-box[data-location="bottom"]',
+		variable: 'margin',
 		responsive: true,
 		unit: ''
 	},
@@ -342,37 +408,39 @@ handleVariablesFor({
 	shareItemsIconColor: [
 		{
 			selector: '.share-box[data-type="type-1"]',
-			variable: 'shareItemsIconInitial',
+			variable: 'color',
 			type: 'color:default'
 		},
 
 		{
 			selector: '.share-box[data-type="type-1"]',
-			variable: 'shareItemsIconHover',
+			variable: 'colorHover',
 			type: 'color:hover'
 		}
 	],
 
 	shareItemsBorder: {
-		variable: 'shareItemsBorder',
+		selector: '.share-box[data-type="type-1"]',
+		variable: 'borderColor',
 		type: 'color'
 	},
 
 	shareItemsIcon: {
-		variable: 'shareItemsIcon',
+		selector: '.share-box[data-type="type-2"]',
+		variable: 'color',
 		type: 'color'
 	},
 
 	shareItemsBackground: [
 		{
 			selector: '.share-box[data-type="type-2"]',
-			variable: 'shareBoxBackgroundInitial',
+			variable: 'backgroundColor',
 			type: 'color:default'
 		},
 
 		{
 			selector: '.share-box[data-type="type-2"]',
-			variable: 'shareBoxBackgroundHover',
+			variable: 'backgroundColorHover',
 			type: 'color:hover'
 		}
 	],
@@ -385,9 +453,17 @@ handleVariablesFor({
 	},
 
 	singleContentBoxedSpacing: {
-		variable: 'singleContentBoxedSpacing',
+		selector: '.post[data-content="boxed"]',
+		variable: 'contentBoxedSpacing',
 		responsive: true,
 		unit: ''
+	},
+
+	postContentBoxedShadow: {
+		selector: '.post[data-content="boxed"]',
+		type: 'box-shadow',
+		variable: 'boxShadow',
+		responsive: true
 	},
 
 	singleContentBackground: {
@@ -402,8 +478,16 @@ handleVariablesFor({
 		type: 'color'
 	},
 
+	pageContentBoxedShadow: {
+		selector: '.page[data-content="boxed"]',
+		type: 'box-shadow',
+		variable: 'boxShadow',
+		responsive: true
+	},
+
 	pageContentBoxedSpacing: {
-		variable: 'pageContentBoxedSpacing',
+		selector: '.page[data-content="boxed"]',
+		variable: 'contentBoxedSpacing',
 		responsive: true,
 		unit: ''
 	},
@@ -415,13 +499,15 @@ handleVariablesFor({
 
 	// Autor Box
 	singleAuthorBoxSpacing: {
-		variable: 'singleAuthorBoxSpacing',
+		selector: '.author-box',
+		variable: 'spacing',
 		responsive: true,
 		unit: ''
 	},
 
 	singleAuthorBoxBackground: {
-		variable: 'singleAuthorBoxBackground',
+		selector: '.author-box[data-type="type-1"]',
+		variable: 'backgroundColor',
 		type: 'color'
 	},
 
@@ -432,44 +518,41 @@ handleVariablesFor({
 		responsive: true
 	},
 
+	singleAuthorBoxBorder: {
+		selector: '.author-box[data-type="type-2"]',
+		variable: 'borderColor',
+		type: 'color'
+	},
+
 	// Footer
 	footerWidgetsTitleColor: {
-		selector: '.footer-widgets',
-		variable: 'widgetsTitleColor',
+		selector: '.footer-widgets .widget-title',
+		variable: 'color',
 		type: 'color'
 	},
 
-	footerWidgetsFontColor: {
-		selector: '.footer-widgets',
-		variable: 'widgetsFontColor',
-		type: 'color'
-	},
-
-	footerWidgetsLink: [
+	footerWidgetsFontColor: [
 		{
 			selector: '.footer-widgets',
-			variable: 'linkInitialColor',
+			variable: 'color',
 			type: 'color:default'
 		},
 
 		{
 			selector: '.footer-widgets',
-			variable: 'linkHoverColor',
+			variable: 'colorHover',
 			type: 'color:hover'
 		}
 	],
 
-	widgetsAreaBackground: {
-		variable: 'widgetsAreaBackground',
-		type: 'color'
-	},
-
 	widgetsAreaDivider: {
+		selector: '.footer-widgets[data-divider]',
 		variable: 'widgetsAreaDivider',
 		type: 'border'
 	},
 
 	widgetAreaSpacing: {
+		selector: '.footer-widgets',
 		variable: 'widgetAreaSpacing',
 		responsive: true,
 		unit: ''
@@ -486,61 +569,74 @@ handleVariablesFor({
 	footerPrimaryColor: [
 		{
 			selector: '.footer-primary-area',
-			variable: 'linkInitialColor',
+			variable: 'color',
 			type: 'color:default'
 		},
 
 		{
 			selector: '.footer-primary-area',
-			variable: 'linkHoverColor',
+			variable: 'colorHover',
 			type: 'color:hover'
 		}
 	],
 
 	footerPrimaryBackground: {
-		variable: 'footerPrimaryBackground',
+		selector: '.footer-primary-area',
+		variable: 'backgroundColor',
 		type: 'color'
 	},
 
 	footerPrimarySpacing: {
-		variable: 'footerPrimarySpacing',
+		selector: '.footer-primary-area',
+		variable: 'spacing',
 		responsive: true,
 		unit: ''
 	},
 
 	// Copyright
 	copyrightText: {
-		variable: 'copyrightText',
+		selector: '.footer-copyright',
+		variable: 'color',
 		type: 'color'
 	},
 
 	copyrightBackground: {
-		variable: 'copyrightBackground',
+		selector: '.footer-copyright',
+		variable: 'backgroundColor',
 		type: 'color'
 	},
 
 	copyrightSpacing: {
-		variable: 'copyrightSpacing',
+		selector: '.footer-copyright',
+		variable: 'spacing',
 		responsive: true,
 		unit: ''
 	},
 
 	// Woocommerce archive
+	shopCardsGap: {
+		selector: '.shop-entries',
+		variable: 'cardsGap',
+		responsive: true,
+		unit: 'px'
+	},
+
 	productGalleryWidth: {
+		selector: '.product-entry-wrapper',
 		variable: 'productGalleryWidth',
 		unit: '%'
 	},
 
 	cardProductTitleColor: [
 		{
-			selector: '.shop-entry-card',
-			variable: 'linkInitialColor',
+			selector: '.woocommerce-loop-product__title',
+			variable: 'color',
 			type: 'color:default'
 		},
 
 		{
-			selector: '.shop-entry-card',
-			variable: 'linkHoverColor',
+			selector: '.woocommerce-loop-product__title',
+			variable: 'colorHover',
 			type: 'color:hover'
 		}
 	],
@@ -548,20 +644,20 @@ handleVariablesFor({
 	cardProductCategoriesColor: [
 		{
 			selector: 'article .product-categories',
-			variable: 'linkInitialColor',
+			variable: 'color',
 			type: 'color:default'
 		},
 
 		{
 			selector: 'article .product-categories',
-			variable: 'linkHoverColor',
+			variable: 'colorHover',
 			type: 'color:hover'
 		}
 	],
 
 	cardProductPriceColor: {
 		selector: '.shop-entry-card .price',
-		variable: 'fontColor',
+		variable: 'color',
 		type: 'color'
 	},
 
@@ -593,28 +689,28 @@ handleVariablesFor({
 
 	cardProductAction1Color: [
 		{
-			selector: '.woo-card-actions',
-			variable: 'linkInitialColor',
+			selector: '[data-layout="grid"] .woo-card-actions',
+			variable: 'color',
 			type: 'color:default'
 		},
 
 		{
-			selector: '.woo-card-actions',
-			variable: 'linkHoverColor',
+			selector: '[data-layout="grid"] .woo-card-actions',
+			variable: 'colorHover',
 			type: 'color:hover'
 		}
 	],
 
 	cardProductAction2Color: [
 		{
-			selector: '.woo-card-actions',
-			variable: 'wooButtonInitialColor',
+			selector: '[data-layout="shop-simple"] .woo-card-actions',
+			variable: 'buttonInitialColor',
 			type: 'color:default'
 		},
 
 		{
-			selector: '.woo-card-actions',
-			variable: 'wooButtonHoverColor',
+			selector: '[data-layout="shop-simple"] .woo-card-actions',
+			variable: 'buttonHoverColor',
 			type: 'color:hover'
 		}
 	],
@@ -633,9 +729,15 @@ handleVariablesFor({
 	},
 
 	// Woocommerce single
+	singleProductTitleColor: {
+		selector: '.entry-summary .product_title',
+		variable: 'color',
+		type: 'color'
+	},
+
 	singleProductPriceColor: {
 		selector: '.entry-summary .price',
-		variable: 'fontColor',
+		variable: 'color',
 		type: 'color'
 	},
 
@@ -659,6 +761,19 @@ handleVariablesFor({
 		type: 'color'
 	},
 
+	// Store notice
+	wooNoticeContent: {
+		selector: '.demo_store',
+		variable: 'color',
+		type: 'color'
+	},
+
+	wooNoticeBackground: {
+		selector: '.demo_store',
+		variable: 'backgroundColor',
+		type: 'color'
+	},
+
 	// To top button
 	topButtonOffset: {
 		selector: '.ct-back-to-top',
@@ -670,13 +785,13 @@ handleVariablesFor({
 	topButtonIconColor: [
 		{
 			selector: '.ct-back-to-top',
-			variable: 'linkInitialColor',
+			variable: 'color',
 			type: 'color:default'
 		},
 
 		{
 			selector: '.ct-back-to-top',
-			variable: 'linkHoverColor',
+			variable: 'colorHover',
 			type: 'color:hover'
 		}
 	],
@@ -684,19 +799,20 @@ handleVariablesFor({
 	topButtonShapeBackground: [
 		{
 			selector: '.ct-back-to-top',
-			variable: 'buttonInitialColor',
+			variable: 'backgroundColor',
 			type: 'color:default'
 		},
 
 		{
 			selector: '.ct-back-to-top',
-			variable: 'buttonHoverColor',
+			variable: 'backgroundColorHover',
 			type: 'color:hover'
 		}
 	],
 
 	// Passepartout
 	passepartoutSize: {
+		selector: '.ct-passepartout',
 		variable: 'passepartoutSize',
 		responsive: true,
 		unit: 'px'

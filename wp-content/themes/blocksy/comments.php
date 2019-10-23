@@ -90,7 +90,7 @@ if (
 }
 
 if (function_exists('blocksy_ext_cookies_checkbox')) {
-	$form_options['comment_field'] .= blocksy_ext_cookies_checkbox();
+	$form_options['comment_field'] .= blocksy_ext_cookies_checkbox('comment');
 }
 
 ?>

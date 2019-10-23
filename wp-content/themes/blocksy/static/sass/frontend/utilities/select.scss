@@ -88,7 +88,7 @@ body.ct-loading {
 	display: none;
 	width: 100%;
 	font-size: var(--formFontSize);
-	color: var(--selectDropdownTextInitialColor);
+	color: var(--color);
 	border-radius: 3px;
 	overflow: hidden;
 	background-color: var(--selectDropdownBackground);
@@ -253,12 +253,12 @@ body.ct-loading {
 
 .selectr-option.selected {
 	font-weight: 500;
-	color: var(--selectDropdownTextActiveColor);
+	color: var(--colorActive);
 	background: var(--selectDropdownItemActiveColor);
 }
 
 .selectr-option.active:not(.selected) {
-	color: var(--selectDropdownTextHoverColor);
+	color: var(--colorHover);
 	background: var(--selectDropdownItemHoverColor);
 }
 

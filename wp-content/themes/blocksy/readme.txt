@@ -179,10 +179,6 @@ element-resize-detector, Copyright (c) 2016 Lucas Wiener
 Licenses: MIT License
 Source: https://github.com/verlok/lazyload
 
-snarkdown, Copyright (c) 2017 Jason Miller
-Licenses: MIT License
-Source: https://github.com/developit/snarkdown
-
 mobius1-selectr, Copyright 2016 Karl Saunders
 Licenses: MIT License
 Source: https://github.com/Mobius1/Selectr

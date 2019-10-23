@@ -22,14 +22,14 @@ ctEvents.on(
 			headerTextColor: [
 				{
 					selector: '.ct-header-text',
-					variable: 'linkInitialColor',
+					variable: 'color',
 					type: 'color:default',
 					responsive: true
 				},
 
 				{
 					selector: '.ct-header-text',
-					variable: 'linkHoverColor',
+					variable: 'colorHover',
 					type: 'color:hover',
 					responsive: true
 				}
@@ -39,7 +39,8 @@ ctEvents.on(
 				selector: '.ct-header-text',
 				type: 'spacing',
 				variable: 'margin',
-				responsive: true
+				responsive: true,
+				important: true
 			}
 		}
 	}

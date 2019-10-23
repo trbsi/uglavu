@@ -46,8 +46,8 @@ class Blocksy_Css_Injector {
 	/**
 	 * Keyword that allows skiping a certain CSS rule from getting in the output.
 	 */
-	public static function get_skip_rule_keyword() {
-		return 'CT_CSS_SKIP_RULE';
+	public static function get_skip_rule_keyword($suffix = '') {
+		return 'CT_CSS_SKIP_RULE' . $suffix;
 	}
 
 	/**

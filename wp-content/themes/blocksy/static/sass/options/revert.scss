@@ -83,9 +83,8 @@
 	}
 }
 
-// meta box revert
-#blocksy_settings_meta_box {
-	.ct-revert {
-
+.ct-dashboard-overlay-open #customize-header-actions {
+	.ct-revert:before {
+		transform: rotate(-45deg);
 	}
 }

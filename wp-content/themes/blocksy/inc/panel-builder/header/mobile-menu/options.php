@@ -78,7 +78,7 @@ $options = [
 					],
 
 					'hover' => [
-						'color' => 'var(--paletteColor1)',
+						'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 					],
 				],
 
@@ -91,6 +91,7 @@ $options = [
 					[
 						'title' => __( 'Hover', 'blocksy' ),
 						'id' => 'hover',
+						'inherit' => 'var(--colorHover)'
 					],
 				],
 			],

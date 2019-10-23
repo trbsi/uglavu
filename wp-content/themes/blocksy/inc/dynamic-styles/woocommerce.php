@@ -1,5 +1,34 @@
 <?php
 
+// Notice colors
+blocksy_output_colors([
+	'value' => get_theme_mod('wooNoticeContent'),
+	'default' => [
+		'default' => ['color' => '#ffffff']
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.demo_store',
+			'variable' => 'color'
+		],
+	],
+]);
+
+blocksy_output_colors([
+	'value' => get_theme_mod('wooNoticeBackground'),
+	'default' => [
+		'default' => ['color' => 'var(--paletteColor1)']
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.demo_store',
+			'variable' => 'backgroundColor'
+		],
+	],
+]);
+
 if (! function_exists('is_woocommerce')) {
 	return;
 }
@@ -8,22 +37,35 @@ if (! is_woocommerce()) {
 	return;
 }
 
+blocksy_output_responsive([
+	'css' => $css,
+	'tablet_css' => $tablet_css,
+	'mobile_css' => $mobile_css,
+	'selector' => '.shop-entries',
+	'variableName' => 'cardsGap',
+	'value' => get_theme_mod('shopCardsGap', [
+		'mobile' => 30,
+		'tablet' => 30,
+		'desktop' => 30,
+	])
+]);
+
 blocksy_output_colors([
 	'value' => get_theme_mod('cardProductTitleColor'),
 	'default' => [
-		'default' => [ 'color' => 'var(--paletteColor3)' ],
-		'hover' => [ 'color' => 'var(--paletteColor1)' ],
+		'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
+		'hover' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
 	],
 	'css' => $css,
 	'variables' => [
 		'default' => [
-			'selector' => '.shop-entry-card',
-			'variable' => 'linkInitialColor'
+			'selector' => '.woocommerce-loop-product__title',
+			'variable' => 'color'
 		],
 
 		'hover' => [
-			'selector' => '.shop-entry-card',
-			'variable' => 'linkHoverColor'
+			'selector' => '.woocommerce-loop-product__title',
+			'variable' => 'colorHover'
 		],
 	],
 ]);
@@ -31,31 +73,33 @@ blocksy_output_colors([
 blocksy_output_colors([
 	'value' => get_theme_mod('cardProductCategoriesColor'),
 	'default' => [
-		'default' => [ 'color' => 'rgba(44,62,80,0.7)' ],
-		'hover' => [ 'color' => 'var(--paletteColor1)' ],
+		'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
+		'hover' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
 	],
 	'css' => $css,
 	'variables' => [
 		'default' => [
 			'selector' => 'article .product-categories',
-			'variable' => 'linkInitialColor'
+			'variable' => 'color'
 		],
 
 		'hover' => [
 			'selector' => 'article .product-categories',
-			'variable' => 'linkHoverColor'
+			'variable' => 'colorHover'
 		],
 	],
 ]);
 
 blocksy_output_colors([
 	'value' => get_theme_mod('cardProductPriceColor'),
-	'default' => ['default' => ['color' => 'var(--paletteColor3)']],
+	'default' => [
+		'default' => ['color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ]
+	],
 	'css' => $css,
 	'variables' => [
 		'default' => [
 			'selector' => '.shop-entry-card .price',
-			'variable' => 'fontColor'
+			'variable' => 'color'
 		],
 	],
 ]);
@@ -109,19 +153,19 @@ blocksy_output_colors([
 blocksy_output_colors([
 	'value' => get_theme_mod('cardProductAction1Color'),
 	'default' => [
-		'default' => ['color' => 'var(--paletteColor3)'],
-		'hover' => ['color' => 'var(--paletteColor1)'],
+		'default' => ['color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT')],
+		'hover' => ['color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT')],
 	],
 	'css' => $css,
 	'variables' => [
 		'default' => [
-			'selector' => '.woo-card-actions',
-			'variable' => 'linkInitialColor'
+			'selector' => '[data-layout="grid"] .woo-card-actions',
+			'variable' => 'color'
 		],
 
 		'hover' => [
-			'selector' => '.woo-card-actions',
-			'variable' => 'linkHoverColor'
+			'selector' => '[data-layout="grid"] .woo-card-actions',
+			'variable' => 'colorHover'
 		],
 	],
 ]);
@@ -129,19 +173,19 @@ blocksy_output_colors([
 blocksy_output_colors([
 	'value' => get_theme_mod('cardProductAction2Color'),
 	'default' => [
-		'default' => [ 'color' => 'var(--buttonInitialColor)' ],
-		'hover' => [ 'color' => 'var(--buttonHoverColor)' ],
+		'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
+		'hover' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
 	],
 	'css' => $css,
 	'variables' => [
 		'default' => [
-			'selector' => '.woo-card-actions',
-			'variable' => 'wooButtonInitialColor'
+			'selector' => '[data-layout="shop-simple"] .woo-card-actions',
+			'variable' => 'buttonInitialColor'
 		],
 
 		'hover' => [
-			'selector' => '.woo-card-actions',
-			'variable' => 'wooButtonHoverColor'
+			'selector' => '[data-layout="shop-simple"] .woo-card-actions',
+			'variable' => 'buttonHoverColor'
 		],
 	],
 ]);
@@ -183,18 +227,35 @@ blocksy_output_box_shadow([
 
 // woo single product
 $productGalleryWidth = get_theme_mod( 'productGalleryWidth', 50 );
-$css->put( ':root', '--productGalleryWidth: ' . $productGalleryWidth . '%' );
+$css->put(
+	'.product-entry-wrapper',
+	'--productGalleryWidth: ' . $productGalleryWidth . '%'
+);
+
+blocksy_output_colors([
+	'value' => get_theme_mod('singleProductTitleColor'),
+	'default' => [
+		'default' => [ 'color' => 'var(--paletteColor4)' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.entry-summary .product_title',
+			'variable' => 'color'
+		],
+	],
+]);
 
 blocksy_output_colors([
 	'value' => get_theme_mod('singleProductPriceColor'),
 	'default' => [
-		'default' => [ 'color' => 'var(--paletteColor3)' ],
+		'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
 	],
 	'css' => $css,
 	'variables' => [
 		'default' => [
 			'selector' => '.entry-summary .price',
-			'variable' => 'fontColor'
+			'variable' => 'color'
 		],
 	],
 ]);

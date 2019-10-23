@@ -265,12 +265,15 @@ $when_enabled_general_settings = [
 	[
 		$is_single ? [
 
+			blocksy_rand_md5() => [
+				'type' => 'ct-divider',
+			],
+
 			$prefix . 'single_meta_elements' => [
 				'label' => __( 'Meta Elements', 'blocksy' ),
 				'type' => 'ct-checkboxes',
 				'design' => $has_default ? 'inline' : 'block',
 				'attr' => [ 'data-columns' => '2' ],
-				'divider' => 'top',
 				'setting' => [ 'transport' => 'postMessage' ],
 				'allow_empty' => true,
 				'choices' => blocksy_ordered_keys(
@@ -298,27 +301,64 @@ $when_enabled_general_settings = [
 				'label' => __( 'Meta Label', 'blocksy' ),
 				'type' => 'ct-switch',
 				'value' => 'yes',
+				'divider' => 'top',
 				'setting' => [ 'transport' => 'postMessage' ],
 			],
 
 			blocksy_rand_md5() => [
-				'type' => 'ct-condition',
-				'condition' => [ $prefix . 'single_meta_elements/date' => true ],
+				'type' => 'ct-group',
+				'attr' => [ 'data-type' => 'small-space' ],
 				'options' => [
 
-					$prefix . 'single_meta_date_format' => [
-						'label' => __( 'Date Format', 'blocksy' ),
-						'type' => 'text',
-						'design' => 'inline',
-						'value' => 'M j, Y',
-						'setting' => [ 'transport' => 'postMessage' ],
-						// translators: The interpolations addes a html link around the word.
-						'desc' => sprintf(
-							__('Documentation on date %sformatting%s.', 'blocksy'),
-							'<a href="https://wordpress.org/support/article/formatting-date-and-time/#format-string-examples" target="_blank">',
-							'</a>'
-						),
+					blocksy_rand_md5() => [
+						'type' => 'ct-condition',
+						'condition' => [
+							'any' => [
+								$prefix . 'single_meta_elements/date' => true,
+								$prefix . 'single_meta_elements/updated' => true,
+							]
+						],
+						'options' => [
+							$prefix . 'date_format_source' => [
+								'label' => __( 'Date Format', 'blocksy' ),
+								'type' => 'ct-radio',
+								'value' => 'custom',
+								'view' => 'text',
+								'design' => $has_default ? 'inline' : 'block',
+								'setting' => [ 'transport' => 'postMessage' ],
+								'choices' => [
+									'default' => __( 'Default', 'blocksy' ),
+									'custom' => __( 'Custom', 'blocksy' ),
+								],
+							],
+
+							blocksy_rand_md5() => [
+								'type' => 'ct-condition',
+								'condition' => [
+									$prefix . 'date_format_source' => 'custom'
+								],
+								'options' => [
+
+									$prefix . 'single_meta_date_format' => [
+										'label' => $has_default ? __( 'Custom Format', 'blocksy' ) : false,
+										'type' => 'text',
+										'design' => $has_default ? 'inline' : 'block',
+										'value' => 'M j, Y',
+										'setting' => [ 'transport' => 'postMessage' ],
+										// translators: The interpolations addes a html link around the word.
+										'desc' => sprintf(
+											__('Documentation on date %sformatting%s.', 'blocksy'),
+											'<a href="https://wordpress.org/support/article/formatting-date-and-time/#format-string-examples" target="_blank">',
+											'</a>'
+										),
+										'disableRevertButton' => true,
+									],
+
+								],
+							],
+						],
 					],
+
 
 				],
 			],
@@ -327,14 +367,17 @@ $when_enabled_general_settings = [
 		] : []
 	],
 
+	blocksy_rand_md5() => [
+		'type' => 'ct-divider',
+	],
+
 	$prefix . 'page_excerpt_visibility' => [
-		'label' => $is_single ? __( 'Page Info Visibility', 'blocksy' ) : __(
-			'Page Info Description', 'blocksy'
+		'label' => $is_single ? __( 'Excerpt Visibility', 'blocksy' ) : __(
+			'Description Visibility', 'blocksy'
 		),
 		'type' => 'ct-visibility',
 		'design' => $has_default ? 'inline' : false,
 		'allow_empty' => true,
-		'divider' => 'top',
 		'setting' => [ 'transport' => 'postMessage' ],
 
 		'value' => [
@@ -370,7 +413,7 @@ $when_enabled_design_settings = [
 	],
 
 	$prefix . 'pageTitleFontColor' => [
-		'label' => __( 'Font Color', 'blocksy' ),
+		'label' => __( 'Title Font Color', 'blocksy' ),
 		'type'  => 'ct-color-picker',
 		'design' => 'inline',
 		'setting' => [ 'transport' => 'postMessage' ],
@@ -383,7 +426,7 @@ $when_enabled_design_settings = [
 
 		'pickers' => [
 			[
-				'title' => __( 'Initial color', 'blocksy' ),
+				'title' => __( 'Initial', 'blocksy' ),
 				'id' => 'default',
 			],
 		],
@@ -422,30 +465,83 @@ $when_enabled_design_settings = [
 			],
 
 			$prefix . 'pageMetaFontColor' => [
-				'label' => __( 'Meta Color', 'blocksy' ),
+				'label' => __( 'Meta Font Color', 'blocksy' ),
 				'type'  => 'ct-color-picker',
 				'design' => 'inline',
 				'setting' => [ 'transport' => 'postMessage' ],
 
 				'value' => [
 					'default' => [
-						'color' => 'var(--paletteColor4)',
+						'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 					],
 
 					'hover' => [
-						'color' => 'var(--paletteColor1)',
+						'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 					],
 				],
 
 				'pickers' => [
 					[
-						'title' => __( 'Initial color', 'blocksy' ),
+						'title' => __( 'Initial', 'blocksy' ),
 						'id' => 'default',
+						'inherit' => 'var(--color)'
 					],
 
 					[
-						'title' => __( 'Hover color', 'blocksy' ),
+						'title' => __( 'Hover', 'blocksy' ),
 						'id' => 'hover',
+						'inherit' => 'var(--colorHover)'
+					],
+				],
+			],
+
+		],
+	],
+
+
+	blocksy_rand_md5() => [
+		'type' => 'ct-condition',
+		'condition' => [
+			'any' => [
+				$prefix . 'page_excerpt_visibility/desktop:truthy' => 'yes',
+				$prefix . 'page_excerpt_visibility/tablet:truthy' => 'yes',
+				$prefix . 'page_excerpt_visibility/mobile:truthy' => 'yes',
+			]
+		],
+		'options' => [
+
+			$prefix . 'pageExcerptFont' => [
+				'type' => 'ct-typography',
+				'label' => $is_single ? __( 'Excerpt Font', 'blocksy' ) : __(
+					'Description Font', 'blocksy'
+				),
+				'value' => blocksy_typography_default_values([
+					'variation' => 'n5',
+				]),
+				'divider' => 'top',
+				'design' => $has_default ? 'inline' : 'block',
+				'setting' => [ 'transport' => 'postMessage' ],
+			],
+
+			$prefix . 'pageExcerptColor' => [
+				'label' => $is_single ? __( 'Excerpt Font Color', 'blocksy' ) : __(
+					'Description Font Color', 'blocksy'
+				),
+				'type'  => 'ct-color-picker',
+				'design' => 'inline',
+				'setting' => [ 'transport' => 'postMessage' ],
+
+				'value' => [
+					'default' => [
+						'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
+					],
+				],
+
+				'pickers' => [
+					[
+						'title' => __( 'Initial', 'blocksy' ),
+						'id' => 'default',
+						'inherit' => 'var(--color)'
 					],
 				],
 			],

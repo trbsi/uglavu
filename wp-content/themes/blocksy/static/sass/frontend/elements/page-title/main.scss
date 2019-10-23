@@ -2,26 +2,10 @@
 @import 'type-2';
 
 .entry-header {
-	color: var(--initialColor);
 
-	.entry-title, .page-title {
-		--fontColor: var(--initialColor);
-	}
-
+	.entry-meta,
 	.page-description {
-		font-weight: 500;
-	}
-
-	.entry-meta {
-		color: var(--initialColor);
-
-		a {
-			color: inherit;
-
-			&:hover {
-				color: var(--hoverColor);
-			}
-		}
+		color: var(--color);
 	}
 
 	.avatar-container {

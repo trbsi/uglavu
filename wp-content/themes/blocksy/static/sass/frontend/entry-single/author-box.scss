@@ -1,6 +1,6 @@
 .author-box {
 	display: flex;
-	padding: var(--singleAuthorBoxSpacing);
+	padding: var(--spacing);
 
 	@include media-breakpoint-down (sm) {
 		flex-direction: column;
@@ -50,9 +50,8 @@
 
 	&[data-type="type-1"] {
 		margin: 60px 0;
-		background: var(--singleAuthorBoxBackground);
+		background: var(--backgroundColor);
 		box-shadow: var(--boxShadow);
-		// box-shadow: 0px 50px 90px 0px var(--singleAuthorBoxShadow);
 
 		figure {
 			@include media-breakpoint-down (sm) {
@@ -72,7 +71,7 @@
 		position: relative;
 		padding-top: 50px;
 		margin: 90px 0 60px 0;
-		border-bottom: 1px solid var(--singleAuthorBoxBorder);
+		border-bottom: 1px solid var(--borderColor);
 
 		figure {
 			position: absolute;
@@ -85,7 +84,7 @@
 			top: -1px;
 			width: calc(50% - 50px);
 			height: 1px;
-			background: var(--singleAuthorBoxBorder);
+			background: var(--borderColor);
 		}
 
 		&:before {

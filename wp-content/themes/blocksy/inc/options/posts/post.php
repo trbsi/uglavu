@@ -115,21 +115,36 @@ $options = [
 							'condition' => [ 'single_content_style' => 'boxed' ],
 							'options' => [
 
-								blocksy_rand_md5() => [
-									'type' => 'ct-divider',
-									'attr' => [ 'data-type' => 'small' ],
-								],
-
 								'single_content_background' => [
 									'label' => __( 'Content Area Background', 'blocksy' ),
 									'type' => 'ct-background',
 									'design' => 'inline',
+									'divider' => 'top',
 									'setting' => [ 'transport' => 'postMessage' ],
 									'value' => blocksy_background_default_value([
 										'backgroundColor' => [
 											'default' => [
 												'color' => '#ffffff',
 											],
+										],
+									])
+								],
+
+								'postContentBoxedShadow' => [
+									'label' => __( 'Content Area Shadow', 'blocksy' ),
+									'type' => 'ct-box-shadow',
+									'responsive' => true,
+									'divider' => 'top',
+									'setting' => [ 'transport' => 'postMessage' ],
+									'value' => blocksy_box_shadow_value([
+										'enable' => false,
+										'h_offset' => 0,
+										'v_offset' => 12,
+										'blur' => 18,
+										'spread' => -6,
+										'inset' => false,
+										'color' => [
+											'color' => 'rgba(34, 56, 101, 0.04)',
 										],
 									])
 								],
@@ -146,6 +161,7 @@ $options = [
 										],
 									]),
 									'responsive' => true,
+									'divider' => 'top',
 									'setting' => [ 'transport' => 'postMessage' ],
 								],
 
@@ -196,7 +212,24 @@ $options = [
 							'label' => __( 'Image Ratio', 'blocksy' ),
 							'type' => 'ct-ratio',
 							'value' => '4/3',
+							'divider' => 'top',
 							'setting' => [ 'transport' => 'postMessage' ],
+						],
+
+						blocksy_rand_md5() => [
+							'type' => 'ct-condition',
+							'condition' => [ 'single_content_style' => 'boxed' ],
+							'options' => [
+
+								'single_featured_image_boundless' => [
+									'label' => __( 'Boundless Image', 'blocksy' ),
+									'type' => 'ct-switch',
+									'value' => 'no',
+									'divider' => 'top',
+									'setting' => [ 'transport' => 'postMessage' ],
+								],
+
+							],
 						],
 
 						blocksy_rand_md5() => [
@@ -213,6 +246,7 @@ $options = [
 									'value' => 'default',
 									'view' => 'text',
 									'design' => 'block',
+									'divider' => 'top',
 									'setting' => [ 'transport' => 'postMessage' ],
 									'choices' => [
 										'default' => __( 'Default Width', 'blocksy' ),
@@ -225,7 +259,6 @@ $options = [
 
 						blocksy_rand_md5() => [
 							'type' => 'ct-divider',
-							'attr' => [ 'data-type' => 'small' ],
 						],
 
 						'single_featured_image_visibility' => [
@@ -465,11 +498,11 @@ $options = [
 
 											'value' => [
 												'default' => [
-													'color' => 'var(--paletteColor3)',
+													'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 												],
 
 												'hover' => [
-													'color' => 'var(--paletteColor1)',
+													'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 												],
 											],
 
@@ -477,11 +510,13 @@ $options = [
 												[
 													'title' => __( 'Initial', 'blocksy' ),
 													'id' => 'default',
+													'inherit' => 'var(--color)'
 												],
 
 												[
 													'title' => __( 'Hover', 'blocksy' ),
 													'id' => 'hover',
+													'inherit' => 'var(--colorHover)'
 												],
 											],
 										],
@@ -826,61 +861,106 @@ $options = [
 					'setting' => [ 'transport' => 'postMessage' ],
 					'inner-options' => [
 
-						'has_post_nav_title' => [
-							'label' => __( 'Post Title', 'blocksy' ),
-							'type' => 'ct-switch',
-							'value' => 'yes',
-							'setting' => [ 'transport' => 'postMessage' ],
-						],
+						blocksy_rand_md5() => [
+							'title' => __( 'General', 'blocksy' ),
+							'type' => 'tab',
+							'options' => [
 
-						'has_post_nav_thumb' => [
-							'label' => __( 'Post Thumbnail', 'blocksy' ),
-							'type' => 'ct-switch',
-							'value' => 'yes',
-							'setting' => [ 'transport' => 'postMessage' ],
-						],
-
-						'postNavSpacing' => [
-							'label' => __( 'Container Inner Spacing', 'blocksy' ),
-							'type' => 'ct-slider',
-							'value' => [
-								'mobile' => '40px',
-								'tablet' => '60px',
-								'desktop' => '80px',
-							],
-							'units' => blocksy_units_config([
-								[
-									'unit' => 'px',
-									'min' => 0,
-									'max' => 200,
+								'has_post_nav_title' => [
+									'label' => __( 'Post Title', 'blocksy' ),
+									'type' => 'ct-switch',
+									'value' => 'yes',
+									'setting' => [ 'transport' => 'postMessage' ],
 								],
-							]),
-							'responsive' => true,
-							'setting' => [ 'transport' => 'postMessage' ],
+
+								'has_post_nav_thumb' => [
+									'label' => __( 'Post Thumbnail', 'blocksy' ),
+									'type' => 'ct-switch',
+									'value' => 'yes',
+									'setting' => [ 'transport' => 'postMessage' ],
+								],
+
+								'postNavSpacing' => [
+									'label' => __( 'Container Inner Spacing', 'blocksy' ),
+									'type' => 'ct-slider',
+									'value' => [
+										'mobile' => '40px',
+										'tablet' => '60px',
+										'desktop' => '80px',
+									],
+									'units' => blocksy_units_config([
+										[
+											'unit' => 'px',
+											'min' => 0,
+											'max' => 200,
+										],
+									]),
+									'responsive' => true,
+									'setting' => [ 'transport' => 'postMessage' ],
+								],
+
+								blocksy_rand_md5() => [
+									'type' => 'ct-divider',
+								],
+
+								'post_nav_visibility' => [
+									'label' => __( 'Visibility', 'blocksy' ),
+									'type' => 'ct-visibility',
+									'design' => 'block',
+									'setting' => [ 'transport' => 'postMessage' ],
+
+									'value' => [
+										'desktop' => true,
+										'tablet' => true,
+										'mobile' => true,
+									],
+
+									'choices' => blocksy_ordered_keys([
+										'desktop' => __( 'Desktop', 'blocksy' ),
+										'tablet' => __( 'Tablet', 'blocksy' ),
+										'mobile' => __( 'Mobile', 'blocksy' ),
+									]),
+								],
+
+							],
 						],
 
 						blocksy_rand_md5() => [
-							'type' => 'ct-divider',
-							'attr' => [ 'data-type' => 'small' ],
-						],
+							'title' => __( 'Design', 'blocksy' ),
+							'type' => 'tab',
+							'options' => [
 
-						'post_nav_visibility' => [
-							'label' => __( 'Visibility', 'blocksy' ),
-							'type' => 'ct-visibility',
-							'design' => 'block',
-							'setting' => [ 'transport' => 'postMessage' ],
+								'postsNavFontColor' => [
+									'label' => __( 'Font Color', 'blocksy' ),
+									'type'  => 'ct-color-picker',
+									'design' => 'inline',
+									'setting' => [ 'transport' => 'postMessage' ],
+									'value' => [
+										'default' => [
+											'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
+										],
 
-							'value' => [
-								'desktop' => true,
-								'tablet' => true,
-								'mobile' => true,
+										'hover' => [
+											'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
+										],
+									],
+
+									'pickers' => [
+										[
+											'title' => __( 'Initial', 'blocksy' ),
+											'id' => 'default',
+											'inherit' => 'var(--color)'
+										],
+
+										[
+											'title' => __( 'Hover', 'blocksy' ),
+											'id' => 'hover',
+											'inherit' => 'var(--colorHover)'
+										],
+									],
+								],
+
 							],
-
-							'choices' => blocksy_ordered_keys([
-								'desktop' => __( 'Desktop', 'blocksy' ),
-								'tablet' => __( 'Tablet', 'blocksy' ),
-								'mobile' => __( 'Mobile', 'blocksy' ),
-							]),
 						],
 
 					],
@@ -912,22 +992,8 @@ $options = [
 									],
 								],
 
-								'related_location' => [
-									'label' => __( 'Box Location', 'blocksy' ),
-									'type' => 'ct-radio',
-									'value' => 'before',
-									'view' => 'text',
-									'design' => 'block',
-									'setting' => [ 'transport' => 'postMessage' ],
-									'choices' => [
-										'before' => __( 'Before Comments', 'blocksy' ),
-										'after' => __( 'After Comments', 'blocksy' ),
-									],
-								],
-
 								blocksy_rand_md5() => [
 									'type' => 'ct-divider',
-									'attr' => [ 'data-type' => 'small' ],
 								],
 
 								'related_label' => [
@@ -958,12 +1024,116 @@ $options = [
 									'setting' => [ 'transport' => 'postMessage' ],
 								],
 
+								'related_featured_image_ratio' => [
+									'label' => __( 'Image Ratio', 'blocksy' ),
+									'type' => 'ct-ratio',
+									'value' => '16/9',
+									'divider' => 'top',
+									'setting' => [ 'transport' => 'postMessage' ],
+								],
+
+								blocksy_rand_md5() => [
+									'type' => 'ct-divider',
+								],
+
+								'related_meta_elements' => [
+									'label' => __( 'Meta Elements', 'blocksy' ),
+									'type' => 'ct-checkboxes',
+									'design' => 'block',
+									'attr' => [ 'data-columns' => '2' ],
+									'setting' => [ 'transport' => 'postMessage' ],
+									'allow_empty' => true,
+									'choices' => blocksy_ordered_keys(
+										[
+											'author' => __( 'Author', 'blocksy' ),
+											'comments' => __( 'Comments', 'blocksy' ),
+											'date' => __( 'Date', 'blocksy' ),
+											'categories' => __( 'Categories', 'blocksy' ),
+										]
+									),
+
+									'value' => [
+										'author' => false,
+										'date' => true,
+										'categories' => false,
+										'comments' => true,
+									],
+								],
+
+								'has_related_meta_label' => [
+									'label' => __( 'Meta Label', 'blocksy' ),
+									'type' => 'ct-switch',
+									'value' => 'yes',
+									'divider' => 'top',
+									'setting' => [ 'transport' => 'postMessage' ],
+								],
+
+								blocksy_rand_md5() => [
+									'type' => 'ct-condition',
+									'condition' => [ 'related_meta_elements/date' => true ],
+									'options' => [
+
+										'related_date_format_source' => [
+											'label' => __( 'Date Format', 'blocksy' ),
+											'type' => 'ct-radio',
+											'value' => 'default',
+											'view' => 'text',
+											'design' => 'block',
+											'setting' => [ 'transport' => 'postMessage' ],
+											'choices' => [
+												'default' => __( 'Default', 'blocksy' ),
+												'custom' => __( 'Custom', 'blocksy' ),
+											],
+										],
+
+										blocksy_rand_md5() => [
+											'type' => 'ct-condition',
+											'condition' => [ 'related_date_format_source' => 'custom' ],
+											'options' => [
+
+												'related_meta_date_format' => [
+													'label' => false,
+													'type' => 'text',
+													'design' => 'block',
+													'value' => 'M j, Y',
+													'setting' => [ 'transport' => 'postMessage' ],
+													// translators: The interpolations addes a html link around the word.
+													'desc' => sprintf(
+														__('Documentation on date %sformatting%s.', 'blocksy'),
+														'<a href="https://wordpress.org/support/article/formatting-date-and-time/#format-string-examples" target="_blank">',
+														'</a>'
+													),
+													'disableRevertButton' => true,
+												],
+
+											],
+										],
+									],
+								],
+
+								blocksy_rand_md5() => [
+									'type' => 'ct-divider',
+								],
+
+								'related_location' => [
+									'label' => __( 'Section Location', 'blocksy' ),
+									'type' => 'ct-radio',
+									'value' => 'before',
+									'view' => 'text',
+									'design' => 'block',
+									'setting' => [ 'transport' => 'postMessage' ],
+									'choices' => [
+										'before' => __( 'Before Comments', 'blocksy' ),
+										'after' => __( 'After Comments', 'blocksy' ),
+									],
+								],
+
 								blocksy_rand_md5() => [
 									'type' => 'ct-divider',
 								],
 
 								'related_visibility' => [
-									'label' => __( 'Visibility', 'blocksy' ),
+									'label' => __( 'Section Visibility', 'blocksy' ),
 									'type' => 'ct-visibility',
 									'design' => 'block',
 									'setting' => [ 'transport' => 'postMessage' ],
@@ -1010,18 +1180,18 @@ $options = [
 								],
 
 								'relatedPostsLinkColor' => [
-									'label' => __( 'Link Color', 'blocksy' ),
+									'label' => __( 'Posts Title Font Color', 'blocksy' ),
 									'type'  => 'ct-color-picker',
 									'design' => 'inline',
 									'setting' => [ 'transport' => 'postMessage' ],
 
 									'value' => [
 										'default' => [
-											'color' => 'var(--paletteColor3)',
+											'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 										],
 
 										'hover' => [
-											'color' => 'var(--paletteColor1)',
+											'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 										],
 									],
 
@@ -1029,24 +1199,30 @@ $options = [
 										[
 											'title' => __( 'Initial', 'blocksy' ),
 											'id' => 'default',
+											'inherit' => 'var(--color)'
 										],
 
 										[
 											'title' => __( 'Hover', 'blocksy' ),
 											'id' => 'hover',
+											'inherit' => 'var(--colorHover)'
 										],
 									],
 								],
 
 								'relatedPostsMetaColor' => [
-									'label' => __( 'Meta Color', 'blocksy' ),
+									'label' => __( 'Meta Font Color', 'blocksy' ),
 									'type'  => 'ct-color-picker',
 									'design' => 'inline',
 									'setting' => [ 'transport' => 'postMessage' ],
 
 									'value' => [
 										'default' => [
-											'color' => '#667380',
+											'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
+										],
+
+										'hover' => [
+											'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 										],
 									],
 
@@ -1054,19 +1230,37 @@ $options = [
 										[
 											'title' => __( 'Initial', 'blocksy' ),
 											'id' => 'default',
+											'inherit' => 'var(--color)'
+										],
+
+										[
+											'title' => __( 'Hover', 'blocksy' ),
+											'id' => 'hover',
+											'inherit' => 'var(--colorHover)'
 										],
 									],
 								],
 
-								blocksy_rand_md5() => [
-									'type' => 'ct-divider',
-									'attr' => [ 'data-type' => 'small' ],
+								'relatedThumbRadius' => [
+									'label' => __( 'Image Border Radius', 'blocksy' ),
+									'type' => 'ct-spacing',
+									'divider' => 'top',
+									'setting' => [ 'transport' => 'postMessage' ],
+									'value' => blocksy_spacing_value([
+										'linked' => true,
+										'top' => '5px',
+										'left' => '5px',
+										'right' => '5px',
+										'bottom' => '5px',
+									]),
+									'responsive' => true
 								],
 
 								'related_posts_background' => [
 									'label' => __( 'Container Background', 'blocksy' ),
 									'type' => 'ct-background',
 									'design' => 'inline',
+									'divider' => 'top',
 									'setting' => [ 'transport' => 'postMessage' ],
 									'value' => blocksy_background_default_value([
 										'backgroundColor' => [
@@ -1110,18 +1304,81 @@ $options = [
 					'setting' => [ 'transport' => 'postMessage' ],
 					'inner-options' => [
 
-						'post_comments_background' => [
-							'label' => __( 'Container Background', 'blocksy' ),
-							'type' => 'ct-background',
-							'design' => 'inline',
-							'setting' => [ 'transport' => 'postMessage' ],
-							'value' => blocksy_background_default_value([
-								'backgroundColor' => [
-									'default' => [
-										'color' => '#f8f9fb',
+						blocksy_rand_md5() => [
+							'title' => __( 'General', 'blocksy' ),
+							'type' => 'tab',
+							'options' => [
+
+								'postCommentsContainerWidth' => [
+									'label' => __( 'Container Width', 'blocksy' ),
+									'type' => 'ct-slider',
+									'min' => 50,
+									'max' => 100,
+									'responsive' => true,
+									'value' => [
+										'mobile' => 100,
+										'tablet' => 100,
+										'desktop' => 60,
+									],
+									'defaultUnit' => '%',
+									'setting' => [ 'transport' => 'postMessage' ],
+								],
+
+							],
+						],
+
+						blocksy_rand_md5() => [
+							'title' => __( 'Design', 'blocksy' ),
+							'type' => 'tab',
+							'options' => [
+
+								'postCommentsFontColor' => [
+									'label' => __( 'Font Color', 'blocksy' ),
+									'type'  => 'ct-color-picker',
+									'design' => 'inline',
+									'setting' => [ 'transport' => 'postMessage' ],
+
+									'value' => [
+										'default' => [
+											'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
+										],
+
+										'hover' => [
+											'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
+										],
+									],
+
+									'pickers' => [
+										[
+											'title' => __( 'Initial', 'blocksy' ),
+											'id' => 'default',
+											'inherit' => 'var(--color)'
+										],
+
+										[
+											'title' => __( 'Hover', 'blocksy' ),
+											'id' => 'hover',
+											'inherit' => 'var(--colorHover)'
+										],
 									],
 								],
-							])
+
+								'post_comments_background' => [
+									'label' => __( 'Container Background', 'blocksy' ),
+									'type' => 'ct-background',
+									'design' => 'inline',
+									'divider' => 'top',
+									'setting' => [ 'transport' => 'postMessage' ],
+									'value' => blocksy_background_default_value([
+										'backgroundColor' => [
+											'default' => [
+												'color' => '#f8f9fb',
+											],
+										],
+									])
+								],
+
+							],
 						],
 
 					],

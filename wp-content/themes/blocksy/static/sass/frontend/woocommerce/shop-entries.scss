@@ -54,12 +54,8 @@
 		}
 	}
 
-	.woocommerce-loop-product__title {
-		font-size: var(--cardProductTitleSize);
-	}
-
 	.price {
-		color: var(--fontColor);
+		color: var(--color);
 
 		del {
 			opacity: 0.5;

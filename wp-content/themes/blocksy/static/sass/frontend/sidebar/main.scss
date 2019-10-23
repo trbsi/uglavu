@@ -1,25 +1,23 @@
 .ct-sidebar {
 	position: relative;
 	z-index: 1;
-	color: var(--widgetsFontColor);
+	color: var(--color);
 
 	@include media-breakpoint-down (md) {
 		margin-top: 60px;
 	}
 
 	.widget-title {
-		color: var(--widgetsTitleColor);
-
 		&:not(:empty) {
 			margin: 0 0 20px 0;
 		}
 	}
 
 	a {
-		color: var(--linkInitialColor);
+		// color: var(--color);
 
 		&:hover {
-			color: var(--linkHoverColor);
+			color: var(--colorHover);
 		}
 	}
 
@@ -138,14 +136,14 @@ aside {
 
 
 body {
-	&.main-content-area-boundless {
-		[data-sidebar] > aside {
-			@include media-breakpoint-up (lg) {
-				padding-top: var(--contentAreaSpacing);
-				padding-bottom: var(--contentAreaSpacing);
-			}
-		}
-	}
+	// &:not(.main-content-area-boundless) {
+	// 	[data-sidebar] > aside {
+	// 		@include media-breakpoint-up (lg) {
+	// 			padding-top: var(--contentAreaSpacing);
+	// 			padding-bottom: var(--contentAreaSpacing);
+	// 		}
+	// 	}
+	// }
 
 	&:not(.main-content-area-boundless) {
 		aside[data-type="type-3"],

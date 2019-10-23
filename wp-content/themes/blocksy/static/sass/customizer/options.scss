@@ -71,6 +71,9 @@ $accent-color: #0e8ecc;
 	p {
 		font-size: 12px;
 		margin: 10px 0 0 0;
+		line-height: 1.5;
+		font-style: italic;
+		color: rgba(85, 93, 102, 0.8);
 	}
 
 	&:not(:first-child) {

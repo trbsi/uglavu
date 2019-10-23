@@ -3,7 +3,7 @@
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
 		@include list-normalize;
-		border: 1px solid var(--shareItemsBorder);
+		border: 1px solid var(--borderColor);
 
 		li {
 
@@ -12,7 +12,6 @@
 				align-items: center;
 				justify-content: center;
 				height: 50px;
-				color: var(--shareItemsIconInitial);
 
 				svg {
 					fill: currentColor;
@@ -21,24 +20,20 @@
 				span {
 					display: none;
 				}
-
-				&:hover {
-					color: var(--shareItemsIconHover);
-				}
 			}
 
 			&:not(:first-child) {
-				border-left: 1px solid var(--shareItemsBorder);
+				border-left: 1px solid var(--borderColor);
 			}
 		}
 	}
 
 	&[data-location="top"] {
-		margin-bottom: var(--topShareBoxSpacing);
+		margin-bottom: var(--margin);
 	}
 
 	&[data-location="bottom"] {
-		margin: var(--bottomShareBoxSpacing) 0;
+		margin: var(--margin) 0;
 	}
 }
 
@@ -78,7 +73,7 @@
 
 		&:before {
 			z-index: 2;
-			background: var(--shareBoxBackgroundInitial);
+			background: var(--backgroundColor);
 			box-shadow: 0px 7px 15px rgba(0, 0, 0, 0);
 			transition: background 0.25s cubic-bezier(0.2, 0.2, 0.1, 1), 
 						transform 0.25s cubic-bezier(0.2, 0.2, 0.1, 1);
@@ -87,14 +82,14 @@
 		&:after {
 			opacity: 0;
 			z-index: 1;
-			box-shadow: 0px 8px 30px 0px var(--shareBoxBackgroundHover);
+			box-shadow: 0px 8px 30px 0px var(--backgroundColorHover);
 			transition: opacity 0.25s cubic-bezier(0.2, 0.2, 0.1, 1);
 		}
 
 		svg {
 			position: relative;
 			z-index: 3;
-			fill: var(--shareItemsIcon);
+			fill: var(--color);
 			-webkit-backface-visibility: hidden;
 			-webkit-transform: translateZ(0) scale(1.0, 1.0);
 		}
@@ -149,7 +144,7 @@
 				&:hover {
 					&:before {
 						transform: scale(1.08);
-						background: var(--shareBoxBackgroundHover);
+						background: var(--backgroundColorHover);
 					}
 
 					&:after {
@@ -217,7 +212,7 @@
 		> a {
 			&:before {
 				transform: scale(1.05);
-				background: var(--shareBoxBackgroundHover);
+				background: var(--backgroundColorHover);
 			}
 
 			&:after {

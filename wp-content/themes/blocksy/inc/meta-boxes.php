@@ -17,13 +17,13 @@ function blocksy_get_post_options( $post_id = null ) {
 			$post_id = $post->ID;
 		}
 
-			if (is_home() && !is_front_page()) {
-				$post_id = get_option('page_for_posts');
-			}
+		if (is_home() && !is_front_page()) {
+			$post_id = get_option('page_for_posts');
+		}
 
-			if (function_exists('is_shop') && is_shop()) {
-				$post_id = get_option( 'woocommerce_shop_page_id' );
-			}
+		if (function_exists('is_shop') && is_shop()) {
+			$post_id = get_option( 'woocommerce_shop_page_id' );
+		}
 	}
 
 	if (isset($post_opts[$post_id])) {
@@ -137,15 +137,19 @@ class Blocksy_Meta_Boxes {
 						$values = [ [] ];
 					}
 
+					$options = $this->get_options_for_taxonomy($term->taxonomy);
+
+					if (empty($options)) {
+						return;
+					}
+
 					/**
 					 * Note to code reviewers: This line doesn't need to be escaped.
 					 * Function blocksy_output_options_panel() used here escapes the value properly.
 					 */
 					echo blocksy_output_options_panel(
 						[
-							'options' => $this->get_options_for_taxonomy(
-								$term->taxonomy
-							),
+							'options' => $options,
 							'values' => $values[0],
 							'id_prefix' => 'ct-post-meta-options',
 							'name_prefix' => 'blocksy_taxonomy_meta_options',
@@ -303,12 +307,7 @@ class Blocksy_Meta_Boxes {
 	}
 
 	private function get_options_for_taxonomy($taxonomy) {
-		$options = [
-			'title' => [
-				'type' => 'text',
-				'label' => __( 'Title', 'blocksy' ),
-			],
-		];
+		$options = [];
 
 		$taxonomy_slug = str_replace('_', '-', $taxonomy);
 

@@ -29,15 +29,16 @@
 		width: 100%;
 		margin-left: auto;
 		margin-right: auto;
+		padding-left: var(--fluidSpacing);
+		padding-right: var(--fluidSpacing);
+
 
 		@include media-breakpoint-down (md) {
-			padding-left: 20px;
-			padding-right: 20px;
+			--fluidSpacing: 20px;
 		}
 
 		@include media-breakpoint-up (lg) {
-			padding-left: 30px;
-			padding-right: 30px;
+			--fluidSpacing: 30px;
 		}
 	}
 

@@ -5,11 +5,6 @@
 	a {
 		display: flex;
 		align-items: center;
-		color: var(--linkInitialColor);
-
-		&:hover {
-			color: var(--linkHoverColor);
-		}
 
 		svg {
 			flex-grow: 1;
@@ -23,14 +18,16 @@
 
 // Search modal form
 #search-modal {
-	.content-container {
-		--overflow: hidden;
-	}
 
 	form {
 		width: 100%;
 		margin-left: auto;
 		margin-right: auto;
+		overflow: hidden;
+
+		@include media-breakpoint-down (sm) {
+			max-width: 88%;
+		}
 
 		@include media-breakpoint-only (md) {
 			max-width: 90%;
@@ -39,6 +36,11 @@
 		@include media-breakpoint-up (lg) {
 			max-width: 800px;
 		}
+
+		&.ct-has-dropdown {
+			padding-top: 80px;
+			padding-bottom: 50px;
+		}
 	}
 
 	.ct-search-input {
@@ -46,14 +48,15 @@
 			@include media-breakpoint-down (sm) {
 				--formInputHeight: 65px;
 				--formFontSize: 22px;
+				--formPadding: 0;
 			}
 
 			@include media-breakpoint-up (md) {
 				--formInputHeight: 100px;
 				--formFontSize: 35px;
+				--formPadding: 0 90px 0 25px;
 			}
 
-			--formPadding: 0 90px 0 25px;
 			--formBorderInitialColor: rgba(255, 255, 255, 0.2);
 
 			font-weight: 500;
@@ -88,13 +91,13 @@
 		}
 
 		.search-submit {
-			right: 25px;
 			border-radius: 100%;
 			color: #fff;
 			background: var(--paletteColor1);
 
 			@include media-breakpoint-up (md) {
 				top: calc(50% - 28px);
+				right: 25px;
 				width: 56px;
 				height: 56px;
 
@@ -106,6 +109,7 @@
 
 			@include media-breakpoint-down (sm) {
 				top: calc(50% - 20px);
+				right: 0;
 				width: 40px;
 				height: 40px;
 
@@ -148,10 +152,10 @@
 #search-modal {
 
 	a {
-		color: var(--linkInitialColor);
+		color: var(--color);
 
 		&:hover {
-			color: var(--linkHoverColor);
+			color: var(--colorHover);
 		}
 	}
 

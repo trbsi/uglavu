@@ -29,11 +29,11 @@
 }
 
 [data-behaviour*='side'] {
-	@include media-breakpoint-down (sm) {
+	@include media-breakpoint-down(sm) {
 		--width: 90vw;
 	}
 
-	@include media-breakpoint-up (md) {
+	@include media-breakpoint-up(md) {
 		--width: 65vw;
 	}
 
@@ -44,9 +44,12 @@
 	z-index: 2;
 	opacity: 0;
 	visibility: hidden;
-	transition: opacity 0.25s ease-in-out, 
-				transform 0.25s ease-in-out,
-				visibility 0.25s ease-in-out;
+	transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out,
+		visibility 0.25s ease-in-out;
+
+	&.ct-no-transition {
+		transition: none !important;
+	}
 }
 
 [data-behaviour*='right-side'] {

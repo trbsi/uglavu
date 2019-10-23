@@ -18,7 +18,7 @@ body {
 	overflow-wrap: break-word;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	color: var(--fontColor);
+	color: var(--color);
 
 	::selection {
 		color: #fff;
@@ -28,7 +28,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
 	margin: 0;
-	color: var(--fontColor);
+	color: var(--color);
 }
 
 p {
@@ -36,12 +36,12 @@ p {
 }
 
 a {
-	color: var(--linkInitialColor);
+	color: var(--color);
 	text-decoration: none;
 	transition: all 0.12s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 
 	&:hover {
-		color: var(--linkHoverColor);
+		color: var(--colorHover);
 	}
 }
 
@@ -198,4 +198,8 @@ hr {
 	background-color: var(--formBorderInitialColor);
 	border: none;
 	margin: 0 0 1.5em 0;
+}
+
+[hidden] {
+	display: none !important;
 }

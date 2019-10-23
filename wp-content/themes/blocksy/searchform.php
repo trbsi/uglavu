@@ -33,9 +33,10 @@ if (get_theme_mod('search_enable_live_results', 'yes') === 'yes') {
 	action="<?php echo esc_url( home_url( '/' ) ); ?>"
     <?php echo wp_kses_post($search_live_results_output) ?>>
 	<div class="ct-search-input">
-		<input type="search" class="search-field" placeholder="<?php echo esc_attr_x( 'Search', 'placeholder', 'blocksy' ); ?>" value="<?php echo get_search_query(); ?>" name="s" autocomplete="off" />
+		<input type="search" class="search-field" placeholder="<?php echo esc_attr_x( 'Search', 'placeholder', 'blocksy' ); ?>" value="<?php echo get_search_query(); ?>" name="s" autocomplete="off" title="<?php echo __('Search Input', 'blocksy') ?>" />
 
 		<button class="search-submit">
+			<span hidden><?php echo __('Search', 'blocksy') ?></span>
 			<i>
 				<svg
 					width="12px"

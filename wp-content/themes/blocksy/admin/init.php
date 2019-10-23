@@ -109,6 +109,7 @@ add_action(
 
 add_action('admin_notices', function () {
 	blocksy_output_companion_notice();
+	blocksy_output_footer_builder_notice();
 });
 
 function blocksy_output_companion_notice() {
@@ -154,11 +155,42 @@ function blocksy_output_companion_notice() {
 	echo '</div>';
 }
 
+function blocksy_output_footer_builder_notice() {
+	if (get_option('dismissed-blocksy_footer_builder_notice', false)) return;
+	echo '<div class="notice notice-footer-builder">';
+	echo '<div class="notice-footer-builder-root">';
+	?>
+
+	<h2><?php esc_html_e( 'Heads up, Blocksy 1.6 is arriving soon!', 'blocksy' ); ?></h2>
+	<p class="about-description">
+		We are in the process of rebuilding our <b>Footer</b> option experience.
+	<p>
+		Soon we will release the <b>Footer Builder</b> module, it will give you the power and freedoom to build any kind of Footer in just a few minutes.<br>
+		This means that you will have to rebuild your footer from scratch.
+	</p>
+
+	<div class="notice-actions">
+		<a href="https://creativethemes.com/blocksy/support/?subject_prefix=Footer Builder Question" class="button button-primary" target="_blank">I have a question or idea</a>
+		<a href="#" class="button" data-dismiss="footer-builder">Dismiss notification</a>
+	</div>
+
+	<span class="notice-dismiss" title="Dismiss this notice">
+	</span>
+
+	<?php
+	echo '</div>';
+	echo '</div>';
+}
+
 add_action( 'wp_ajax_blocksy_dismissed_notice_handler', function () {
 	update_option('dismissed-blocksy_plugin_notice', true);
 	wp_die();
 });
 
+add_action( 'wp_ajax_blocksy_dismissed_notice_footer_builder', function () {
+	update_option('dismissed-blocksy_footer_builder_notice', true);
+	wp_die();
+});
 
 add_action( 'wp_ajax_blocksy_notice_button_click', function () {
 	if (! current_user_can('activate_plugins') ) return;

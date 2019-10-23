@@ -424,6 +424,8 @@ class GenericOptionType extends Component {
 							{OptionComponentWithoutDesign}
 						</section>
 
+						<ControlEnd />
+
 						{maybeDesc && (
 							<div
 								dangerouslySetInnerHTML={{
@@ -434,8 +436,6 @@ class GenericOptionType extends Component {
 						)}
 					</Fragment>
 				)}
-
-				<ControlEnd />
 			</div>
 		)
 

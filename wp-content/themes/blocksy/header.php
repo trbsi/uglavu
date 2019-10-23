@@ -21,7 +21,7 @@
 	<?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); ?>>
+<body <?php body_class(); ?> <?php echo blocksy_body_attr() ?>>
 
 <?php
 	if (function_exists('wp_body_open')) {

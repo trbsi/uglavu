@@ -7,21 +7,65 @@
  * @package   Blocksy
  */
 
+function blocksy_get_pagination_source() {
+	static $result = null;
+
+	if (! is_null($result)) {
+		if (! is_customize_preview()) {
+			return $result;
+		}
+	}
+
+	if (function_exists('is_woocommerce')) {
+		if (is_woocommerce()) {
+			$result = [
+				'strategy' => 'customizer',
+				'prefix' => 'woo'
+			];
+
+			return $result;
+		}
+	}
+
+	$result = [
+		'strategy' => 'customizer',
+		'prefix' => 'blog'
+	];
+
+	return $result;
+}
+
 /**
  * Dispaly post pagination.
  *
  * @param array $args Pagination config.
  */
 function blocksy_display_posts_pagination( $args = [] ) {
+	$source = blocksy_get_pagination_source();
+
 	// Don't print empty markup if there's only one page.
+
+	if (isset($args['source'])) {
+		$source = $args['source'];
+	}
+
 	$args = wp_parse_args(
 		$args,
 		[
+			'source' => $source,
 			'has_pagination' => true,
-			'pagination_type' => get_theme_mod('pagination_global_type', 'simple'),
+			'pagination_type' => blocksy_akg_or_customizer(
+				'pagination_global_type',
+				$source,
+				'simple'
+			),
 			'last_page_text' => __('No more posts to load', 'blocksy')
 		]
 	);
+
+	if ($source['prefix'] === 'woo') {
+		$args['last_page_text'] = __('No more products to load', 'blocksy');
+	}
 
 	if (! $args['has_pagination']) {
 		return '';
@@ -30,6 +74,7 @@ function blocksy_display_posts_pagination( $args = [] ) {
 	global $wp_query, $wp_rewrite;
 
 	$current_page = $wp_query->get( 'paged' );
+
 	if ( ! $current_page ) {
 		$current_page = 1;
 	}
@@ -45,8 +90,9 @@ function blocksy_display_posts_pagination( $args = [] ) {
 		&&
 		intval($current_page) !== intval($wp_query->max_num_pages)
 	) {
-		$label_button = get_theme_mod(
+		$label_button = blocksy_akg_or_customizer(
 			'load_more_label',
+			$source,
 			__('Load More', 'blocksy')
 		);
 
@@ -71,15 +117,23 @@ function blocksy_display_posts_pagination( $args = [] ) {
 	$pagination_class = 'ct-pagination';
 	$divider_output = '';
 
-	$divider = get_theme_mod('paginationDivider', [
-		'width' => 1,
-		'style' => 'none',
-		'color' => [
-			'color' => 'rgba(224, 229, 235, 0.5)',
+	$divider = blocksy_akg_or_customizer(
+		'paginationDivider',
+		$source,
+		[
+			'width' => 1,
+			'style' => 'none',
+			'color' => [
+				'color' => 'rgba(224, 229, 235, 0.5)',
+			]
 		]
-	]);
+	);
 
-	if ($divider['style'] !== 'none') {
+	if (
+		$divider['style'] !== 'none'
+		&&
+		$args['pagination_type'] !== 'infinite_scroll'
+	) {
 		$divider_output = 'data-divider';
 	}
 

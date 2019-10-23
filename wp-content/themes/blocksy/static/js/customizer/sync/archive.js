@@ -8,6 +8,10 @@ export const getPrefixFor = () => {
 		return 'blog'
 	}
 
+	if (document.body.classList.contains('single-product')) {
+		return 'product'
+	}
+
 	if (
 		document.body.classList.contains('woocommerce-archive') ||
 		document.body.classList.contains('woocommerce-cart') ||
@@ -51,7 +55,7 @@ const renderLocalSidebar = prefix => {
 	ctEvents.trigger('ct:custom-select:init')
 }
 
-const prefixes = ['blog', 'woo', 'search', 'author', 'categories']
+const prefixes = ['blog', 'woo', 'search', 'author', 'categories', 'product']
 
 const watchOptionsFor = prefix => {
 	;[

@@ -61,16 +61,18 @@
 	}
 
 	// columns
-	&[data-columns] {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
-		margin-top: -10px;
+	&[data-columns="2"] {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-column-gap: 15px;
+		grid-row-gap: 15px;
+	}
 
-		label {
-			width: 47%;
-			margin-top: 15px;
-		}
+	&[data-columns="3"] {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-column-gap: 15px;
+		grid-row-gap: 15px;
 	}
 
 	&[data-radio-text="small"] li {

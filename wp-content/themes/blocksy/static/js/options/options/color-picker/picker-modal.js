@@ -46,6 +46,41 @@ const getLeftForEl = (arrow, el) => {
 export default class PickerModal extends Component {
 	arrow = createRef()
 
+	getValueForPicker = () => {
+		if (this.props.value.color === getNoColorPropFor(this.props.option)) {
+			return ''
+		}
+
+		if (
+			this.props.value.color.indexOf(
+				getNoColorPropFor(this.props.option)
+			) > -1 &&
+			this.props.picker.inherit
+		) {
+			return getComputedStyle(document.documentElement)
+				.getPropertyValue(
+					this.props.picker.inherit
+						.replace(/var\(/, '')
+						.replace(/\)/, '')
+				)
+				.trim()
+				.replace(/\s/g, '')
+		}
+
+		if (this.props.value.color.indexOf('var') > -1) {
+			return getComputedStyle(document.documentElement)
+				.getPropertyValue(
+					this.props.value.color
+						.replace(/var\(/, '')
+						.replace(/\)/, '')
+				)
+				.trim()
+				.replace(/\s/g, '')
+		}
+
+		return this.props.value.color
+	}
+
 	render() {
 		return (
 			<Fragment>
@@ -214,20 +249,7 @@ export default class PickerModal extends Component {
 						onChange={v => this.props.onChange(v)}
 						value={{
 							...this.props.value,
-							color:
-								this.props.value.color ===
-								getNoColorPropFor(this.props.option)
-									? ''
-									: this.props.value.color.indexOf('var') > -1
-									? getComputedStyle(document.documentElement)
-											.getPropertyValue(
-												this.props.value.color
-													.replace(/var\(/, '')
-													.replace(/\)/, '')
-											)
-											.trim()
-											.replace(/\s/g, '')
-									: this.props.value.color
+							color: this.getValueForPicker()
 						}}
 					/>
 				</div>

@@ -20,7 +20,7 @@ const Heading = () => {
 			</h2>
 			<p>
 				{__(
-					`The most innovative, lightning fast and super charged WordPress theme. Build visually your next web project in no minutes`,
+					`The most innovative, lightning fast and super charged WordPress theme. Build visually your next web project in no time.`,
 					'blocksy'
 				)}
 			</p>

@@ -173,6 +173,10 @@ if (get_theme_mod('footer_reveal', 'no') === 'yes') {
 </div>
 
 <?php
+	if (function_exists('blocksy_woo_floating_cart')) {
+		echo blocksy_woo_floating_cart();
+	}
+
 	if (get_theme_mod('has_back_top', 'no') === 'yes') {
 		blocksy_output_back_to_top_link();
 	}

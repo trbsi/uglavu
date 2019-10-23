@@ -14,14 +14,14 @@ ctEvents.on(
 			mobileMenuColor: [
 				{
 					selector: '.mobile-menu',
-					variable: 'linkInitialColor',
+					variable: 'color',
 					type: 'color:default',
 					responsive: true
 				},
 
 				{
 					selector: '.mobile-menu',
-					variable: 'linkHoverColor',
+					variable: 'colorHover',
 					type: 'color:hover',
 					responsive: true
 				}

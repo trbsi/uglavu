@@ -67,7 +67,7 @@ $options = [
 	],
 
 	$prefix . 'archive_listing_panel' => [
-		'label' => __( 'Card Options', 'blocksy' ),
+		'label' => __( 'Cards Options', 'blocksy' ),
 		'type' => 'ct-panel',
 		'value' => 'yes',
 		'wrapperAttr' => [ 'data-panel' => 'only-arrow' ],
@@ -370,23 +370,61 @@ $options = [
 									],
 
 									blocksy_rand_md5() => [
-										'type' => 'ct-condition',
-										'condition' => [ 'meta/date' => true ],
+										'type' => 'ct-group',
+										'attr' => [ 'data-columns' => '1' ],
 										'options' => [
 
-											'date_format' => [
-												'label' => __( 'Date Format', 'blocksy' ),
-												'type' => 'text',
-												'design' => 'inline',
-												'value' => 'M j, Y',
-												'setting' => [ 'transport' => 'postMessage' ],
-												// translators: The interpolations addes a html link around the word.
-												'desc' => sprintf(
-													__('Documentation on date %sformatting%s.', 'blocksy'),
-													'<a href="https://wordpress.org/support/article/formatting-date-and-time/#format-string-examples" target="_blank">',
-													'</a>'
-												),
+											blocksy_rand_md5() => [
+												'type' => 'ct-condition',
+												'condition' => [
+													'any' => [
+														'meta/date' => true,
+														'meta/updated' => true
+													]
+												],
+												'options' => [
+
+													'date_format_source' => [
+														'label' => __( 'Date Format', 'blocksy' ),
+														'type' => 'ct-radio',
+														'value' => 'custom',
+														'setting' => [ 'transport' => 'postMessage' ],
+														'inline' => true,
+														'view' => 'text',
+														'choices' => [
+															'default' => __( 'Default', 'blocksy' ),
+															'custom' => __( 'Custom', 'blocksy' ),
+														],
+													],
+
+													blocksy_rand_md5() => [
+														'type' => 'ct-condition',
+														'condition' => [
+															'date_format_source' => 'custom'
+														],
+														'options' => [
+
+															'date_format' => [
+																'label' => false,
+																'type' => 'text',
+																'design' => 'block',
+																'value' => 'M j, Y',
+																'setting' => [ 'transport' => 'postMessage' ],
+																// translators: The interpolations addes a html link around the word.
+																'desc' => sprintf(
+																	__('Documentation on date %sformatting%s.', 'blocksy'),
+																	'<a href="https://wordpress.org/support/article/formatting-date-and-time/#format-string-examples" target="_blank">',
+																	'</a>'
+																),
+																'disableRevertButton' => true,
+															],
+
+														],
+													],
+
+												],
 											],
+
 
 										],
 									],
@@ -432,6 +470,57 @@ $options = [
 						'setting' => [ 'transport' => 'postMessage' ],
 					],
 
+					blocksy_rand_md5() => [
+						'type' => 'ct-divider',
+					],
+
+					blocksy_rand_md5() => [
+						'type' => 'ct-condition',
+						'condition' => [ $prefix . 'structure' => 'grid' ],
+						'options' => [
+
+							$prefix . 'columns' => [
+								'label' => __( 'Cards Per Row', 'blocksy' ),
+								'type' => 'ct-number',
+								'value' => 3,
+								'min' => 2,
+								'max' => 4,
+								'design' => 'inline',
+								'setting' => [ 'transport' => 'postMessage' ],
+							],
+
+						],
+					],
+
+					$prefix . 'archive_per_page' => [
+						'label' => __( 'Cards Per page', 'blocksy' ),
+						'type' => 'ct-number',
+						'value' => 10,
+						'min' => 1,
+						'max' => 30,
+						'design' => 'inline',
+						// 'setting' => [ 'transport' => 'postMessage' ],
+					],
+
+					blocksy_rand_md5() => [
+						'type' => 'ct-divider',
+						'attr' => [ 'data-type' => 'small' ],
+					],
+
+					$prefix . 'cardsGap' => [
+						'label' => __( 'Cards Gap', 'blocksy' ),
+						'type' => 'ct-slider',
+						'min' => 0,
+						'max' => 100,
+						'responsive' => true,
+						'value' => [
+							'mobile' => 30,
+							'tablet' => 30,
+							'desktop' => 30,
+						],
+						'setting' => [ 'transport' => 'postMessage' ],
+					],
+
 				],
 			],
 
@@ -474,7 +563,7 @@ $options = [
 									],
 
 									'hover' => [
-										'color' => 'var(--paletteColor1)',
+										'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 									],
 								],
 
@@ -487,6 +576,7 @@ $options = [
 									[
 										'title' => __( 'Hover', 'blocksy' ),
 										'id' => 'hover',
+										'inherit' => 'var(--colorHover)'
 									],
 								],
 							],
@@ -524,10 +614,10 @@ $options = [
 								'type'  => 'ct-color-picker',
 								'design' => 'inline',
 								'setting' => [ 'transport' => 'postMessage' ],
-
+								'noColor' => [ 'background' => 'var(--color)'],
 								'value' => [
 									'default' => [
-										'color' => 'var(--fontColor)',
+										'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 									],
 								],
 
@@ -535,6 +625,7 @@ $options = [
 									[
 										'title' => __( 'Initial', 'blocksy' ),
 										'id' => 'default',
+										'inherit' => 'var(--color)'
 									],
 								],
 							],
@@ -563,18 +654,18 @@ $options = [
 					],
 
 					$prefix . 'cardMetaColor' => [
-						'label' => __( 'Meta Color', 'blocksy' ),
+						'label' => __( 'Meta Font Color', 'blocksy' ),
 						'type'  => 'ct-color-picker',
 						'design' => 'inline',
 						'setting' => [ 'transport' => 'postMessage' ],
-
+						'noColor' => [ 'background' => 'var(--color)'],
 						'value' => [
 							'default' => [
-								'color' => 'var(--fontColor)',
+								'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 							],
 
 							'hover' => [
-								'color' => 'var(--paletteColor1)',
+								'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 							],
 						],
 
@@ -582,11 +673,13 @@ $options = [
 							[
 								'title' => __( 'Initial', 'blocksy' ),
 								'id' => 'default',
+								'inherit' => 'var(--color)'
 							],
 
 							[
 								'title' => __( 'Hover', 'blocksy' ),
 								'id' => 'hover',
+								'inherit' => 'var(--colorHover)'
 							],
 						],
 					],
@@ -679,6 +772,32 @@ $options = [
 					blocksy_rand_md5() => [
 						'type' => 'ct-condition',
 						'condition' => [
+							$prefix . 'card_type' => 'simple',
+							$prefix . 'archive_order:array-ids:featured_image:enabled' => '!no'
+
+						],
+						'options' => [
+
+							blocksy_rand_md5() => [
+								'type' => 'ct-divider',
+							],
+
+							$prefix . 'cardThumbRadius' => [
+								'label' => __( 'Featured Image Radius', 'blocksy' ),
+								'type' => 'ct-spacing',
+								'setting' => [ 'transport' => 'postMessage' ],
+								'value' => blocksy_spacing_value([
+									'linked' => true,
+								]),
+								'responsive' => true
+							],
+
+						],
+					],
+
+					blocksy_rand_md5() => [
+						'type' => 'ct-condition',
+						'condition' => [
 							$prefix . 'card_type' => 'boxed',
 							$prefix . 'structure' => '!gutenberg'
 						],
@@ -763,57 +882,4 @@ $options = [
 			],
 		]
 	],
-
-	blocksy_rand_md5() => [
-		'type' => 'ct-divider',
-		'attr' => [ 'data-type' => 'small' ],
-	],
-
-	blocksy_rand_md5() => [
-		'type' => 'ct-condition',
-		'condition' => [ $prefix . 'structure' => 'grid' ],
-		'options' => [
-
-			$prefix . 'columns' => [
-				'label' => __( 'Cards Per Row', 'blocksy' ),
-				'type' => 'ct-number',
-				'value' => 3,
-				'min' => 2,
-				'max' => 4,
-				'design' => 'inline',
-				'setting' => [ 'transport' => 'postMessage' ],
-			],
-
-		],
-	],
-
-	$prefix . 'archive_per_page' => [
-		'label' => __( 'Cards Per page', 'blocksy' ),
-		'type' => 'ct-number',
-		'value' => 10,
-		'min' => 1,
-		'max' => 30,
-		'design' => 'inline',
-		// 'setting' => [ 'transport' => 'postMessage' ],
-	],
-
-	blocksy_rand_md5() => [
-		'type' => 'ct-divider',
-		'attr' => [ 'data-type' => 'small' ],
-	],
-
-	$prefix . 'cardsGap' => [
-		'label' => __( 'Cards Gap', 'blocksy' ),
-		'type' => 'ct-slider',
-		'min' => 0,
-		'max' => 100,
-		'responsive' => true,
-		'value' => [
-			'mobile' => 30,
-			'tablet' => 30,
-			'desktop' => 30,
-		],
-		'setting' => [ 'transport' => 'postMessage' ],
-	],
-
 ];

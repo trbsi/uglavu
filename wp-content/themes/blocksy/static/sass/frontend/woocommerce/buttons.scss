@@ -7,7 +7,7 @@
 			position: var(--loadingIndicatorPosition, absolute);
 			font-family: 'woo';
 			content: "\e982";
-			color: var(--fontColor);
+			color: var(--color);
 			opacity: 0.5;
 			width: 15px;
 			height: 15px;
@@ -32,7 +32,7 @@ form.cart {
 		}
 
 		&:after {
-			--fontColor: #fff;
+			--color: #fff;
 			--loadingIndicatorPosition: relative;
 			margin-left: 10px;
 			opacity: 1;
@@ -45,7 +45,7 @@ form.cart {
 		--padding: 0 18px;
 		--buttonFontWeight: 500;
 		--buttonInitialColor: #f4f5f8;
-		--buttonTextInitialColor: var(--fontColor);
+		--buttonTextInitialColor: var(--color);
 		--buttonTextHoverColor: #fff;
 
 		text-transform: capitalize;

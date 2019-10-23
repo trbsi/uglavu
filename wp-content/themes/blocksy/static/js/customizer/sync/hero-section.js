@@ -101,8 +101,15 @@ const getEnabledKey = () => {
 	return false
 }
 
-export const getOptionFor = (key, prefix = '') =>
-	wp.customize(`${prefix}${prefix.length > 0 ? '_' : ''}${key}`)()
+export const getOptionFor = (key, prefix = '') => {
+	const id = `${prefix}${prefix.length > 0 ? '_' : ''}${key}`
+
+	if (wp.customize(id)) {
+		return wp.customize(id)()
+	}
+
+	return false
+}
 
 export const renderHeroSection = prefix => {
 	if (prefix !== getPrefixFor()) {
@@ -330,12 +337,17 @@ export const renderHeroSection = prefix => {
 
 		;[
 			...document.querySelectorAll(
-				'.hero-section .entry-meta .ct-meta-date .ct-meta-element',
+				'.hero-section .entry-meta .ct-meta-date .ct-meta-element'
+			),
+			...document.querySelectorAll(
 				'.hero-section .entry-meta .ct-meta-updated-date .ct-meta-element'
 			)
 		].map(dateEl => {
 			dateEl.innerHTML = window.wp.date.format(
-				getOptionFor('single_meta_date_format', prefix) || 'M j, Y',
+				getOptionFor('date_format_source', prefix) === 'default'
+					? dateEl.dataset.defaultFormat
+					: getOptionFor('single_meta_date_format', prefix) ||
+							'M j, Y',
 				moment(dateEl.dataset.date)
 			)
 		})
@@ -418,7 +430,8 @@ export const renderHeroSectionTexts = prefix => {
 
 const getVariablesForPrefix = prefix => ({
 	[`${prefix}_hero_height`]: {
-		variable: 'pageTitleMinHeight',
+		selector: '.hero-section[data-type="type-2"]',
+		variable: 'minHeight',
 		responsive: true,
 		unit: ''
 	},
@@ -429,8 +442,8 @@ const getVariablesForPrefix = prefix => ({
 	}),
 
 	[`${prefix}_pageTitleFontColor`]: {
-		selector: '.entry-header',
-		variable: 'initialColor',
+		selector: '.entry-header .page-title',
+		variable: 'color',
 		type: 'color'
 	},
 
@@ -442,25 +455,36 @@ const getVariablesForPrefix = prefix => ({
 	[`${prefix}_pageMetaFontColor`]: [
 		{
 			selector: '.entry-header .entry-meta',
-			variable: 'initialColor',
+			variable: 'color',
 			type: 'color:default'
 		},
 
 		{
 			selector: '.entry-header .entry-meta',
-			variable: 'hoverColor',
+			variable: 'colorHover',
 			type: 'color:hover'
 		}
 	],
 
+	...typographyOption({
+		id: `${prefix}_pageExcerptFont`,
+		selector: '.entry-header .page-description'
+	}),
+
+	[`${prefix}_pageExcerptColor`]: {
+		selector: '.entry-header .page-description',
+		variable: 'color',
+		type: 'color'
+	},
+
 	[`${prefix}_pageTitleOverlay`]: {
-		selector: ':root',
+		selector: '.hero-section[data-type="type-2"]',
 		variable: 'pageTitleOverlay',
 		type: 'color'
 	},
 
 	[`${prefix}_pageTitleBackground`]: {
-		selector: ':root',
+		selector: '.hero-section[data-type="type-2"]',
 		variable: 'pageTitleBackground',
 		type: 'color'
 	}
@@ -476,6 +500,7 @@ const watchOptionsFor = prefix => {
 		`${prefix}_hero_section`,
 		`${prefix}_has_meta_label`,
 		`${prefix}_single_meta_date_format`,
+		`${prefix}_date_format_source`,
 		`${prefix}_single_meta_elements`,
 		// `${prefix}_custom_title`,
 		// `${prefix}_custom_description`,

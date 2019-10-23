@@ -37,11 +37,6 @@ $options = [
 				],
 			],
 
-			blocksy_rand_md5() => [
-				'type' => 'ct-divider',
-				'attr' => [ 'data-type' => 'small' ],
-			],
-
 			'headerRowHeight' => [
 				'label' => __( 'Min Height', 'blocksy' ),
 				'type' => 'ct-slider',
@@ -49,6 +44,7 @@ $options = [
 				'max' => 300,
 				'responsive' => true,
 				'value' => $default_height,
+				'divider' => 'top',
 				'setting' => [ 'transport' => 'postMessage' ],
 			],
 

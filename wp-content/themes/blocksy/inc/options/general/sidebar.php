@@ -222,52 +222,20 @@ $options = [
 						],
 					],
 
-					blocksy_rand_md5() => [
-						'type' => 'ct-divider',
-					],
-
-					'sidebarWidgetsHeadingsFont' => [
-						'type' => 'ct-typography',
-						'label' => __( 'Headings Font', 'blocksy' ),
-						'value' => blocksy_typography_default_values([
-							'size' => '15px',
-							'variation' => 'n5',
-							'line-height' => '1.4'
-						]),
-						'setting' => [ 'transport' => 'postMessage' ],
-					],
 
 					'sidebarWidgetsFontColor' => [
-						'label' => __( 'Font Color', 'blocksy' ),
+						'label' => __( 'Text Color', 'blocksy' ),
 						'type'  => 'ct-color-picker',
 						'design' => 'inline',
+						'divider' => 'top',
 						'setting' => [ 'transport' => 'postMessage' ],
 						'value' => [
 							'default' => [
-								'color' => 'var(--paletteColor3)',
-							],
-						],
-
-						'pickers' => [
-							[
-								'title' => __( 'Initial', 'blocksy' ),
-								'id' => 'default',
-							],
-						],
-					],
-
-					'sidebarWidgetsLink' => [
-						'label' => __( 'Link Color', 'blocksy' ),
-						'type'  => 'ct-color-picker',
-						'design' => 'inline',
-						'setting' => [ 'transport' => 'postMessage' ],
-						'value' => [
-							'default' => [
-								'color' => 'var(--paletteColor3)',
+								'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 							],
 
 							'hover' => [
-								'color' => 'var(--paletteColor1)',
+								'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 							],
 						],
 
@@ -275,11 +243,13 @@ $options = [
 							[
 								'title' => __( 'Initial', 'blocksy' ),
 								'id' => 'default',
+								'inherit' => 'var(--color)'
 							],
 
 							[
 								'title' => __( 'Hover', 'blocksy' ),
 								'id' => 'hover',
+								'inherit' => 'var(--colorHover)'
 							],
 						],
 					],

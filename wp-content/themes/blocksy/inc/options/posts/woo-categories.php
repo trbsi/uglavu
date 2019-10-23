@@ -55,7 +55,7 @@ $options = [
 				],
 
 				'product_card_options_panel' => [
-					'label' => __( 'Card Options', 'blocksy' ),
+					'label' => __( 'Cards Options', 'blocksy' ),
 					'type' => 'ct-panel',
 					'wrapperAttr' => [ 'data-panel' => 'only-arrow' ],
 					'setting' => [ 'transport' => 'postMessage' ],
@@ -66,10 +66,82 @@ $options = [
 							'type' => 'tab',
 							'options' => [
 								[
+
+									'woocommerce_thumbnail_image_width' => [
+										'type' => 'text',
+										'label' => __('Thumbnail width', 'blocksy'),
+										'value' => 500,
+										'design' => 'inline',
+										'setting' => [
+											'type' => 'option',
+											'capability' => 'manage_woocommerce',
+										]
+									],
+
+									'woocommerce_thumbnail_cropping' => [
+										'label' => __('Thumbnail cropping', 'blocksy'),
+										'type' => 'ct-select',
+										'value' => '1:1',
+										'view' => 'text',
+										'design' => 'inline',
+										'setting' => [ 'type' => 'option' ],
+										'choices' => blocksy_ordered_keys(
+											[
+												'1:1' => '1:1',
+												'custom' => __( 'Custom', 'blocksy' ),
+												'uncropped' => __( 'Uncropped', 'blocksy' ),
+											]
+										),
+									],
+
+									blocksy_rand_md5() => [
+										'type' => 'ct-condition',
+										'condition' => [ 'woocommerce_thumbnail_cropping' => 'custom' ],
+										'options' => [
+
+											blocksy_rand_md5() => [
+												'type' => 'ct-group',
+												'attr' => [ 'data-columns' => '2' ],
+												'options' => [
+
+													'woocommerce_thumbnail_cropping_custom_width' => [
+														'label' => false,
+														'type' => 'text',
+														'value' => 4,
+														'setting' => [
+															'type' => 'option',
+															'capability' => 'manage_woocommerce',
+
+														],
+														'disableRevertButton' => true,
+														'desc' => __('Width', 'blocksy'),
+													],
+
+
+													'woocommerce_thumbnail_cropping_custom_height' => [
+														'label' => false,
+														'type' => 'text',
+														'value' => 3,
+														'setting' => [
+															'type' => 'option',
+															'capability' => 'manage_woocommerce',
+
+														],
+														'disableRevertButton' => true,
+														'desc' => __('Height', 'blocksy'),
+													],
+
+												],
+											],
+
+										],
+									],
+
 									'has_star_rating' => [
 										'label' => __( 'Star Rating', 'blocksy' ),
 										'type' => 'ct-switch',
 										'value' => 'yes',
+										'divider' => 'top',
 										'setting' => [ 'transport' => 'postMessage' ],
 									],
 
@@ -91,7 +163,56 @@ $options = [
 								apply_filters(
 									'blocksy_woo_card_options_elements',
 									[]
-								)
+								),
+
+								[
+									blocksy_rand_md5() => [
+										'type' => 'ct-divider',
+									],
+
+									blocksy_rand_md5() => [
+										'type' => 'ct-condition',
+										'condition' => [ 'shop_structure' => 'grid' ],
+										'options' => [
+
+											'shop_columns' => [
+												'label' => __( 'Products Per Row', 'blocksy' ),
+												'type' => 'ct-number',
+												'value' => 3,
+												'min' => 2,
+												'max' => 4,
+												'design' => 'inline',
+												'setting' => [ 'transport' => 'postMessage' ],
+											],
+
+										],
+									],
+
+									'shop_products' => [
+										'label' => __( 'Products Per Page', 'blocksy' ),
+										'type' => 'ct-number',
+										'value' => 9,
+										'min' => 1,
+										'max' => 30,
+										'design' => 'inline',
+										'setting' => [ 'transport' => 'postMessage' ],
+									],
+
+									'shopCardsGap' => [
+										'label' => __( 'Cards Gap', 'blocksy' ),
+										'type' => 'ct-slider',
+										'min' => 0,
+										'max' => 100,
+										'responsive' => true,
+										'value' => [
+											'mobile' => 30,
+											'tablet' => 30,
+											'desktop' => 30,
+										],
+										'divider' => 'top',
+										'setting' => [ 'transport' => 'postMessage' ],
+									],
+								],
 
 							],
 						],
@@ -120,11 +241,11 @@ $options = [
 
 									'value' => [
 										'default' => [
-											'color' => 'var(--paletteColor3)',
+											'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 										],
 
 										'hover' => [
-											'color' => 'var(--paletteColor1)',
+											'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 										],
 									],
 
@@ -132,11 +253,13 @@ $options = [
 										[
 											'title' => __( 'Initial', 'blocksy' ),
 											'id' => 'default',
+											'inherit' => 'var(--color)'
 										],
 
 										[
 											'title' => __( 'Hover', 'blocksy' ),
 											'id' => 'hover',
+											'inherit' => 'var(--colorHover)'
 										],
 									],
 								],
@@ -244,11 +367,11 @@ $options = [
 
 											'value' => [
 												'default' => [
-													'color' => 'rgba(44,62,80,0.7)',
+													'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 												],
 
 												'hover' => [
-													'color' => 'var(--paletteColor1)',
+													'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 												],
 											],
 
@@ -256,11 +379,13 @@ $options = [
 												[
 													'title' => __( 'Initial', 'blocksy' ),
 													'id' => 'default',
+													'inherit' => 'var(--color)'
 												],
 
 												[
 													'title' => __( 'Hover', 'blocksy' ),
 													'id' => 'hover',
+													'inherit' => 'var(--colorHover)'
 												],
 											],
 										],
@@ -276,7 +401,7 @@ $options = [
 
 									'value' => [
 										'default' => [
-											'color' => 'var(--paletteColor3)',
+											'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 										],
 									],
 
@@ -284,6 +409,7 @@ $options = [
 										[
 											'title' => __( 'Initial', 'blocksy' ),
 											'id' => 'default',
+											'inherit' => 'var(--color)'
 										],
 									],
 								],
@@ -301,11 +427,11 @@ $options = [
 
 											'value' => [
 												'default' => [
-													'color' => 'var(--paletteColor3)',
+													'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 												],
 
 												'hover' => [
-													'color' => 'var(--paletteColor1)',
+													'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 												],
 											],
 
@@ -313,11 +439,13 @@ $options = [
 												[
 													'title' => __( 'Initial', 'blocksy' ),
 													'id' => 'default',
+													'inherit' => 'var(--color)'
 												],
 
 												[
 													'title' => __( 'Hover', 'blocksy' ),
 													'id' => 'hover',
+													'inherit' => 'var(--colorHover)'
 												],
 											],
 										],
@@ -338,11 +466,11 @@ $options = [
 
 											'value' => [
 												'default' => [
-													'color' => 'var(--buttonInitialColor)',
+													'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 												],
 
 												'hover' => [
-													'color' => 'var(--buttonHoverColor)',
+													'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 												],
 											],
 
@@ -350,11 +478,13 @@ $options = [
 												[
 													'title' => __( 'Initial', 'blocksy' ),
 													'id' => 'default',
+													'inherit' => 'var(--buttonInitialColor)'
 												],
 
 												[
 													'title' => __( 'Hover', 'blocksy' ),
 													'id' => 'hover',
+													'inherit' => 'var(--buttonHoverColor)'
 												],
 											],
 										],
@@ -408,41 +538,44 @@ $options = [
 				],
 
 				blocksy_rand_md5() => [
-					'type' => 'ct-divider',
-					'attr' => [ 'data-type' => 'small' ]
+					'type'  => 'ct-title',
+					'label' => __( 'Shop Page Elements', 'blocksy' ),
 				],
 
-				blocksy_rand_md5() => [
-					'type' => 'ct-condition',
-					'condition' => [ 'shop_structure' => 'grid' ],
-					'options' => [
-
-						'shop_columns' => [
-							'label' => __( 'Products Per Row', 'blocksy' ),
-							'type' => 'ct-number',
-							'value' => 3,
-							'min' => 2,
-							'max' => 4,
-							'design' => 'inline',
-							'setting' => [ 'transport' => 'postMessage' ],
-						],
-
-					],
-				],
-
-				'shop_products' => [
-					'label' => __( 'Products Per Page', 'blocksy' ),
-					'type' => 'ct-number',
-					'value' => 9,
-					'min' => 1,
-					'max' => 30,
-					'design' => 'inline',
+				'has_shop_breadcrumbs' => [
+					'label' => __( 'Breadcrumbs', 'blocksy' ),
+					'type' => 'ct-switch',
+					'value' => 'yes',
 					'setting' => [ 'transport' => 'postMessage' ],
 				],
 
+				'has_shop_sort' => [
+					'label' => __( 'Shop Sort', 'blocksy' ),
+					'type' => 'ct-switch',
+					'value' => 'yes',
+					'setting' => [ 'transport' => 'postMessage' ],
+				],
+
+				'has_shop_results_count' => [
+					'label' => __( 'Shop Results Count', 'blocksy' ),
+					'type' => 'ct-switch',
+					'value' => 'yes',
+					'setting' => [ 'transport' => 'postMessage' ],
+				],
+			],
+
+			blocksy_get_options('general/sidebar-particular', [
+				'prefix' => 'woo',
+			]),
+
+			blocksy_get_options('general/pagination', [
+				'prefix' => 'woo',
+			]),
+
+			[
 				blocksy_rand_md5() => [
-					'type' => 'ct-divider',
-					'attr' => [ 'data-type' => 'small' ]
+					'type'  => 'ct-title',
+					'label' => __( 'Functionality Options', 'blocksy' ),
 				],
 
 				'product_catalog_panel' => [
@@ -508,36 +641,105 @@ $options = [
 					],
 				],
 
-				blocksy_rand_md5() => [
-					'type'  => 'ct-title',
-					'label' => __( 'Shop Page Elements', 'blocksy' ),
+				'woocommerce_demo_store' => [
+					'label' => __( 'Store notice', 'blocksy' ),
+					'type' => 'ct-panel',
+					'value' => 'no',
+					'switch' => true,
+					'setting' => [
+						'sanitize_callback' => 'wc_bool_to_string',
+						'sanitize_js_callback' => 'wc_bool_to_string',
+						'type' => 'option'
+					],
+
+					'inner-options' => [
+
+						blocksy_rand_md5() => [
+							'title' => __( 'General', 'blocksy' ),
+							'type' => 'tab',
+							'options' => [
+
+								'woocommerce_demo_store_notice' => [
+									'type' => 'textarea',
+									'label' => __('Store notice', 'blocksy'),
+									'value' => __( 'This is a demo store for testing purposes &mdash; no orders shall be fulfilled.', 'blocksy' ),
+									'setting' => [
+										'type' => 'option',
+										'transport' => 'postMessage'
+									],
+									'disableRevertButton' => true,
+								],
+
+								'store_notice_position' => [
+									'type' => 'ct-radio',
+									'label' => __( 'Position', 'blocksy' ),
+									'value' => 'bottom',
+									'view' => 'text',
+									'disableRevertButton' => true,
+									'setting' => [ 'transport' => 'postMessage' ],
+									'choices' => [
+										'top' => __('Top', 'blocksy'),
+										'bottom' => __('Bottom', 'blocksy'),
+									],
+								],
+
+							],
+						],
+
+						blocksy_rand_md5() => [
+							'title' => __( 'Design', 'blocksy' ),
+							'type' => 'tab',
+							'options' => [
+
+								'wooNoticeContent' => [
+									'label' => __( 'Font Color', 'blocksy' ),
+									'type'  => 'ct-color-picker',
+									'design' => 'inline',
+									'skipEditPalette' => true,
+									'setting' => [ 'transport' => 'postMessage' ],
+
+									'value' => [
+										'default' => [
+											'color' => '#ffffff',
+										],
+									],
+
+									'pickers' => [
+										[
+											'title' => __( 'Initial', 'blocksy' ),
+											'id' => 'default',
+										],
+									],
+								],
+
+								'wooNoticeBackground' => [
+									'label' => __( 'Background Color', 'blocksy' ),
+									'type'  => 'ct-color-picker',
+									'design' => 'inline',
+									'skipEditPalette' => true,
+									'setting' => [ 'transport' => 'postMessage' ],
+
+									'value' => [
+										'default' => [
+											'color' => 'var(--paletteColor1)',
+										],
+									],
+
+									'pickers' => [
+										[
+											'title' => __( 'Initial', 'blocksy' ),
+											'id' => 'default',
+										],
+									],
+								],
+
+							],
+						],
+
+					],
 				],
 
-				'has_shop_sort' => [
-					'label' => __( 'Shop Sort', 'blocksy' ),
-					'type' => 'ct-switch',
-					'value' => 'yes',
-					'setting' => [ 'transport' => 'postMessage' ],
-				],
-
-				'has_shop_results_count' => [
-					'label' => __( 'Shop Results Count', 'blocksy' ),
-					'type' => 'ct-switch',
-					'value' => 'yes',
-					'setting' => [ 'transport' => 'postMessage' ],
-				],
-
-				'has_shop_breadcrumbs' => [
-					'label' => __( 'Breadcrumbs', 'blocksy' ),
-					'type' => 'ct-switch',
-					'value' => 'yes',
-					'setting' => [ 'transport' => 'postMessage' ],
-				],
 			],
-
-			blocksy_get_options('general/sidebar-particular', [
-				'prefix' => 'woo',
-			]),
 		],
 	],
 ];

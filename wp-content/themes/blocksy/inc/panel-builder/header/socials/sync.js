@@ -24,14 +24,14 @@ ctEvents.on(
 			headerSocialsIconColor: [
 				{
 					selector: '.ct-header-socials',
-					variable: 'linkInitialColor',
+					variable: 'color',
 					type: 'color:default',
 					responsive: true
 				},
 
 				{
 					selector: '.ct-header-socials',
-					variable: 'linkHoverColor',
+					variable: 'colorHover',
 					type: 'color:hover',
 					responsive: true
 				}
@@ -40,7 +40,7 @@ ctEvents.on(
 			headerSocialsIconBackground: [
 				{
 					selector: '.ct-header-socials',
-					variable: 'backgroundColorInitial',
+					variable: 'backgroundColor',
 					type: 'color:default',
 					responsive: true
 				},
@@ -57,7 +57,8 @@ ctEvents.on(
 				selector: '.ct-header-socials',
 				type: 'spacing',
 				variable: 'margin',
-				responsive: true
+				responsive: true,
+				important: true
 			}
 		}
 	}

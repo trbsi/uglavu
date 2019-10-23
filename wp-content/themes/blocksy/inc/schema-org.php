@@ -32,7 +32,7 @@ function blocksy_schema_org_definitions($place) {
 
 	// Main
 	if ($place === 'blog') {
-		return 'itemprop="mainContentOfPage" itemtype="http://schema.org/Blog"';
+		return 'itemtype="http://schema.org/Blog" itemscope';
 	}
 
 	if ($place === 'breadcrumb') {
@@ -72,7 +72,7 @@ function blocksy_schema_org_definitions($place) {
 	}
 
 	if ($place === 'author_link') {
-		return 'itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person"';
+		return 'itemprop="author"';
 	}
 
 	if ($place === 'item') {

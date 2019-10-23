@@ -97,11 +97,11 @@ $options = [
 				'setting' => [ 'transport' => 'postMessage' ],
 				'value' => [
 					'default' => [
-						'color' => 'var(--paletteColor3)',
+						'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 					],
 
 					'hover' => [
-						'color' => 'var(--paletteColor1)',
+						'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 					],
 				],
 
@@ -109,11 +109,13 @@ $options = [
 					[
 						'title' => __( 'Initial', 'blocksy' ),
 						'id' => 'default',
+						'inherit' => 'var(--color)'
 					],
 
 					[
 						'title' => __( 'Hover', 'blocksy' ),
 						'id' => 'hover',
+						'inherit' => 'var(--colorHover)'
 					],
 				],
 			],
@@ -220,7 +222,7 @@ $options = [
 							],
 
 							'hover' => [
-								'color' => 'var(--paletteColor1)',
+								'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 							],
 						],
 
@@ -233,6 +235,7 @@ $options = [
 							[
 								'title' => __( 'Hover', 'blocksy' ),
 								'id' => 'hover',
+								'inherit' => 'var(--colorHover)'
 							],
 						],
 					],

@@ -31,7 +31,7 @@ $class_output = '';
 
 $sidebar_classes = blocksy_visibility_classes(get_theme_mod('sidebar_visibility', [
 	'desktop' => true,
-	'tablet' => true,
+	'tablet' => false,
 	'mobile' => false,
 ]));
 

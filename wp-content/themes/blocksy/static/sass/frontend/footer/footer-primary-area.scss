@@ -1,16 +1,8 @@
 .footer-primary-area {
 	font-size: 16px;
-	color: var(--linkInitialColor);
-	padding: var(--footerPrimarySpacing) 0;
-	background: var(--footerPrimaryBackground);
-
-	a {
-		color: var(--linkInitialColor);
-
-		&:hover {
-			color: var(--linkHoverColor);
-		}
-	}
+	color: var(--color);
+	padding: var(--spacing) 0;
+	background: var(--backgroundColor);
 
 	.grid-columns {
 		// stack columns

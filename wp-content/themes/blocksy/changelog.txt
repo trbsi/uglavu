@@ -1,3 +1,54 @@
+1.5.6: 2019-10-21
+- New: Add ratio picker for related posts
+- Enhancement: Enhance comments content area
+- Fix: Add `srcset` for related posts images
+- Fix: Related posts query issue
+- Fix: IE11 check for guard template
+
+1.5.5: 2019-10-18
+- New: Style links from `.entry-content`
+- New: Add IE info page
+- New: Add button text color
+- New: Add Related Posts meta options
+- Improvement: Improve accessibility
+- Improvement: Add sync for links type
+- Improvement: Add `entry-content` class to Text Widget
+- Improvement: Move Posts Reveal effect to Card Options
+- Improvement: Change woo pagination text to `No more products to load`
+- Improvement: Woo notice position and color
+- Improvement: Change date format for post meta to respect wordpress settings
+- Fix: Remove option from `metabox/categories`
+- Fix: Quick view close button spacing
+- Fix: Accessibility and validation issues
+- Fix: Categories count
+- Fix: Single product Breadcrumbs sync
+- Fix: Single product `entry-summary` position sticky
+- Fix: Woo payment options
+
+1.5.4: 2019-10-10
+- New: Add option to make Featured Image boundless when Content Area Style is boxed
+- New: Add box-shadow for content area boxed style
+- New: Add WooCommerce cards gap
+- New: Add comments container width option
+- New: Add reset confirmation modal
+- Improvement: WooCommerce block
+- Improvement: Enhance close button for panels
+- Improvement: Add footer builder notification
+- Improvement: Header items default spacing
+- Improvement: Fix editor palette colors
+- Fix: Header `z-index`
+- Fix: Background modal distance
+- Fix: Multiple color modals
+- Fix: Panel customizer error when closed on desktop
+- Fix: Remove data-divider from ct-pagination when pagination is set to Infinite Scroll
+- Fix: Color palette revert sync
+- Fix: Companion `CT_CSS_SKIP_RULEDEFAULT`
+- Fix: Fix double id in GDPR confirm box
+- Fix: Cart item margin
+- Fix: Footer reveal sync
+- Fix: Menu dropdown divider
+- Fix: Offcanvas panel left/right side sync bug
+
 1.5.3: 2019-10-01
 - New: Add box shadow option
 - New: Add back to top bottom offset option

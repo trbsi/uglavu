@@ -1,4 +1,9 @@
-import { createElement, Component, Fragment } from '@wordpress/element'
+import {
+	createElement,
+	Component,
+	Fragment,
+	createRef
+} from '@wordpress/element'
 import cls from 'classnames'
 
 const DISPLAY = {
@@ -16,20 +21,38 @@ const defaultProps = {
 	display: DISPLAY.BLOCK
 }
 
-export default class OutsideClickHandler extends Component {
-	constructor(...args) {
-		super(...args)
-
-		this.onMouseDown = this.onMouseDown.bind(this)
-		this.onMouseUp = this.onMouseUp.bind(this)
-		this.setChildNodeRef = this.setChildNodeRef.bind(this)
+const updateRef = (ref, instance) => {
+	if (typeof ref === 'function') {
+		ref(instance)
+	} else {
+		ref.current = instance
 	}
+}
 
+export default class OutsideClickHandler extends Component {
 	componentDidMount() {
 		const { disabled, useCapture } = this.props
 
 		if (!disabled) this.addMouseDownEventListener(useCapture)
 	}
+
+	childNode = createRef()
+
+	checkIsInside = event =>
+		[this.childNode, ...(this.props.additionalRefs || [])].reduce(
+			(isInside, currentRef) => {
+				if (isInside) {
+					return isInside
+				}
+
+				if (!currentRef || !currentRef.current) {
+					return isInside
+				}
+
+				return currentRef.current.contains(event.target)
+			},
+			false
+		)
 
 	componentWillReceiveProps({ disabled, useCapture }) {
 		const { disabled: prevDisabled } = this.props
@@ -50,13 +73,10 @@ export default class OutsideClickHandler extends Component {
 	// Use mousedown/mouseup to enforce that clicks remain outside the root's
 	// descendant tree, even when dragged. This should also get triggered on
 	// touch devices.
-	onMouseDown(e) {
+	onMouseDown = e => {
 		const { useCapture } = this.props
 
-		const isDescendantOfRoot =
-			this.childNode && this.childNode.contains(e.target)
-
-		if (!isDescendantOfRoot) {
+		if (!this.checkIsInside(e)) {
 			if (this.removeMouseUp) {
 				this.removeMouseUp()
 				this.removeMouseUp = null
@@ -77,27 +97,25 @@ export default class OutsideClickHandler extends Component {
 	// Use mousedown/mouseup to enforce that clicks remain outside the root's
 	// descendant tree, even when dragged. This should also get triggered on
 	// touch devices.
-	onMouseUp(e) {
+	onMouseUp = e => {
 		const { onOutsideClick } = this.props
-
-		const isDescendantOfRoot =
-			this.childNode && this.childNode.contains(e.target)
 
 		if (this.removeMouseUp) {
 			this.removeMouseUp()
 			this.removeMouseUp = null
 		}
 
-		if (!isDescendantOfRoot) {
+		if (!this.checkIsInside(e)) {
 			onOutsideClick(e)
 		}
 	}
 
-	setChildNodeRef(ref) {
+	setChildNodeRef = ref => {
 		if (this.props.wrapperProps && this.props.wrapperProps.ref) {
 			this.props.wrapperProps.ref(ref)
 		}
-		this.childNode = ref
+
+		updateRef(this.childNode, ref)
 	}
 
 	addMouseDownEventListener(useCapture) {

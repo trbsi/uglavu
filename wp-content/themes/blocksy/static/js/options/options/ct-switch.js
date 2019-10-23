@@ -1,15 +1,31 @@
 import { createElement, Component } from '@wordpress/element'
 import classnames from 'classnames'
 
-const Switch = ({ value, option, onChange, onClick }) => (
+const isActive = ({ option: { behavior = 'words' }, value }) =>
+	behavior === 'words' ? value === 'yes' : !!value
+
+const alternateValueFor = ({
+	option = {},
+	option: { behavior = 'words' },
+	value
+}) =>
+	isActive({ option, value })
+		? behavior === 'words'
+			? 'no'
+			: false
+		: behavior === 'words'
+		? 'yes'
+		: true
+
+const Switch = ({ value, option = {}, onChange, onClick }) => (
 	<div
 		className={classnames({
 			[`ct-option-switch`]: true,
-			[`ct-active`]: value === 'yes'
+			[`ct-active`]: isActive({ option, value })
 		})}
 		onClick={e => {
 			onClick && onClick(e)
-			onChange(value === 'yes' ? 'no' : 'yes')
+			onChange(alternateValueFor({ option, value }))
 		}}>
 		<span />
 	</div>

@@ -15,20 +15,14 @@
 	padding: 0;
 	background: var(--backgroundColor);
 	box-shadow: var(--boxShadow);
-	// box-shadow: 0px 10px 20px 0px rgba(41, 51, 61, 0.1);
 
 	li {
 		a {
 			padding: var(--padding, 13px) 20px;
-			color: var(--menuInitialColor);
-
-			&:hover {
-				color: var(--menuHoverColor);
-			}
 		}
 
 		&.current-menu-item a {
-			color: var(--menuHoverColor);
+			color: var(--colorHover);
 		}
 
 		&:not(:last-child) {

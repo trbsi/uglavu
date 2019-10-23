@@ -12,7 +12,7 @@
 	}
 
 	.current-menu-item a {
-		color: var(--menuHoverColor);
+		color: var(--colorActive);
 	}
 
 
@@ -23,15 +23,6 @@
 			white-space: nowrap;
 			padding-left: calc(var(--menuItemsSpacing) / 2);
 			padding-right: calc(var(--menuItemsSpacing) / 2);
-			color: var(--menuInitialColor);
-
-			&:hover {
-				color: var(--menuHoverColor);
-			}
-		}
-
-		&.current-menu-item a {
-			color: var(--menuActiveColor);
 		}
 	}
 }

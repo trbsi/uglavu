@@ -8,16 +8,17 @@
 		align-items: center;
 		justify-content: center;
 		cursor: pointer;
+		color: var(--color);
 
 		&.active {
-			color: var(--accentColor);
+			--color: var(--accentColor);
 		}
 
 		&:not(.active) {
-			color: var(--color, #CFD1D2);
-
+			--color: #CFD1D2;
+			
 			&:hover {
-				color: var(--color, #a5abaf);
+				--color: #a5abaf;
 			}
 		}
 

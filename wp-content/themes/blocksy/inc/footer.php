@@ -125,7 +125,7 @@ function blocksy_footer_main_area_section( $number = '1' ) {
 	if ( $kind === 'footer_menu' ) {
 		ob_start();
 
-		echo '<nav data-type="type-1"' . blocksy_schema_org_definitions('navigation') . '>';
+		echo '<nav data-type="type-1" ' . blocksy_schema_org_definitions('navigation') . '>';
 
 		wp_nav_menu(
 			[

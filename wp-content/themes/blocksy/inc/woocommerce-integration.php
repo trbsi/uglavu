@@ -20,6 +20,22 @@ remove_action(
 	40
 );
 
+add_filter(
+	'woocommerce_demo_store',
+	function ($notice) {
+		$parser = new Blocksy_Attributes_Parser();
+
+		$notice = $parser->add_attribute_to_images_with_tag(
+			$notice,
+			'data-position',
+			get_theme_mod('store_notice_position', 'bottom'),
+			'p'
+		);
+
+		return $notice;
+	}
+);
+
 add_action(
 	'woocommerce_single_product_summary',
 	function () {
@@ -111,6 +127,8 @@ add_action('wp_enqueue_scripts', function () {
 		[],
 		$theme->get( 'Version' )
 	);
+
+	// wp_dequeue_style( 'wc-block-style' );
 
 	wp_dequeue_style( 'selectWoo' );
 	wp_deregister_style( 'selectWoo' );

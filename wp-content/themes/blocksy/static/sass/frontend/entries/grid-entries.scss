@@ -13,20 +13,12 @@
 		@include media-breakpoint-only (md) {
 			grid-template-columns: repeat( 2, 1fr);
 		}
-
-		// @include media-breakpoint-up (lg) {
-		// 	grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
-		// }
 	}
 
 	&[data-columns="4"] {
 		@include media-breakpoint-only (md) {
 			grid-template-columns: repeat( 2, 1fr);
 		}
-
-		// @include media-breakpoint-up (lg) {
-		// 	grid-template-columns: repeat(auto-fill, minmax(22%, 1fr));
-		// }
 	}
 }
 

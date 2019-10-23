@@ -1,6 +1,6 @@
 {
 	"name": "small-ct",
-	"version": "1.5.3",
+	"version": "1.5.6",
 	"title": "Blocksy",
 	"devDependencies": {
 		"@babel/plugin-proposal-class-properties": "^7.4.4",
@@ -27,7 +27,7 @@
 		"classnames": "^2.2.6",
 		"ct-log": "^1.0.0",
 		"ct-wp-js-log": "^1.0.4",
-		"customizer-sync-helpers": "^0.0.12",
+		"customizer-sync-helpers": "^0.0.14",
 		"deep-equal": "^1.0.1",
 		"dom-chef": "^3.3.0",
 		"downshift": "^3.1.5",
@@ -50,7 +50,6 @@
 		"react-window": "^1.8.2",
 		"scriptjs": "^2.5.9",
 		"simple-linear-scale": "^1.0.1",
-		"snarkdown": "^1.2.2",
 		"sortablejs": "^1.10.0-rc3",
 		"use-force-update": "^1.0.4",
 		"vanilla-lazyload": "^8.17.0",
