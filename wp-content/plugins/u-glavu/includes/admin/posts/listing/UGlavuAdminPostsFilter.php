@@ -14,6 +14,7 @@ class UGlavuAdminPostsFilter {
 	function __construct(UGlavuLoader $loader)
     {
         $this->loader = $loader;
+        $this->run();
 	}
 
 	public function run()
@@ -28,7 +29,7 @@ class UGlavuAdminPostsFilter {
         $this->loader->add_action( 'restrict_manage_posts', $this, 'form' );
 
         // the function that filters posts
-        $this->loader->add_action( 'pre_get_posts', $this, 'filterquery' );
+        $this->loader->add_action( 'pre_get_posts', $this, 'filterQuery' );
     }
  
 	/*
@@ -36,7 +37,8 @@ class UGlavuAdminPostsFilter {
 	 * Everything else should be already included in /wp-admin/ like jquery, jquery-ui-core etc
 	 * If you use WooCommerce, you can skip this function completely
 	 */
-	function jqueryui(){
+	function jqueryui()
+    {
 		wp_enqueue_style( 'jquery-ui', '//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.min.css' );
 		wp_enqueue_script( 'jquery-ui-datepicker' );
 	}
@@ -45,7 +47,8 @@ class UGlavuAdminPostsFilter {
 	 * Two input fields with CSS/JS
 	 * If you would like to move CSS and JavaScript to the external file - welcome.
 	 */
-	function form(){
+	public function form()
+    {
  
 		$from = ( isset( $_GET['filterDateFrom'] ) && $_GET['filterDateFrom'] ) ? $_GET['filterDateFrom'] : '';
 		$to = ( isset( $_GET['filterDateTo'] ) && $_GET['filterDateTo'] ) ? $_GET['filterDateTo'] : '';
@@ -89,7 +92,8 @@ class UGlavuAdminPostsFilter {
 	/*
 	 * The main function that actually filters the posts
 	 */
-	function filterquery( $admin_query ){
+	public function filterQuery($admin_query )
+    {
 		global $pagenow;
  
 		if (

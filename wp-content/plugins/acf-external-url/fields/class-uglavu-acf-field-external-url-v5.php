@@ -151,7 +151,7 @@ class uglavu_acf_field_external_url extends acf_field {
 		*/
 		$image = $url = $title = null;
 		if (isset($_GET['post'])) {
-			$ogPost = $ogTagsScraper->get_og_post_by_id($_GET['post']);
+			$ogPost = $ogTagsScraper->getOgPostById($_GET['post']);
 			$image = $ogPost->image;
 			$url =  $ogPost->url;
 			$title = $ogPost->title;

@@ -11,6 +11,7 @@ class UGlavuFrontPostsExcerpt
 	public function __construct(UGlavuLoader $loader)
 	{
 	    $this->loader = $loader;
+	    $this->run();
 	}
 
 	public function run()
@@ -19,13 +20,13 @@ class UGlavuFrontPostsExcerpt
         remove_filter('get_the_excerpt', 'wp_trim_excerpt');
 
         /* now, add your own filter */
-        $this->loader->add_filter('get_the_excerpt', $this, 'lt_html_excerpt');
+        $this->loader->add_filter('get_the_excerpt', $this, 'ltHtmlExcerpt');
     }
 
 	/**
 	 * @see https://wpwhatnot.com/allow-html-excerpts/
 	 */
-	public function lt_html_excerpt($text) { // Fakes an excerpt if needed
+	public function ltHtmlExcerpt($text) { // Fakes an excerpt if needed
 	    global $post;
 	    if ( '' == $text ) {
 	        $text = get_the_content('');

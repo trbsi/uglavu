@@ -121,8 +121,8 @@ class UGlavu {
 
 		if (is_admin()) {
 			if ( in_array($pagenow, ['edit.php']) ) {
-                $this->container->get(UGlavuAdminPostsFilter::class)->run();
-                $this->container->get(UGlavuAdminPostsColumns::class)->run();
+                $this->container->get(UGlavuAdminPostsFilter::class);
+                $this->container->get(UGlavuAdminPostsColumns::class);
 			}
 
 			if (in_array($pagenow, ['post-new.php'])) {
@@ -130,8 +130,8 @@ class UGlavu {
                 $this->container->get(UGlavuAdminPostsCreateScrapeOgTags::class);
 			}
 		} else {
-            $this->container->get(UGlavuFrontPostsExcerpt::class)->run();
-            $this->container->get(UGlavuFrontPostsPosts::class)->run();
+            $this->container->get(UGlavuFrontPostsExcerpt::class);
+            $this->container->get(UGlavuFrontPostsPosts::class);
 		}
 
 	}
@@ -172,7 +172,7 @@ class UGlavu {
 			$scrapeOgTags = $this->container->get(UGlavuAdminPostsCreateScrapeOgTags::class);
 
 			//ajax action for scraping tags
-			$this->loader->add_action( 'wp_ajax_scrape_fb_og_tags', $scrapeOgTags, 'scrape_fb_og_tags');
+			$this->loader->add_action( 'wp_ajax_scrape_fb_og_tags', $scrapeOgTags, 'scrapeFbOgTags');
 		}
 	}
 

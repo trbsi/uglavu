@@ -11,15 +11,17 @@ class UGlavuFrontPostsPosts
     public function __construct(UGlavuLoader $loader)
 	{
         $this->loader = $loader;
+        $this->run();
     }
 
 	public function run()
     {
-        $this->loader->add_filter('posts_join', $this, 'join_og_tags', 10, 2);
-        $this->loader->add_filter( 'posts_fields', $this, 'select_extra_fields', 10, 2);
+        $this->loader->add_filter('posts_join', $this, 'joinOgTags', 10, 2);
+        $this->loader->add_filter( 'posts_fields', $this, 'selectExtraFields', 10, 2);
     }
 
-    public function join_og_tags ($join, $query) {
+    public function joinOgTags ($join, $query)
+    {
 	    global $wpdb;
 		if ($query->is_main_query()) {
 		    $join .= " LEFT JOIN wp_og_tags ON ({$wpdb->posts}.ID = wp_og_tags.post_id)";
@@ -28,7 +30,8 @@ class UGlavuFrontPostsPosts
 	}
 
 
-	public function select_extra_fields($fields, $query) { 
+	public function selectExtraFields($fields, $query)
+    {
 		global $wpdb;
 		if ($query->is_main_query()) {
 		    $ogTagsTable = $wpdb->prefix . 'og_tags';

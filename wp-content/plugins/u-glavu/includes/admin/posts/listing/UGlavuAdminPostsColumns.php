@@ -14,15 +14,16 @@ class UGlavuAdminPostsColumns {
 	public function __construct(UGlavuLoader $loader)
 	{
 	    $this->loader = $loader;
+	    $this->run();
 	}
 
 	public function run()
     {
-        $this->loader->add_action( 'manage_posts_columns', $this, 'add_datetime_column', 15);
-        $this->loader->add_action( 'manage_posts_custom_column', $this, 'custom_columns', 10, 2);
+        $this->loader->add_action( 'manage_posts_columns', $this, 'addDatetimeColumn', 15);
+        $this->loader->add_action( 'manage_posts_custom_column', $this, 'customColumns', 10, 2);
     }
- 
-	public function add_datetime_column( $columns )
+
+	public function addDatetimeColumn($columns )
 	{
 	    return array_merge(
 	    	$columns, 
@@ -30,7 +31,7 @@ class UGlavuAdminPostsColumns {
 	    );
 	}
  
-	public function custom_columns( $column, $post_id )
+	public function customColumns($column, $post_id )
 	{
 		$post = get_post($post_id);
 

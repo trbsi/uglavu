@@ -15,18 +15,18 @@ class UGlavuAdminPostsCreateScrapeOgTags {
     /**
      * Ajax function
      */
-	public function scrape_fb_og_tags() 
+	public function scrapeFbOgTags()
 	{
 		$externalUrl = str_replace([' '], '', $_POST['external_url']);
 
 		//check if this is URL
-		$this->check_if_this_is_url($externalUrl);
+		$this->checkIfThisIsUrl($externalUrl);
 
 		//check if site is supported
-		$this->is_site_supported($externalUrl);
+		$this->isSiteSupported($externalUrl);
 
 		//check if someone already posted this story
-		$this->is_story_already_posted($externalUrl);
+		$this->isStoryAlreadyPosted($externalUrl);
 
 		try {
 			$webSiteMetaData = [];
@@ -52,7 +52,7 @@ class UGlavuAdminPostsCreateScrapeOgTags {
 		wp_die();
 	}
 
-	private function check_if_this_is_url($externalUrl)
+	private function checkIfThisIsUrl($externalUrl)
 	{
 		if (false === filter_var($externalUrl, FILTER_VALIDATE_URL)) {
 		    wp_send_json_error(['message' => 'Wrong URL bi-yatch']);
@@ -60,12 +60,12 @@ class UGlavuAdminPostsCreateScrapeOgTags {
 		}
 	}
 
-	private function is_site_supported($externalUrl)
+	private function isSiteSupported($externalUrl)
 	{
 		global $wpdb;
 		$ogTagsSitesTable = $wpdb->prefix . 'og_tags_sites';
 		$query = "SELECT * FROM $ogTagsSitesTable WHERE site_key = %s";
-		$siteData = $wpdb->get_row($wpdb->prepare($query, [$this->createOgTags->get_host_from_url($externalUrl)]));
+		$siteData = $wpdb->get_row($wpdb->prepare($query, [$this->createOgTags->getHostFromUrl($externalUrl)]));
 
 		if (null === $siteData) {
 			$query = "SELECT * FROM $ogTagsSitesTable";
@@ -80,10 +80,10 @@ class UGlavuAdminPostsCreateScrapeOgTags {
 		}
 	}
 
-	private function is_story_already_posted($externalUrl)
+	private function isStoryAlreadyPosted($externalUrl)
 	{
 		global $wpdb;
-		$siteData = $this->createOgTags->get_site_and_site_post_id($externalUrl);
+		$siteData = $this->createOgTags->getSiteAndSitePostId($externalUrl);
 
 		$ogTagsTable = $wpdb->prefix . 'og_tags';
 		$query = "SELECT * FROM $ogTagsTable 
@@ -103,7 +103,7 @@ class UGlavuAdminPostsCreateScrapeOgTags {
 		}
 	}
 
-	public function get_og_post_by_id($id)
+	public function getOgPostById($id)
 	{
 		global $wpdb;
 		$ogTagsTable = $wpdb->prefix . 'og_tags';
