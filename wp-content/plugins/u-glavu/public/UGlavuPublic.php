@@ -22,7 +22,7 @@ namespace UGlavu\PublicClass;
  * @subpackage U_Glavu/public
  * @author     U Glavu <info@uglavu.com>
  */
-class U_Glavu_Public {
+class UGlavuPublic {
 
 	/**
 	 * The ID of this plugin.

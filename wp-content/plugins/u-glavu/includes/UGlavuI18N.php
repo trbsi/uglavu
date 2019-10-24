@@ -26,7 +26,7 @@ namespace UGlavu\Includes;
  * @subpackage U_Glavu/includes
  * @author     U Glavu <info@uglavu.com>
  */
-class U_Glavu_i18n {
+class UGlavuI18N {
 
 
 	/**

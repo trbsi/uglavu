@@ -7,8 +7,8 @@ if( ! defined( 'ABSPATH' ) ) exit;
 // check if class already exists
 if( !class_exists('uglavu_acf_field_external_url') ) :
 
-require_once WP_PLUGIN_DIR . '/u-glavu/includes/class-u-glavu-loader.php';
-require_once WP_PLUGIN_DIR . '/u-glavu/includes/admin/class-u-glavu-admin-loader.php';
+require_once WP_PLUGIN_DIR . '/u-glavu/includes/UGlavuLoader.php';
+require_once WP_PLUGIN_DIR . '/u-glavu/includes/admin/UGlavuAdminLoader.php';
 
 class uglavu_acf_field_external_url extends acf_field {
 	
@@ -139,7 +139,7 @@ class uglavu_acf_field_external_url extends acf_field {
 	*/
 	
 	function render_field( $field ) {
-		$ogClasses = $this->adminLoader->load_og_tags_scraper_and_saver();
+		$ogTagsScraper = $this->adminLoader->loadOgTagsScraper();
 		
 		/*
 		*  Review the data of $field.
@@ -151,7 +151,7 @@ class uglavu_acf_field_external_url extends acf_field {
 		*/
 		$image = $url = $title = null;
 		if (isset($_GET['post'])) {
-			$ogPost = $ogClasses['scrapeOgTags']->get_og_post_by_id($_GET['post']);
+			$ogPost = $ogTagsScraper->get_og_post_by_id($_GET['post']);
 			$image = $ogPost->image;
 			$url =  $ogPost->url;
 			$title = $ogPost->title;

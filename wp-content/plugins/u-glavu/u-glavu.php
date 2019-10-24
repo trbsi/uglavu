@@ -46,7 +46,7 @@ define( 'U_GLAVU_VERSION', '1.0.0' );
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-u-glavu-activator.php
+ * This action is documented in includes/UGlavuActivator.php
  */
 function activate_u_glavu() {
 	UGlavuActivator::activate();
@@ -54,7 +54,7 @@ function activate_u_glavu() {
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-u-glavu-deactivator.php
+ * This action is documented in includes/UGlavuDeactivator.php
  */
 function deactivate_u_glavu() {
 	UGlavuDeactivator::deactivate();
@@ -62,12 +62,6 @@ function deactivate_u_glavu() {
 
 register_activation_hook( __FILE__, 'activate_u_glavu' );
 register_deactivation_hook( __FILE__, 'deactivate_u_glavu' );
-
-/**
- * The core plugin class that is used to define internationalization,
- * admin-specific hooks, and public-facing site hooks.
- */
-require plugin_dir_path( __FILE__ ) . 'includes/class-u-glavu.php';
 
 /**
  * Begins execution of the plugin.
@@ -78,7 +72,8 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-u-glavu.php';
  *
  * @since    1.0.0
  */
-function run_u_glavu() {
+function run_u_glavu()
+{
 
     $container = getContainer();
 	$plugin = $container->get(UGlavu::class);

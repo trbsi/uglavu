@@ -14,7 +14,7 @@ namespace UGlavu\Includes;
  * @package    U_Glavu
  * @subpackage U_Glavu/includes
  */
-use UGlavu\Admin\U_Glavu_Admin;
+use UGlavu\Admin\UGlavuAdmin;
 use function UGlavu\getContainer;
 use UGlavu\Includes\Admin\Posts\Create\UGlavuAdminPostsCreateOgTags;
 use UGlavu\Includes\Admin\Posts\Create\UGlavuAdminPostsCreateScrapeOgTags;
@@ -22,7 +22,7 @@ use UGlavu\Includes\Admin\Posts\Listing\UGlavuAdminPostsColumns;
 use UGlavu\Includes\Admin\Posts\Listing\UGlavuAdminPostsFilter;
 use UGlavu\Includes\Front\UGlavuFrontPostsExcerpt;
 use UGlavu\Includes\Front\UGlavuFrontPostsPosts;
-use UGlavu\PublicClass\U_Glavu_Public;
+use UGlavu\PublicClass\UGlavuPublic;
 
 /**
  * The core plugin class.
@@ -68,7 +68,9 @@ class UGlavu {
 	 */
 	protected $version;
 
-	/** @var \DI\Container */
+    /**
+     * @var \DI\Container
+     */
 	private $container;
 
 
@@ -145,7 +147,7 @@ class UGlavu {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new U_Glavu_i18n();
+		$plugin_i18n = new UGlavuI18N();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -160,7 +162,7 @@ class UGlavu {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new U_Glavu_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new UGlavuAdmin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -183,7 +185,7 @@ class UGlavu {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new U_Glavu_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new UGlavuPublic( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );

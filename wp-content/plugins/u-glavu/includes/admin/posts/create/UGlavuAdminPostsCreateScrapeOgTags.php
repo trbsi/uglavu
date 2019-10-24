@@ -2,14 +2,11 @@
 
 namespace UGlavu\Includes\Admin\Posts\Create;
 
-use UGlavu\Includes\UGlavuLoader;
-
 class UGlavuAdminPostsCreateScrapeOgTags {
 
 	private $createOgTags;
 
 	public function __construct(
-		UGlavuLoader $loader,
 		UGlavuAdminPostsCreateOgTags $createOgTags
 	) {
 		$this->createOgTags = $createOgTags;

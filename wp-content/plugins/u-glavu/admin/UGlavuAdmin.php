@@ -22,7 +22,7 @@ namespace UGlavu\Admin;
  * @subpackage U_Glavu/admin
  * @author     U Glavu <info@uglavu.com>
  */
-class U_Glavu_Admin {
+class UGlavuAdmin {
 
 	/**
 	 * The ID of this plugin.
