@@ -33,8 +33,8 @@ use UGlavu\Includes\UGlavuDeactivator;
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+if (!defined('WPINC')) {
+    die;
 }
 
 /**
@@ -42,26 +42,28 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'U_GLAVU_VERSION', '1.0.0' );
+define('U_GLAVU_VERSION', '1.0.0');
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/UGlavuActivator.php
  */
-function activate_u_glavu() {
-	UGlavuActivator::activate();
+function activate_u_glavu()
+{
+    UGlavuActivator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
  * This action is documented in includes/UGlavuDeactivator.php
  */
-function deactivate_u_glavu() {
-	UGlavuDeactivator::deactivate();
+function deactivate_u_glavu()
+{
+    UGlavuDeactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_u_glavu' );
-register_deactivation_hook( __FILE__, 'deactivate_u_glavu' );
+register_activation_hook(__FILE__, 'activate_u_glavu');
+register_deactivation_hook(__FILE__, 'deactivate_u_glavu');
 
 /**
  * Begins execution of the plugin.
@@ -76,9 +78,10 @@ function run_u_glavu()
 {
 
     $container = getContainer();
-	$plugin = $container->get(UGlavu::class);
-	$plugin->run();
+    $plugin = $container->get(UGlavu::class);
+    $plugin->run();
 }
+
 run_u_glavu();
 
 

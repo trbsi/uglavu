@@ -22,17 +22,19 @@ namespace UGlavu\Includes;
  * @subpackage U_Glavu/includes
  * @author     U Glavu <info@uglavu.com>
  */
-class UGlavuActivator {
+class UGlavuActivator
+{
 
-	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
-	 */
-	public static function activate() {
+    /**
+     * Short Description. (use period)
+     *
+     * Long Description.
+     *
+     * @since    1.0.0
+     */
+    public static function activate()
+    {
 
-	}
+    }
 
 }
