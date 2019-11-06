@@ -124,11 +124,18 @@ class ExtensionsManager {
 					'onActivation'
 				]);
 			}
+
+			$class = $this->get_class_name_for($id);
+
+			// Init extension right away.
+			new $class;
 		}
 
 		$activated[] = strtolower($id);
 
 		update_option($this->get_option_name(), array_unique($activated));
+
+		Plugin::instance()->dynamic_css->generate_css_files();
 	}
 
 	public function deactivate_extension($id) {
@@ -151,6 +158,8 @@ class ExtensionsManager {
 			$activated,
 			[ $id ]
 		));
+
+		Plugin::instance()->dynamic_css->generate_css_files();
 	}
 
 	private function read_installed_extensions() {

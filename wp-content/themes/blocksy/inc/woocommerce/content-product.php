@@ -60,16 +60,15 @@ function blocksy_generate_content_product($for_preview = false) {
 			echo wp_kses_post(woocommerce_template_loop_add_to_cart());
 			echo '</div>';
 
-			if (get_theme_mod('has_sale_badge', 'yes') === 'yes' || $for_preview) {
-				woocommerce_show_product_loop_sale_flash();
-			}
+		}
+
+		if (get_theme_mod('has_sale_badge', 'yes') === 'yes' || $for_preview) {
+			woocommerce_show_product_loop_sale_flash();
 		}
 
 		echo '</figure>';
 
-		if ($structure === 'shop-simple') {
-			echo '<div class="card-content">';
-		}
+		echo '<div class="ct-card-content">';
 
 		/**
 		 * Hook: woocommerce_before_shop_loop_item.
@@ -85,12 +84,6 @@ function blocksy_generate_content_product($for_preview = false) {
 		 * @hooked woocommerce_template_loop_product_thumbnail - 10
 		 */
 		do_action( 'woocommerce_before_shop_loop_item_title' );
-
-		if ($structure === 'grid') {
-			if (get_theme_mod('has_sale_badge', 'yes') === 'yes' || $for_preview) {
-				woocommerce_show_product_loop_sale_flash();
-			}
-		}
 
 		/**
 		 * Hook: woocommerce_shop_loop_item_title.
@@ -146,15 +139,14 @@ function blocksy_generate_content_product($for_preview = false) {
 		}
 
 		if ($structure === 'grid') {
+			echo '<div class="ct-ghost-item"></div>';
 			echo '<div class="woo-card-actions">';
 			echo wp_kses_post(woocommerce_template_loop_price());
 			echo wp_kses_post(woocommerce_template_loop_add_to_cart());
 			echo '</div>';
 		}
 
-		if ($structure === 'shop-simple') {
-			echo '</div>';
-		}
+		echo '</div>';
 
 		?>
 	</article>

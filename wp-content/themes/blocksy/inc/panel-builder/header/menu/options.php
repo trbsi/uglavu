@@ -1,26 +1,86 @@
 <?php
 
-$options = [
-	'menu' => [
-		'label' => __('Select Menu', 'blocksy'),
-		'type' => 'ct-select',
-		'value' => blocksy_get_default_menu(),
-		'view' => 'text',
-		'design' => 'inline',
-		'setting' => [ 'transport' => 'postMessage' ],
-		'placeholder' => __('Select menu...', 'blocksy'),
-		'desc' => sprintf(
-			// translators: placeholder here means the actual URL.
-			__( 'Assign a menu for this element. You can edit your menu %shere%s.', 'blocksy' ),
-			sprintf(
-				'<a href="%s" target="_blank">',
-				admin_url('/nav-menus.php')
-			),
-			'</a>'
-		),
-		'choices' => blocksy_ordered_keys(blocksy_get_menus_items())
-	],
+if (! isset($location)) {
+	$location = 'Header Menu 1';
+}
 
+$menu_options = [
+	'label' => __('Select Menu', 'blocksy'),
+	'type' => 'ct-select',
+	'value' => blocksy_get_default_menu(),
+	'view' => 'text',
+	'design' => 'inline',
+	'setting' => [ 'transport' => 'postMessage' ],
+	'placeholder' => __('Select menu...', 'blocksy'),
+	'choices' => blocksy_ordered_keys(blocksy_get_menus_items()),
+	'desc' => sprintf(
+		// translators: placeholder here means the actual URL.
+		__( 'Manage your menus in the %sMenus screen%s.', 'blocksy' ),
+		sprintf(
+			'<a href="%s" target="_blank">',
+			admin_url('/nav-menus.php')
+		),
+		'</a>'
+	),
+];
+
+$options = [
+	(
+		blocksy_has_i18n_plugin() ? [
+
+			'menu_source' => [
+				'label' => __('Menu Source', 'blocksy'),
+				'type' => 'ct-radio',
+				'value' => 'menu',
+				'view' => 'text',
+				'inline' => true,
+				'design' => 'block',
+				'setting' => [ 'transport' => 'postMessage' ],
+				'choices' => [
+					'menu' => __( 'Select Menu', 'blocksy' ),
+					'location' => __( 'Use Location', 'blocksy' ),
+				],
+			],
+
+			blocksy_rand_md5() => [
+				'type' => 'ct-condition',
+				'condition' => [ 'menu_source' => 'menu' ],
+				'options' => [
+					'menu' => $menu_options
+				],
+			],
+
+			blocksy_rand_md5() => [
+				'type' => 'ct-condition',
+				'condition' => [ 'menu_source' => 'location' ],
+				'options' => [
+
+					blocksy_rand_md5() => [
+						'type' => 'ct-title',
+						'variation' => 'menu-location',
+						'label' => sprintf(
+							// translators: placeholders is menu location
+							__( 'Location Name: %s', 'blocksy' ),
+							$location
+						),
+						'desc' => sprintf(
+							// translators: placeholder here means the actual URL.
+							__( 'Chose this option only if you use a multilingual plugin in order to assign different menus to the same location. Go to %sMenus screen%s and assign a menu to this location.', 'blocksy' ),
+							sprintf(
+								'<a href="%s" target="_blank">',
+								admin_url('/nav-menus.php')
+							),
+							'</a>'
+						),
+					],
+
+				],
+			],
+
+		] : [
+			'menu' => $menu_options
+		]
+	),
 
 	blocksy_rand_md5() => [
 		'type' => 'ct-title',

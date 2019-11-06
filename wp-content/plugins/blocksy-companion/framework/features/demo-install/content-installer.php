@@ -79,7 +79,12 @@ class DemoInstallContentInstaller {
 		Plugin::instance()->demo->emit_sse_message([
 			'action' => 'get_content_preliminary_data',
 			'url' => $url,
-			'our_data' => file_get_contents($url),
+			'our_data' => file_get_contents($url, false, stream_context_create([
+				"ssl" => [
+					"verify_peer"=>false,
+					"verify_peer_name"=>false,
+				]
+			])),
 			'data' => $import_data,
 		]);
 

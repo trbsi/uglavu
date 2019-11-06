@@ -22,7 +22,7 @@ class Blocksy_Plugin_Manager {
 	}
 
 	public function get_plugins() {
-		if ( isset( $this->config ) ) {
+		if (isset($this->config)) {
 			return $this->config;
 		}
 

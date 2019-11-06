@@ -14,6 +14,7 @@ import { initAllPanels } from '../options/initPanels'
 import { initBuilder } from './panels-builder'
 
 import Options from './controls/options.js'
+import { initWidget } from '../backend/widgets'
 
 listenToChanges()
 listenToVariables()
@@ -21,7 +22,9 @@ listenToVariables()
 defineCustomizerControl('ct-options', Options)
 
 if ($ && $.fn) {
-	$(document).on('widget-added', () => initAllPanels())
+	$(document).on('widget-added', (event, widget) => {
+		initWidget(widget[0])
+	})
 }
 
 document.addEventListener('DOMContentLoaded', () => {

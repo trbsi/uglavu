@@ -160,19 +160,3 @@ blocksy_output_font_css([
 	'selector' => '.product_title'
 ]);
 
-if (class_exists('WooCommerce')) {
-	blocksy_output_font_css([
-		'font_value' => get_theme_mod(
-			'cardProductTitleFont',
-			blocksy_typography_default_values([
-				'size' => '17px',
-				'variation' => 'n5',
-				'line-height' => '1.4'
-			])
-		),
-		'css' => $css,
-		'tablet_css' => $tablet_css,
-		'mobile_css' => $mobile_css,
-		'selector' => '.woocommerce-loop-product__title'
-	]);
-}

@@ -24,7 +24,7 @@ if ( $days && 'all_time' !== $days ) {
 }
 
 $fw_cat_id = blocksy_default_akg( 'category', $atts, 'all_categories' );
-$fw_cat_id = ( empty( $category ) || 'all_categories' === $category ) ? '' : $category;
+$fw_cat_id = ( empty( $fw_cat_id ) || 'all_categories' === $fw_cat_id ) ? '' : $fw_cat_id;
 
 $type = blocksy_default_akg( 'type', $atts, 'recent' );
 

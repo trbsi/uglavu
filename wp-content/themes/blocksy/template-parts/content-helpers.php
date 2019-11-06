@@ -89,8 +89,7 @@ function blocksy_single_content( $check_for_preview = false ) {
 		id="post-<?php the_ID(); ?>"
 		<?php post_class(); ?>
 		<?php echo $content_output ?>
-		<?php echo wp_kses( $page_structure_output, [] ); ?>
-		<?php blocksy_schema_org_definitions_e('single') ?>>
+		<?php echo wp_kses( $page_structure_output, [] ); ?>>
 
 		<?php
 			if ($featured_image_location === 'above' || $check_for_preview) {

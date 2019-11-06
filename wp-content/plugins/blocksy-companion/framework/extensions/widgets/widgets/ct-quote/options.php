@@ -36,6 +36,13 @@ $options = [
 		'disableRevertButton' => true,
 	],
 
+	'quote_has_by_label' => [
+		'type'  => 'ct-switch',
+		'label' => __( 'Author Label', 'blc' ),
+		'value' => 'yes',
+		'disableRevertButton' => true,
+	],
+
 	'quote_avatar' => [
 		'label' => __('Author Avatar', 'blc'),
 		'type' => 'ct-image-uploader',

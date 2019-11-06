@@ -11,6 +11,11 @@ $options = [
 			'inner-options' => [
 
 				blocksy_rand_md5() => [
+					'type' => 'ct-title',
+					'label' => __( 'Cookies Notification', 'blocksy' ),
+				],
+
+				blocksy_rand_md5() => [
 					'title' => __( 'General', 'blc' ),
 					'type' => 'tab',
 					'options' => [
@@ -58,13 +63,18 @@ $options = [
 							),
 						],
 
-
 						'cookie_consent_content' => [
 							'label' => __( 'Content', 'blc' ),
-							'type' => 'textarea',
-							'design' => 'block',
+							'type' => 'wp-editor',
 							'value' => __('We use cookies to ensure that we give you the best experience on our website.', 'blc'),
+							'disableRevertButton' => true,
 							'setting' => [ 'transport' => 'postMessage' ],
+
+							'quicktags' => false,
+							'mediaButtons' => false,
+							'tinymce' => [
+								'toolbar1' => 'bold,italic,link,alignleft,aligncenter,alignright,undo,redo',
+							],
 						],
 
 						'cookie_consent_button_text' => [
@@ -182,22 +192,32 @@ $options = [
 					],
 				],
 
-
 				blocksy_rand_md5() => [
 					'type' => 'ct-title',
-					'label' => __( 'Forms Section', 'blc' ),
+					'label' => __( 'Forms Cookies Content', 'blocksy' ),
 				],
 
 				'forms_cookie_consent_content' => [
-					'label' => __( 'Content', 'blc' ),
-					'type' => 'textarea',
-					'design' => 'block',
+					'label' => false,
+					'type' => 'wp-editor',
 					'value' => sprintf(
 						__('I accept the %sPrivacy Policy%s', 'blc'),
 						'<a href="/privacy-policy">',
 						'</a>'
 					),
+					'desc' => __( 'This text will appear under each comment form and subscribe form.', 'blc' ),
+					// 'attr' => [ 'data-height' => 'heading-label' ],
+					'disableRevertButton' => true,
 					'setting' => [ 'transport' => 'postMessage' ],
+
+					'quicktags' => false,
+					'mediaButtons' => false,
+					'tinymce' => [
+						'toolbar1' => 'bold,italic,link,alignleft,aligncenter,alignright,undo,redo',
+						'forced_root_block' => '',
+						'force_br_newlines' => true,
+						'force_p_newlines' => false
+					],
 				],
 
 			],

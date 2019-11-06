@@ -238,7 +238,6 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 
 					<a class="ct-meta-element" href="<?php echo esc_attr(get_permalink()); ?>#ct-comments">
 						<?php
-
 							// translators: text for one review
 							$singular_text = __('1 Comment', 'blocksy');
 							// translators: % refers to the number of comments, when more than 1
@@ -252,8 +251,8 @@ if ( ! function_exists( 'blocksy_post_meta' ) ) {
 							}
 
 							if ($args['meta_type'] === 'icons' && !$args['force_icons']) {
-								$singular_text = '';
-								$plural_text = '';
+								$singular_text = '1';
+								$plural_text = '%';
 							}
 
 							echo wp_kses_post(get_comments_number_text(

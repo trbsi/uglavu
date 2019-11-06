@@ -198,6 +198,7 @@ $options = [
 									'value' => 'above',
 									'view' => 'text',
 									'design' => 'block',
+									'divider' => 'bottom',
 									'setting' => [ 'transport' => 'postMessage' ],
 									'choices' => [
 										'above' => __( 'Above Title', 'blocksy' ),
@@ -212,7 +213,6 @@ $options = [
 							'label' => __( 'Image Ratio', 'blocksy' ),
 							'type' => 'ct-ratio',
 							'value' => '4/3',
-							'divider' => 'top',
 							'setting' => [ 'transport' => 'postMessage' ],
 						],
 

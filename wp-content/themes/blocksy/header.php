@@ -15,7 +15,7 @@
 <html <?php language_attributes(); ?>>
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
-	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 
 	<?php wp_head(); ?>
@@ -35,7 +35,9 @@
 		echo $b->render('header');
 	?>
 
-	<main id="main" class="site-main">
+	<main
+		id="main" class="site-main hfeed"
+		<?php blocksy_schema_org_definitions_e('creative_work') ?>>
 
 		<?php if (function_exists('blc_output_read_progress_bar')) { ?>
 			<?php

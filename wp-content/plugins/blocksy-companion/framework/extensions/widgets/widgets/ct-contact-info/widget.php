@@ -12,6 +12,7 @@ class Blocksy_Widget_Ct_Contact_Info extends BlocksyWidgetFactory {
 		return [
 			'name' => __('Contact Info', 'blc'),
 			'description' => __('Contact info', 'blc'),
+			'customize_selective_refresh' => true
 		];
 	}
 

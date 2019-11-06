@@ -819,6 +819,7 @@ handleVariablesFor({
 	},
 
 	passepartoutColor: {
+		selector: '.ct-passepartout',
 		variable: 'passepartoutColor',
 		type: 'color'
 	}

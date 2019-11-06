@@ -204,6 +204,6 @@ export const getTypographyVariablesFor = () => ({
 
 	...typographyOption({
 		id: 'cardProductTitleFont',
-		selector: '.woocommerce-loop-product__title'
+		selector: '.woocommerce-loop-product__title, .woocommerce-loop-category__title'
 	})
 })

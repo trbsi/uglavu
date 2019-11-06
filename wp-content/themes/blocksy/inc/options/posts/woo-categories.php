@@ -592,6 +592,9 @@ $options = [
 							'view' => 'text',
 							'placeholder' => __('Show products', 'blocksy'),
 							'design' => 'block',
+							'setting' => [
+								'type' => 'option'
+							],
 							'desc' => __( 'Choose what to display on the main shop page.', 'blocksy' ),
 							'choices' => blocksy_ordered_keys(
 								[
@@ -609,6 +612,9 @@ $options = [
 							'view' => 'text',
 							'placeholder' => __('Show products', 'blocksy'),
 							'design' => 'block',
+							'setting' => [
+								'type' => 'option'
+							],
 							'desc' => __( 'Choose what to display on product category pages.', 'blocksy' ),
 							'choices' => blocksy_ordered_keys(
 								[
@@ -626,6 +632,9 @@ $options = [
 							'view' => 'text',
 							'design' => 'block',
 							'desc' => __( 'How should products be sorted in the catalog by default?', 'blocksy' ),
+							'setting' => [
+								'type' => 'option'
+							],
 							'choices' => blocksy_ordered_keys(
 								[
 									'menu_order' => __('Default sorting (custom ordering + name)', 'blocksy'),

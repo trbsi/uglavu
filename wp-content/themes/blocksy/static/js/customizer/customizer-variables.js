@@ -29,20 +29,6 @@ export const listenToVariables = () => {
 			}
 		],
 
-		buttonColor: [
-			{
-				selector: ':root',
-				variable: 'buttonInitialColor',
-				type: 'color:default'
-			},
-
-			{
-				selector: ':root',
-				variable: 'buttonHoverColor',
-				type: 'color:hover'
-			}
-		],
-
 		fontColor: [
 			{
 				selector: ':root',
@@ -53,6 +39,34 @@ export const listenToVariables = () => {
 			{
 				selector: ':root',
 				variable: 'colorHover',
+				type: 'color:hover'
+			}
+		],
+
+		buttonTextColor: [
+			{
+				selector: ':root',
+				variable: 'buttonTextInitialColor',
+				type: 'color:default'
+			},
+
+			{
+				selector: ':root',
+				variable: 'buttonTextHoverColor',
+				type: 'color:hover'
+			}
+		],
+
+		buttonColor: [
+			{
+				selector: ':root',
+				variable: 'buttonInitialColor',
+				type: 'color:default'
+			},
+
+			{
+				selector: ':root',
+				variable: 'buttonHoverColor',
 				type: 'color:hover'
 			}
 		],

@@ -115,6 +115,14 @@ $options = [
 				'setting' => [ 'transport' => 'postMessage' ],
 			],
 
+			'xing' => [
+				'label' => __( 'Xing', 'blocksy' ),
+				'type' => 'text',
+				'design' => 'inline',
+				'value' => '',
+				'setting' => [ 'transport' => 'postMessage' ],
+			],
+
 		],
 	],
 ];

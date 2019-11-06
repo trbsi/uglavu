@@ -56,7 +56,7 @@ const TextArea = ({ id, value, option, onChange }) => {
 	}, [])
 
 	return (
-		<div className="ct-option-editor">
+		<div className="ct-option-editor" {...(option.attr || {})}>
 			<textarea
 				style={{ opacity: 0 }}
 				id={editorId}
@@ -71,9 +71,7 @@ const TextArea = ({ id, value, option, onChange }) => {
 						  }
 						: {})
 				}}
-				onChange={({ target: { value } }) =>
-					onChange(value)
-				}
+				onChange={({ target: { value } }) => onChange(value)}
 			/>
 		</div>
 	)

@@ -21,8 +21,8 @@ blocksy_output_colors([
 	],
 ]);
 
-$formFontSize = get_theme_mod( 'formFontSize', 15 );
-$css->put( 'form', '--formFontSize: ' . $formFontSize . 'px' );
+$formFontSize = get_theme_mod('formFontSize', 15);
+$css->put('form', '--formFontSize: ' . $formFontSize . 'px');
 
 blocksy_output_colors([
 	'value' => get_theme_mod('formBackgroundColor'),

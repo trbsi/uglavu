@@ -58,6 +58,12 @@ $options = [
 			'options' => blocksy_get_options( 'general/typography' ),
 		],
 
+		'performance' => [
+			'title' => __( 'Performance', 'blocksy' ),
+			'container' => [ 'priority' => 1 ],
+			'options' => blocksy_get_options( 'general/performance' ),
+		],
+
 		blocksy_rand_md5() => [
 			'type' => 'ct-group-title',
 			'title' => __( 'Post types', 'blocksy' ),

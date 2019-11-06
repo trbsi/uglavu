@@ -13,6 +13,7 @@ class Blocksy_Widget_Ct_Socials extends BlocksyWidgetFactory {
 		return [
 			'name' => __('Social Icons', 'blc'),
 			'description' => __('Social channels icons', 'blc'),
+			'customize_selective_refresh' => true
 		];
 	}
 

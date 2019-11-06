@@ -101,6 +101,7 @@ $options = [
 		'label' => __( 'Content Alignment', 'blc' ),
 		'value' => 'center',
 		'view' => 'text',
+		'design' => 'inline',
 		'attr' => [ 'data-type' => 'alignment' ],
 		'disableRevertButton' => true,
 		'choices' => [

@@ -12,6 +12,7 @@ class Blocksy_Widget_Ct_Facebook extends BlocksyWidgetFactory {
 		return [
 			'name' => __('Facebook', 'blc'),
 			'description' => __('Facebook like box', 'blc'),
+			'customize_selective_refresh' => true
 		];
 	}
 

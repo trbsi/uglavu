@@ -207,21 +207,9 @@ class Blocksy_Customizer_Builder {
 
 			$args['atts'] = $render->get_item_data_for($item['id']);
 
-			blocksy_get_variables_from_file(
-				$item['path'] . '/dynamic-styles.php',
-				array(),
-				$args
-			);
-		/*
-		blocksy_customizer_register_options(
-			$wp_customize,
-			$builder->get_options_for('header', $item),
-			[
-				'include_container_types' => false,
-				'limit_level' => 5
-			]
-		);
-		 */
+			blocksy_theme_get_dynamic_styles(array_merge([
+				'path' => $item['path'] . '/dynamic-styles.php',
+			], $args));
 		}
 	}
 

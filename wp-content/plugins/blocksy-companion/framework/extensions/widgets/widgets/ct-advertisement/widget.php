@@ -12,6 +12,7 @@ class Blocksy_Widget_Ct_Advertisement extends BlocksyWidgetFactory {
 		return [
 			'name' => __('Advertisement', 'blc'),
 			'description' => __('Advertisement', 'blc'),
+			'customize_selective_refresh' => true
 		];
 	}
 

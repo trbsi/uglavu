@@ -297,12 +297,15 @@ add_action(
 
 		$settings = $wp_customize->settings();
 
-		foreach ( $settings as $single_setting ) {
-			if ( 'theme_mod' !== $single_setting->type ) {
+		foreach ($settings as $single_setting) {
+			if ('theme_mod' !== $single_setting->type) {
 				continue;
 			}
+
 			remove_theme_mod( $single_setting->id );
 		}
+
+		do_action('blocksy:dynamic-css:regenere_css_files');
 
 		wp_send_json_success();
 	}

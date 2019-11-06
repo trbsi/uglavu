@@ -11,18 +11,17 @@
 		}
 	}
 
-	.ct-first-steps {
+	.ct-first-steps-container {
 		text-align: center;
-		margin-top: 60px;
 
 		h2 {
 			width: 50%;
-			margin: 0 auto;
+			margin: 60px auto 0 auto;
 			padding-top: 50px;
 			border-top: 1px solid rgba(143, 163, 184, 0.15);
 		}
 
-		ul {
+		.ct-first-steps {
 			display: grid;
 			grid-template-columns: repeat(3, 1fr);
 			grid-column-gap: 35px;

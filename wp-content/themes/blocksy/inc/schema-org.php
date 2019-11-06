@@ -4,91 +4,175 @@ function blocksy_schema_org_definitions_e($place) {
 	echo wp_kses_post(blocksy_schema_org_definitions($place));
 }
 
-function blocksy_schema_org_definitions($place) {
+function blocksy_schema_org_definitions($place, $args = []) {
+	$args = wp_parse_args(
+		$args,
+		[
+			'array' => false
+		]
+	);
+
+	$value = [];
+
 	if (get_theme_mod('enable_schema_org_markup', 'yes') === 'no') {
-		return '';
+		if ($args['array']) {
+			return $value;
+		}
+
+		return blocksy_attr_to_html($value);
 	}
 
 	if ($place === 'single') {
 		if ( is_page() ) {
-			return 'itemscope itemtype="http://schema.org/WebPage"';
-		} else {
-			return 'itemscope itemtype="http://schema.org/Article"';
+			$value = [
+				'itemscope' => 'itemscope',
+				'itemtype' => 'http://schema.org/WebPage'
+			];
+		} else if (is_single()) {
+			$value = [
+				'itemscope' => 'itemscope',
+				'itemtype' => 'https://schema.org/Blog'
+			];
+		}
+	}
+
+	if ($place === 'creative_work') {
+		if (is_single()) {
+			$value = [
+				'itemscope' => 'itemscope',
+				'itemtype' => 'https://schema.org/CreativeWork'
+			];
 		}
 	}
 
 	if ($place === 'header') {
-		return 'itemscope="itemscope" itemtype="http://schema.org/WPHeader"';
+		$value = [
+			'itemscope' => '',
+			'itemtype' => 'https://schema.org/WPHeader'
+		];
 	}
 
 	if ($place === 'logo') {
-		return 'itemscope itemtype="http://schema.org/Brand"';
+		$value = [
+			'itemscope' => 'itemscope',
+			'itemtype' => 'https://schema.org/Organization'
+		];
 	}
 
 	// Navigation
 	if ($place === 'navigation') {
-		return 'itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement"';
+		$value = [
+			'itemscope' => '',
+			'itemtype' => 'http://schema.org/SiteNavigationElement'
+		];
 	}
 
 	// Main
 	if ($place === 'blog') {
-		return 'itemtype="http://schema.org/Blog" itemscope';
+		// return '';
+		// return 'itemtype="http://schema.org/Blog" itemscope';
 	}
 
 	if ($place === 'breadcrumb') {
-		return 'itemscope itemtype="http://schema.org/BreadcrumbList"';
+		$value = [
+			'itemscope' => '',
+			'itemtype' => 'http://schema.org/BreadcrumbList'
+		];
 	}
 
 	if ( $place === 'breadcrumb_list') {
-		return 'itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"';
+		$value = [
+			'itemprop' => 'itemListElement',
+			'itemscope' => '',
+			'itemtype' => 'http://schema.org/ListItem'
+		];
 	}
 
 	if ($place === 'breadcrumb_itemprop') {
-		return 'itemprop="breadcrumb"';
+		$value = [
+			'itemprop' => 'breadcrumb',
+		];
 	}
 
 	if ($place === 'sidebar') {
-		return 'itemscope="itemscope" itemtype="http://schema.org/WPSideBar"';
+		$value = [
+			'itemtype' => 'https://schema.org/WPSideBar',
+			'itemscope' => 'itemscope',
+			'role' => 'complementary'
+		];
 	}
 
 	if ($place === 'footer') {
-		return 'itemscope="itemscope" itemtype="http://schema.org/WPFooter"';
+		$value = [
+			'itemscope' => '',
+			'itemtype' => 'https://schema.org/WPFooter'
+		];
 	}
 
 	if ($place === 'headline') {
-		return 'itemprop="headline"';
+		$value = [
+			'itemprop' => 'headline'
+		];
 	}
 
 	if ( $place === 'entry_content') {
-		return 'itemprop="text"';
+		$value = [
+			'itemprop' => 'text'
+		];
 	}
 
 	if ($place === 'publish_date') {
-		return 'itemprop="datePublished"';
+		$value = [
+			'itemprop' => 'datePublished'
+		];
 	}
 
 	if ($place === 'author_name') {
-		return 'itemprop="name"';
+		$value = [
+			'itemprop' => 'name'
+		];
 	}
 
 	if ($place === 'author_link') {
-		return 'itemprop="author"';
+		$value = [
+			'itemprop' => 'author',
+		];
+	}
+
+	if ($place === 'publisher') {
+		$value = [
+			'itemprop' => 'publisher'
+		];
 	}
 
 	if ($place === 'item') {
-		return 'itemprop="item"';
+		$value = [
+			'itemprop' => 'item'
+		];
 	}
 
 	if ($place === 'url') {
-		return 'itemprop="url"';
+		$value = [
+			'itemprop' => 'url'
+		];
 	}
 
 	if ($place === 'position') {
-		return 'itemprop="position"';
+		$value = [
+			'itemprop' => 'position'
+		];
 	}
 
 	if ($place === 'image') {
-		return 'itemprop="image"';
+		$value = [
+			'itemprop' => 'image'
+		];
 	}
+
+	if ($args['array']) {
+		return $value;
+	}
+
+	return blocksy_attr_to_html($value);
 }
 

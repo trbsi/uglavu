@@ -48,7 +48,7 @@ function blocksy_ext_cookies_consent_output($forced = false) {
 		<div class="<?php esc_attr_e($class) ?>">
 
 			<?php if (!empty($content)) { ?>
-				<p><?php echo wp_kses_post($content) ?></p>
+				<div class="ct-cookies-content"><?php echo wp_kses_post($content) ?></div>
 			<?php } ?>
 
 			<button type="submit" class="ct-accept"><?php echo esc_html($button_text) ?></button>

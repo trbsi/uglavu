@@ -4,19 +4,12 @@ require_once dirname( __FILE__ ) . '/helpers.php';
 
 class BlocksyExtensionWoocommerceExtra {
     public function __construct() {
-		add_action('blocksy:global-dynamic-css:enqueue', function (
-			$css, $tablet_css, $mobile_css
-		) {
+		add_action('blocksy:global-dynamic-css:enqueue', function ($args) {
 
-			blocksy_get_variables_from_file(
-				dirname( __FILE__ ) . '/global.php',
-				[],
-				[
-					'css' => $css,
-					'tablet_css' => $tablet_css,
-					'mobile_css' => $mobile_css
-				]
-			);
+			blocksy_theme_get_dynamic_styles(array_merge([
+				'path' => dirname( __FILE__ ) . '/global.php',
+				'chunk' => 'woocommerce'
+			], $args));
 
 		}, 10, 3);
 

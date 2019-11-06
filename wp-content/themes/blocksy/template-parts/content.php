@@ -17,8 +17,8 @@ if (is_customize_preview()) {
 	blocksy_add_customizer_preview_cache(
 		blocksy_html_tag(
 			'div',
-			[ 'class' => 'single-content-cache' ],
-			blocksy_single_content( true )
+			['class' => 'single-content-cache'],
+			blocksy_single_content(true)
 		)
 	);
 }

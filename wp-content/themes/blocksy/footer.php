@@ -66,6 +66,7 @@ if (get_theme_mod('footer_reveal', 'no') === 'yes') {
 
 	<footer
 		class="site-footer"
+		id="footer"
 		<?php echo wp_kses_post($reveal_output) ?>
 		<?php blocksy_schema_org_definitions_e('footer') ?>>
 

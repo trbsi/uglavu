@@ -29,7 +29,7 @@ class Autoloader {
 
 		'GoogleAnalytics' => 'framework/features/google-analytics.php',
 
-
+		'DynamicCss' => 'framework/features/dynamic-css.php',
 		'DemoInstall' => 'framework/features/demo-install.php',
 		'DemoInstallContentExport' => 'framework/features/demo-install/content-export.php',
 		'DemoInstallWidgetsExport' => 'framework/features/demo-install/widgets-export.php',

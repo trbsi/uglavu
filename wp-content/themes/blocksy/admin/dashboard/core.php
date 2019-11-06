@@ -122,6 +122,11 @@ class Blocksy_Dashboard_Page {
 				'child_theme_exists' => isset(wp_get_themes()['blocksy-child']),
 				'home_url' => home_url(),
 				'clean_install_plugins' => $plugins_config,
+				'is_companion_active' => $manager->get_plugin_status(
+					'blocksy-companion'
+				) === 'active' ? 'yes' : 'no',
+				'companion_download_link' => 'https://creativethemes.com/downloads/blocksy-companion.zip',
+				'child_download_link' => 'https://creativethemes.com/downloads/blocksy-child.zip'
 			]
 		);
 

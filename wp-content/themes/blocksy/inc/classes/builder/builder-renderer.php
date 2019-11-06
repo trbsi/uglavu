@@ -55,9 +55,10 @@ class Blocksy_Customizer_Builder_Render_Placements {
 
 		return blocksy_html_tag(
 			'header',
-			[
+			array_merge([
+				'id' => 'header',
 				'data-device' => $this->device
-			],
+			], blocksy_schema_org_definitions('header', ['array' => true])),
 			$content
 		);
 	}

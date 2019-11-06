@@ -65,29 +65,30 @@ class BlocksyWidgetFactory extends WP_Widget {
 			$config = array_merge( $config, $this->get_config() );
 		}
 
+		$name = blocksy_akg(
+			'name',
+			$config,
+			__('Default widget name', 'blc')
+		);
+
+		$description = blocksy_akg(
+			'description',
+			$config,
+			__('Display online support infomation', 'blc')
+		);
+
+		unset($config['name']);
+		unset($config['description']);
+
 		$this->prefix = $prefix;
 
 		parent::__construct(
 			false,
-			'&#10;' . blocksy_akg(
-				'name',
-				$config,
-				__(
-					'Default widget name',
-					'blc'
-				)
-			),
-			[
-				'description' => blocksy_akg(
-					'description',
-					$config,
-					__(
-						'Display online support infomation',
-						'blc'
-					)
-				),
+			'&#10;' . $name,
+			array_merge([
+				'description' => $description,
 				'classname' => $prefix . '-widget',
-			]
+			], $config)
 		);
 	}
 

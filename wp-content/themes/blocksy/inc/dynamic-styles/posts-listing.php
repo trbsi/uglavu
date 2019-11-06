@@ -110,21 +110,61 @@ blocksy_output_colors([
 ]);
 
 blocksy_output_colors([
-	'value' => blocksy_akg_or_customizer('cardButtonTextColor', $listing_source),
+	'value' => blocksy_akg_or_customizer('cardButtonSimpleTextColor', $listing_source),
 	'default' => [
-		'default' => [ 'color' => '#ffffff' ],
+		'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
+		'hover' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.entry-button[data-type="simple"]',
+			'variable' => 'color'
+		],
+
+		'hover' => [
+			'selector' => '.entry-button[data-type="simple"]',
+			'variable' => 'colorHover'
+		],
+	],
+]);
+
+blocksy_output_colors([
+	'value' => blocksy_akg_or_customizer('cardButtonBackgroundTextColor', $listing_source),
+	'default' => [
+		'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
+		'hover' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => [
+			'selector' => '.entry-button[data-type="background"]',
+			'variable' => 'buttonTextInitialColor'
+		],
+
+		'hover' => [
+			'selector' => '.entry-button[data-type="background"]',
+			'variable' => 'buttonTextHoverColor'
+		],
+	],
+]);
+
+blocksy_output_colors([
+	'value' => blocksy_akg_or_customizer('cardButtonOutlineTextColor', $listing_source),
+	'default' => [
+		'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
 		'hover' => [ 'color' => '#ffffff' ],
 	],
 	'css' => $css,
 	'variables' => [
 		'default' => [
-			'selector' => '.entry-button',
-			'variable' => 'buttonTextInitialColor'
+			'selector' => '.entry-button[data-type="outline"]',
+			'variable' => 'color'
 		],
 
 		'hover' => [
-			'selector' => '.entry-button',
-			'variable' => 'buttonTextHoverColor'
+			'selector' => '.entry-button[data-type="outline"]',
+			'variable' => 'colorHover'
 		],
 	],
 ]);
@@ -132,8 +172,8 @@ blocksy_output_colors([
 blocksy_output_colors([
 	'value' => blocksy_akg_or_customizer('cardButtonColor', $listing_source),
 	'default' => [
-		'default' => [ 'color' => 'var(--buttonInitialColor)' ],
-		'hover' => [ 'color' => 'var(--buttonHoverColor)' ],
+		'default' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
+		'hover' => [ 'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT') ],
 	],
 	'css' => $css,
 	'variables' => [
@@ -172,6 +212,19 @@ blocksy_output_border([
 		'style' => 'none',
 		'color' => [
 			'color' => 'rgba(44,62,80,0.2)',
+		],
+	])
+]);
+
+blocksy_output_border([
+	'css' => $css,
+	'selector' => '[data-cards="simple"] .entry-card',
+	'variableName' => 'border',
+	'value' => blocksy_akg_or_customizer('cardDivider', $listing_source, [
+		'width' => 1,
+		'style' => 'dashed',
+		'color' => [
+			'color' => 'rgba(224, 229, 235, 0.8)',
 		],
 	])
 ]);

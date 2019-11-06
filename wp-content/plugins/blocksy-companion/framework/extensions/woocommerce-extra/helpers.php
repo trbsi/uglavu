@@ -125,6 +125,7 @@ function blocksy_woo_floating_cart($forced = false) {
 		'tag_name' => 'div',
 	]);
 
+
 	ob_start();
 
 	?>
@@ -141,7 +142,13 @@ function blocksy_woo_floating_cart($forced = false) {
 						woocommerce_template_single_price();
 
 						if ($product->is_type('simple')) {
+							global $wp_filter;
+							$old = $wp_filter['woocommerce_after_add_to_cart_quantity'];
+							unset($wp_filter['woocommerce_after_add_to_cart_quantity']);
+
 							woocommerce_simple_add_to_cart();
+
+							$wp_filter['woocommerce_after_add_to_cart_quantity'] = $old;
 						} else {
 							woocommerce_template_loop_add_to_cart();
 						}
@@ -151,6 +158,7 @@ function blocksy_woo_floating_cart($forced = false) {
 		</div>
 
 	<?php
+
 
 	return ob_get_clean();
 }

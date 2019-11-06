@@ -75,9 +75,9 @@ $tagline_tag = blocksy_default_akg('site_description_wrapper', $atts, 'h2');
 	<?php echo blocksy_attr_to_html($attr) ?>
 	<?php blocksy_schema_org_definitions_e('logo') ?>>
 
-	<<?php echo $tag ?> class="site-title">
+	<<?php echo $tag ?> class="site-title" itemprop="name">
 		<?php if (! $custom_logo_id) { ?>
-			<a href="<?php echo esc_url(home_url('/')); ?>" rel="home">
+			<a href="<?php echo esc_url(home_url('/')); ?>" rel="home" itemprop="url">
 				<?php
 					echo blocksy_default_akg(
 						'blogname',

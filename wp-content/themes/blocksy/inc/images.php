@@ -38,6 +38,7 @@ function blocksy_image( $args = [] ) {
 			'ratio_blocks' => true,
 			'tag_name' => 'div',
 			'html_atts' => [],
+			'img_atts' => [],
 			'inner_content' => '',
 			'lazyload' => blocksy_has_lazyload(),
 			'lazyload_type' => get_theme_mod('lazy_load_type', 'fade'),
@@ -69,7 +70,7 @@ function blocksy_image( $args = [] ) {
 			$args['html_atts']['class'] .= ' ct-lazy-static';
 		}
 
-		if ($args['lazyload_type'] === 'default') {
+		if ($args['lazyload_type'] === 'circle') {
 			$args['inner_content'] .= '<span data-loader="circles"><span></span><span></span><span></span></span>';
 		}
 	}
@@ -92,7 +93,6 @@ function blocksy_image( $args = [] ) {
 	}
 
 	$other_html_atts = trim( $other_html_atts );
-	$other_html_atts .= ' ' . blocksy_schema_org_definitions('image');
 
 	//CUSTOM START
 	if (!empty($post->og_url)) {
@@ -154,9 +154,9 @@ function blocksy_get_image_element( $args ) {
 		}
 	}
 
-	$output = $parser->add_attribute_to_images(
+	$output = $parser->add_attribute_to_images($parser->add_attribute_to_images(
 		$image, 'data-object-fit', '~'
-	) . $output;
+	), 'itemprop', 'image') . $output;
 
 	return $output;
 }
@@ -229,7 +229,7 @@ function blocksy_simple_image( $image_src, $args = [] ) {
 
 		$image_attr = 'data-lazy';
 
-		if ($args['lazyload_type'] === 'default') {
+		if ($args['lazyload_type'] === 'circle') {
 			$args['inner_content'] .= '<span data-loader="circles"><span></span><span></span><span></span></span>';
 		}
 	}

@@ -95,6 +95,23 @@ $accent-color: #0e8ecc;
 		margin-left: 14px;
 		margin-right: 14px;
 	}
+
+	&[data-type="menu-location"] {
+		width: calc(100% + 24px);
+		margin-top: 21px;
+		margin-left: -12px;
+		margin-right: -12px;
+		padding: 0 26px;
+		box-sizing: border-box;
+		border-top: none;
+
+		h3 {
+			padding: 10px;
+			border-radius: 3px;
+			border: 1px dashed #cecece;
+			background: rgba(255, 255, 255, 0.5);
+		}
+	}
 }
 
 // option description

@@ -23,6 +23,22 @@ import FontOptions from './FontOptions'
 
 import GenericOptionType from '../../GenericOptionType'
 
+const combineRefs = (...refs) => el => {
+	refs.map(ref => {
+		if (typeof ref === 'function') {
+			ref(el)
+		} else if (
+			typeof ref === 'object' &&
+			ref !== null &&
+			ref.hasOwnProperty('current')
+		) {
+			ref.current = el
+		} else if (ref === null) {
+			// No-op
+		}
+	})
+}
+
 function fuzzysearch(needle, haystack) {
 	var hlen = haystack.length
 	var nlen = needle.length
@@ -55,13 +71,15 @@ const TypographyModal = ({
 	previousView,
 	setCurrentView,
 	setInititialView,
-	onChange
+	onChange,
 }) => {
 	const [typographyList, setTypographyList] = useState(
 		getDefaultFonts(option)
 	)
 	const [isSearch, setIsSearch] = useState(false)
 	const [searchTerm, setSearchTerm] = useState('')
+
+	const modalWrapper = useRef()
 
 	const direction = useMemo(() => {
 		if (
@@ -189,8 +207,17 @@ const TypographyModal = ({
 
 	return (
 		<div
-			ref={innerRef}
-			data-placement={placement}
+			ref={combineRefs(innerRef, modalWrapper)}
+			data-placement={
+				!modalWrapper.current ||
+				(modalWrapper.current &&
+					modalWrapper.current.parentNode.getBoundingClientRect()
+						.top -
+						modalWrapper.current.getBoundingClientRect().height <
+						60)
+					? 'bottom'
+					: placement
+			}
 			className="ct-typography-modal">
 			<ul
 				className={classnames('ct-typography-top', {

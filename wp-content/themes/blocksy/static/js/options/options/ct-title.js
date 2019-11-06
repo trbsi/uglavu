@@ -11,7 +11,13 @@ const Title = ({
 				...(attr || {})
 			}}>
 			<h3>{label}</h3>
-			{desc && <p>{desc}</p>}
+			{desc && (
+				<p
+					dangerouslySetInnerHTML={{
+						__html: desc
+					}}
+				/>
+			)}
 		</div>
 	</Fragment>
 )

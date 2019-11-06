@@ -75,12 +75,18 @@ add_action('after_setup_theme', function () {
 		add_theme_support( 'wc-product-gallery-lightbox' );
 	}
 
+	$all_menus = [
+		'footer' => esc_html__( 'Footer Menu', 'blocksy' ),
+	];
+
+	if (blocksy_has_i18n_plugin()) {
+		$all_menus['menu_1'] = esc_html__( 'Header Menu 1', 'blocksy' );
+		$all_menus['menu_2'] = esc_html__( 'Header Menu 2', 'blocksy' );
+		$all_menus['menu_mobile'] = esc_html__( 'Mobile Menu', 'blocksy' );
+	}
+
 	// This theme uses wp_nav_menu() in one location.
-	register_nav_menus(
-		[
-			'footer' => esc_html__( 'Footer Menu', 'blocksy' ),
-		]
-	);
+	register_nav_menus($all_menus);
 
 	/*
 	 * Switch default core markup for search form, comment form, and comments
@@ -241,6 +247,8 @@ add_action(
 
 require get_template_directory() . '/inc/helpers.php';
 require get_template_directory() . '/inc/classes/customizer-builder.php';
+require get_template_directory() . '/inc/i18n.php';
+require get_template_directory() . '/inc/global-scripts.php';
 require blocksy_locate_theme_path('/inc/schema-org.php');
 require blocksy_locate_theme_path('/inc/classes/class-ct-css-injector.php');
 require blocksy_locate_theme_path('/inc/classes/class-ct-attributes-parser.php');

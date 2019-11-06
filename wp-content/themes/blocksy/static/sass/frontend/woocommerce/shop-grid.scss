@@ -3,20 +3,19 @@
 	.shop-entry-card {
 		display: flex;
 		flex-direction: column;
-		text-align: center;
 		overflow: hidden;
 		border-radius: 2px;
-
-		> .onsale {
-			top: 18px;
-			right: 18px;
-		}
 
 		&:hover {
 			.star-rating {
 				opacity: 1;
 			}
 		}
+	}
+
+	.onsale {
+		top: 20px;
+		right: 20px;
 	}
 
 	.star-rating {
@@ -27,9 +26,14 @@
 		transition: opacity 0.12s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 	}
 
-	.woocommerce-loop-product__title {
+	.ct-card-content,
+	.ct-ghost-item {
+		width: 100%;
 		flex: 1 0 auto;
-		margin-top: 25px;
+	}
+
+	.ct-ghost-item {
+		visibility: hidden;
 	}
 
 	.product-categories {
@@ -38,7 +42,8 @@
 
 	.woo-card-actions {
 		display: flex;
-		margin-top: 25px;
+		width: calc(100% + 60px);
+		margin: 25px -30px -30px -30px;
 		border-top: 1px solid #eff1f5;
 
 		> * {

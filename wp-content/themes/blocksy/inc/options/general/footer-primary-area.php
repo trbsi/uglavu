@@ -124,6 +124,10 @@ $options = [
 					'rss' => [
 						'label' => __( 'RSS', 'blocksy' ),
 					],
+
+					'xing' => [
+						'label' => __( 'Xing', 'blocksy' ),
+					],
 				],
 			],
 		],

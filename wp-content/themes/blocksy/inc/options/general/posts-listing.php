@@ -143,7 +143,7 @@ $options = [
 
 							[
 								'id' => 'read_more',
-								'button_type' => 'simple',
+								'button_type' => 'background',
 								'enabled' => false,
 							],
 
@@ -246,7 +246,6 @@ $options = [
 										'label' => false,
 										'type' => 'ct-radio',
 										'value' => 'background',
-										'setting' => [ 'transport' => 'postMessage' ],
 										'inline' => true,
 										'view' => 'text',
 										'choices' => [
@@ -261,7 +260,6 @@ $options = [
 										'type' => 'text',
 										'design' => 'inline',
 										'value' => __( 'Read More', 'blocksy' ),
-										'setting' => [ 'transport' => 'postMessage' ],
 									],
 
 									'read_more_arrow' => [
@@ -688,6 +686,7 @@ $options = [
 					blocksy_rand_md5() => [
 						'type' => 'ct-condition',
 						'condition' => [
+							$prefix . 'archive_order:array-ids:read_more:button_type' => 'simple',
 							$prefix . 'archive_order:array-ids:read_more:enabled' => '!no'
 						],
 						'options' => [
@@ -696,15 +695,107 @@ $options = [
 								'type' => 'ct-divider',
 							],
 
-							$prefix . 'cardButtonTextColor' => [
-								'label' => __( 'Button Text Color', 'blocksy' ),
+							$prefix . 'cardButtonSimpleTextColor' => [
+								'label' => __( 'Button Font Color', 'blocksy' ),
 								'type'  => 'ct-color-picker',
 								'design' => 'inline',
 								'setting' => [ 'transport' => 'postMessage' ],
 
 								'value' => [
 									'default' => [
-										'color' => '#ffffff',
+										'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
+									],
+
+									'hover' => [
+										'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
+									],
+								],
+
+								'pickers' => [
+									[
+										'title' => __( 'Initial', 'blocksy' ),
+										'id' => 'default',
+										'inherit' => 'var(--color)'
+									],
+
+									[
+										'title' => __( 'Hover', 'blocksy' ),
+										'id' => 'hover',
+										'inherit' => 'var(--colorHover)'
+									],
+								],
+							],
+
+						],
+					],
+
+					blocksy_rand_md5() => [
+						'type' => 'ct-condition',
+						'condition' => [
+							$prefix . 'archive_order:array-ids:read_more:button_type' => 'background',
+							$prefix . 'archive_order:array-ids:read_more:enabled' => '!no'
+						],
+						'options' => [
+
+							blocksy_rand_md5() => [
+								'type' => 'ct-divider',
+							],
+
+							$prefix . 'cardButtonBackgroundTextColor' => [
+								'label' => __( 'Button Font Color', 'blocksy' ),
+								'type'  => 'ct-color-picker',
+								'design' => 'inline',
+								'setting' => [ 'transport' => 'postMessage' ],
+
+								'value' => [
+									'default' => [
+										'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
+									],
+
+									'hover' => [
+										'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
+									],
+								],
+
+								'pickers' => [
+									[
+										'title' => __( 'Initial', 'blocksy' ),
+										'id' => 'default',
+										'inherit' => 'var(--buttonTextInitialColor)'
+									],
+
+									[
+										'title' => __( 'Hover', 'blocksy' ),
+										'id' => 'hover',
+										'inherit' => 'var(--buttonTextHoverColor)'
+									],
+								],
+							],
+
+						],
+					],
+
+					blocksy_rand_md5() => [
+						'type' => 'ct-condition',
+						'condition' => [
+							$prefix . 'archive_order:array-ids:read_more:button_type' => 'outline',
+							$prefix . 'archive_order:array-ids:read_more:enabled' => '!no'
+						],
+						'options' => [
+
+							blocksy_rand_md5() => [
+								'type' => 'ct-divider',
+							],
+
+							$prefix . 'cardButtonOutlineTextColor' => [
+								'label' => __( 'Button Font Color', 'blocksy' ),
+								'type'  => 'ct-color-picker',
+								'design' => 'inline',
+								'setting' => [ 'transport' => 'postMessage' ],
+
+								'value' => [
+									'default' => [
+										'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 									],
 
 									'hover' => [
@@ -716,6 +807,7 @@ $options = [
 									[
 										'title' => __( 'Initial', 'blocksy' ),
 										'id' => 'default',
+										'inherit' => 'var(--color)'
 									],
 
 									[
@@ -724,7 +816,6 @@ $options = [
 									],
 								],
 							],
-
 
 						],
 					],
@@ -745,11 +836,11 @@ $options = [
 
 								'value' => [
 									'default' => [
-										'color' => 'var(--buttonInitialColor)',
+										'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 									],
 
 									'hover' => [
-										'color' => 'var(--buttonHoverColor)',
+										'color' => Blocksy_Css_Injector::get_skip_rule_keyword('DEFAULT'),
 									],
 								],
 
@@ -757,11 +848,13 @@ $options = [
 									[
 										'title' => __( 'Initial', 'blocksy' ),
 										'id' => 'default',
+										'inherit' => 'var(--buttonInitialColor)'
 									],
 
 									[
 										'title' => __( 'Hover', 'blocksy' ),
 										'id' => 'hover',
+										'inherit' => 'var(--buttonHoverColor)'
 									],
 								],
 							],
@@ -792,6 +885,20 @@ $options = [
 								'responsive' => true
 							],
 
+							$prefix . 'cardDivider' => [
+								'label' => __( 'Card bottom divider', 'blocksy' ),
+								'type' => 'ct-border',
+								'design' => 'inline',
+								'divider' => 'top',
+								'setting' => [ 'transport' => 'postMessage' ],
+								'value' => [
+									'width' => 1,
+									'style' => 'dashed',
+									'color' => [
+										'color' => 'rgba(224, 229, 235, 0.8)',
+									],
+								]
+							],
 						],
 					],
 

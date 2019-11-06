@@ -42,7 +42,7 @@
 				justify-content: center;
 
 				&:last-child:not(:only-child) {
-					margin-top: var(--footerPrimarySpacing);
+					margin-top: var(--spacing);
 				}
 			}
 
@@ -58,7 +58,7 @@
 				justify-content: center;
 
 				&:last-child:not(:only-child) {
-					margin-top: var(--footerPrimarySpacing);
+					margin-top: var(--spacing);
 				}
 			}
 

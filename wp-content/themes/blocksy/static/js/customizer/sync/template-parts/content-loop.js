@@ -409,19 +409,48 @@ const getVariablesForPrefix = prefix => ({
 		}
 	],
 
-	[`${prefix}_cardButtonTextColor`]: [
+	[`${prefix}_cardButtonSimpleTextColor`]: [
 		{
-			selector: '.entry-button',
+			selector: '.entry-button[data-type="simple"]',
+			variable: 'color',
+			type: 'color:default'
+		},
+
+		{
+			selector: '.entry-button[data-type="simple"]',
+			variable: 'colorHover',
+			type: 'color:hover'
+		}
+	],
+
+	[`${prefix}_cardButtonBackgroundTextColor`]: [
+		{
+			selector: '.entry-button[data-type="background"]',
 			variable: 'buttonTextInitialColor',
 			type: 'color:default'
 		},
 
 		{
-			selector: '.entry-button',
+			selector: '.entry-button[data-type="background"]',
 			variable: 'buttonTextHoverColor',
 			type: 'color:hover'
 		}
 	],
+
+	[`${prefix}_cardButtonOutlineTextColor`]: [
+		{
+			selector: '.entry-button[data-type="outline"]',
+			variable: 'color',
+			type: 'color:default'
+		},
+
+		{
+			selector: '.entry-button[data-type="outline"]',
+			variable: 'colorHover',
+			type: 'color:hover'
+		}
+	],
+
 
 	[`${prefix}_cardButtonColor`]: [
 		{
@@ -445,6 +474,12 @@ const getVariablesForPrefix = prefix => ({
 
 	[`${prefix}_cardBorder`]: {
 		selector: '[data-cards="boxed"] .entry-card',
+		variable: 'border',
+		type: 'border'
+	},
+
+	[`${prefix}_cardDivider`]: {
+		selector: '[data-cards="simple"] .entry-card',
 		variable: 'border',
 		type: 'border'
 	},

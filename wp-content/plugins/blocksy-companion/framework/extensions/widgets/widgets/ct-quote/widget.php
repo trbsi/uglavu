@@ -12,6 +12,7 @@ class Blocksy_Widget_Ct_Quote extends BlocksyWidgetFactory {
 		return [
 			'name' => __('Quote', 'blc'),
 			'description' => __('Quote', 'blc'),
+			'customize_selective_refresh' => true
 		];
 	}
 

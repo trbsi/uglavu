@@ -1,6 +1,29 @@
+1.5.7: 2019-11-01
+- New: Narrow Container width 95%
+- New: Add option to disable Emojis Script
+- New: Add divider style and color option for blog cards type simple
+- New: Bring back menu locations
+- Improvement: Re-implement schema.org markup
+- Improvement: Enhance ratio position button
+- Improvement: Style the default and wide line
+- Improvement: Improve typography modal position
+- Improvement: Add download links in dashboard for Blocksy Companion and Child Theme
+- Improvement: Remove plugins tab from dashboard
+- Fix: Cart NAN grouped products
+- Fix: Card button text color
+- Fix: Brizy `input` size conflict
+- Fix: WooCommerce buttons
+- Fix: Passepartout color sync and `z-index`
+- Fix: Lazy load animation type circle doesn't work
+- Fix: `singleProductTitleFont` sync
+- Fix: Footer primary area sections spacing
+- Fix: Cards comments number
+- Fix: Woo product catalog categories
+- Fix: Image caption text color
+
 1.5.6: 2019-10-21
 - New: Add ratio picker for related posts
-- Enhancement: Enhance comments content area
+- Improvement: Enhance comments content area
 - Fix: Add `srcset` for related posts images
 - Fix: Related posts query issue
 - Fix: IE11 check for guard template

@@ -37,8 +37,40 @@ $css->put(
 	"--paletteColor5: {$colorPalette['color5']}"
 );
 
-$button_color = blocksy_get_colors(
-	get_theme_mod('buttonColor'),
+// font color
+blocksy_output_colors([
+	'value' => get_theme_mod('fontColor'),
+	'default' => [
+		'default' => [ 'color' => 'var(--paletteColor3)' ],
+		'hover' => [ 'color' => 'var(--paletteColor1)' ],
+	],
+	'css' => $css,
+	'variables' => [
+		'default' => ['variable' => 'color'],
+		'hover' => ['variable' => 'colorHover'],
+	],
+]);
+
+
+// buttons
+$buttonTextColor = blocksy_get_colors( get_theme_mod('buttonTextColor'),
+	[
+		'default' => [ 'color' => '#ffffff' ],
+		'hover' => [ 'color' => '#ffffff' ],
+	]
+);
+
+$css->put(
+	':root',
+	"--buttonTextInitialColor: {$buttonTextColor['default']}"
+);
+
+$css->put(
+	':root',
+	"--buttonTextHoverColor: {$buttonTextColor['hover']}"
+);
+
+$button_color = blocksy_get_colors( get_theme_mod('buttonColor'),
 	[
 		'default' => [ 'color' => 'var(--paletteColor1)' ],
 		'hover' => [ 'color' => 'var(--paletteColor2)' ],
@@ -54,18 +86,3 @@ $css->put(
 	':root',
 	"--buttonHoverColor: {$button_color['hover']}"
 );
-
-
-blocksy_output_colors([
-	'value' => get_theme_mod('fontColor'),
-	'default' => [
-		'default' => [ 'color' => 'var(--paletteColor3)' ],
-		'hover' => [ 'color' => 'var(--paletteColor1)' ],
-	],
-	'css' => $css,
-	'variables' => [
-		'default' => ['variable' => 'color'],
-
-		'hover' => ['variable' => 'colorHover'],
-	],
-]);

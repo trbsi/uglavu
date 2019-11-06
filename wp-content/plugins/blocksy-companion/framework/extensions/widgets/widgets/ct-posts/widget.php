@@ -12,6 +12,7 @@ class Blocksy_Widget_Ct_Posts extends BlocksyWidgetFactory {
 		return [
 			'name' => __('Posts', 'blc'),
 			'description' => __('Description', 'blc'),
+			'customize_selective_refresh' => true
 		];
 	}
 

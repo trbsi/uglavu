@@ -12,6 +12,13 @@
 		
 	}
 
+	&[data-type="background"] {
+		--height: 39px;
+		--padding: 0 18px;
+		--buttonShadow: none;
+		--buttonTransform: none;
+	}
+
 	&[data-type="outline"] {
 		height: 39px;
 		padding: 0 18px;
@@ -22,13 +29,6 @@
 			border-color: var(--buttonHoverColor);
 			background: var(--buttonHoverColor);
 		}
-	}
-
-	&[data-type="background"] {
-		--height: 39px;
-		--padding: 0 18px;
-		--buttonShadow: none;
-		--buttonTransform: none;
 	}
 
 	// icon

@@ -6,7 +6,8 @@ echo blocksy_render_view(
 		'atts' => $atts,
 		'attr' => $attr,
 		'device' => $device,
-		'class' => 'header-menu-2'
+		'class' => 'header-menu-2',
+		'location' => 'menu_2'
 	]
 );
 

@@ -33,7 +33,7 @@ if (! function_exists('is_woocommerce')) {
 	return;
 }
 
-if (! is_woocommerce()) {
+if (! is_woocommerce() && $context === 'inline') {
 	return;
 }
 
@@ -294,3 +294,17 @@ blocksy_output_colors([
 	],
 ]);
 
+blocksy_output_font_css([
+	'font_value' => get_theme_mod(
+		'cardProductTitleFont',
+		blocksy_typography_default_values([
+			'size' => '17px',
+			'variation' => 'n5',
+			'line-height' => '1.4'
+		])
+	),
+	'css' => $css,
+	'tablet_css' => $tablet_css,
+	'mobile_css' => $mobile_css,
+	'selector' => '.woocommerce-loop-product__title, .woocommerce-loop-category__title'
+]);

@@ -44,6 +44,7 @@ if ( ! empty( trim( $sidebar_classes ) ) ) {
 <aside
 	<?php echo wp_kses_post($class_output); ?>
     data-type="<?php echo esc_attr($type) ?>"
+	id="sidebar"
 	<?php blocksy_schema_org_definitions_e('sidebar') ?>>
 
     <div

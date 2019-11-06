@@ -30,7 +30,9 @@ $image_output = blocksy_image([
 echo $before_widget;
 
 // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-echo $before_title . wp_kses_post( $title ) . $after_title;
+if (! empty(trim($title))) {
+	echo $before_title . wp_kses_post( $title ) . $after_title;
+}
 
 ?>
 
@@ -42,7 +44,15 @@ echo $before_title . wp_kses_post( $title ) . $after_title;
 	<div class="ct-quote-author">
 		<?php echo $image_output; ?>
 
-		By <?php echo $quote_author; ?>
+		<?php if (blocksy_default_akg('quote_has_by_label', $atts, 'yes') === 'yes') { ?>
+			<?php echo sprintf(
+				// translators: %s here is the author name
+				__('By %s', 'blc'),
+				$quote_author
+			) ?>
+		<?php } else { ?>
+			<?php echo $quote_author; ?>
+		<?php } ?>
 	</div>
 </blockquote>
 

@@ -38,7 +38,7 @@
 			}
 
 			+ .ct-image-container {
-				margin-top: 10px;
+				margin-top: 5px;
 			}
 		}
 
@@ -75,8 +75,7 @@
 	overflow: hidden;
 	
 	.entry-card {
-		margin-bottom: -1px;
 		padding-bottom: var(--cardsGap);
-		border-bottom: 1px dashed rgba(224, 229, 235, 0.8);
+		border-bottom: var(--border);
 	}
 }

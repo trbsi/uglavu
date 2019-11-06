@@ -105,9 +105,16 @@ const Typography = ({
 					onOutsideClick={() => setIsOpen(false)}>
 					<Popper
 						eventsEnabled={isOpen}
+						placements={['top', 'bottom']}
 						modifiers={{
+							flip: {
+								boundariesElement: document.querySelector(
+									'.wp-full-overlay-sidebar-content'
+								)
+							},
 							preventOverflow: {
-								enabled: false
+								enabled: false,
+								padding: 50
 							},
 
 							hide: {

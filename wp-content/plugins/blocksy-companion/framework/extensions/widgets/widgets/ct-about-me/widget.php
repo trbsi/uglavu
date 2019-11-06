@@ -12,6 +12,7 @@ class Blocksy_Widget_Ct_About_Me extends BlocksyWidgetFactory {
 		return [
 			'name' => __('About Me', 'blc'),
 			'description' => __('About me', 'blc'),
+			'customize_selective_refresh' => true
 		];
 	}
 

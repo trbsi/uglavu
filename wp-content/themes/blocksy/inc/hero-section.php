@@ -383,7 +383,7 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 	}
 
 	if (! empty($title)) {
-		$title = '<h1 class="page-title">' . $title . '</h1>';
+		$title = '<h1 class="page-title" ' . blocksy_schema_org_definitions('headline') . '>' . $title . '</h1>';
 	}
 
 	$is_page = blocksy_is_page();
@@ -456,7 +456,7 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 		<section class="hero-section" data-type="type-1" <?php echo wp_kses_post($alignment_output) ?>>
 			<header class="entry-header">
 				<?php
-					echo wp_kses_post($title);
+					echo $title;
 
 					if ($single_meta_elements) {
 						/**
@@ -579,11 +579,11 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 			<?php if ( $attachment_id ) { ?>
 				<figure>
 					<?php
-						echo wp_kses_post(blocksy_image([
+						echo blocksy_image([
 							'attachment_id' => $attachment_id,
 							'ratio' => '16/9',
 							'size' => 'full',
-						]));
+						]);
 					?>
 				</figure>
 			<?php } ?>
@@ -605,7 +605,7 @@ function blocksy_output_hero_section( $type = 'type-1', $is_cache_phase = false 
 							);
 						}
 
-						echo wp_kses_post($title);
+						echo $title;
 						echo wp_kses_post($description);
 
 						if ($single_meta_elements) {

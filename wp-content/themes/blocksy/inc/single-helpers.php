@@ -89,7 +89,7 @@ add_filter( 'body_class', function ( $classes ) {
 			$classes[] = 'woocommerce-archive';
 		}
 
-		if (is_product()) {
+		if (is_product() || is_woocommerce()) {
 			if (get_theme_mod('has_ajax_add_to_cart', 'yes') === 'yes') {
 				$classes[] = 'ct-ajax-add-to-cart';
 			}
