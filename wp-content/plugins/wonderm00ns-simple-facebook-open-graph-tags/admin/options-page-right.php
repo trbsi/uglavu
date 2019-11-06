@@ -23,7 +23,7 @@
 		),
 		30	=>	array(
 			'text'	=>	__('Plugin official URL', 'wonderm00ns-simple-facebook-open-graph-tags'),
-			'url'	=>	'https://www.webdados.pt/produtos-e-servicos/internet/desenvolvimento-wordpress/facebook-open-graph-meta-tags-wordpress/'.$out_link_utm,
+			'url'	=>	'https://www.webdados.pt/wordpress/plugins/facebook-open-graph-meta-tags-wordpress/'.$out_link_utm,
 		),
 		40	=>	array(
 			'text'	=>	__('Author\'s website: Webdados', 'wonderm00ns-simple-facebook-open-graph-tags'),
