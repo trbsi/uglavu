@@ -60,6 +60,14 @@ class BlocksyExtensionMailchimp {
 				['ct-main-styles'],
 				$data['Version']
 			);
+
+			wp_enqueue_script(
+				'blocksy-ext-mailchimp-scripts',
+				BLOCKSY_URL . 'framework/extensions/mailchimp/static/bundle/main.js',
+				[],
+				$data['Version'],
+				true
+			);
 		});
 
 		add_filter('blocksy_widgets_paths', function ($all_widgets) {

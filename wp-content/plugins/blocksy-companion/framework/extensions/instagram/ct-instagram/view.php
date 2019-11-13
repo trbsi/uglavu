@@ -41,6 +41,7 @@ $widget_data = json_encode(
 				[
 					'lazyload' => true,
 					'tag_name' => 'a',
+					'has_image' => false,
 					'html_atts' => [
 						'target' => '_blank',
 						'href' => '#',
@@ -49,7 +50,8 @@ $widget_data = json_encode(
 			) . '</li>',
 			$photos_number
 		);
-		?>
+
+	?>
 </ul>
 
 

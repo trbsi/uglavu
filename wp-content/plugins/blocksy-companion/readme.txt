@@ -23,6 +23,12 @@ This plugin runs and adds its enhacements only if the Blocksy theme is installed
 2. Activate the plugin by going to **Plugins** page in WordPress admin and clicking on **Activate** link.
 
 == Changelog ==
+1.5.7: 2019-11-07
+- New: Implement Mailchimp AJAX submit
+- Fix: Instagram widget do not output empty images withour `src`
+- Fix: Properly load dinamic styles for floating cart
+- Fix: Validation error with attrs spacing
+
 1.5.7: 2019-11-02
 - Fix: Always parent theme check
 

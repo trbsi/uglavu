@@ -71,12 +71,23 @@ class BlocksyMailchimpManager {
 				return [
 					'name' => $list['name'],
 					'id' => $list['id'],
-					'subscribe_url_long' => $list['subscribe_url_long']
+					'subscribe_url_long' => $list['subscribe_url_long'],
+					'subscribe_url_long_json' => $this->transform_subscribe_url(
+						$list['subscribe_url_long']
+					)
 				];
 			}, $body['lists']);
 		} else {
 			return 'api_key_invalid';
 		}
+	}
+
+	public function transform_subscribe_url($url) {
+		return str_replace(
+			'subscribe',
+			'subscribe/post-json',
+			$url . '&c=callback'
+		);
 	}
 
 	public function get_form_url_for($maybe_custom_list = null) {
@@ -110,11 +121,11 @@ class BlocksyMailchimpManager {
 
 		foreach ($lists as $single_list) {
 			if ($single_list['id'] === $settings['list_id']) {
-				return $single_list['subscribe_url_long'];
+				return $single_list['subscribe_url_long_json'];
 			}
 		}
 
-		return $lists[0]['subscribe_url_long'];
+		return $lists[0]['subscribe_url_long_json'];
 	}
 }
 

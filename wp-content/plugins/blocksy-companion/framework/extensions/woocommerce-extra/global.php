@@ -4,10 +4,6 @@ if (! function_exists('is_woocommerce')) {
 	return;
 }
 
-if (! is_product()) {
-	return;
-}
-
 // Floating bar
 blocksy_output_colors([
 	'value' => get_theme_mod('floatingBarFontColor'),

@@ -211,12 +211,14 @@ function blc_output_instagram_section($forced = false) {
 			data-widget='<?php echo $widget_data; ?>'>
 
 			<?php
+
 				echo str_repeat(
 					'<li>' . blocksy_simple_image(
 						'#',
 						[
 							'lazyload' => true,
 							'tag_name' => 'a',
+							'has_image' => false,
 							'html_atts' => [
 								'target' => '_blank',
 								'href' => '#',
@@ -225,6 +227,7 @@ function blc_output_instagram_section($forced = false) {
 					) . '</li>',
 					$photos_number
 				);
+
 			?>
 		</ul>
 		<a href="https://instagram.com/<?php echo esc_attr($username) ?>" target="_blank" class="ct-instagram-follow ct-button">

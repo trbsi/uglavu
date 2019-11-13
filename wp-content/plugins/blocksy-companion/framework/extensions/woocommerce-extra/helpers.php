@@ -143,12 +143,16 @@ function blocksy_woo_floating_cart($forced = false) {
 
 						if ($product->is_type('simple')) {
 							global $wp_filter;
+							if (isset($wp_filter['woocommerce_after_add_to_cart_quantity'])) {
 							$old = $wp_filter['woocommerce_after_add_to_cart_quantity'];
+							}
 							unset($wp_filter['woocommerce_after_add_to_cart_quantity']);
 
 							woocommerce_simple_add_to_cart();
 
-							$wp_filter['woocommerce_after_add_to_cart_quantity'] = $old;
+							if (isset($old)) {
+								$wp_filter['woocommerce_after_add_to_cart_quantity'] = $old;
+							}
 						} else {
 							woocommerce_template_loop_add_to_cart();
 						}

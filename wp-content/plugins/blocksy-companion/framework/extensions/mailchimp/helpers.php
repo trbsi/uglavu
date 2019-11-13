@@ -78,11 +78,13 @@ function blc_ext_mailchimp_subscribe_form($forced = false) {
 			<?php echo esc_html($title) ?>
 		</h4>
 
-		<p class="ct-mailchimp-description">
-			<?php echo esc_html($description) ?>
-		</p>
+
 
 		<form action="<?php echo esc_attr($form_url) ?>" method="post" class="ct-mailchimp-form">
+			<p class="ct-mailchimp-description">
+				<?php echo esc_html($description) ?>
+			</p>
+			
 			<div class="block-inner">
 				<?php if ( $has_name ) { ?>
 					<input type="text" name="FNAME" placeholder="<?php esc_attr_e($name_label); ?>" title="<?php echo __('Name', 'blocksy') ?>" />
@@ -94,6 +96,8 @@ function blc_ext_mailchimp_subscribe_form($forced = false) {
 					<?php echo esc_html($button_text) ?>
 				</button>
 			</div>
+
+			<div class="ct-mailchimp-message"></div>
 
 			<?php
 				if (function_exists('blocksy_ext_cookies_checkbox')) {

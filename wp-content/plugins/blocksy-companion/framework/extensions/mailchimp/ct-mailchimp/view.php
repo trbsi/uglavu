@@ -45,7 +45,7 @@ $email_label = blocksy_default_akg('mailchimp_mail_label', $atts, __( 'Your emai
 $data_alignment = '';
 
 if ( $alignment !== 'left' ) {
-	$data_alignment = 'data-alignment=' . $alignment;
+	$data_alignment = ' data-alignment=' . $alignment;
 }
 
 // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -77,6 +77,8 @@ echo $before_title . wp_kses_post( $title ) . $after_title;
 		<button class="button">
 			<?php echo esc_html($button_text) ?>
 		</button>
+
+		<div class="ct-mailchimp-message"></div>
 
 		<?php
 			if (function_exists('blocksy_ext_cookies_checkbox')) {
