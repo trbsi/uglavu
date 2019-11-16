@@ -73,7 +73,7 @@ function blc_ext_mailchimp_subscribe_form($forced = false) {
 
 	?>
 
-	<div class="<?php esc_attr_e($class) ?>">
+	<div class="<?php echo esc_attr($class) ?>">
 		<h4>
 			<?php echo esc_html($title) ?>
 		</h4>
@@ -84,13 +84,13 @@ function blc_ext_mailchimp_subscribe_form($forced = false) {
 			<p class="ct-mailchimp-description">
 				<?php echo esc_html($description) ?>
 			</p>
-			
+
 			<div class="block-inner">
 				<?php if ( $has_name ) { ?>
-					<input type="text" name="FNAME" placeholder="<?php esc_attr_e($name_label); ?>" title="<?php echo __('Name', 'blocksy') ?>" />
+					<input type="text" name="FNAME" placeholder="<?php esc_attr_e($name_label, 'blc'); ?>" title="<?php echo __('Name', 'blc') ?>" />
 				<?php } ?>
 
-				<input type="email" name="EMAIL" placeholder="<?php esc_attr_e($email_label); ?> *" title="<?php echo __('Email', 'blocksy') ?>" required />
+				<input type="email" name="EMAIL" placeholder="<?php esc_attr_e($email_label, 'blc'); ?> *" title="<?php echo __('Email', 'blc') ?>" required />
 
 				<button class="button">
 					<?php echo esc_html($button_text) ?>

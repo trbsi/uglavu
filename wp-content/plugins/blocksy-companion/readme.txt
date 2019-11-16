@@ -2,7 +2,7 @@
 Tags: widget, widgets
 Requires at least: 5.2
 Requires PHP: 7.0
-Tested up to: 5.2
+Tested up to: 5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,7 +23,11 @@ This plugin runs and adds its enhacements only if the Blocksy theme is installed
 2. Activate the plugin by going to **Plugins** page in WordPress admin and clicking on **Activate** link.
 
 == Changelog ==
-1.5.7: 2019-11-07
+1.5.9: 2019-11-13
+- New: Add new social icons
+- Improvement: Support for WordPress 5.3
+
+1.5.8: 2019-11-07
 - New: Implement Mailchimp AJAX submit
 - Fix: Instagram widget do not output empty images withour `src`
 - Fix: Properly load dinamic styles for floating cart

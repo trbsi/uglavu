@@ -100,6 +100,18 @@ $options = [
 			'xing' => [
 				'label' => __( 'Xing', 'blc' ),
 			],
+
+			'whatsapp' => [
+				'label' => __( 'WhatsApp', 'blc' ),
+			],
+
+			'viber' => [
+				'label' => __( 'Viber', 'blc' ),
+			],
+
+			'telegram' => [
+				'label' => __( 'Telegram', 'blc' ),
+			],
 		],
 	],
 

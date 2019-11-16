@@ -43,10 +43,9 @@ function blocksy_ext_cookies_consent_output($forced = false) {
 	?>
 
 
-	<div class="cookie-notification ct-fade-in-start" data-period="<?php esc_attr_e($period) ?>" data-type="<?php esc_attr_e($type) ?>">
+	<div class="cookie-notification ct-fade-in-start" data-period="<?php echo esc_attr($period) ?>" data-type="<?php echo esc_attr($type) ?>">
 
-		<div class="<?php esc_attr_e($class) ?>">
-
+		<div class="<?php echo esc_attr($class) ?>">
 			<?php if (!empty($content)) { ?>
 				<div class="ct-cookies-content"><?php echo wp_kses_post($content) ?></div>
 			<?php } ?>
